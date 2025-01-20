@@ -1,17 +1,10 @@
+/* kyoka no css kokokara */
 .btn
 {
-    border-color: #dcbf7d;
     border-radius: 15px;
-    color: #dcbf7d;
     font-weight: bold;
     font-size: 15px;
     width: 100%;
-}
-
-.btn:hover
-{
-    color:#ffffff;
-    background-color: #dcbf7d;
 }
 
 .card
@@ -33,19 +26,15 @@
     justify-content: center;
 }
 
-.form-control
-{
-    border-color: #ffffff;
-    border-radius: 15px;
-    background-color: transparent;
-    align-content: center;
-    padding-left: 2.5rem;
-}
-
 .input-group
 {
     position: relative;
     width: 100%;
+}
+
+.form-control
+{
+    border-radius: 15px;
 }
 
 .input-group .input-icon
@@ -69,12 +58,6 @@
 {
     outline: none;
     border-color: transparent;
-}
-
-::placeholder
-{
-    color: #A5A5A5;
-    font-weight: bold;
 }
 
 a
@@ -131,4 +114,21 @@ position: absolute; /* 配置を自由に調整 */
     right: 0px;
     transform: translate(50%, 50%);
 }
+
+
+
+.icon-md
+{
+    font-size: 3.5rem;
+}
+
+.avatar-md 
+{
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: cover;
+}
+
+
+
 
