@@ -116,6 +116,7 @@ position: absolute; /* 配置を自由に調整 */
 }
 
 
+
 .icon-md
 {
     font-size: 3.5rem;
@@ -127,6 +128,7 @@ position: absolute; /* 配置を自由に調整 */
     height: 3.5rem;
     object-fit: cover;
 }
+
 
 
 

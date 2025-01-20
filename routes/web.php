@@ -16,8 +16,14 @@ Route::get('/booking-form', function(){
     return view('bookingForm');
 });
 
+Route::get('/show', function () {
+    return view('accommodation.show');
+});
+
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('/users', [UsersController::class, 'index'])->name('users');
     Route::get('/accommodation', [AccommodationController::class, 'index'])->name('accommodation');
     Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
 });
+
