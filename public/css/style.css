@@ -132,3 +132,16 @@ position: absolute; /* 配置を自由に調整 */
     transform: translate(50%, 50%);
 }
 
+.icon-md
+{
+    font-size: 3.5rem;
+}
+
+.avatar-md 
+{
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: cover;
+}
+
+
