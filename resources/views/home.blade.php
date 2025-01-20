@@ -17,6 +17,7 @@ h2{
 
 .card h2 {
     margin: 16px 16px;
+    text-align: left;
 }
 
 .search-form{
@@ -50,8 +51,8 @@ h2{
 .search-form .form-group::before{
     content: "";
     position: absolute;
-    top: 0;
-    bottom: 0;
+    top: 10%;
+    bottom: 10%;
     left: 0;
     width: 1px;
     background: black;
@@ -81,6 +82,12 @@ h2{
 .search-form input{
     padding: 5px;
     font-size: 16px;
+    color: #dcbf7d;
+}
+
+input::placeholder {
+    font-size: 12px;
+    color: #dcbf7d;
 }
 
 .search-form .placeholder-text{
@@ -104,14 +111,83 @@ h2{
     cursor: pointer;
     border: none;
     border-radius: 5px;
-}
-
-.search-form button {
     margin-right: 5px;
     background-color: #dcbf7d;
     color: #fff;
     border-radius: 50%;
     font-size: 20px
+}
+
+#keyword {
+    border: 1px solid #000;
+    border-radius: 30px;
+    padding: 5px;
+    background-color: #fff;
+}
+
+.hosting{
+    background-color: #eeeeee;
+    height: 500px;
+    padding: 80px;
+    display: flex;
+    align-items: center;
+    margin: 200px 0;
+}
+
+.hosting .btn{
+    background-color: #dcbf7d;
+    color: #ffffff;
+    width: 170px; 
+    padding: 20px;
+    border-radius: 40px;
+}
+
+.properties h2 {
+    width: 315px;
+    color: #004aad;
+    border-bottom: 5px solid #dcbf7d;
+    margin-bottom: 10px;
+}
+
+.card-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.card-container .card{
+    width: calc(33.33% - 16px);
+    padding: 20px;
+    text-align: left;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-container .card h3{
+    font-family: arial black;
+}
+
+.card-container .card .address{
+    color: #dcbf7d;
+}
+
+.card .row {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.card .row .col-auto {
+    text-align: left;
+}
+
+#price{
+    color: #004aad;
+    font-family: arial black;
+}
+
+#night{
+    color: #004aad;
 }
 </style>
 <main>
@@ -135,7 +211,7 @@ h2{
                     <div class="form-container">
                         <div class="form-group">
                             <label for="location" class="form-label">Location</label>
-                            <input type="text" id="location" class="form-control" value="Which city do you prefer?">
+                            <input type="text" id="location" class="form-control" placeholder="Which city do you prefer?">
                         </div>
                         
                         <div class="form-group">
@@ -150,13 +226,84 @@ h2{
                             <label for="check_out" class="form-label">Check out</label>
                             <input type="date" id="check_out" class="form-control" placeholder="Add Dates">
                         </div>
-                    @endif
 
-                    {{ __('You are logged in!') }}
+                        <div class="form-group">
+                            <label for="keyword" class="form-label">Keyword</label>
+                            <input type="text" id="keyword" class="form-control">
+                        </div>
+
+                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </div>
 
         </div>
+    </section>
+
+    <section class="hosting">
+        <div class="container row">
+            <div class="col-6">
+                <h2>Try Hosting With Us</h2>
+                <br>
+                <p>Earn extra just by renting your propety...</p>
+                <br>
+                <a href="#" class="btn">Become A Host</a>
+            </div>
+            <div class="col-6">
+                <img src="" alt="">
+            </div>
+        </div>
+    </section>
+
+    <section class="properties">
+        <div class="container">
+            <h2>
+                Featured Properties<br>
+                on our Listing
+            </h2>
+            <div class="card-container">
+                 <div class="card">
+                    <img src="" alt="">
+                    <h3>Bilding Name</h3>
+                    <p class="address">Address</p>
+                    <div class="row">
+                        <div class="col-auto">
+                            <h4 id="price">$price</h4>
+                        </div>
+                        <div class="col-auto">
+                            <p id="night">/ 6 night</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <p><i class="fa-solid fa-bed"></i> 4 Beds</p>
+                        </div>
+                        <div class="col-auto">
+                            <p><i class="fa-regular fa-user"></i> 8 Sleeps</p>
+                        </div>
+                        <div class="col-auto">
+                            <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> 1350 Sq Ft</p>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="discover">
+        <div class="container row">
+                <div class="col-6">
+                    <h2>
+                        Discover More<br>
+                        About Property<br>
+                        Rental
+                    </h2>
+                    <p>Earn extra just by renting your propety...</p>
+                    <a href="#" class="btn">Become A Host</a>
+                </div>
+                <div class="col-6">
+                    <img src="" alt="">
+                </div>
+            </div>
     </section>
 </main>
 @endsection
