@@ -15,6 +15,18 @@
     {
         color: #004aad;
     }
+
+    .btn
+    {
+        border-color: #dcbf7d;
+        color: #dcbf7d;
+    }
+
+    .btn:hover
+    {
+        color:#ffffff;
+        background-color: #dcbf7d;
+    }
     .input-group .input-icon
     {
         color: #004aad;
@@ -24,6 +36,19 @@
     {
         border: 1px solid #004aad;
     }
+    .form-control
+    {
+        border-radius: 15px;
+        background-color: transparent;
+        align-content: center;
+        padding-left: 2.5rem;
+    }
+    ::placeholder
+    {
+        color: #A5A5A5;
+        font-weight: bold;
+    }
+
     p
     {
         font-size: 18px;

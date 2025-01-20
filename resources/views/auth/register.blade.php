@@ -10,6 +10,22 @@
         background-color: #004aad !important;
     }
 
+    .btn
+    {
+        border-color: #dcbf7d;
+        color: #dcbf7d;
+    }
+    .btn:hover
+    {
+        color:#ffffff;
+        background-color: #dcbf7d;
+    }
+
+    .form-control
+    {
+        border-color: #ffffff;
+    }
+
     .card .card-header
     {
         color: #ffffff;
@@ -24,12 +40,25 @@
     {
         border: 1px solid #ffffff;
     }
+
+    .form-control
+    {
+        background-color: transparent;
+        align-content: center;
+        padding-left: 2.5rem;
+    }
     p
     {
         font-size: 18px;
         font-weight: lighter;
         color: #ffffff;
     }
+    ::placeholder
+{
+    color: #A5A5A5;
+    font-weight: bold;
+}
+
 
     a
     {
