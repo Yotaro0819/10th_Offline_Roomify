@@ -1,8 +1,7 @@
-/* kyoka no css kokokara */
+
 .btn
 {
     border-radius: 15px;
-    font-weight: bold;
     font-size: 15px;
     width: 100%;
 }
@@ -115,5 +114,4 @@ position: absolute; /* 配置を自由に調整 */
     transform: translate(50%, 50%);
 }
 
-/* kyoka no css kokomade */
 

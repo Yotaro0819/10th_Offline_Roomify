@@ -32,6 +32,7 @@
         background-color: #004aad;
         width: 400px;
         align-content: left;
+        font-weight: bold;
     }
 
     .btn:hover

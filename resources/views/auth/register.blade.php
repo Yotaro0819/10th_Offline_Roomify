@@ -14,6 +14,7 @@
     {
         border-color: #dcbf7d;
         color: #dcbf7d;
+        font-weight: bold;
     }
     .btn:hover
     {
