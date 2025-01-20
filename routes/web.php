@@ -11,3 +11,7 @@ Route::get('/booking-form', function(){
     return view('bookingForm');
 });
 
+Route::get('/show', function () {
+    return view('accommodation.show');
+});
+
