@@ -5,25 +5,28 @@
 @section('content')
 
 <style>
-    .background-star {
-        width: 100%;
-        height: 200px;
-        background: url('') no-repeat center center;
-        background-size: contain;
-        text-align: center;
-        line-height: 200px;
-        color: white; 
-    }
+
+h1
+{
+    color: #004aad;
+}
+
+.coupon
+{
+    border: 2px solid #dcbf7d;
+}
+
 </style>
 
 <div class="container">
     <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-8">
-            <h1 class="text-center"><i class="fa-regular fa-star"></i> Your Coupon</h1>
-        </div>
+        <div class="col-5">
+            <h1 class="text-center">Your Coupon</h1>
+    
 
-        <div class="background-star">
-            
+            <div class="coupon">
+                
+            </div>
         </div>
     </div>
 </div>
