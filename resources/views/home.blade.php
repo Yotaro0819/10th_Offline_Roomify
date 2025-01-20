@@ -189,6 +189,68 @@ input::placeholder {
 #night{
     color: #004aad;
 }
+
+.discover{
+    height: 500px;
+    padding: 80px;
+    display: flex;
+    align-items: center;
+    margin: 200px 0;
+}
+
+.discover .btn{
+    background-color: #dcbf7d;
+    color: #ffffff;
+    width: 170px; 
+    padding: 20px;
+    border-radius: 40px;
+}
+
+.discover h2 {
+    width: 315px;
+    color: #004aad;
+    border-bottom: 5px solid #dcbf7d;
+    margin-bottom: 10px;
+}
+
+footer{
+    background-color: #eeeeee;
+    padding: 30px 0;
+}
+
+footer h1{
+    color: #004aad;
+    font-weight: bold;
+    font-family: arial;
+    margin-left: 60px;
+}
+
+footer a{
+    color: black;
+    font-style: normal;
+}
+
+footer .row {
+    justify-content: space-between;
+    gap: 10px;
+}
+
+footer .col-auto{
+    margin-right: 100px;
+}
+
+footer h5{
+    font-weight: bold;
+    font-family: arial;
+}
+
+footer small{
+    padding: 30px;
+}
+
+footer .right{
+    margin-left: 300px;
+}
 </style>
 <main>
     <section class="top">
@@ -297,8 +359,13 @@ input::placeholder {
                         About Property<br>
                         Rental
                     </h2>
-                    <p>Earn extra just by renting your propety...</p>
-                    <a href="#" class="btn">Become A Host</a>
+                    <p>
+                        hbhbhbbhbhbhbhbhbhbhbhbhbhbbhbhbhbhbhb
+                        bhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbb
+                        bhbhbhbhbhbhbhbhbhbhbhbhbhbhbhhbhbhbhb
+                        vgvgvgvgvgvgvgvgvgvgvgvgvgvgvgvgvgvgvg
+                    </p>
+                    <a href="#" class="btn">Discover More</a>
                 </div>
                 <div class="col-6">
                     <img src="" alt="">
@@ -306,4 +373,49 @@ input::placeholder {
             </div>
     </section>
 </main>
+<footer>
+    <div class="row">
+        <div class="col-auto">
+            <h1>ROOMIFY</h1>
+        </div>
+        <div class="col-auto title">
+            <h5>COMPANY</h5>
+            <p><a href="#">About Us</a></p>
+            <p><a href="#">Contact Us</a></p>
+        </div>
+        <div class="col-auto title">
+            <h5>HELP CENTER</h5>
+            <p><a href="#">Find a Property</a></p>
+            <p><a href="#">How To Host?</a></p>
+            <p><a href="#">FAQs</a></p>
+            <p><a href="#">Rental Guides</a></p>
+        </div>
+        <div class="col-auto title">
+            <h5>CONTACT INFO</h5>
+            <p>Phone: 1234567890</p>
+            <p>Email: roomify@email.com</p>
+            <p>Location: 100 Smart Street, Tokyo, <br>JAPAN</p>
+            <div class="row">
+                <div class="col-auto">
+                    <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                </div>
+                <div class="col-auto">
+                    <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
+                </div>
+                <div class="col-auto">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <small class="left">(c) 2025 @roomify | All rights raserved</small>
+        </div>
+        <div class="col">
+            <small class="right">Created with love by @roomify</small>
+        </div>
+    </div>
+</footer>
 @endsection
