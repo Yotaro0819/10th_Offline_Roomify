@@ -12,6 +12,9 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
+Route::get('/booking-form', function(){
+    return view('bookingForm');
+});
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('/users', [UsersController::class, 'index'])->name('users');
