@@ -4,6 +4,11 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 h2{
     font-weight: bold;
     font-family: arial black;
@@ -232,7 +237,8 @@ footer a{
 
 footer .row {
     justify-content: space-between;
-    gap: 10px;
+    gap: 5px;
+    margin-bottom: 0;
 }
 
 footer .col-auto{
@@ -244,12 +250,18 @@ footer h5{
     font-family: arial;
 }
 
+footer .app a{
+    margin: 0 10px;
+    font-size: 2em;
+}
+
 footer small{
     padding: 30px;
+    font-weight: bold;
 }
 
 footer .right{
-    margin-left: 300px;
+    margin-left: 400px;
 }
 </style>
 <main>
@@ -363,7 +375,6 @@ footer .right{
                         hbhbhbbhbhbhbhbhbhbhbhbhbhbbhbhbhbhbhb
                         bhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbb
                         bhbhbhbhbhbhbhbhbhbhbhbhbhbhbhhbhbhbhb
-                        vgvgvgvgvgvgvgvgvgvgvgvgvgvgvgvgvgvgvg
                     </p>
                     <a href="#" class="btn">Discover More</a>
                 </div>
@@ -378,12 +389,12 @@ footer .right{
         <div class="col-auto">
             <h1>ROOMIFY</h1>
         </div>
-        <div class="col-auto title">
+        <div class="col-auto">
             <h5>COMPANY</h5>
             <p><a href="#">About Us</a></p>
             <p><a href="#">Contact Us</a></p>
         </div>
-        <div class="col-auto title">
+        <div class="col-auto">
             <h5>HELP CENTER</h5>
             <p><a href="#">Find a Property</a></p>
             <p><a href="#">How To Host?</a></p>
@@ -395,16 +406,10 @@ footer .right{
             <p>Phone: 1234567890</p>
             <p>Email: roomify@email.com</p>
             <p>Location: 100 Smart Street, Tokyo, <br>JAPAN</p>
-            <div class="row">
-                <div class="col-auto">
+            <div class="app">
                     <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-                </div>
-                <div class="col-auto">
                     <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
-                </div>
-                <div class="col-auto">
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                </div>
             </div>
         </div>
     </div>
