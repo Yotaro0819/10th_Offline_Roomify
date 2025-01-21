@@ -31,3 +31,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
 });
 
+
+Route::get('/coupon', function(){
+    return view('coupon');
+});
+
+
