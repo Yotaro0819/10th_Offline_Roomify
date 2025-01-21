@@ -15,13 +15,23 @@
     margin: 100px 50px;
   }
 
+  .img{
+    border-radius: 50%;
+  }
+
+  h4{
+    color: #666;
+  }
+
   .right-align{
     margin-left: 350px;
     margin-top: 50px;
   }
 
-  .info{
+  .row .info{
     margin: 10px;
+    display: flex;
+    gap: 70px;
   }
 
   .reviews{
@@ -42,11 +52,6 @@
   .name{
     margin-top: -30px;
   }
-
-  .spaced {
-    margin-bottom: 20px;
-    
-}
 </style>
 <body>
 <div class="container">
@@ -75,11 +80,11 @@
                 <!-- If the user is host -->
                 <div class="row info">
                     <div class="col-auto">
-                        <h4 class="spaced"><i class="fa-solid fa-star"></i>Star</h4>
+                        <h4><i class="fa-solid fa-star"></i>Star</h4>
                         <hr>
                     </div>
                     <div class="col-auto">
-                        <h4 class="spaced">Hosting experience</h4>
+                        <h4>Hosting experience</h4>
                         <hr>
                     </div>
                 </div>
@@ -104,7 +109,7 @@
                         <img src="" alt="">
                     </div>
                     <div class="col-auto name">
-                        <h5>Reviewer name</h5>
+                        <h6>Reviewer name</h6>
                         <small>Date</small>
                     </div>
                 </div>
@@ -122,7 +127,7 @@
                         <img src="" alt="">
                     </div>
                     <div class="col-auto name">
-                        <h5>Reviewer name</h5>
+                        <h6>Reviewer name</h6>
                         <small>Date</small>
                     </div>
                 </div>
@@ -140,7 +145,7 @@
                         <img src="" alt="">
                     </div>
                     <div class="col-auto name">
-                        <h5>Reviewer name</h5>
+                        <h6>Reviewer name</h6>
                         <small>Date</small>
                     </div>
                 </div>
