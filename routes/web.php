@@ -20,9 +20,23 @@ Route::get('/search', function(){
     return view('search');
 });
 
-Route::get('/show', function () {
+//Araki route
+Route::get('accommodation/show', function () {
     return view('accommodation.show');
 });
+Route::get('/accommodation/create', function () {
+    return view('accommodation.create');
+});
+Route::get('/accommodation/edit', function () {
+    return view('accommodation.edit');
+});
+Route::get('/accommodation/pictures', function () {
+    return view('accommodation.pictures');
+});
+Route::get('/messages', function () {
+    return view('messages.index');
+});
+//Araki route end
 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
