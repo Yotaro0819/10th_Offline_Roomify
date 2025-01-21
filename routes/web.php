@@ -37,6 +37,9 @@ Route::get('/accommodation/pictures', function () {
 Route::get('/messages', function () {
     return view('messages.index');
 });
+Route::get('/messages/show', function () {
+    return view('messages.show');
+});
 //Araki route end
 
 
