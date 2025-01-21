@@ -29,7 +29,6 @@
         border-color:#004aad;
         color: #ffffff;
         background-color: #004aad;
-        align-content: center;
         font-weight: bold;
     }
 
@@ -65,19 +64,34 @@
         align-items: center;
     }
 
-    .input-group .form-control
+    .input-group .input-icon
     {
-        padding-right: 2.5rem; /* Add padding to prevent text overlap with the icon */
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #dcbf7d;
+        background-color:transparent;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 100%;
     }
 
+    .input-group .form-control
+    {
+        padding-left: 2.5rem; /* Add padding to prevent text overlap with the icon */
+        padding-right: 2.5rem; /* Add padding to prevent text overlap with the icon */
+        border-radius: 15px;
+        background-color: #ffffff;
+    }
     .input-group-text
     {
         position: absolute;
-        right: 10px; /* Adjust as needed */
-        top: 50%;
         transform: translateY(-50%);
         border: none;
-        cursor: pointer;
     }
 
 
@@ -100,8 +114,8 @@
 
                     <form action="#" method="get">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="address" placeholder="Address Search">
-                            <button type="submit" class="btn" style="border: 0; background-color: transparent;"><span><i class="fa-solid fa-magnifying-glass" style="text-color: #dcbf7d;"></i></span></button>
+                            <input type="text" class="form-control" style="border-radius:15px;" address" placeholder="Address Search">
+                            <button type="submit" class="btn input-icon input-group-text"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
                     </form>
 

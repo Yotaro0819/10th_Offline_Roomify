@@ -21,6 +21,7 @@
         border-color: #dcbf7d;
         color: #dcbf7d;
         font-weight: bold;
+        width: 100%;
     }
 
     .btn:hover
@@ -31,6 +32,7 @@
     .input-group .input-icon
     {
         color: #004aad;
+        font-size: 30px;
     }
 
     .input-group input

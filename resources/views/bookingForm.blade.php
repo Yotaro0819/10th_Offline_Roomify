@@ -33,6 +33,7 @@
         width: 400px;
         align-content: left;
         font-weight: bold;
+        width: 100%;
     }
 
     .btn:hover
