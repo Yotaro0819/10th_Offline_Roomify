@@ -12,11 +12,11 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-<<<<<<< HEAD
+
 Route::get('/profile',function(){
     return view('guest_profile');
 });
-=======
+
 Route::get('/booking-form', function(){
     return view('bookingForm');
 });
@@ -52,4 +52,4 @@ Route::get('/coupon', function(){
 });
 
 
->>>>>>> master
+
