@@ -12,11 +12,9 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-<<<<<<< HEAD
 Route::get('/profile',function(){
     return view('guest_profile');
 });
-=======
 Route::get('/booking-form', function(){
     return view('bookingForm');
 });
@@ -40,6 +38,9 @@ Route::get('/messages', function () {
 Route::get('/messages/show', function () {
     return view('messages.show');
 });
+Route::get('/accommodation/hashtag', function () {
+    return view('accommodation.hashtag');
+});
 //Araki route end
 
 
@@ -55,4 +56,3 @@ Route::get('/coupon', function(){
 });
 
 
->>>>>>> master

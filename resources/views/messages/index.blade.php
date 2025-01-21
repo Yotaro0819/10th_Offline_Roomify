@@ -18,6 +18,11 @@
         background-color: rgba(239, 239, 239, 0.884) !important;
     }
 
+    .userindex {
+        max-height: 500px; /* 必要に応じて高さを設定 */
+        overflow-y: auto; /* 垂直方向のスクロールを有効にする */
+    }
+
 </style>
 @section('content')
 
@@ -36,48 +41,76 @@
             </form>
         </div>
 
+        <div class="userindex">
+            <div class="row">
+                <a href="#" class="d-flex text-black">
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                    <img src="{{asset('asset_Araki/istockphoto-1300845620-612x612.jpg')}}" alt="avatar" class="w-35">
+                </div>
+                <div class="col-10">
+                    <p class="text-start mt-3">User Name</p>
+                    <p class="text-start my-0">Hey! wasup bro! Appreciate you to choose my house... </p>
+                    <p class="mx-5 text-end mb-1">8:04 AM 12/10/2025</p>
+                </div>
+                </a>
+            </div>
 
-        <div class="row">
-            <a href="#" class="d-flex text-black">
-            <div class="col-2 d-flex justify-content-center align-items-center">
-                <img src="{{asset('asset_Araki/istockphoto-1300845620-612x612.jpg')}}" alt="avatar" class="w-35">
+            <hr class="mx-auto my-0" style="width:97%;">
+            <div class="row">
+                <a href="#" class="d-flex text-black">
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                    <img src="{{asset('asset_Araki/istockphoto-1300845620-612x612.jpg')}}" alt="avatar" class="w-35">
+                </div>
+                <div class="col-10">
+                    <p class="text-start mt-3">User Name</p>
+                    <p class="text-start my-0">Hey! wasup bro! Appreciate you to choose my house... </p>
+                    <p class="mx-5 text-end mb-1">8:04 AM 12/10/2025</p>
+                </div>
+                </a>
             </div>
-            <div class="col-10">
-                <p class="fs-5 text-start mt-3">User Name</p>
-                <p class="text-start my-0">Hey! wasup bro! Appreciate you to choose my house... </p>
-                <p class="mx-5 text-end mb-1">8:04 AM 12/10/2025</p>
+
+            <hr class="mx-auto my-0" style="width:97%;">
+            <div class="row">
+                <a href="#" class="d-flex text-black">
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                    <img src="{{asset('asset_Araki/istockphoto-1300845620-612x612.jpg')}}" alt="avatar" class="w-35">
+                </div>
+                <div class="col-10">
+                    <p class="text-start mt-3">User Name</p>
+                    <p class="text-start my-0">Hey! wasup bro! Appreciate you to choose my house... </p>
+                    <p class="mx-5 text-end mb-1">8:04 AM 12/10/2025</p>
+                </div>
+                </a>
             </div>
-            </a>
+
+            <hr class="mx-auto my-0" style="width:97%;">
+            <div class="row">
+                <a href="#" class="d-flex text-black">
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                    <img src="{{asset('asset_Araki/istockphoto-1300845620-612x612.jpg')}}" alt="avatar" class="w-35">
+                </div>
+                <div class="col-10">
+                    <p class="text-start mt-3">User Name</p>
+                    <p class="text-start my-0">Hey! wasup bro! Appreciate you to choose my house... </p>
+                    <p class="mx-5 text-end mb-1">8:04 AM 12/10/2025</p>
+                </div>
+                </a>
+            </div>
+
+            <hr class="mx-auto my-0" style="width:97%;">
+            <div class="row">
+                <a href="#" class="d-flex text-black">
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                    <img src="{{asset('asset_Araki/istockphoto-1300845620-612x612.jpg')}}" alt="avatar" class="w-35">
+                </div>
+                <div class="col-10">
+                    <p class="text-start mt-3">User Name</p>
+                    <p class="text-start my-0">Hey! wasup bro! Appreciate you to choose my house... </p>
+                    <p class="mx-5 text-end mb-1">8:04 AM 12/10/2025</p>
+                </div>
+                </a>
+            </div>
         </div>
-
-        <hr class="mx-auto my-0" style="width:97%;">
-        <div class="row">
-            <a href="#" class="d-flex text-black">
-            <div class="col-2 d-flex justify-content-center align-items-center">
-                <img src="{{asset('asset_Araki/istockphoto-1300845620-612x612.jpg')}}" alt="avatar" class="w-35">
-            </div>
-            <div class="col-10">
-                <p class="text-start mt-3">User Name</p>
-                <p class="text-start my-0">Hey! wasup bro! Appreciate you to choose my house... </p>
-                <p class="mx-5 text-end mb-1">8:04 AM 12/10/2025</p>
-            </div>
-            </a>
-        </div>
-
-        <hr class="mx-auto my-0" style="width:97%;">
-        <div class="row">
-            <a href="#" class="d-flex text-black">
-            <div class="col-2 d-flex justify-content-center align-items-center">
-                <img src="{{asset('asset_Araki/istockphoto-1300845620-612x612.jpg')}}" alt="avatar" class="w-35">
-            </div>
-            <div class="col-10">
-                <p class="text-start mt-3">User Name</p>
-                <p class="text-start my-0">Hey! wasup bro! Appreciate you to choose my house... </p>
-                <p class="mx-5 text-end mb-1">8:04 AM 12/10/2025</p>
-            </div>
-            </a>
-        </div>
-
 
     </div>
 </div>
