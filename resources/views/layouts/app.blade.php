@@ -25,6 +25,7 @@
 
 </head>
 
+
 <style>
 
 nav
@@ -45,8 +46,33 @@ a
     color: black;
 }
 
+.nav-icon
+{
+    font-size: 2.0rem;
+    color: black !important;
+}
+
+#navbarDropdown::after {
+    display: none;
+}
+
+.find-button {
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: #dcbf7d;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
 
 </style>
+
 
 <body>
     <div id="app">
@@ -54,7 +80,7 @@ a
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img class="logo" src="image_logo/logo.png" alt="">
+                    {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -63,7 +89,9 @@ a
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <a href="">Find a Proerty</a>
+
+                        <a href="" class="find-button">Find a Property</a>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -83,22 +111,24 @@ a
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
 
-                                <!-- <a href="">
-                                    <i class="fa-solid fa-circle-user">
-                                </a> -->
+                            <li class="nav-item dropdown d-flex align-items-center">
+                                <i class="fa-solid fa-circle-user nav-icon"></i>
+                                <span class="ms-3">{{ Auth::user()->name }}</span>
+                                <a class="ms-3"id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <i class="fa-solid fa-bars nav-icon"></i>
+
+                            <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
-                                </a>
 
+                                </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -115,47 +145,45 @@ a
             @yield('content')
         </main>
 
-    @if (!Route::is('register') && !Route::is('login'))
-    <footer>
-        <div class="row">
-            <div class="col-auto">
-                <h1>ROOMIFY</h1>
-            </div>
-            <div class="col-auto">
-                <h5>COMPANY</h5>
-                <p><a href="#">About Us</a></p>
-                <p><a href="#">Contact Us</a></p>
-            </div>
-            <div class="col-auto">
-                <h5>HELP CENTER</h5>
-                <p><a href="#">Find a Property</a></p>
-                <p><a href="#">How To Host?</a></p>
-                <p><a href="#">FAQs</a></p>
-                <p><a href="#">Rental Guides</a></p>
-            </div>
-            <div class="col-auto title">
-                <h5>CONTACT INFO</h5>
-                <p>Phone: 1234567890</p>
-                <p>Email: roomify@email.com</p>
-                <p>Location: 100 Smart Street, Tokyo, <br>JAPAN</p>
-                <div class="app">
-                        <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                </div>
+        <footer>
+    <div class="row">
+        <div class="col-auto">
+            <h1>ROOMIFY</h1>
+        </div>
+        <div class="col-auto">
+            <h5>COMPANY</h5>
+            <p><a href="#">About Us</a></p>
+            <p><a href="#">Contact Us</a></p>
+        </div>
+        <div class="col-auto">
+            <h5>HELP CENTER</h5>
+            <p><a href="#">Find a Property</a></p>
+            <p><a href="#">How To Host?</a></p>
+            <p><a href="#">FAQs</a></p>
+            <p><a href="#">Rental Guides</a></p>
+        </div>
+        <div class="col-auto title">
+            <h5>CONTACT INFO</h5>
+            <p>Phone: 1234567890</p>
+            <p>Email: roomify@email.com</p>
+            <p>Location: 100 Smart Street, Tokyo, <br>JAPAN</p>
+            <div class="app">
+                    <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
-        <hr>
-        <div class="row">
-            <div class="col">
-                <small class="left">(c) 2025 @roomify | All rights raserved</small>
-            </div>
-            <div class="col">
-                <small class="right">Created with love by @roomify</small>
-            </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <small class="left">(c) 2025 @roomify | All rights raserved</small>
         </div>
-    </footer>
-    @endif
+        <div class="col">
+            <small class="right">Created with love by @roomify</small>
+        </div>
+    </div>
+</footer>
 
     </div>
 </body>
