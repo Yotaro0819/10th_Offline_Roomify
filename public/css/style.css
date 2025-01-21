@@ -129,6 +129,52 @@ position: absolute; /* 配置を自由に調整 */
     object-fit: cover;
 }
 
+footer{
+    background-color: #eeeeee;
+    padding: 30px 0;
+}
+
+footer h1{
+    color: #004aad;
+    font-weight: bold;
+    font-family: arial;
+    margin-left: 60px;
+}
+
+footer a{
+    color: black;
+    font-style: normal;
+}
+
+footer .row {
+    justify-content: space-between;
+    gap: 5px;
+    margin-bottom: 0;
+}
+
+footer .col-auto{
+    margin-right: 100px;
+}
+
+footer h5{
+    font-weight: bold;
+    font-family: arial;
+}
+
+footer .app a{
+    margin: 0 10px;
+    font-size: 2em;
+}
+
+footer small{
+    padding: 30px;
+    font-weight: bold;
+}
+
+footer .right{
+    margin-left: 400px;
+}
+
 
 
 
