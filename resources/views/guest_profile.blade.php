@@ -9,8 +9,10 @@
   .card{
     background: #fff;
     padding: 40px;
-    margin: 10px 5px;
     border-radius: 20px;
+    height: 550px;
+    width: 1200px;
+    margin: 100px 50px;
   }
 
   .right-align{
@@ -24,16 +26,27 @@
 
   .reviews{
     text-align: left;
+    margin-top: -10px;
   }
 
   .review{
-    width: 240px;
-    height: 240px;
+    width: 210px;
+    height: 210px;
+    margin-top: -20px;
   }
   
   .line{
     width: 100px;
   }
+
+  .name{
+    margin-top: -30px;
+  }
+
+  .spaced {
+    margin-bottom: 20px;
+    
+}
 </style>
 <body>
 <div class="container">
@@ -43,52 +56,93 @@
                 <img src="" alt="">
             </div>
             <div class="col-auto">
-                <h3>Name</h3>
+                <h4>Name</h4>
                 <hr>
                 <div class="row info">
                     <div class="col-auto">
-                        <h3>Launguage</h3>
+                        <h4>Launguage</h4>
                         <hr>
                     </div>
                     <div class="col-auto">
-                        <h3>My place of location</h3>
+                        <h4>My place of location</h4>
                         <hr>
                     </div>
                     <div class="col-auto">
-                        <h3>Hobby</h3>
+                        <h4>Hobby</h4>
                         <hr>
                     </div>
                 </div>
                 <!-- If the user is host -->
                 <div class="row info">
                     <div class="col-auto">
-                        <h3><i class="fa-solid fa-star"></i>Star</h3>
+                        <h4 class="spaced"><i class="fa-solid fa-star"></i>Star</h4>
                         <hr>
                     </div>
                     <div class="col-auto">
-                        <h3>Hosting experience</h3>
+                        <h4 class="spaced">Hosting experience</h4>
                         <hr>
                     </div>
                 </div>
             </div>
         </div>
-        <h3 class="reviews">Reviews</h3>
-        <hr class="line">
-        <div class="card review">
-            <!-- star -->
-            <h3>
-                <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
-            </h3>
-            <h3>Review Title</h3>
-            <p>Review body</p>
-            <div class="row">
-                <div class="col-auto">
-                    <!-- icon -->
-                    <img src="" alt="">
+        
+        <div class="row">
+            <div class="reviews">
+                <h4>Reviews</h4>
+                <hr class="line">
+            </div>
+            <div class="card col-auto review">
+                <!-- star -->
+                <h5>
+                    <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                </h5>
+                <h5>Review Title</h5>
+                <p>Review body</p>
+                <div class="row">
+                    <div class="col-auto">
+                        <!-- icon -->
+                        <img src="" alt="">
+                    </div>
+                    <div class="col-auto name">
+                        <h5>Reviewer name</h5>
+                        <small>Date</small>
+                    </div>
                 </div>
-                <div class="col-auto">
-                    <h5>Reviewer name</h5>
-                    <small>Date</small>
+            </div>
+            <div class="card col-auto review">
+                <!-- star -->
+                <h5>
+                    <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                </h5>
+                <h5>Review Title</h5>
+                <p>Review body</p>
+                <div class="row">
+                    <div class="col-auto">
+                        <!-- icon -->
+                        <img src="" alt="">
+                    </div>
+                    <div class="col-auto name">
+                        <h5>Reviewer name</h5>
+                        <small>Date</small>
+                    </div>
+                </div>
+            </div>
+            <div class="card col-auto review">
+                <!-- star -->
+                <h5>
+                    <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                </h5>
+                <h5>Review Title</h5>
+                <p>Review body</p>
+                <div class="row">
+                    <div class="col-auto">
+                        <!-- icon -->
+                        <img src="" alt="">
+                    </div>
+                    <div class="col-auto name">
+                        <h5>Reviewer name</h5>
+                        <small>Date</small>
+                    </div>
                 </div>
             </div>
         </div>
