@@ -4,6 +4,7 @@
 
 @section('content')
 <style>
+
     .card
     {
         background-color: #dcbf7d;
@@ -15,16 +16,12 @@
     {
         font-size: 24px;
         color: #004aad;
+
     }
 
     textarea
     {
         background-color: #ffffff;
-    }
-
-    ::placeholder
-    {
-        text-align: center;
     }
 
     .btn
@@ -42,6 +39,48 @@
         color: #ffffff;
         background-color: #004aad;
     }
+    .search-bar
+    {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-left: 40px;
+        font-size: 18px;
+    }
+
+    ::placeholder
+    {
+        text-align: center;
+    }
+
+    .form-select option
+    {
+        text-align: center
+    }
+
+    .input-group
+    {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .input-group .form-control
+    {
+        padding-right: 2.5rem; /* Add padding to prevent text overlap with the icon */
+    }
+
+    .input-group-text
+    {
+        position: absolute;
+        right: 10px; /* Adjust as needed */
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        cursor: pointer;
+    }
+
+
 </style>
 
 <div class="row gx-5 mx-3">
@@ -51,20 +90,21 @@
             <div class="card border-0">
                 <div class="card-header">Place you want to stay</div>
                 <div class="card-body">
-                    <label class="form-label">
-                        <div class="dropdown mb-3">
-                            <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Area<span class="caret"></span></button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <button class="dropdown-item" type="button">Center</button>
-                            <button class="dropdown-item" type="button">North</button>
-                            <button class="dropdown-item" type="button">South</button>
-                            <button class="dropdown-item" type="button">East side</button>
-                            <button class="dropdown-item" type="button">West side</button>
-                            </div>
-                        </div>
+                    <select class="form-select mb-3" aria-label="Default select example" style="border-radius: 15px">
+                        <option selected>Select Area</option>
+                        <option value="1">North</option>
+                        <option value="2">South</option>
+                        <option value="3">East</option>
+                        <option value="4">West</option>
+                    </select>
 
-                        <textarea class="form-control" name="place" id="" cols="30" rows="1" placeholder="Address Search"></textarea>
-                    </label>
+                    <form action="#" method="get">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="address" placeholder="Address Search">
+                            <button type="submit" class="btn" style="border: 0; background-color: transparent;"><span><i class="fa-solid fa-magnifying-glass" style="text-color: #dcbf7d;"></i></span></button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
 
@@ -72,22 +112,22 @@
             <div class="card border-0">
                 <div class="card-header">Capacity</div>
                 <div class="card-body">
-                    <div class="text-center">
+                    <div class="search-bar">
                         <input type="radio" class="form-check-input" name="capacity" id="capa_1">
                         <label class="form-check-label" for="capa_1">1 ~ 2 people</label>
                     </div>
 
-                    <div>
+                    <div class="search-bar">
                         <input type="radio" class="form-check-input" name="capacity" id="capa_2">
                         <label class="form-check-label" for="capa_2">3 ~ 5 people</label>
                     </div>
 
-                    <div>
+                    <div class="search-bar">
                         <input type="radio" class="form-check-input" name="capacity" id="capa_3">
                         <label class="form-check-label" for="capa_3">6 ~ 10 people</label>
                     </div>
 
-                    <div>
+                    <div class="search-bar">
                         <input type="radio" class="form-check-input" name="capacity" id="capa_4">
                         <label class="form-check-label" for="capa_4">More than 10 people</label>
                     </div>
@@ -98,47 +138,47 @@
             <div class="card border-0">
                 <div class="card-header">Category</div>
                 <div class="card-body">
-                    <div>
+                    <div class="search-bar">
                         <input type="checkbox" class="form-check-input" value="" id="">
                         <label class="form-check-label" for="">WI-FI</label>
                     </div>
 
-                    <div>
+                    <div class="search-bar">
                         <input type="checkbox" class="form-check-input" name="" id="">
                         <label class="form-check-label" for="">Kitchen</label>
                     </div>
 
-                    <div>
+                    <div class="search-bar">
                         <input type="checkbox" class="form-check-input" name="" id="">
                         <label class="form-check-label" for="">Nice View</label>
                     </div>
 
-                    <div>
+                    <div class="search-bar">
                         <input type="checkbox" class="form-check-input" name="" id="">
                         <label class="form-check-label" for="">Parking</label>
                     </div>
 
-                    <div>
+                    <div class="search-bar">
                         <input type="checkbox" class="form-check-input" name="" id="">
                         <label class="form-check-label" for="">TV</label>
                     </div>
 
-                    <div>
+                    <div class="search-bar">
                         <input type="checkbox" class="form-check-input" name="" id="">
                         <label class="form-check-label" for="">Air Conditioner</label>
                     </div>
 
-                    <div>
+                    <div class="search-bar">
                         <input type="checkbox" class="form-check-input" name="" id="">
                         <label class="form-check-label" for="">Washer</label>
                     </div>
 
-                    <div>
+                    <div class="search-bar">
                         <input type="checkbox" class="form-check-input" name="" id="">
                         <label class="form-check-label" for="">Hair Dryer</label>
                     </div>
 
-                    <div>
+                    <div class="search-bar">
                         <input type="checkbox" class="form-check-input" name="" id="">
                         <label class="form-check-label" for="">Refrigerator</label>
                     </div>
@@ -150,18 +190,18 @@
                 <div class="card-header">Price Range</div>
                 <div class="card-body">
                     <div class="mb-2">
-                        <label for="min_price" class="form-label">Minimum</label>
+                        <label for="min_price" class="form-label left-align">Minimum</label>
                         <input type="number" class="form-control" name="min_price">
                     </div>
 
                     <div class="mb-2">
-                        <label for="max_price" class="form-label">Maximum</label>
+                        <label for="max_price" class="form-label left-align">Maximum</label>
                         <input type="number" class="form-control" name="max_price">
                     </div>
                 </div>
             </div>
 
-            <div class="row mt-4">
+            <div class="row my-4">
                 <div class="col me-5">
                     <button type="submit" class="btn" style="width: 360px"><span class="fw-light">Search</span></button>
                 </div>

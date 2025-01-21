@@ -55,11 +55,10 @@
         color: #ffffff;
     }
     ::placeholder
-{
-    color: #A5A5A5;
-    font-weight: bold;
-}
-
+    {
+        color: #A5A5A5;
+        font-weight: bold;
+    }
 
     a
     {
