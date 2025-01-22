@@ -12,6 +12,10 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $table = "users";
+
+    public $timestamps = true;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,28 +25,45 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'avatar',
+        'nationality_id',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    const ROLE_ADMIN = 0;
+    const ROLE_GUEST = 1;
+    const ROLE_HOST  = 2;
+
+
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public static function roles()
+    {
+        return [
+            self::ROLE_ADMIN => 'admin',
+            self::ROLE_GUEST => 'guest',
+            self::ROLE_HOST  => 'host',
+        ];
+    }
+
+    public function getRole($value)
+    {
+        return self::roles()[$value];
+    }
+
+    public function nationality() {
+        return $this->belongsTo(Nationality::class);
     }
 }
