@@ -18,6 +18,11 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('in
 Route::get('/profile',function(){
     return view('guest_profile');
 });
+
+Route::get('/host/res',function(){
+    return view('hostRes');
+});
+
 Route::get('/booking-form', function(){
     return view('bookingForm');
 });
