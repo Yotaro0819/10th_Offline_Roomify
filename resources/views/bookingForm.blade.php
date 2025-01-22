@@ -30,10 +30,9 @@
         border-color:#004aad;
         color: #ffffff;
         background-color: #004aad;
-        width: 400px;
         align-content: left;
         font-weight: bold;
-        width: 100%;
+        width:400px;
     }
 
     .btn:hover

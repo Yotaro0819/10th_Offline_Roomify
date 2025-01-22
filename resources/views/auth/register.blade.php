@@ -10,13 +10,6 @@
         background-color: #004aad !important;
     }
 
-    .btn
-    {
-        border-color: #dcbf7d;
-        color: #dcbf7d;
-        font-weight: bold;
-        width: 100%;
-    }
     .btn:hover
     {
         color:#ffffff;
@@ -137,7 +130,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4 mx-auto w-100">
-                                <button type="submit" class="btn">
+                                <button type="submit" class="btn btn-outline w-100 fw-bold" style="color:#dcbf7d; border-color: #dcbf7d">
                                     {{ __('Register') }}
                                 </button>
                             </div>
