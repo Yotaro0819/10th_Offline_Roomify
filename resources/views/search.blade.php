@@ -67,7 +67,7 @@
     .input-group .input-icon
     {
         position: absolute;
-        right: 10px;
+        left:280px;
         top: 50%;
         transform: translateY(-50%);
         color: #dcbf7d;
@@ -94,7 +94,11 @@
         border: none;
     }
 
-
+    img
+    {
+        width: 270px;
+        height: 200px;
+    }
 </style>
 
 <div class="row gx-5 mx-3">
@@ -114,7 +118,7 @@
 
                     <form action="#" method="get">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" style="border-radius:15px;" address" placeholder="Address Search">
+                            <input type="text" class="form-control" style="border-radius:15px;" name="address" placeholder="Address Search">
                             <button type="submit" class="btn input-icon input-group-text"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
                     </form>
@@ -201,7 +205,7 @@
 
             <!-- price -->
             <div class="card border-0">
-                <div class="card-header">Price Range</div>
+                <div class="card-header">Budget Range</div>
                 <div class="card-body">
                     <div class="mb-2">
                         <label for="min_price" class="form-label left-align">Minimum</label>
@@ -228,9 +232,28 @@
         <div class="header">
             <p>Hits: 122 matched</p>
             <hr>
+            <div class="row">
+                <div class="col">
+                    <img src="#" alt="#">
+                </div>
+                <div class="col">
+                    <h2 class="h4 fw-bold" style="color:#004aad">Accommodation name</h2>
 
+                    <div>
+                        <p><span><i class="fa-solid fa-magnifying-glass me-3"></i></span>Lorem, ipsum dolor sit amet consectetur.</p>
+                    </div>
+
+                    <div>
+                        <p><span><i class="fa-solid fa-location-dot me-3"></i></span>1-412-342, Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, deleniti!</p>
+                    </div>
+
+                    <div>
+                        <p class="fw-bold"><span><i class="fa-solid fa-money-bill me-3"></i></span>123,421</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
+        <hr>
     </div>
 </div>
 

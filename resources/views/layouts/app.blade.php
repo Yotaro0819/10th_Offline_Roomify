@@ -145,46 +145,47 @@ a
             @yield('content')
         </main>
 
+        @if (!Route::is('register') && !Route::is('login'))
         <footer>
-    <div class="row">
-        <div class="col-auto">
-            <h1>ROOMIFY</h1>
-        </div>
-        <div class="col-auto">
-            <h5>COMPANY</h5>
-            <p><a href="#">About Us</a></p>
-            <p><a href="#">Contact Us</a></p>
-        </div>
-        <div class="col-auto">
-            <h5>HELP CENTER</h5>
-            <p><a href="#">Find a Property</a></p>
-            <p><a href="#">How To Host?</a></p>
-            <p><a href="#">FAQs</a></p>
-            <p><a href="#">Rental Guides</a></p>
-        </div>
-        <div class="col-auto title">
-            <h5>CONTACT INFO</h5>
-            <p>Phone: 1234567890</p>
-            <p>Email: roomify@email.com</p>
-            <p>Location: 100 Smart Street, Tokyo, <br>JAPAN</p>
-            <div class="app">
-                    <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <div class="row">
+                <div class="col-auto">
+                    <h1>ROOMIFY</h1>
+                </div>
+                <div class="col-auto">
+                    <h5>COMPANY</h5>
+                    <p><a href="#">About Us</a></p>
+                    <p><a href="#">Contact Us</a></p>
+                </div>
+                <div class="col-auto">
+                    <h5>HELP CENTER</h5>
+                    <p><a href="#">Find a Property</a></p>
+                    <p><a href="#">How To Host?</a></p>
+                    <p><a href="#">FAQs</a></p>
+                    <p><a href="#">Rental Guides</a></p>
+                </div>
+                <div class="col-auto title">
+                    <h5>CONTACT INFO</h5>
+                    <p>Phone: 1234567890</p>
+                    <p>Email: roomify@email.com</p>
+                    <p>Location: 100 Smart Street, Tokyo, <br>JAPAN</p>
+                    <div class="app">
+                            <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                            <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
+                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col">
-            <small class="left">(c) 2025 @roomify | All rights raserved</small>
-        </div>
-        <div class="col">
-            <small class="right">Created with love by @roomify</small>
-        </div>
-    </div>
-</footer>
-
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <small class="left">(c) 2025 @roomify | All rights raserved</small>
+                </div>
+                <div class="col">
+                    <small class="right">Created with love by @roomify</small>
+                </div>
+            </div>
+        </footer>
+        @endif
     </div>
 </body>
 </html>
