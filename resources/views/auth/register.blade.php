@@ -12,18 +12,25 @@
 
     .btn
     {
-        border-color: #dcbf7d;
+        border-color:#dcbf7d;
         color: #dcbf7d;
+        background-color: transparent;
+        align-content: left;
+        font-weight: bold;
     }
+
+
     .btn:hover
     {
-        color:#ffffff;
-        background-color: #dcbf7d;
+        border-color:#dcbf7d !important;
+        color:#ffffff !important;
+        background-color: #dcbf7d !important;
     }
 
     .form-control
     {
         border-color: #ffffff;
+        background-color: transparent;
     }
 
     .card .card-header
@@ -34,6 +41,7 @@
     .input-group .input-icon
     {
         color: #ffffff;
+        font-size: 30px;
     }
 
     .input-group input
@@ -54,11 +62,10 @@
         color: #ffffff;
     }
     ::placeholder
-{
-    color: #A5A5A5;
-    font-weight: bold;
-}
-
+    {
+        color: #A5A5A5;
+        font-weight: bold;
+    }
 
     a
     {
@@ -135,7 +142,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4 mx-auto w-100">
-                                <button type="submit" class="btn">
+                                <button type="submit" class="btn w-100 fw-bold" style="color:#dcbf7d; border-color: #dcbf7d">
                                     {{ __('Register') }}
                                 </button>
                             </div>

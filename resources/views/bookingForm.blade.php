@@ -30,8 +30,9 @@
         border-color:#004aad;
         color: #ffffff;
         background-color: #004aad;
-        width: 400px;
         align-content: left;
+        font-weight: bold;
+        width:400px;
     }
 
     .btn:hover
@@ -67,7 +68,7 @@
         <form action="#" method="post">
         @csrf
 
-        <div class="row my-4">
+        <div class="row mb-4">
             <div class="col">
                 <label for="name" class="form-label">Full Name<span class="text-danger">*</span></label>
                 <input type="text" name="name" class="form-control" placeholder="Enter name">
