@@ -7,6 +7,9 @@ use App\Http\Controllers\Admin\CategoriesController;
 
 
 
+Route::get('/home', function () {
+    return view('home');
+});
 
 Auth::routes();
 

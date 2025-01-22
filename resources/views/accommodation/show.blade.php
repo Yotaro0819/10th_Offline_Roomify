@@ -150,7 +150,7 @@
         <h3 class="fw-bold">10% OFF Coupon</h3>
     </div>
 
-    <div class="google-location w-50 mx-auto">
+    <div class="google-location w-50 mx-auto mb-5">
         <h3 class="fs-4">Location</h3>
         <img src="{{ asset('asset_Araki/07-01.jpg.webp')}}" alt="google_map" class="w-100 h-25">
     </div>
