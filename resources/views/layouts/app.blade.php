@@ -19,6 +19,10 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
 </head>
 
 
@@ -54,14 +58,14 @@ a
 
 .find-button {
     display: inline-block;
-    padding: 10px 20px; 
+    padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     color: white;
     background-color: #dcbf7d;
-    font-weight: bold; 
+    font-weight: bold;
     transition: background-color 0.3s ease;
-    border-radius: 12px; 
+    border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -93,6 +97,7 @@ a
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
@@ -108,7 +113,16 @@ a
                                 <i class="fa-solid fa-circle-user nav-icon"></i>
                                 <span class="ms-3">{{ Auth::user()->name }}</span>
                                 <a class="ms-3"id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+
+                                    <i class="fa-solid fa-bars nav-icon"></i>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+
+
                                     <i class="fa-solid fa-bars nav-icon"></i> 
+
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -132,9 +146,9 @@ a
             @yield('content')
         </main>
 
-
-        <footer class="mt-3">
-            <div class="row w-100">
+        @if (!Route::is('register') && !Route::is('login'))
+        <footer>
+            <div class="row">
                 <div class="col-auto">
                     <h1>ROOMIFY</h1>
                 </div>
@@ -163,7 +177,7 @@ a
                 </div>
             </div>
             <hr>
-            <div class="row w-100">
+            <div class="row">
                 <div class="col">
                     <small class="left">(c) 2025 @roomify | All rights raserved</small>
                 </div>
@@ -172,8 +186,7 @@ a
                 </div>
             </div>
         </footer>
-                
-
+        @endif
     </div>
 </body>
 </html>

@@ -10,11 +10,6 @@
         background-color: #004aad !important;
     }
 
-    .btn
-    {
-        border-color: #dcbf7d;
-        color: #dcbf7d;
-    }
     .btn:hover
     {
         color:#ffffff;
@@ -34,6 +29,7 @@
     .input-group .input-icon
     {
         color: #ffffff;
+        font-size: 30px;
     }
 
     .input-group input
@@ -54,11 +50,10 @@
         color: #ffffff;
     }
     ::placeholder
-{
-    color: #A5A5A5;
-    font-weight: bold;
-}
-
+    {
+        color: #A5A5A5;
+        font-weight: bold;
+    }
 
     a
     {
@@ -135,7 +130,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4 mx-auto w-100">
-                                <button type="submit" class="btn">
+                                <button type="submit" class="btn btn-outline w-100 fw-bold" style="color:#dcbf7d; border-color: #dcbf7d">
                                     {{ __('Register') }}
                                 </button>
                             </div>
