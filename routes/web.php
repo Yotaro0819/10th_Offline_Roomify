@@ -19,6 +19,14 @@ Route::get('/booking-form', function(){
     return view('bookingForm');
 });
 
+Route::get('/search', function(){
+    return view('search');
+});
+
+Route::get('/acmindex', function(){
+    return view('acm_index_host');
+});
+
 //Araki route
 Route::get('accommodation/show', function () {
     return view('accommodation.show');

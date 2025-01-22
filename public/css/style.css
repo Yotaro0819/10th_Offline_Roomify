@@ -1,10 +1,8 @@
-/* kyoka no css kokokara */
+
 .btn
 {
     border-radius: 15px;
-    font-weight: bold;
     font-size: 15px;
-    width: 100%;
 }
 
 .card
@@ -43,7 +41,6 @@
     left: 30px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 30px;
 }
 
 .input-group input
@@ -176,8 +173,5 @@ footer .right{
 }
 
 
-/* font indication */
-body {
-    font-family: 'Open Sans', sans-serif;
-}
+
 
