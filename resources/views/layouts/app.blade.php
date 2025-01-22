@@ -150,7 +150,7 @@ a
                 <div class="col-auto title">
                     <h5>CONTACT INFO</h5>
                     <p>Phone: 1234567890</p>
-                    <p>Email: roomify@email.com</p>
+                    <p>Email: roomify@gmail.com</p>
                     <p>Location: 100 Smart Street, Tokyo, <br>JAPAN</p>
                     <div class="app">
                             <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
