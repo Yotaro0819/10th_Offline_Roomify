@@ -23,6 +23,11 @@ Route::get('/host/res',function(){
     return view('hostRes');
 });
 
+Route::get('/user/res',function(){
+    return view('userRes');
+});
+
+
 Route::get('/booking-form', function(){
     return view('bookingForm');
 });
