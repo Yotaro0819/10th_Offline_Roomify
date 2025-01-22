@@ -10,7 +10,7 @@
         background-color: #004aad !important;
     }
 
-    button .btn
+    .btn
     {
         border-color:#dcbf7d;
         color: #dcbf7d;
@@ -20,15 +20,17 @@
     }
 
 
-    button .btn:hover
+    .btn:hover
     {
-        color:#ffffff;
-        background-color: #dcbf7d;
+        border-color:#dcbf7d !important;
+        color:#ffffff !important;
+        background-color: #dcbf7d !important;
     }
 
     .form-control
     {
         border-color: #ffffff;
+        background-color: transparent;
     }
 
     .card .card-header
