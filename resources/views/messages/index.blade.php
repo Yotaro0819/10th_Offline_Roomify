@@ -27,7 +27,7 @@
 @section('content')
 
 
-<div class="container w-75 mx-auto mt-5">
+<div class="container w-75 mx-auto mt-5 mb-5">
     <h2>Messages</h2>
     <div class="card rounded-4 w-85 mx-auto bg-gray">
         <div>

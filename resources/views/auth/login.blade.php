@@ -27,9 +27,9 @@
 
     .btn:hover
     {
-        border-color:#dcbf7d;
-        color: #dcbf7d;
-        background-color: transparent;
+        border-color:#dcbf7d !important;
+        color: #ffffff !important;
+        background-color: #dcbf7d !important;
     }
     .input-group .input-icon
     {
@@ -44,7 +44,7 @@
     .form-control
     {
         border-radius: 15px;
-        background-color: transparent;
+        background-color: #ffffff;
         align-content: center;
         padding-left: 2.5rem;
     }

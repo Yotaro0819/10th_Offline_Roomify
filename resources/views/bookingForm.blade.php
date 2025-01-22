@@ -68,7 +68,7 @@
         <form action="#" method="post">
         @csrf
 
-        <div class="row my-4">
+        <div class="row mb-4">
             <div class="col">
                 <label for="name" class="form-label">Full Name<span class="text-danger">*</span></label>
                 <input type="text" name="name" class="form-control" placeholder="Enter name">
