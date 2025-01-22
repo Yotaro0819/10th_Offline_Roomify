@@ -19,8 +19,8 @@
 {
     color: white;
     font-size: 4rem;
-    opacity: 0.2; 
-    
+    opacity: 0.2;
+
 }
 
 .select-box p
@@ -60,7 +60,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 100px;
             height: 50px;
         }
