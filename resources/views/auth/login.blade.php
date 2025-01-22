@@ -18,18 +18,23 @@
 
     .btn
     {
-        border-color: #dcbf7d;
+        border-color:#dcbf7d;
         color: #dcbf7d;
+        background-color: transparent;
+        align-content: left;
+        font-weight: bold;
     }
 
     .btn:hover
     {
-        color:#ffffff;
-        background-color: #dcbf7d;
+        border-color:#dcbf7d;
+        color: #dcbf7d;
+        background-color: transparent;
     }
     .input-group .input-icon
     {
         color: #004aad;
+        font-size: 30px;
     }
 
     .input-group input
@@ -108,7 +113,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4 mx-auto w-100">
-                                <button type="submit" class="btn">
+                                <button type="submit" class="btn w-100 fw-bold" style="color:#dcbf7d; border-color: #dcbf7d">
                                     {{ __('Login') }}
                                 </button>
                             </div>
