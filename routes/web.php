@@ -63,4 +63,8 @@ Route::get('/coupon', function(){
     return view('coupon');
 });
 
+Route::get('/cansel', function () {
+    return view('bookingcansel');
+});
+
 
