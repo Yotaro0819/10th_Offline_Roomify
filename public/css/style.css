@@ -122,7 +122,7 @@ position: absolute; /* 配置を自由に調整 */
     font-size: 3.5rem;
 }
 
-.avatar-md 
+.avatar-md
 {
     width: 3.5rem;
     height: 3.5rem;
@@ -176,5 +176,8 @@ footer .right{
 }
 
 
-
+/* font indication */
+body {
+    font-family: 'Open Sans', sans-serif;
+}
 
