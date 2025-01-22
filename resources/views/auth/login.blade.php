@@ -16,7 +16,7 @@
         color: #004aad;
     }
 
-    .btn
+    button .btn
     {
         border-color:#dcbf7d;
         color: #dcbf7d;
@@ -25,7 +25,7 @@
         font-weight: bold;
     }
 
-    .btn:hover
+    button .btn:hover
     {
         border-color:#dcbf7d;
         color: #dcbf7d;
