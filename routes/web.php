@@ -73,6 +73,12 @@ Route::get('/cansel', function () {
     return view('bookingcansel');
 });
 
+Route::group(['middleware' => 'host'], function(){
+    Route::get('/host/res',function(){
+        return view('hostRes');
+    });
+});
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
     Route::get('/users', [UsersController::class, 'index'])->name('users');

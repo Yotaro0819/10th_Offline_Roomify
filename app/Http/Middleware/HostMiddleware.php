@@ -18,7 +18,7 @@ class HostMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->role_id == User::HOST_ROLE_ID)
+        if(Auth::check() && Auth::user()->role == User::ROLE_HOST )
         {
         return $next($request);
         }
