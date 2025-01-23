@@ -14,12 +14,18 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/home', function () {
+
+Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+Auth::routes();
 
+
+
+Route::group(['middleware' => 'auth'], function() {
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
 Route::get('/profile',function(){
     return view('guest_profile');
@@ -32,7 +38,6 @@ Route::get('/profile',function(){
 Route::get('/user/res',function(){
     return view('userRes');
 });
-
 
 Route::get('/booking-form', function(){
     return view('bookingForm');
@@ -62,7 +67,7 @@ Route::get('/accommodation/hashtag', function () {
 //Araki route end
 
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
     Route::get('/users', [AdminUserController::class, 'index'])->name('users');
     Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
     Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
@@ -81,6 +86,8 @@ Route::group(['middleware' => 'host'], function(){
     Route::get('/host/res',function(){
         return view('hostRes');
     });
+});
+
 });
 
 
