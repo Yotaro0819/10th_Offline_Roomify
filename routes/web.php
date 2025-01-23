@@ -5,15 +5,16 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\AccommodationController;
 use App\Http\Controllers\Admin\CategoriesController;
 
+Auth::routes();
 
+Route::group(['middleware' => 'auth'], function() {
 
 Route::get('/home', function () {
     return view('home');
 });
 
-Auth::routes();
-
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+
 
 Route::get('/profile',function(){
     return view('guest_profile');
@@ -64,20 +65,21 @@ Route::get('/accommodation/hashtag', function () {
 });
 //Araki route end
 
-
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
-    Route::get('/users', [UsersController::class, 'index'])->name('users');
-    Route::get('/accommodation', [AccommodationController::class, 'index'])->name('accommodation');
-    Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
-});
-
-
 Route::get('/coupon', function(){
     return view('coupon');
 });
 
 Route::get('/cansel', function () {
     return view('bookingcansel');
+});
+
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
+    Route::get('/users', [UsersController::class, 'index'])->name('users');
+    Route::get('/accommodation', [AccommodationController::class, 'index'])->name('accommodation');
+    Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
+});
+
 });
 
 
