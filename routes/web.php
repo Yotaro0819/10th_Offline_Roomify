@@ -18,17 +18,16 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Auth::routes();
-
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+
 
 Route::get('/profile',function(){
     return view('guest_profile');
 });
 
-Route::get('/host/res',function(){
-    return view('hostRes');
-});
+// Route::get('/host/res',function(){
+//     return view('hostRes');
+// });
 
 Route::get('/user/res',function(){
     return view('userRes');
@@ -77,5 +76,14 @@ Route::get('/coupon', function(){
 Route::get('/cansel', function () {
     return view('bookingcansel');
 });
+
+Route::group(['middleware' => 'host'], function(){
+    Route::get('/host/res',function(){
+        return view('hostRes');
+    });
+});
+
+
+
 
 
