@@ -23,7 +23,9 @@ class UserSeeder extends Seeder
                 'nationality_id' => 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'role' => "1",
+
+                'role' => '1',
+
             ],
             [
                 'name' => 'admin',
@@ -32,7 +34,9 @@ class UserSeeder extends Seeder
                 'nationality_id' => 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'role' => "0",
+
+                'role' => '0',
+
             ],
             [
                 'name' => 'host',
@@ -41,7 +45,9 @@ class UserSeeder extends Seeder
                 'nationality_id' => 2,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'role' => "2",
+
+                'role' => '2',
+
             ],
             [
                 'name' => 'guest2',
@@ -50,8 +56,10 @@ class UserSeeder extends Seeder
                 'nationality_id' => 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'role' => "1",
-            ]
+
+                'role' => '1',
+            ],
+
         ]);
     }
 }
