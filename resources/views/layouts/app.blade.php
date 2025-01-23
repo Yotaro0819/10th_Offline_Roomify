@@ -141,7 +141,7 @@ a
         </main>
 
         @if (!Route::is('register') && !Route::is('login'))
-        <footer>
+        <footer class="mt-3">
             <div class="row">
                 <div class="col-auto">
                     <h1>ROOMIFY</h1>
