@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', [0, 1, 2])->default(1); // 0: admin, 1: guest, 2: host
             $table->longText('avatar')->nullable();
-            $table->unsignedBigInteger('nationality_id');
+            $table->unsignedBigInteger('nationality_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
