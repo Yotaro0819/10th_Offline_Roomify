@@ -17,18 +17,15 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->text('address');
             $table->integer('price');
-            $table->string('city');
-            $table->decimal('latitude', 10, 8);
-            $table->decimal('longitude', 10, 8);
+            $table->string('city')->nullable();
+            $table->decimal('latitude', 11, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
             $table->integer('capacity');
-            $table->string('hashtag_name');
-            $table->unsignedBigInteger('category_id');
             $table->text('description');
             $table->timestamps();
 
             // 外部キー制約（user_id, category_id）
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
