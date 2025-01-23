@@ -118,7 +118,7 @@
                                 </button>
                             </div>
 
-                            <p class="fw-light mt-1">Not a member yet? <a href="#">Resister!</a></p>
+                            <p class="fw-light mt-1">Not a member yet? <a href="{{ route('register') }}">Resister!</a></p>
 
                         </div>
                     </form>

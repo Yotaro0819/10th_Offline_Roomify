@@ -183,7 +183,7 @@
                                 </button>
                             </div>
 
-                            <p class="fw-light mt-1">Already have an Account? <a href="#">Login!</a></p>
+                            <p class="fw-light mt-1">Already have an Account? <a href="{{ route('login') }}">Login!</a></p>
                         </div>
 
                     </form>
