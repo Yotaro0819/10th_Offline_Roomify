@@ -63,7 +63,7 @@
     }
     ::placeholder
     {
-        color: #A5A5A5;
+        color: #D3D3D3 !important;
         font-weight: bold;
     }
 
@@ -71,6 +71,28 @@
     {
         color: #dcbf7d !important;
     }
+
+    .input-group select
+    {
+        width: 100%;
+        padding-left: 4rem;
+        background-color: transparent;
+        color: #ffffff;
+    }
+
+    #national_flag
+    {
+        position: absolute;
+        top: 35%;
+        transform: translateY(-50%);
+    }
+
+    select:invalid
+    {
+        color:#D3D3D3;
+        font-weight: bold
+    }
+
 
 </style>
 @section('content')
@@ -137,6 +159,20 @@
                             <div class="col-md-6 input-group">
                                 <i class="fa-solid fa-lock input-icon"></i>
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" style="border-radius: 15px" required autocomplete="new-password" placeholder="Re-enter Password">
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6 input-group">
+                                <i class="fa-solid fa-earth-americas input-icon" id="national_flag"></i>
+
+                                <select class="form-select mb-3 input-group" aria-label="Default select example" style="border-radius: 15px;" required>
+                                    <option value="" selected><span> Nationality</span></option>
+                                    <option value="1">🇯🇵 Japan</option>
+                                    <option value="2">🇰🇷 Korea</option>
+                                    <option value="3">🇦🇺 Australia</option>
+                                    <option value="4">🇪🇸 Spain</option>
+                                </select>
                             </div>
                         </div>
 
