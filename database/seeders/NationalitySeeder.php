@@ -13,18 +13,22 @@ class NationalitySeeder extends Seeder
      */
     public function run(): void
     {
+
+
+
+
         $nationalities = [
         [
-            'nationality' => 'Japan'
+            'nationality' => '🇯🇵Japan'
         ],
         [
-            'nationality' => 'Korea'
+            'nationality' => '🇰🇷Korea'
         ],
         [
-            'nationality' => 'Australia'
+            'nationality' => '🇦🇺Australia'
         ],
         [
-            'nationality' => 'Spain'
+            'nationality' => '🇪🇸Spain'
         ]
     ];
 
