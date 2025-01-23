@@ -10,4 +10,8 @@ class Accommodation extends Model
     {
         return $this->belongToMany(Category::class, 'category_accommodation');
     }
+
+    public function categoryAccommodation() {
+        return $this->hasMany(categoryAccommodation::class);
+    }
 }

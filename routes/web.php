@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\AccommodationController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\UserAccommodationController;
+
+
+
 
 
 
@@ -41,15 +45,6 @@ Route::get('/acmindex', function(){
 });
 
 //Araki route
-Route::get('accommodation/show', function () {
-    return view('accommodation.show');
-});
-Route::get('/accommodation/create', function () {
-    return view('accommodation.create');
-});
-Route::get('/accommodation/edit', function () {
-    return view('accommodation.edit');
-});
 Route::get('/accommodation/pictures', function () {
     return view('accommodation.pictures');
 });

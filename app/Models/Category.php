@@ -13,9 +13,13 @@ class Category extends Model
 
     protected $fillable = ['category_name'];
 
-    public function accommodations ()
+    public function accommodations()
     {
         return $this->belongsToMany(Accommodation::class, 'category_accommodation');
+    }
+
+    public function categoryAccommodation() {
+        return $this->hasMany(CategoryAccommodation::class);
     }
 
 
