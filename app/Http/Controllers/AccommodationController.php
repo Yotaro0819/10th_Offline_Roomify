@@ -13,4 +13,11 @@ class AccommodationController extends Controller
     {
         $this->accommodation = $accommodation;
     }
+
+    public function index()
+    {
+        $all_accommodations = $this->accommodation->latest()->get();
+
+        return view('acm_index_host')->with('all_accommodations', $all_accommodations);
+    }
 }

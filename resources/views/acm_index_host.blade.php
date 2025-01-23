@@ -21,6 +21,9 @@
 @section('title', 'Accommodation Index for Host')
 
 @section('content')
+@foreach ($all_accommodations as $accommodation)
+
+@endforeach
 <h1 class="h2 mx-5">Accommodation Index</h1>
 <div class="card mx-auto mb-5 w-75" id="acm-booking">
     <div class="row">
