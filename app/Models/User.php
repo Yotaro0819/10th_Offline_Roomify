@@ -67,5 +67,9 @@ class User extends Authenticatable
         return $this->belongsTo(Nationality::class);
     }
 
+    public function accommodations(){
+        return $this->hasMAny(accommodation::class);
+    }
+
 
 }
