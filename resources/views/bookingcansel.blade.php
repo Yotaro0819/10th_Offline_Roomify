@@ -44,9 +44,16 @@ img
     padding: 20px;                    
     background-color: #fff;           
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;                      
-    /* max-width: 400px;                  */
+    width: 100%;                                       */
     margin: 20px auto;                
+}
+
+.soft-highlight {
+    background-color: #ffeb3b;
+    padding: 0 4px;
+    border-radius: 3px;
+    box-shadow: 0 0 8px rgba(255, 235, 59, 0.5);
+    display: inline;
 }
 
 </style>
@@ -59,7 +66,7 @@ img
         <div class="col-8 mt-3">
             <div class="row">
                 <div class="col-8">
-                    <h4 class="m-0">YYY/DD/MM 〜 YYY/DD/MM</h4>
+                    <h4 class="m-0 soft-highlight">YYY/DD/MM 〜 YYY/DD/MM</h4>
                 </div>
                 <div class="col-4 d-flex align-items-center">
                     <!-- <i class="fa-solid fa-circle-user"> -->
@@ -84,8 +91,8 @@ img
         </div>
     </div>
     <div class="mt-5 text-center">
-        <h3>Do you want to reservation?</h3>
-        <p>If you cansel, the host will be noified that reservation has been canseled.</p>
+        <h3>Do you want to cansel reservation?</h3>
+        <p>If you cansel, the host will be notified that reservation has been canseled.</p>
     </div>
     <div class="mb-3">
         <div class="d-flex justify-content-center">
