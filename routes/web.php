@@ -24,9 +24,9 @@ Route::get('/profile',function(){
     return view('guest_profile');
 });
 
-Route::get('/host/res',function(){
-    return view('hostRes');
-});
+// Route::get('/host/res',function(){
+//     return view('hostRes');
+// });
 
 Route::get('/user/res',function(){
     return view('userRes');
