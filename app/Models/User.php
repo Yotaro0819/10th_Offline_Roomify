@@ -66,4 +66,6 @@ class User extends Authenticatable
     public function nationality() {
         return $this->belongsTo(Nationality::class);
     }
+
+
 }
