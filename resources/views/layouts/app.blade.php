@@ -115,7 +115,7 @@ a
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @if(Auth::user()->role == "2")
-                                        <a class="dropdown-item" href="{{ route('acm_index_host') }}">
+                                        <a class="dropdown-item" href="{{ route('host.index') }}">
                                             <i class="fa-solid fa-house"></i> Accommodation index
                                         </a>
                                     @endif

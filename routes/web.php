@@ -46,7 +46,6 @@ Route::group(['middleware' => 'auth'], function () {
         return view('search');
     });
 
-    Route::get('/acmindex', [AccommodationController::class, 'index'])->name('acm_index_host');
 
     //Araki route
     Route::get('/accommodation/pictures', function () {
@@ -85,11 +84,14 @@ Route::group(['middleware' => 'auth'], function () {
         return view('bookingcansel');
     });
 });
+
 // host routes
-Route::group(['prefix' => 'host', 'as' => 'host', 'middleware' => 'host'], function(){
+Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
     Route::get('/res',function(){
         return view('hostRes');
     });
+    Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
+
 });
 
 // admin routes
