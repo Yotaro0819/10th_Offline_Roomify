@@ -63,6 +63,7 @@
 
     a
     {
+        font-style: italic;
         color:#004aad !important;
     }
 </style>

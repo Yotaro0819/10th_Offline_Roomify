@@ -108,8 +108,6 @@ Route::get('/cansel', function () {
     return view('bookingcansel');
 });
 
-});
-
 
 
 
