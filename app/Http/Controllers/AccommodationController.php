@@ -17,8 +17,12 @@ class AccommodationController extends Controller
 
     public function index()
     {
-        $all_accommodations = $this->accommodation->latest()->get();
+        // $user = Auth::user();
+        $all_accommodations = $this->accommodation->where('user_id', Auth::user()->id)->latest()->paginate(3);
+
+        // return $all_accommodations;
 
         return view('acm_index_host')->with('all_accommodations', $all_accommodations);
+
     }
 }

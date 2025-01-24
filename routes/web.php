@@ -15,6 +15,8 @@ use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
 
 
+
+
 Route::get('/', function () {
     return view('home');
 });
@@ -23,73 +25,63 @@ Auth::routes();
 
 
 
-Route::group(['middleware' => 'auth'], function() {
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+Route::group(['middleware' => 'auth'], function () {
 
-Route::get('/profile',function(){
-    return view('guest_profile');
-});
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-// Route::get('/host/res',function(){
-//     return view('hostRes');
-// });
+    Route::get('/profile', function () {
+        return view('guest_profile');
+    });
 
-Route::get('/user/res',function(){
-    return view('userRes');
-});
+    Route::get('/user/res', function () {
+        return view('userRes');
+    });
 
+    Route::get('/booking-form', function () {
+        return view('bookingForm');
+    });
 
-Route::get('/booking-form', function(){
-    return view('bookingForm');
-});
+    Route::get('/search', function () {
+        return view('search');
+    });
 
-Route::get('/search', function(){
-    return view('search');
-});
+    Route::get('/acmindex', [AccommodationController::class, 'index'])->name('acm_index_host');
 
-Route::get('/acmindex', [AccommodationController::class, 'index'])->name('acm_index_host');
+    //Araki route
+    Route::get('/accommodation/pictures', function () {
+        return view('accommodation.pictures');
+    });
+    Route::get('/messages', function () {
+        return view('messages.index');
+    });
+    Route::get('/messages/show', function () {
+        return view('messages.show');
+    });
+    Route::get('/accommodation/hashtag', function () {
+        return view('accommodation.hashtag');
+    });
+    //Araki route end
 
-//Araki route
-Route::get('/accommodation/pictures', function () {
-    return view('accommodation.pictures');
-});
-Route::get('/messages', function () {
-    return view('messages.index');
-});
-Route::get('/messages/show', function () {
-    return view('messages.show');
-});
-Route::get('/accommodation/hashtag', function () {
-    return view('accommodation.hashtag');
-});
-//Araki route end
+    // host routes
+    Route::group(['middleware' => 'host'], function () {
+        Route::get('/host/res', function () {
+            return view('hostRes');
+        });
+    });
 
+    // admin routes
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
+        Route::get('/users', [AdminUserController::class, 'index'])->name('users');
+        Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
+        Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
+    });
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
-    Route::get('/users', [AdminUserController::class, 'index'])->name('users');
-    Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
-    Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
-});
+    Route::get('/coupon', function () {
+        return view('coupon');
+    });
 
-
-Route::get('/coupon', function(){
-    return view('coupon');
-});
-
-Route::get('/cansel', function () {
-    return view('bookingcansel');
-});
-
-Route::group(['middleware' => 'host'], function(){
-    Route::get('/host/res',function(){
-        return view('hostRes');
+    Route::get('/cansel', function () {
+        return view('bookingcansel');
     });
 });
-
-});
-
-
-
-
-
