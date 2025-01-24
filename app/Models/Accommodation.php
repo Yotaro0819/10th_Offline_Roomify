@@ -11,7 +11,13 @@ class Accommodation extends Model
         return $this->belongToMany(Category::class, 'category_accommodation');
     }
 
-    public function categoryAccommodation() {
-        return $this->hasMany(categoryAccommodation::class);
+    public function categoryAccommodation()
+    {
+        return $this->hasMany(CategoryAccommodation::class);
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
     }
 }
