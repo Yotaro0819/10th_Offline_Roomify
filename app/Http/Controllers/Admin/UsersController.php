@@ -29,14 +29,14 @@ class UsersController extends Controller
         return view('admin.users.index')->with('all_users', $all_users);
     }
 
-    public function search(Request $request)
-    {
-        $users = $this->user->where('name', 'like', '%' . $request->search  . '%')->get()->except(Auth::user()->id);
+    // public function search(Request $request)
+    // {
+    //     $users = $this->user->where('name', 'like', '%' . $request->search  . '%')->get()->except(Auth::user()->id);
 
-        return view('admin.users.search')
-                ->with('users', $users)
-                ->with('search', $request->search);
-    }
+    //     return view('admin.users.search')
+    //             ->with('users', $users)
+    //             ->with('search', $request->search);
+    // }
 
 
 }
