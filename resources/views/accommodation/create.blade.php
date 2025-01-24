@@ -27,7 +27,7 @@ html,body
 
 <div class="card w-50 mx-auto box-shadow bg-white">
     <h2 class="mt-4">Register Accommodation!</h2>
-    <form action="{{ route('accommodation.store')}}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('host.accommodation.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label text-start w-100 ms-4 fw-bold">Accommodation Name</label>

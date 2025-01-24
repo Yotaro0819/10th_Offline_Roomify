@@ -62,7 +62,7 @@ Route::get('/accommodation/hashtag', function () {
 //Araki route end
 
 // host routes
-Route::group(['prefix' => 'host', 'as' => 'host', 'middleware' => 'host'], function(){
+Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
     Route::get('/res',function(){
         return view('hostRes');
     });
