@@ -68,7 +68,7 @@ class User extends Authenticatable
     }
 
     public function accommodations(){
-        return $this->hasMAny(accommodation::class);
+        return $this->hasMany(Accommodation::class)->latest();
     }
 
 

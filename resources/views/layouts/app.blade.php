@@ -120,7 +120,7 @@ a
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @if(Auth::user()->role == "2")
-                                        <a class="dropdown-item" href="{{ url('/acmindex') }}">
+                                        <a class="dropdown-item" href="{{ route('acm_index_host') }}">
                                             Accommodation index
                                         </a>
                                     @endif

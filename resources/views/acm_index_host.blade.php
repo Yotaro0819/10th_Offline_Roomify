@@ -23,37 +23,42 @@
 @section('content')
 <h1 class="h2 mx-5">Accommodation Index</h1>
 @if($user->accommodation->isNotEmpty())
-@foreach($user->accommodations as $accommodation)
-    <div class="card mx-auto mb-5 w-75" id="acm-booking">
-        <div class="row">
-            <div class="col my-3">
-                <img src="#" alt="#">
-            </div>
-
-            <div class="col text-start">
-                <h2 class="h3 my-2 fw-bold" style="color:#004aad">{{ $accommodation->name }}</h2>
-
-                <div>
-                    <p><span><i class="fa-solid fa-magnifying-glass me-3"></i></span>Lorem, ipsum dolor sit amet consectetur.</p>
+    @foreach($all_accommodations as $accommodation)
+        <div class="card mx-auto mb-5 w-75" id="acm-booking">
+            <div class="row">
+                <div class="col my-3">
+                    <img src="#" alt="#">
                 </div>
 
-                <div>
-                    <p><span><i class="fa-solid fa-location-dot me-3"></i></span>1-412-342, Lorem ipsum dolor sit amet c</p>
+                <div class="col text-start">
+                    <h2 class="h3 my-2 fw-bold" style="color:#004aad">{{ $accommodation->name }}</h2>
+
+                    <div>
+                        <p><span><i class="fa-solid fa-magnifying-glass me-3"></i></span>{{ $accommodation->description }}</p>
+                    </div>
+
+                    <div>
+                        <p><span><i class="fa-solid fa-location-dot me-3"></i></span>{{ $accommodation->address }}</p>
+                    </div>
+
+                    <div>
+                        <p class="fw-bold"><span><i class="fa-solid fa-money-bill me-3"></i></span>{{ $accommodation->price }}</p>
+                    </div>
+
+                    <div>
+                        <p class="fw-bold"><span><i class="fa-solid fa-users"></i></span>{{ $accommodation->capacity }}</p>
+                    </div>
                 </div>
 
-                <div>
-                    <p class="fw-bold"><span><i class="fa-solid fa-money-bill me-3"></i></span>123,421 per night</p>
+                <div class="col my-auto">
+                    <button class="btn text-white" style="background-color: #A5A5A5"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                    <button class="btn text-white" style="background-color: #dcbf7d"><i class="fa-solid fa-pen"></i> Edit</button>
                 </div>
-            </div>
-
-            <div class="col my-auto">
-                <button class="btn text-white" style="background-color: #A5A5A5"><i class="fa-solid fa-trash-can"></i> Delete</button>
-                <button class="btn text-white" style="background-color: #dcbf7d"><i class="fa-solid fa-pen"></i> Edit</button>
             </div>
         </div>
-    </div>
+    @endforeach
 @else
-<h3 class="text-muted text-center"> No Accomodations Yet</h3>
+    <h3 class="text-muted text-center"> No Accomodations Yet</h3>
 @endif
 
 @endsection

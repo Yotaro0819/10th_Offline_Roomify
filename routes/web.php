@@ -39,6 +39,7 @@ Route::get('/user/res',function(){
     return view('userRes');
 });
 
+
 Route::get('/booking-form', function(){
     return view('bookingForm');
 });
@@ -47,9 +48,7 @@ Route::get('/search', function(){
     return view('search');
 });
 
-Route::get('/acmindex', function(){
-    return view('acm_index_host');
-});
+Route::get('/acmindex', [AccommodationController::class, 'index'])->name('acm_index_host');
 
 //Araki route
 Route::get('/accommodation/pictures', function () {
