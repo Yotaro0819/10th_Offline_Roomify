@@ -58,6 +58,12 @@ Route::get('/messages/show', function () {
 Route::get('/accommodation/hashtag', function () {
     return view('accommodation.hashtag');
 });
+Route::get('/accommodation/create', [AccommodationController::class, 'create'])->name('create');
+
+Route::post('/accommodation/store', [AccommodationController::class, 'store'])->name('accommodation.store');
+
+Route::get('accommodation/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
+
 //Araki route end
 
 // host routes
@@ -65,6 +71,7 @@ Route::group(['prefix' => 'host', 'as' => 'host', 'middleware' => 'host'], funct
     Route::get('/res',function(){
         return view('hostRes');
     });
+
 });
 
 // admin routes

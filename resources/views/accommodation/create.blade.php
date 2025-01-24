@@ -5,8 +5,8 @@
 <style>
 html,body
     {
-        overflow: hidden;
         height: 100vh;
+        overflow-x:hidden;
     }
 
     .bg-gold {
@@ -27,21 +27,32 @@ html,body
 
 <div class="card w-50 mx-auto box-shadow bg-white">
     <h2 class="mt-4">Register Accommodation!</h2>
-    <form action="#" method="post" enctype="multipart/form-data">
+    <form action="{{ route('accommodation.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label text-start w-100 ms-4 fw-bold">Accommodation Name</label>
-            <input type="text" class="form-control mx-auto" id="name" placeholder="Accommodation Name" style="width: 95%; border-radius: 10px;">
+            <input type="text" class="form-control mx-auto" id="name" name="name" placeholder="Accommodation Name" style="width: 95%; border-radius: 10px;">
         </div>
 
         <div class="mb-3">
             <label for="address" class="form-label text-start w-100 ms-4 fw-bold">Accommodation Address</label>
-            <input type="text" class="form-control mx-auto" id="address" placeholder="Accommodation Address" style="width: 95%; border-radius: 10px;">
+            <input type="text" class="form-control mx-auto" id="address" name="address" placeholder="Accommodation Address" style="width: 95%; border-radius: 10px;" onfocus="initAutocomplete()">
         </div>
 
         <div class="mb-3">
+            <label for="price" class="form-label text-start w-100 ms-4 fw-bold">Price</label>
+            <input type="number" class="form-control mx-auto" id="price" name="price" placeholder="Price" style="width: 95%; border-radius: 10px;">
+        </div>
+
+        <div class="mb-3">
+            <label for="capacity" class="form-label text-start w-100 ms-4 fw-bold">Capacity</label>
+            <input type="number" class="form-control mx-auto" id="capacity" name="capacity" placeholder="Capacity" style="width: 95%; border-radius: 10px;">
+        </div>
+
+
+        <div class="mb-3">
             <label for="city" class="form-label text-start w-100 ms-4 fw-bold">City Name</label>
-            <input type="text" class="form-control mx-auto" id="city" placeholder="City Name" style="width: 95%; border-radius: 10px;">
+            <input type="text" class="form-control mx-auto" id="city" name="city"  placeholder="City Name" style="width: 95%; border-radius: 10px;">
         </div>
 
         <div class="mb-3">
@@ -54,12 +65,12 @@ html,body
 
         <div class="mb-3">
             <label for="description" class="form-label text-start w-100 ms-4 fw-bold">Description</label>
-            <input type="text" class="form-control mx-auto" id="description" placeholder="Description (#hashtag)" style="width: 95%; border-radius: 10px;">
+            <input type="text" class="form-control mx-auto" id="description" name="description" placeholder="Description (#hashtag)" style="width: 95%; border-radius: 10px;">
         </div>
 
 
 
-        <div class="form-check form-check-inline d-flex justify-content-center align-items-center w-50 mx-auto">
+        {{-- <div class="form-check form-check-inline d-flex justify-content-center align-items-center w-50 mx-auto">
             <input type="checkbox" name="category[]" id="" value="" class="form-check-input">
             <label for="category" class="form-check-label me-5">Category</label>
             <input type="checkbox" name="category[]" id="" value="" class="form-check-input">
@@ -70,7 +81,7 @@ html,body
             <label for="category" class="form-check-label me-5">Category</label>
             <input type="checkbox" name="category[]" id="" value="" class="form-check-input">
             <label for="category" class="form-check-label me-5">Category</label>
-        </div>
+        </div> --}}
 
 
         <button type="submit" class="bg-gold rounded border border-black text-white w-50 fs-2 my-4">Register</button>
@@ -103,30 +114,24 @@ html,body
             // フォームに英語表記の住所を設定
             document.getElementById('address').value = formattedAddress;
 
-            // 市区町村と町名を設定
+            // 市区町村を設定
             let city = '';
-            let street = '';
             addressComponents.forEach(component => {
                 const types = component.types;
 
                 if (types.includes('locality')) {
                     city = component.long_name; // 市区町村（町名を含む場合あり）
-                } else if (types.includes('route')) {
-                    street = component.long_name; // 通り名
-                } else if (types.includes('street_number')) {
-                    street += ' ' + component.long_name; // 番地を追加
                 } else if (types.includes('neighborhood')) {
                     city = component.long_name; // 町名（場合によってはここに入ることも）
                 }
             });
 
-            // city と street を対応する入力フィールドに設定
+            // city を対応する入力フィールドに設定
             document.getElementById('city').value = city;
-            document.getElementById('street').value = street;
         });
     }
-
 </script>
+
 
 <script>
     const apiKey = "{{ config('services.google_maps.api_key') }}";
