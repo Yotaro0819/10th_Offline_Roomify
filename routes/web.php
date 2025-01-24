@@ -49,9 +49,9 @@ Route::get('/acmindex', function(){
 Route::get('/accommodation/pictures', function () {
     return view('accommodation.pictures');
 });
-Route::get('/messages', function () {
-    return view('messages.index');
-});
+
+Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+
 Route::get('/messages/show', function () {
     return view('messages.show');
 });
@@ -62,9 +62,7 @@ Route::get('/accommodation/hashtag', function () {
 
 // host routes
 Route::group(['middleware' => 'host'], function(){
-    Route::get('/host/res',function(){
-        return view('hostRes');
-    });
+    Route::get('/res', [BookingController::class, 'res'])->name('res');
 });
 
 // admin routes

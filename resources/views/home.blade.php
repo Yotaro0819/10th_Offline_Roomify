@@ -274,14 +274,14 @@ footer .right{
             </h2>
             <br>
             <p>
-                Turn your Tokyo trip into a personal story.Unique stays,<br>
+                Turn your Tokyo trip into a personal story Unique stays,<br>
                 unforgettable moments, and memorises to last a lifetime.
             </p>
             <br>
             <div class="card">
                 <h2>FIND</h2>
                 
-                <form action="" class="search-form">
+                <form action="#" class="search-form">
                     <div class="form-container">
                         <div class="form-group">
                             <label for="location" class="form-label">Location</label>
@@ -320,7 +320,7 @@ footer .right{
                 <br>
                 <p>Earn extra just by renting your propety...</p>
                 <br>
-                <a href="#" class="btn">Become A Host</a>
+                <a href="{{ route('messages.index') }}" class="btn">Become A Host</a>
             </div>
             <div class="col-6">
                 <img src="" alt="">

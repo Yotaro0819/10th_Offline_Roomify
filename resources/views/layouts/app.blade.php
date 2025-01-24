@@ -120,6 +120,9 @@ a
                                         <a class="dropdown-item" href="{{ url('/acmindex') }}">
                                             Accommodation index
                                         </a>
+                                        <a class="dropdown-item" href="{{ route('res') }}">
+                                            Reservation Status
+                                        </a>
                                     @endif
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -132,6 +135,7 @@ a
                                     </form>
 
                                 </div>
+
                             </li>
                         @endguest
                     </ul>
