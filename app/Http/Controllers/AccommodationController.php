@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Accommodation;
+use App\Models\Category;
 use App\Models\Hashtag;
 use App\Models\Photo;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,9 @@ class AccommodationController extends Controller
 
     public function create()
     {
-        return view('accommodation.create');
+
+        $all_categories = Category::all();
+        return view('accommodation.create')->with('all_categories', $all_categories);
     }
 
     public function store(Request $request)

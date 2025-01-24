@@ -70,8 +70,15 @@ html,body
 
 
 
-        {{-- <div class="form-check form-check-inline d-flex justify-content-center align-items-center w-50 mx-auto">
-            <input type="checkbox" name="category[]" id="" value="" class="form-check-input">
+        <div class="form-check form-check-inline d-flex justify-content-center align-items-center w-50 mx-auto">
+
+            @foreach ($all_categories as $category)
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="category[]" id="{{ $category->category_name }}" value="{{ $category->id }}" class="form-check-input">
+                <label for="{{ $category->name }}" class="form-check-label">{{ $category->category_name }}</label>
+            </div>
+            @endforeach
+            {{-- <input type="checkbox" name="category[]" id="" value="" class="form-check-input">
             <label for="category" class="form-check-label me-5">Category</label>
             <input type="checkbox" name="category[]" id="" value="" class="form-check-input">
             <label for="category" class="form-check-label me-5">Category</label>
@@ -80,8 +87,10 @@ html,body
             <input type="checkbox" name="category[]" id="" value="" class="form-check-input">
             <label for="category" class="form-check-label me-5">Category</label>
             <input type="checkbox" name="category[]" id="" value="" class="form-check-input">
-            <label for="category" class="form-check-label me-5">Category</label>
-        </div> --}}
+            <label for="category" class="form-check-label me-5">Category</label> --}}
+        </div>
+
+
 
 
         <button type="submit" class="bg-gold rounded border border-black text-white w-50 fs-2 my-4">Register</button>
