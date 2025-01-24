@@ -17,7 +17,7 @@ class AccommodationSeeder extends Seeder
         $accommodations = [
         [
             'name'          => 'Tokyo Tower',
-            'user_id'       => 1,
+            'user_id'       => 3,
             'address'       => 'Tokyo Tower, 4-chōme-2-8 Shibakōen, Minato City, Tokyo 105-0011, Japan',
             'price'         => 10000,
             'city'          => 'Minato City',
@@ -30,7 +30,7 @@ class AccommodationSeeder extends Seeder
         ],
         [
             'name'          => 'Tokyo Sky Tree',
-            'user_id'       => 2,
+            'user_id'       => 3,
             'address'       => '1-chōme-1-2 Oshiage, Sumida City, Tokyo 131-0045, Japan',
             'price'         => 8000,
             'city'          => 'Sumida City',
@@ -43,7 +43,7 @@ class AccommodationSeeder extends Seeder
         ],
         [
             'name'          => 'Sinjuku Gyoen',
-            'user_id'       => 2,
+            'user_id'       => 3,
             'address'       => 'Japan, 〒160-0022 Tokyo, Shinjuku City, Shinjuku, 1-chōme−2−１ SHINJUKU GYOEN MAE MANSION',
             'price'         => 12000,
             'city'          => 'Shinjuku City',

@@ -69,6 +69,7 @@ a
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+
 </style>
 
 <body>
@@ -110,10 +111,7 @@ a
                                 <i class="fa-solid fa-circle-user nav-icon"></i>
                                 <span class="ms-3">{{ Auth::user()->name }}</span>
                                 <a class="ms-3"id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-
                                     <i class="fa-solid fa-bars nav-icon"></i>
-
-
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @if(Auth::user()->role == "2")
@@ -122,7 +120,19 @@ a
                                         </a>
                                     @endif
 
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    @if(Auth::user()->role == "0")
+                                        <a class="dropdown-item px-3 py-3" href="{{ route('admin.users') }}">
+                                            users
+                                        </a>
+                                        <a class="dropdown-item px-3 py-3" href="{{ route('admin.accommodation') }}">
+                                            accommodation
+                                        </a>
+                                        <a class="dropdown-item px-3 py-3" href="{{ route('admin.categories') }}">
+                                            categories
+                                        </a>
+                                    @endif
+
+                                    <a class="dropdown-item px-3 py-3" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

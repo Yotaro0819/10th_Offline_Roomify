@@ -61,8 +61,8 @@ Route::get('/accommodation/hashtag', function () {
 //Araki route end
 
 // host routes
-Route::group(['middleware' => 'host'], function(){
-    Route::get('/host/res',function(){
+Route::group(['prefix' => 'host', 'as' => 'host', 'middleware' => 'host'], function(){
+    Route::get('/res',function(){
         return view('hostRes');
     });
 });
@@ -70,6 +70,7 @@ Route::group(['middleware' => 'host'], function(){
 // admin routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
     Route::get('/users', [AdminUserController::class, 'index'])->name('users');
+    Route::get('/people', [AdminUserController::class, 'search'])->name('search');
     Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
     Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
 });
