@@ -21,19 +21,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
-
 Route::group(['middleware' => 'auth'], function() {
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
 Route::get('/profile',function(){
     return view('guest_profile');
 });
-
-// Route::get('/host/res',function(){
-//     return view('hostRes');
-// });
 
 Route::get('/user/res',function(){
     return view('userRes');
@@ -66,13 +60,19 @@ Route::get('/accommodation/hashtag', function () {
 });
 //Araki route end
 
+// host routes
+Route::group(['middleware' => 'host'], function(){
+    Route::get('/host/res',function(){
+        return view('hostRes');
+    });
+});
 
+// admin routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
     Route::get('/users', [AdminUserController::class, 'index'])->name('users');
     Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
     Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
 });
-
 
 Route::get('/coupon', function(){
     return view('coupon');
@@ -80,12 +80,6 @@ Route::get('/coupon', function(){
 
 Route::get('/cansel', function () {
     return view('bookingcansel');
-});
-
-Route::group(['middleware' => 'host'], function(){
-    Route::get('/host/res',function(){
-        return view('hostRes');
-    });
 });
 
 });
