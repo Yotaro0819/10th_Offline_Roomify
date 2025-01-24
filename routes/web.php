@@ -85,3 +85,32 @@ Route::group(['middleware' => 'auth'], function () {
         return view('bookingcansel');
     });
 });
+// host routes
+Route::group(['prefix' => 'host', 'as' => 'host', 'middleware' => 'host'], function(){
+    Route::get('/res',function(){
+        return view('hostRes');
+    });
+});
+
+// admin routes
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
+    Route::get('/users', [AdminUserController::class, 'index'])->name('users');
+    Route::get('/people', [AdminUserController::class, 'search'])->name('search');
+    Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
+    Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
+});
+
+Route::get('/coupon', function(){
+    return view('coupon');
+});
+
+Route::get('/cansel', function () {
+    return view('bookingcansel');
+});
+
+});
+
+
+
+
+
