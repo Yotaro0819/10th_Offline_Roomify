@@ -24,7 +24,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        $all_users = $this->user->latest()->paginate(5);
+        $all_users = $this->user->withTrashed()->latest()->paginate(5);
 
         return view('admin.users.index')->with('all_users', $all_users);
     }

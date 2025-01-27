@@ -15,17 +15,11 @@ use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
 
 
-
-
 Route::get('/', function () {
     return view('home');
 });
 
 Auth::routes();
-
-
-Route::get('/accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
-
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -63,29 +57,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
     //Araki route end
 
-    // host routes
-    Route::group(['middleware' => 'host'], function () {
-        Route::get('/host/res', function () {
-            return view('hostRes');
-        });
-    });
-
-    //  admin routes
-    // Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
-    //     Route::get('/users', [AdminUserController::class, 'index'])->name('users');
-    //     Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
-    //     Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
-    // });
-
-    Route::get('/coupon', function () {
-        return view('coupon');
-    });
-
-    Route::get('/cansel', function () {
-        return view('bookingcansel');
-    });
-});
-
 // host routes
 Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
     Route::get('/res',function(){
@@ -111,6 +82,8 @@ Route::get('/coupon', function(){
 
 Route::get('/cansel', function () {
     return view('bookingcansel');
+});
+
 });
 
 

@@ -141,7 +141,7 @@
 
                                     @if($user->trashed())
                                         <td class="">
-                                            <i class="fa-solid fa-circle text-success"></i> &nbsp; Deactivate
+                                            <i class="fa-solid fa-circle text-danger"></i> &nbsp; Deactivate
                                         </td>
                                         <td class="text-center">
                                             <button class="button-activate" data-bs-toggle="modal" data-bs-target="#activate-user-{{ $user->id }}">Activate</button>
@@ -155,7 +155,7 @@
                                         </td>
                                         {{-- include a model herre --}}
                                         @include('admin.users.modal.status')
-                                        @endif
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>
