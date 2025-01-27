@@ -112,11 +112,11 @@
                         <h3 class="text-center">
                             Users list
                         </h3>
-                        <!-- <div>
-                            <form action="#" class="w-25 mb-3">
+                        <div>
+                            <form action="{{ route('admin.search') }}" class="w-25 mb-3">
                                 <input type="search" name="search" class="form-control" placeholder="Search...." style="border: 1px solid #ccc;">
                             </form>
-                        </div> -->
+                        </div>
                         <table class="table">
                             <thead>
                                 <tr>
