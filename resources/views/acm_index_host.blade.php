@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="col my-auto">
-                    <button class="btn text-white" style="background-color: #A5A5A5"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                    <button class="btn text-white" style="background-color: #A5A5A5"><i class="fa-solid fa-trash-can" data-bs-toggle="modal" data-bs-target="#delete-acm-{{ $accommodation->id }}"></i> Delete</button>
                     <button class="btn text-white" style="background-color: #dcbf7d"><i class="fa-solid fa-pen"></i> Edit</button>
                 </div>
             </div>

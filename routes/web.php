@@ -91,6 +91,7 @@ Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], func
         return view('hostRes');
     });
     Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
+    Route::delete('/{id}/destroy,', [AccommodationController::class, 'destroy'])->name('destroy');
 
 });
 
