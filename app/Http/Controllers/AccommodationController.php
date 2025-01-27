@@ -15,13 +15,16 @@ class AccommodationController extends Controller
 {
     private $accommodation;
     private $category;
+    private $hashtag;
 
 
 
-    public function __construct(Accommodation $accommodation, Category $category)
+    public function __construct(Accommodation $accommodation, Category $category, Hashtag $hashtag)
     {
         $this->accommodation = $accommodation;
         $this->category      = $category;
+        $this->hashtag       = $hashtag;
+        
     }
 
 
@@ -142,6 +145,7 @@ class AccommodationController extends Controller
         }
 
         $all_categories = $this->category->all();
+        $all_hashtags = $this->hashtag->all();
 
         $selected_categories = [];
         foreach($accommodation->categoryAccommodation as $category_accommodation) {
@@ -151,7 +155,8 @@ class AccommodationController extends Controller
         return view('accommodation.edit')
                 ->with('accommodation', $accommodation)
                 ->with('all_categories', $all_categories)
-                ->with('selected_categories', $selected_categories);
+                ->with('selected_categories', $selected_categories)
+                ->with('all_hashtags', $all_hashtags);
 
     }
 
