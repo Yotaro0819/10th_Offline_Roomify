@@ -24,6 +24,7 @@ Route::get('/', function () {
 Auth::routes();
 
 
+Route::get('/accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
 
 
 Route::group(['middleware' => 'auth'], function () {
