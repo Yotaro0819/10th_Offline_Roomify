@@ -28,12 +28,22 @@ class Accommodation extends Model
 
     public function categories()
     {
-        return $this->belongToMany(Category::class, 'category_accommodation');
+        return $this->belongsToMany(Category::class, 'category_accommodation');
+    }
+
+    public function hashtags()
+    {
+        return $this->belongsToMany(Hashtag::class, 'hashtag_accommodation');
     }
 
     public function categoryAccommodation()
     {
         return $this->hasMany(CategoryAccommodation::class);
+    }
+
+    public function hashtagAccommodation()
+    {
+        return $this->hasMany(HashtagAccommodation::class);
     }
 
     public function photos()

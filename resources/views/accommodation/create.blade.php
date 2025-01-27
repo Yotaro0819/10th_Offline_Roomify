@@ -5,7 +5,7 @@
 <style>
 html,body
     {
-        height: 100vh;
+        height: auto;
         overflow-x:hidden;
     }
 
@@ -16,12 +16,7 @@ html,body
     .w-45 {
          width: 45%;
     }
-    .lalala {
-    width: 100px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-}
+
 </style>
 
 @section('content')
@@ -39,52 +34,76 @@ html,body
             <label for="name" class="form-label text-start w-100 ms-4 fw-bold">Accommodation Name</label>
             <input type="text" class="form-control mx-auto" id="name" name="name" placeholder="Accommodation Name" style="width: 95%; border-radius: 10px;">
         </div>
+        @error('name')
+        <div class="text-danger small">{{ $message }}</div>
+        @enderror
 
         <div class="mb-3">
             <label for="address" class="form-label text-start w-100 ms-4 fw-bold">Accommodation Address</label>
             <input type="text" class="form-control mx-auto" id="address" name="address" placeholder="Accommodation Address" style="width: 95%; border-radius: 10px;" onfocus="initAutocomplete()">
         </div>
+        @error('address')
+        <div class="text-danger small">{{ $message }}</div>
+        @enderror
 
         <div class="mb-3">
             <label for="price" class="form-label text-start w-100 ms-4 fw-bold">Price</label>
             <input type="number" class="form-control mx-auto" id="price" name="price" placeholder="Price" style="width: 95%; border-radius: 10px;">
         </div>
+        @error('price')
+        <div class="text-danger small">{{ $message }}</div>
+        @enderror
 
         <div class="mb-3">
             <label for="capacity" class="form-label text-start w-100 ms-4 fw-bold">Capacity</label>
             <input type="number" class="form-control mx-auto" id="capacity" name="capacity" placeholder="Capacity" style="width: 95%; border-radius: 10px;">
         </div>
+        @error('capacity')
+        <div class="text-danger small">{{ $message }}</div>
+        @enderror
 
 
         <div class="mb-3">
             <label for="city" class="form-label text-start w-100 ms-4 fw-bold">City Name</label>
             <input type="text" class="form-control mx-auto" id="city" name="city"  placeholder="City Name" style="width: 95%; border-radius: 10px;">
         </div>
+        @error('city')
+        <div class="text-danger small">{{ $message }}</div>
+        @enderror
 
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <label for="photos" class="form-label text-start w-100 ms-4 fw-bold">Photo</label>
             <input type="file" name="photos[]" class="form-control mx-auto" id="photos" style="width: 95%; border-radius: 10px;" multiple>
             <p class="m-0 ms-4 text-start">You can display your portrait or farm picture in our market.</p>
             <p class="m-0 ms-4 text-start">Acceptable formats are jpeg, jpg, png, and gif only.</p>
             <p class="m-0 ms-4 text-start">The file size is 1048Kb.</p>
         </div>
+        @error('photos')
+        <div class="text-danger small">{{ $message }}</div>
+        @enderror --}}
 
         <div class="mb-3">
             <label for="description" class="form-label text-start w-100 ms-4 fw-bold">Description</label>
             <input type="text" class="form-control mx-auto" id="description" name="description" placeholder="Description (#hashtag)" style="width: 95%; border-radius: 10px;">
         </div>
+        @error('description')
+        <div class="text-danger small">{{ $message }}</div>
+        @enderror
 
 
 
-        <div class="form-check form-check-inline d-flex justify-content-center align-items-center w-50 mx-auto">
+        <div class="form-check form-check-inline d-flex justify-content-center align-items-center flex-wrap w-50 mx-auto">
 
             @foreach ($all_categories as $category)
             <div class="form-check form-check-inline">
                 <input type="checkbox" name="category[]" id="{{ $category->category_name }}" value="{{ $category->id }}" class="form-check-input">
-                <label for="{{ $category->name }}" class="form-check-label lalala">{{ $category->category_name }}</label>
+                <label for="{{ $category->category_name }}" class="form-check-label">{{ $category->category_name }}</label>
             </div>
             @endforeach
 
+            @error('category')
+            <div class="text-danger small">{{ $message }}</div>
+            @enderror
         </div>
 
 

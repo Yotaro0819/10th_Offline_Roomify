@@ -8,18 +8,22 @@ use App\Models\Accommodation;
 use App\Models\Category;
 use App\Models\Hashtag;
 use App\Models\Photo;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class AccommodationController extends Controller
 {
     private $accommodation;
+    private $category;
 
 
 
-    public function __construct(Accommodation $accommodation)
+    public function __construct(Accommodation $accommodation, Category $category)
     {
         $this->accommodation = $accommodation;
+        $this->category      = $category;
     }
+
 
 
     public function create()
@@ -40,6 +44,7 @@ class AccommodationController extends Controller
             'description' => 'required|string',
             'photos' => 'nullable|array',
             'photos.*' => 'image|mimes:jpeg,jpg,png,gif|max:1048',
+
         ]);
 
         // リクエストから宿泊施設名と住所を取得
@@ -51,6 +56,8 @@ class AccommodationController extends Controller
         $capacity = $validated['capacity'];
         $description = $validated['description'];
         $apiKey = config('services.google_maps.api_key');
+
+
 
         try {
             // Google Geocoding APIを使用して緯度と経度、住所コンポーネントを取得
@@ -78,31 +85,49 @@ class AccommodationController extends Controller
                     'longitude' => $longitude,
                 ]);
 
-                // if(!empty($validated['description'])) {
-                //     preg_match_all('/#(\w+)/', $validated['description'], $matches);
-                //     $tags = $matches[1];
 
-                //     $tagIds = [];
-                //     foreach($tags as $tagName) {
-                //         $tag = Tag::firstOrCreate(['name' => $tagName]);
-                //         $tagIds[] = $tag->id;
-                //     }
+                if(!empty($validated['description'])) {
+                    preg_match_all('/#(\w+)/', $validated['description'], $matches);
+                    $tags = $matches[1];
 
-                //     $accommodation->tags()->attach($tagIds);
-                // }
+                    $tagIds = [];
+                    foreach($tags as $tagName) {
+                        // 'name' カラムを使ってタグを作成または取得
+                        $tag = Hashtag::firstOrCreate(['name' => $tagName]);
+                        $tagIds[] = $tag->name; // ここでは 'id' ではなく 'name' を使う
+                    }
+
+                    $accommodation->hashtags()->attach($tagIds);
+                }
 
                 if ($request->hasFile('photos')) {
                     foreach ($request->file('photos') as $photo) {
                         // 各写真を保存
-                        $path = $photo->store('photos', 'public'); // publicディスクに保存
+                        $path = $photo->store('photos', 'public');
 
                         // Photoモデルで保存
                         Photo::create([
-                            'accommodation_id' => $accommodation->id, // Accommodationとの関連
-                            'image' => $path, // 保存先パス
+                            'accommodation_id' => $accommodation->id,
+                            'image' => $path,
                         ]);
                     }
                 }
+
+                $category_accommodation = [];
+                foreach ($request->category as $category_id) {
+                    $category_accommodation[] = [
+                        'category_id' => $category_id,
+                        'accommodation_id' => $accommodation->id
+                    ];
+                }
+
+                DB::table('category_accommodation')->insert($category_accommodation);
+
+
+
+
+
+
 
                 return redirect()->route('accommodation.show', $accommodation->id)
                     ->with('success', '宿泊施設が登録されました');
@@ -112,6 +137,8 @@ class AccommodationController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => 'エラーが発生しました。', 'message' => $e->getMessage()], 500);
         }
+
+
     }
 
 
@@ -119,15 +146,17 @@ class AccommodationController extends Controller
     {
         $accommodation = Accommodation::findOrFail($id);
         return view('accommodation.show', compact('accommodation'));
-    }
-    public function index()
-    {
-        // $user = Auth::user();
-        $all_accommodations = $this->accommodation->where('user_id', Auth::user()->id)->latest()->paginate(3);
 
-        // return $all_accommodations;
+//     public function index()
+//     {
+//         // $user = Auth::user();
+//         $all_accommodations = $this->accommodation->where('user_id', Auth::user()->id)->latest()->paginate(3);
 
-        return view('acm_index_host')->with('all_accommodations', $all_accommodations);
+//         // return $all_accommodations;
 
-    }
+//         return view('acm_index_host')->with('all_accommodations', $all_accommodations);
+
+// >>>>>>> origin
+//     }
+}
 }
