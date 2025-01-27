@@ -29,6 +29,6 @@ class AccommodationController extends Controller
     {
         $this->accommodation->destroy($id);
 
-        return redirect()->route('index');
+        return redirect()->route('host.index');
     }
 }
