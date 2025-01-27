@@ -147,16 +147,18 @@ class AccommodationController extends Controller
         $accommodation = Accommodation::findOrFail($id);
         return view('accommodation.show', compact('accommodation'));
 
-//     public function index()
-//     {
-//         // $user = Auth::user();
-//         $all_accommodations = $this->accommodation->where('user_id', Auth::user()->id)->latest()->paginate(3);
+    }
 
-//         // return $all_accommodations;
+    public function index()
+    {
+        // $user = Auth::user();
+        $all_accommodations = $this->accommodation->where('user_id', Auth::user()->id)->latest()->paginate(3);
 
-//         return view('acm_index_host')->with('all_accommodations', $all_accommodations);
+        // return $all_accommodations;
 
-// >>>>>>> origin
-//     }
+        return view('acm_index_host')->with('all_accommodations', $all_accommodations);
+
+
+    }
 }
-}
+
