@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+
 
 class Accommodation extends Model
 {
@@ -13,5 +15,9 @@ class Accommodation extends Model
 
     public function categoryAccommodation() {
         return $this->hasMany(categoryAccommodation::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }
