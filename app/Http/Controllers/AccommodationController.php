@@ -157,8 +157,13 @@ class AccommodationController extends Controller
         // return $all_accommodations;
 
         return view('acm_index_host')->with('all_accommodations', $all_accommodations);
+    }
 
+    public function destroy($id)
+    {
+        $this->accommodation->destroy($id);
 
+        return redirect()->route('host.index');
     }
 }
 

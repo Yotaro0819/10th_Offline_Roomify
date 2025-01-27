@@ -89,11 +89,9 @@ Route::group(['middleware' => 'auth'], function () {
 // host routes
 Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
     Route::get('/res',function(){
-        return view('hostRes');
-    });
+        return view('hostRes');});
     Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
-    ROute::get('/accommodation/create', [AccommodationController::class, 'create'])->name('accommodation.create');
-    Route::post('/accommodation/store', [AccommodationController::class, 'store'])->name('accommodation.store');
+    Route::delete('/{id}/destroy,', [AccommodationController::class, 'destroy'])->name('destroy');
 
 });
 
@@ -113,5 +111,10 @@ Route::get('/cansel', function () {
     return view('bookingcansel');
 });
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> master
 
 
