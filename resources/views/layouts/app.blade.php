@@ -115,8 +115,8 @@ a
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @if(Auth::user()->role == "2")
-                                        <a class="dropdown-item" href="{{ url('/acmindex') }}">
-                                            Accommodation index
+                                        <a class="dropdown-item" href="{{ route('host.index') }}">
+                                            <i class="fa-solid fa-house"></i> Accommodation index
                                         </a>
                                     @endif
 
@@ -135,7 +135,7 @@ a
                                     <a class="dropdown-item px-3 py-3" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <i class="fa-solid fa-arrow-right-from-bracket"></i> {{ __('Logout') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
@@ -187,7 +187,7 @@ a
             <hr>
             <div class="row">
                 <div class="col">
-                    <small class="left">(c) 2025 @roomify | All rights raserved</small>
+                    <small class="left">(c) 2025 @roomify | All rights reserved</small>
                 </div>
                 <div class="col">
                     <small class="right">Created with love by @roomify</small>

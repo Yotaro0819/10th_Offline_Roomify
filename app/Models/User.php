@@ -66,4 +66,10 @@ class User extends Authenticatable
     public function nationality() {
         return $this->belongsTo(Nationality::class);
     }
+
+    public function accommodations(){
+        return $this->hasMany(Accommodation::class)->latest();
+    }
+
+
 }
