@@ -22,4 +22,29 @@ class BookingController extends Controller
 
         return view('hostRes')->with('all_bookings', $all_bookings);
     }
+
+    public function showBookingStatus($bookingId)
+    {
+        $booking = Booking::find($bookingId);
+
+        if (!$booking) {
+            return redirect()->back()->with('error', 'Booking not found.');
+        }
+
+        return view('hostRes', compact('booking'));
+    }
+
+    public function delete($bookingId)
+    {
+        $booking = Booking::find($bookingId);
+
+        if (!$booking) {
+            return redirect()->back()->with('error', 'Booking not found.');
+        }
+
+        $booking->status = 0;
+        $booking->save();
+
+        return redirect()->route('booking.status', $booking->id)->with('success', 'Booking canceled.');
+    }
 }

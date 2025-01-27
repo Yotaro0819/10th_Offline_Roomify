@@ -11,15 +11,13 @@ class Booking extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function showBookingStatus($bookingId)
-{
-    $booking = Booking::find($bookingId);
-
-    
-    if (!$booking) {
-        return redirect()->back()->with('error', 'Booking not found.');
+    public function accommodation()
+    {
+        return $this->belongsTo(Accommodation::class);
     }
 
-    return view('hostRes', compact('booking'));
-}
+    public function specialRequest()
+    {
+        return $this->hasOne(SpecialRequest::class);
+    }
 }

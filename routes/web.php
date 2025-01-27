@@ -89,6 +89,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
     Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
     Route::get('/reservation', [BookingController::class, 'reservation'])->name('reservation');
+    Route::get('/booking/{bookingId}/status', [BookingController::class, 'showBookingStatus'])->name('booking.status');
 });
 
 // admin routes
