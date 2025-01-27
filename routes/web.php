@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\UsersController as AdminUserController;
+use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\Admin\AccommodationController as AdminAccommodationController;
 use App\Http\Controllers\Admin\CategoriesController as AdminCategoryController;
 use App\Http\Controllers\AccommodationController;
@@ -69,12 +69,12 @@ Route::group(['middleware' => 'auth'], function () {
         });
     });
 
-    // admin routes
-    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
-        Route::get('/users', [AdminUserController::class, 'index'])->name('users');
-        Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
-        Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
-    });
+    //  admin routes
+    // Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
+    //     Route::get('/users', [AdminUserController::class, 'index'])->name('users');
+    //     Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
+    //     Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
+    // });
 
     Route::get('/coupon', function () {
         return view('coupon');
@@ -88,16 +88,16 @@ Route::group(['middleware' => 'auth'], function () {
 // host routes
 Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
     Route::get('/res',function(){
-        return view('hostRes');
-    });
+        return view('hostRes');});
     Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
+    Route::delete('/{id}/destroy,', [AccommodationController::class, 'destroy'])->name('destroy');
 
 });
 
 // admin routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
-    Route::get('/users', [AdminUserController::class, 'index'])->name('users');
-    Route::get('/people', [AdminUserController::class, 'search'])->name('search');
+    Route::get('/users', [AdminUsersController::class, 'index'])->name('users');
+    Route::get('/people', [AdminUsersController::class, 'search'])->name('search');
     Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
     Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
     Route::delete('/users/{id}/deactivate', [AdminUsersController::class, 'deactivate'])->name('users.deactivate');
