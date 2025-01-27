@@ -18,18 +18,23 @@
 
     .btn
     {
-        border-color: #dcbf7d;
+        border-color:#dcbf7d;
         color: #dcbf7d;
+        background-color: transparent;
+        align-content: left;
+        font-weight: bold;
     }
 
     .btn:hover
     {
-        color:#ffffff;
-        background-color: #dcbf7d;
+        border-color:#dcbf7d !important;
+        color: #ffffff !important;
+        background-color: #dcbf7d !important;
     }
     .input-group .input-icon
     {
         color: #004aad;
+        font-size: 30px;
     }
 
     .input-group input
@@ -39,7 +44,7 @@
     .form-control
     {
         border-radius: 15px;
-        background-color: transparent;
+        background-color: #ffffff;
         align-content: center;
         padding-left: 2.5rem;
     }
@@ -58,9 +63,9 @@
 
     a
     {
+        font-style: italic;
         color:#004aad !important;
     }
-
 </style>
 
 @section('content')
@@ -83,20 +88,22 @@
                         <div class="row mb-4">
                             <div class="col-md-6 input-group">
                                 <i class="fa-regular fa-envelope input-icon"></i>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" style="border-radius: 15px"name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" style="border-radius: 15px; color: black"name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
                             </div>
+
+                            @error('email')
+                                <p class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </p>
+                            @enderror
                         </div>
+
+
 
                         <div class="row mb-4">
                             <div class="col-md-6 input-group">
                                 <i class="fa-solid fa-lock input-icon"></i>
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" style="border-radius: 15px" name="password" required autocomplete="new-password" placeholder="Password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" style="border-radius: 15px; color: black" name="password" required autocomplete="new-password" placeholder="Password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -108,12 +115,12 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4 mx-auto w-100">
-                                <button type="submit" class="btn">
+                                <button type="submit" class="btn w-100 fw-bold" style="color:#dcbf7d; border-color: #dcbf7d">
                                     {{ __('Login') }}
                                 </button>
                             </div>
 
-                            <p class="fw-light mt-1">Not a member yet? <a href="#">Resister!</a></p>
+                            <p class="fw-light mt-1">Not a member yet? <a href="{{ route('register') }}">Resister!</a></p>
 
                         </div>
                     </form>

@@ -439,7 +439,7 @@ footer .right{
             </div>
     </section>
 </main>
-<footer>
+<!-- <footer>
     <div class="row">
         <div class="col-auto">
             <h1>ROOMIFY</h1>
@@ -477,5 +477,5 @@ footer .right{
             <small class="right">Created with love by @roomify</small>
         </div>
     </div>
-</footer>
+</footer> -->
 @endsection
