@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/search', function () {
-        return view('search');
+        return view('accommodation.search');
     });
 
 

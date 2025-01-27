@@ -25,6 +25,13 @@ class AccommodationController extends Controller
         return view('acm_index_host')->with('all_accommodations', $all_accommodations);
     }
 
+    public function search(Request $request)
+    {
+        $accommodations = $this->accommodation->where('name', 'LIKE', '%'. $request->search . '%');
+
+        return view('accommodation.search')
+        ->with('all_accommodations', $accommodations);
+    }
     public function destroy($id)
     {
         $this->accommodation->destroy($id);
