@@ -110,10 +110,29 @@
                 <div class="card-body">
                     <select class="form-select mb-3" aria-label="Default select example" style="border-radius: 15px">
                         <option selected>Select Area</option>
-                        <option value="1">North</option>
-                        <option value="2">South</option>
-                        <option value="3">East</option>
-                        <option value="4">West</option>
+                        <option value="1">Chiyoda</option>
+                        <option value="2">Chuo</option>
+                        <option value="3">Minato</option>
+                        <option value="4">Shinjuku</option>
+                        <option value="5">Bunkyo</option>
+                        <option value="6">Taito</option>
+                        <option value="7">Sumida</option>
+                        <option value="8">Koto</option>
+                        <option value="9">Shinagawa</option>
+                        <option value="10">Meguro</option>
+                        <option value="11">Ota</option>
+                        <option value="12">Setagaya</option>
+                        <option value="13">Shibuya</option>
+                        <option value="14">Nakano</option>
+                        <option value="15">Suginami</option>
+                        <option value="16">Toshima</option>
+                        <option value="17">Kita</option>
+                        <option value="18">Arakawa</option>
+                        <option value="19">Itabashi</option>
+                        <option value="20">Nerima</option>
+                        <option value="21">Adachi</option>
+                        <option value="22">Katsushika</option>
+                        <option value="23">Edogawa</option>
                     </select>
 
                     <form action="#" method="get">

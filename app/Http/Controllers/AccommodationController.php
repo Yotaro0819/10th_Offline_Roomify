@@ -161,11 +161,13 @@ class AccommodationController extends Controller
 
     public function search(Request $request)
     {
-        $accommodations = $this->accommodation->where('name', 'LIKE', '%'. $request->search . '%');
+        $accommodations = $this->accommodation->where('name', 'LIKE', '%'. $request->search . '%')
+                                              ->where('capacity', 'BETWEEN', '%'. $request->search . '%');
 
         return view('accommodation.search')
         ->with('all_accommodations', $accommodations);
     }
+
     public function destroy($id)
     {
         $this->accommodation->destroy($id);
