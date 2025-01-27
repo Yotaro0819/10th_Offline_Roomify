@@ -15,56 +15,83 @@ use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
 
 
+
+
 Route::get('/', function () {
     return view('home');
 });
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function() {
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-Route::get('/profile',function(){
-    return view('guest_profile');
-});
 
-Route::get('/user/res',function(){
-    return view('userRes');
-});
+Route::group(['middleware' => 'auth'], function () {
 
-Route::get('/booking-form', function(){
-    return view('bookingForm');
-});
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-Route::get('/search', function(){
-    return view('search');
-});
+    Route::get('/profile', function () {
+        return view('guest_profile');
+    });
 
-Route::get('/acmindex', function(){
-    return view('acm_index_host');
-});
+    Route::get('/user/res', function () {
+        return view('userRes');
+    });
 
-//Araki route
-Route::get('/accommodation/pictures', function () {
-    return view('accommodation.pictures');
+    Route::get('/booking-form', function () {
+        return view('bookingForm');
+    });
+
+    Route::get('/search', function () {
+        return view('search');
+    });
+
+
+    //Araki route
+    Route::get('/accommodation/pictures', function () {
+        return view('accommodation.pictures');
+    });
+    Route::get('/messages', function () {
+        return view('messages.index');
+    });
+    Route::get('/messages/show', function () {
+        return view('messages.show');
+    });
+    Route::get('/accommodation/hashtag', function () {
+        return view('accommodation.hashtag');
+    });
+    //Araki route end
+
+    // host routes
+    Route::group(['middleware' => 'host'], function () {
+        Route::get('/host/res', function () {
+            return view('hostRes');
+        });
+    });
+
+    // admin routes
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
+        Route::get('/users', [AdminUserController::class, 'index'])->name('users');
+        Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
+        Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
+    });
+
+    Route::get('/coupon', function () {
+        return view('coupon');
+    });
+
+    Route::get('/cansel', function () {
+        return view('bookingcansel');
+    });
 });
-Route::get('/messages', function () {
-    return view('messages.index');
-});
-Route::get('/messages/show', function () {
-    return view('messages.show');
-});
-Route::get('/accommodation/hashtag', function () {
-    return view('accommodation.hashtag');
-});
-//Araki route end
 
 // host routes
-Route::group(['prefix' => 'host', 'as' => 'host', 'middleware' => 'host'], function(){
+Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
     Route::get('/res',function(){
         return view('hostRes');
     });
+    Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
+
 });
 
 // admin routes
@@ -81,8 +108,6 @@ Route::get('/coupon', function(){
 
 Route::get('/cansel', function () {
     return view('bookingcansel');
-});
-
 });
 
 

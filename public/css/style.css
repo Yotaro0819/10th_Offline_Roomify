@@ -60,7 +60,6 @@
 a
 {
     text-decoration: none;
-    font-style: italic;
     font-weight: bold;
 }
 
@@ -111,8 +110,6 @@ position: absolute; /* 配置を自由に調整 */
     right: 0px;
     transform: translate(50%, 50%);
 }
-
-
 
 .icon-md
 {

@@ -70,6 +70,7 @@
     a
     {
         color: #dcbf7d !important;
+        font-style: italic;
     }
 
     .input-group select
