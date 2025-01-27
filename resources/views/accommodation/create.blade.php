@@ -16,6 +16,12 @@ html,body
     .w-45 {
          width: 45%;
     }
+    .lalala {
+    width: 100px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
 </style>
 
 @section('content')
@@ -75,19 +81,10 @@ html,body
             @foreach ($all_categories as $category)
             <div class="form-check form-check-inline">
                 <input type="checkbox" name="category[]" id="{{ $category->category_name }}" value="{{ $category->id }}" class="form-check-input">
-                <label for="{{ $category->name }}" class="form-check-label">{{ $category->category_name }}</label>
+                <label for="{{ $category->name }}" class="form-check-label lalala">{{ $category->category_name }}</label>
             </div>
             @endforeach
-            {{-- <input type="checkbox" name="category[]" id="" value="" class="form-check-input">
-            <label for="category" class="form-check-label me-5">Category</label>
-            <input type="checkbox" name="category[]" id="" value="" class="form-check-input">
-            <label for="category" class="form-check-label me-5">Category</label>
-            <input type="checkbox" name="category[]" id="" value="" class="form-check-input">
-            <label for="category" class="form-check-label me-5">Category</label>
-            <input type="checkbox" name="category[]" id="" value="" class="form-check-input">
-            <label for="category" class="form-check-label me-5">Category</label>
-            <input type="checkbox" name="category[]" id="" value="" class="form-check-input">
-            <label for="category" class="form-check-label me-5">Category</label> --}}
+
         </div>
 
 
