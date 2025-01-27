@@ -93,8 +93,9 @@ Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], func
     Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
     Route::delete('/{id}/destroy,', [AccommodationController::class, 'destroy'])->name('destroy');
     Route::get('/accommodation/create', [AccommodationController::class, 'create'])->name('accommodation.create');
-    ROute::post('/accommodation/store', [AccommodationController::class, 'store'])->name('accommodation.store');
-
+    Route::post('/accommodation/store', [AccommodationController::class, 'store'])->name('accommodation.store');
+    ROute::get('/accommodation/edit/{id}', [AccommodationController::class, 'edit'])->name('accommodation.edit');
+    // Route::patch('/accommodation/update', [AccommodationController::class, 'update'])->name('accommodation.update');
 });
 
 // admin routes

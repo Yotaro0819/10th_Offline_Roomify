@@ -5,9 +5,9 @@
 <style>
 html,body
     {
-        overflow: hidden;
-        height: 100vh;
-        font-family: 'Open Sans', sans-serif;
+        overflow-x:hidden;
+        height: auto;
+
     }
 
     .bg-gold {
@@ -32,17 +32,17 @@ html,body
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label text-start w-100 ms-4 fw-bold">Accommodation Name</label>
-            <input type="text" class="form-control mx-auto" id="name" placeholder="Accommodation Name" style="width: 95%; border-radius: 10px;">
+            <input type="text" class="form-control mx-auto" id="name" placeholder="Accommodation Name" style="width: 95%; border-radius: 10px;" value="{{ $accommodation->name }}">
         </div>
 
         <div class="mb-3">
             <label for="address" class="form-label text-start w-100 ms-4 fw-bold">Accommodation Name</label>
-            <input type="text" class="form-control mx-auto" id="address" placeholder="Accommodation Address" style="width: 95%; border-radius: 10px;">
+            <input type="text" class="form-control mx-auto" id="address" placeholder="Accommodation Address" style="width: 95%; border-radius: 10px;" value="{{ $accommodation->address }}">
         </div>
 
         <div class="mb-3">
             <label for="city" class="form-label text-start w-100 ms-4 fw-bold">City Name</label>
-            <input type="text" class="form-control mx-auto" id="city" placeholder="City Name" style="width: 95%; border-radius: 10px;">
+            <input type="text" class="form-control mx-auto" id="city" placeholder="City Name" style="width: 95%; border-radius: 10px;" value="{{ $accommodation->city }}">
         </div>
 
         <div class="mb-3">
