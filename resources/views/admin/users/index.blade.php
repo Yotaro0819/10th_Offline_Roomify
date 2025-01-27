@@ -112,11 +112,11 @@
                         <h3 class="text-center">
                             Users list
                         </h3>
-                        <!-- <div>
-                            <form action="#" class="w-25 mb-3">
+                        <div>
+                            <form action="{{ route('admin.search') }}" class="w-25 mb-3">
                                 <input type="search" name="search" class="form-control" placeholder="Search...." style="border: 1px solid #ccc;">
                             </form>
-                        </div> -->
+                        </div>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -129,21 +129,33 @@
                             <tbody class="align-middle">
                                 @foreach($all_users as $index => $user)
                                 <tr class="{{ $index % 2 == 0 ? 'table-warning' : '' }}">
-                                <td scope="row"> 
-                                    @if ($user->avatar)
-                                    <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="rounded-circle d-block mx-auto avatar-md">
+                                    <td scope="row"> 
+                                        @if ($user->avatar)
+                                        <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="rounded-circle d-block mx-auto avatar-md">
+                                        @else
+                                        <i class="fa-solid fa-circle-user d-block icon-md ms-2"></i>
+                                        @endif
+                                    </td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email}}</td>
+
+                                    @if($user->trashed())
+                                        <td class="">
+                                            <i class="fa-solid fa-circle text-danger"></i> &nbsp; Deactivate
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="button-activate" data-bs-toggle="modal" data-bs-target="#activate-user-{{ $user->id }}">Activate</button>
+                                        </td>
                                     @else
-                                    <i class="fa-solid fa-circle-user d-block icon-md ms-2"></i>
+                                        <td class="">
+                                            <i class="fa-solid fa-circle text-success"></i> &nbsp; Activate
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="button-inactivate" data-bs-toggle="modal" data-bs-target="#deactivate-user-{{ $user->id }}">Deactivate</button>
+                                        </td>
+                                        {{-- include a model herre --}}
+                                        @include('admin.users.modal.status')
                                     @endif
-                                </td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email}}</td>
-                                <td class="">
-                                    <i class="fa-solid fa-circle text-success"></i> &nbsp; activate
-                                </td>
-                                <td class="text-center">
-                                    <button class="button-inactivate">Inactivate</button>
-                                </td>
                                 </tr>
                                 @endforeach
                             </tbody>
