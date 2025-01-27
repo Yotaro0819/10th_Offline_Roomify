@@ -144,16 +144,18 @@
                                             <i class="fa-solid fa-circle text-success"></i> &nbsp; Deactivate
                                         </td>
                                         <td class="text-center">
-                                            <button class="button-inactivate">Activate</button>
+                                            <button class="button-activate" data-bs-toggle="modal" data-bs-target="#activate-user-{{ $user->id }}">Activate</button>
                                         </td>
                                     @else
                                         <td class="">
                                             <i class="fa-solid fa-circle text-success"></i> &nbsp; Activate
                                         </td>
                                         <td class="text-center">
-                                            <button class="button-inactivate">Deactivate</button>
+                                            <button class="button-inactivate" data-bs-toggle="modal" data-bs-target="#deactivate-user-{{ $user->id }}">Deactivate</button>
                                         </td>
-                                    @endif
+                                        {{-- include a model herre --}}
+                                        @include('admin.users.modal.status')
+                                        @endif
                                 </tr>
                                 @endforeach
                             </tbody>

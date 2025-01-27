@@ -38,5 +38,18 @@ class UsersController extends Controller
                 ->with('search', $request->search);
     }
 
+    public function activate($id){
+
+        $this->user->onlyTrashed()->findOrFail($id)->restore();
+
+        return redirect()->back();
+    }
+
+    public function deactivate($id)
+    {
+        $this->user->destroy($id);
+
+        return redirect()->back();
+    }
 
 }

@@ -100,6 +100,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::get('/people', [AdminUserController::class, 'search'])->name('search');
     Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
     Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
+    Route::delete('/users/{id}/deactivate', [AdminUsersController::class, 'deactivate'])->name('users.deactivate');
+    Route::patch('/users/{id}/activate', [AdminUsersController::class, 'activate'])->name('users.activate');
 });
 
 Route::get('/coupon', function(){
