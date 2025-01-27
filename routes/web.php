@@ -111,10 +111,7 @@ Route::get('/cansel', function () {
     return view('bookingcansel');
 });
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> master
 
 
