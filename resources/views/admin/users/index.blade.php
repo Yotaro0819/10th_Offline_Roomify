@@ -129,21 +129,31 @@
                             <tbody class="align-middle">
                                 @foreach($all_users as $index => $user)
                                 <tr class="{{ $index % 2 == 0 ? 'table-warning' : '' }}">
-                                <td scope="row"> 
-                                    @if ($user->avatar)
-                                    <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="rounded-circle d-block mx-auto avatar-md">
+                                    <td scope="row"> 
+                                        @if ($user->avatar)
+                                        <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="rounded-circle d-block mx-auto avatar-md">
+                                        @else
+                                        <i class="fa-solid fa-circle-user d-block icon-md ms-2"></i>
+                                        @endif
+                                    </td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email}}</td>
+
+                                    @if($user->trashed())
+                                        <td class="">
+                                            <i class="fa-solid fa-circle text-success"></i> &nbsp; Deactivate
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="button-inactivate">Activate</button>
+                                        </td>
                                     @else
-                                    <i class="fa-solid fa-circle-user d-block icon-md ms-2"></i>
+                                        <td class="">
+                                            <i class="fa-solid fa-circle text-success"></i> &nbsp; Activate
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="button-inactivate">Deactivate</button>
+                                        </td>
                                     @endif
-                                </td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email}}</td>
-                                <td class="">
-                                    <i class="fa-solid fa-circle text-success"></i> &nbsp; activate
-                                </td>
-                                <td class="text-center">
-                                    <button class="button-inactivate">Inactivate</button>
-                                </td>
                                 </tr>
                                 @endforeach
                             </tbody>

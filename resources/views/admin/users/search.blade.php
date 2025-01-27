@@ -117,7 +117,7 @@
                                 <input type="search" name="search" class="form-control" placeholder="Search...." style="border: 1px solid #ccc;">
                             </form>
                         </div>
-                        @if($users)
+                        @if($users->isNotEmpty())
                         <table class="table">
                             <thead>
                                 <tr>
