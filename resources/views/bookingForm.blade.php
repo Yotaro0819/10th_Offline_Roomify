@@ -125,11 +125,11 @@
     <div class="col-5 mt-5" id="acm-booking">
         <div class="row">
             <div class="col">
-                <img src="#" alt="#">
+                <img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="#">
             </div>
             <div class="col">
                 <div>
-                    Lorem ipsum dolor sit amet consectetur adipisicing....
+                    <p>{{ $accommodation->description }}</p>
                 </div>
             </div>
         </div>
