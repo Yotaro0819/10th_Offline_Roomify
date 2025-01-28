@@ -10,6 +10,10 @@
 
     <div class="row mt-5">
         <!-- 写真1 -->
+
+        @foreach ($accommodation->photos as $photo)
+
+        @endforeach
         <div class="col-6">
           <img src="{{ asset('asset_Araki/chintai-14-670x448.jpg')}}" alt="Image 1" class="img-fluid rounded-5 mb-3">
         </div>
