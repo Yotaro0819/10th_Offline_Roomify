@@ -6,11 +6,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    use SoftDeletes;
 
     protected $table = "users";
 
@@ -39,7 +42,6 @@ class User extends Authenticatable
     const ROLE_ADMIN = 0;
     const ROLE_GUEST = 1;
     const ROLE_HOST  = 2;
-
 
     protected function casts(): array
     {
