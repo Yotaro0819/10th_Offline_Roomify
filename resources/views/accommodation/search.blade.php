@@ -107,6 +107,7 @@
         <!-- address search -->
         <form action="{{ route('search_by_address')}}" method="get">
             @csrf
+            @method("GET")
 
             <div class="card border-0">
                 <div class="card-header">Place you want to stay</div>
@@ -228,7 +229,7 @@
             <hr>
             @if(isset($all_accommodations) && $all_accommodations->count() > 0)
                 @foreach($all_accommodations as $accommodation)
-                    <a href="{{ route('accommodation.show', $accommodation->id )}}" class="row">
+                    <a href="{{ route('accommodation.show', $accommodation->id )}}" class="row" style="color:black">
                         <div class="col">
                             <img src="#" alt="#">
                         </div>
@@ -248,7 +249,7 @@
                             </div>
 
                             <div>
-                                <p class="fw-bold"><span><i class="fa-solid fa-users icon-input"></i></span>{{ $accommodation->capacity }}</p>
+                                <p class="fw-bold"><span><i class="fa-solid fa-users me-3"></i></span>{{ $accommodation->capacity }}</p>
                             </div>
                         </div>
                     </a>
@@ -263,6 +264,10 @@
         </div>
 
     </div>
+</div>
+
+<div class="d-flex justify-content-center">
+    {{-- {{ $all_accommodations->links()}} --}}
 </div>
 
 @endsection
