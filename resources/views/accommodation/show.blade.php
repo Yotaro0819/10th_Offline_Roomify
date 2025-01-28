@@ -22,26 +22,34 @@
 
 
         .center {
-            width: 30%;
-            /* height: 50%; */
+            width: 31%;
+            height: 50%;
             display: flex;
-            flex-direction: column; /* 縦に並べる */
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
+            /* justify-content: center; */
+            /* align-items: center; */
+        }
+        .left {
+            width: 45%;
+        }
+
+        .right {
+            width: 20%;
         }
 
         .left img {
-            width: 500px;
+            width: 100%;
             height: 390px;
+
         }
 
         .right img {
-            width: 220px;
+            width: 100%;
             height: 390px;
         }
 
         .center img {
-            width: 350px;
+            width: 100%;
             margin-bottom:10px;
             height: 190px;
             border-radius: 10px;
@@ -110,14 +118,14 @@
 
 @section('content')
 
-<div class="container w-75 mx-auto">
+<div class="container w-75 mx-auto ">
     <div class="picture-box">
         <div class="left">
             <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="pic1" class="rounded-4"></a>
         </div>
         <div class="center">
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[1]->image) }}" alt="pic2" class="rounded-4 d-block mx-auto"></a>
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[2]->image) }}" alt="pic3" class="rounded-4 d-block mx-auto"></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[1]->image) }}" alt="pic2" class="rounded-4 "></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[2]->image) }}" alt="pic3" class="rounded-4 "></a>
         </div>
         <div class="right">
             <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[3]->image) }}" alt="pic4" class="rounded-4"></a>
