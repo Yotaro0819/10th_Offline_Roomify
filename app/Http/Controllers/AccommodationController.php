@@ -159,14 +159,21 @@ class AccommodationController extends Controller
         return view('acm_index_host')->with('all_accommodations', $all_accommodations);
     }
 
-    public function search(Request $request)
+    public function search_by_address(Request $request)
     {
-        $accommodations = $this->accommodation->where('name', 'LIKE', '%'. $request->search . '%')
-                                              ->where('capacity', 'BETWEEN', '%'. $request->search . '%');
+            $accommodations = collect();
 
-        return view('accommodation.search')
-        ->with('all_accommodations', $accommodations);
+            if ($request->has('address'))
+            {
+                $accommodations = $this->accommodation
+                    ->where('address', 'LIKE', '%'. $request->address . '%')
+                    ->get();
+            }
+
+            return view('accommodation.search')
+                ->with('all_accommodations', $accommodations);
     }
+
 
     public function destroy($id)
     {

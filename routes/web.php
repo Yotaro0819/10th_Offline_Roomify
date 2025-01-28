@@ -62,9 +62,11 @@ Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], func
     Route::get('/res',function(){
         return view('hostRes');});
     Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
-    Route::delete('/{id}/destroy,', [AccommodationController::class, 'destroy'])->name('destroy');
-
+    Route::delete('/{id}/destroy', [AccommodationController::class, 'destroy'])->name('destroy');
 });
+
+Route::get('/search_by_address', [AccommodationController::class, 'search_by_address'])->name('search_by_address');
+
 
 // admin routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){

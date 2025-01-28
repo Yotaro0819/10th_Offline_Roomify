@@ -84,7 +84,7 @@
     {
         padding-left: 2.5rem; /* Add padding to prevent text overlap with the icon */
         padding-right: 2.5rem; /* Add padding to prevent text overlap with the icon */
-        border-radius: 15px;
+        border-radius: 10px;
         background-color: #ffffff;
     }
     .input-group-text
@@ -104,47 +104,22 @@
 <div class="row gx-5 mx-3">
     <!-- search side -->
     <div class="col-4">
-        <form action="#" method="get">
+        <!-- address search -->
+        <form action="{{ route('search_by_address')}}" method="get">
+            @csrf
+
             <div class="card border-0">
                 <div class="card-header">Place you want to stay</div>
                 <div class="card-body">
-                    <select class="form-select mb-3" aria-label="Default select example" style="border-radius: 15px">
-                        <option selected>Select Area</option>
-                        <option value="1">Chiyoda</option>
-                        <option value="2">Chuo</option>
-                        <option value="3">Minato</option>
-                        <option value="4">Shinjuku</option>
-                        <option value="5">Bunkyo</option>
-                        <option value="6">Taito</option>
-                        <option value="7">Sumida</option>
-                        <option value="8">Koto</option>
-                        <option value="9">Shinagawa</option>
-                        <option value="10">Meguro</option>
-                        <option value="11">Ota</option>
-                        <option value="12">Setagaya</option>
-                        <option value="13">Shibuya</option>
-                        <option value="14">Nakano</option>
-                        <option value="15">Suginami</option>
-                        <option value="16">Toshima</option>
-                        <option value="17">Kita</option>
-                        <option value="18">Arakawa</option>
-                        <option value="19">Itabashi</option>
-                        <option value="20">Nerima</option>
-                        <option value="21">Adachi</option>
-                        <option value="22">Katsushika</option>
-                        <option value="23">Edogawa</option>
-                    </select>
-
-                    <form action="#" method="get">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" style="border-radius:15px;" name="address" placeholder="Address Search">
-                            <button type="submit" class="btn input-icon input-group-text"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
-                    </form>
-
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" style="border-radius:15px" name="address" placeholder="Address Search">
+                        <button type="submit" class="btn input-icon input-group-text"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
                 </div>
             </div>
+        </form>
 
+        <form action="#" method="get">
             <!-- capacity -->
             <div class="card border-0">
                 <div class="card-header">Capacity</div>
@@ -251,28 +226,42 @@
         <div class="header">
             <p>Hits: 122 matched</p>
             <hr>
-            <div class="row">
-                <div class="col">
-                    <img src="#" alt="#">
+            @if(isset($all_accommodations) && $all_accommodations->count() > 0)
+                @foreach($all_accommodations as $accommodation)
+                    <a href="#" class="row">
+                        <div class="col">
+                            <img src="#" alt="#">
+                        </div>
+                        <div class="col">
+                            <h2 class="h4 fw-bold" style="color:#004aad">{{ $accommodation->name }}</h2>
+
+                            <div>
+                                <p><span><i class="fa-solid fa-magnifying-glass me-3"></i></span>{{ $accommodation->description}}</p>
+                            </div>
+
+                            <div>
+                                <p><span><i class="fa-solid fa-location-dot me-3"></i></span>{{ $accommodation->address }}</p>
+                            </div>
+
+                            <div>
+                                <p class="fw-bold"><span><i class="fa-solid fa-money-bill me-3"></i></span>￥{{ $accommodation->price }}</p>
+                            </div>
+
+                            <div>
+                                <p class="fw-bold"><span><i class="fa-solid fa-users icon-input"></i></span>{{ $accommodation->capacity }}</p>
+                            </div>
+                        </div>
+                    </a>
+                    <hr>
+                @endforeach
+            @else
+                <div class="alert">
+                    No accommodations found.
                 </div>
-                <div class="col">
-                    <h2 class="h4 fw-bold" style="color:#004aad">Accommodation name</h2>
+            @endif
 
-                    <div>
-                        <p><span><i class="fa-solid fa-magnifying-glass me-3"></i></span>Lorem, ipsum dolor sit amet consectetur.</p>
-                    </div>
-
-                    <div>
-                        <p><span><i class="fa-solid fa-location-dot me-3"></i></span>1-412-342, Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, deleniti!</p>
-                    </div>
-
-                    <div>
-                        <p class="fw-bold"><span><i class="fa-solid fa-money-bill me-3"></i></span>123,421</p>
-                    </div>
-                </div>
-            </div>
         </div>
-        <hr>
+
     </div>
 </div>
 
