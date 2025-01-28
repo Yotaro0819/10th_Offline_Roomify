@@ -150,7 +150,7 @@
                                         <i class="fa-solid fa-circle text-danger "></i> &nbsp; Deactivate
                                         </div>
                                         <div class="d-flex justify-content-center">
-                                        <button class="button-activate text-center" data-bs-toggle="modal" data-bs-target="#activate-accommodation{{ $accommodation->id }}">Activate</button>
+                                        <button class="button-activate text-center" data-bs-toggle="modal" data-bs-target="#activate-accommodation-{{ $accommodation->id }}">Activate</button>
                                         </div>
                                         @else
                                         <div class="d-flex justify-content-center align-items-center">
