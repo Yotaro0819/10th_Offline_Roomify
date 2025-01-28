@@ -62,7 +62,7 @@
     <div class="card mx-auto mb-4 w-75" id="acm-booking">
         <div class="row">
             <div class="col">
-                <img src="{{ asset('images/' . $booking->accomodation->image) }}" alt="Accomodation Image">
+                <img src="{{ asset('images/' . $booking->accommodation->image) }}" alt="Accomodation Image">
             </div>
             <div class="col" id="info">
                 <h5 class="date">
@@ -81,6 +81,7 @@
             <div class="col">
                 <form action="{{ route('host.booking.cancel', ['bookingId' => $booking->id]) }}" method="POST">
                     @csrf
+                    @method('DELETE')
                     <button type="submit" class="custom-btn">
                         <i class="fa-solid fa-trash"></i> Cancel
                     </button>

@@ -21,7 +21,6 @@ class BookingController extends Controller
        
         $all_bookings = $this->booking->with('accomodation')->where('user_id', Auth::user()->id)->latest()->paginate(3);
 
-        $booking = null;
 
         return view('hostRes')->with('all_bookings', $all_bookings);
     
