@@ -67,27 +67,24 @@
 </style>
 
 <script>
-    const apiKey = "{{ config('services.google_maps.api_key') }}";
+    // Google Maps APIスクリプトを動的に読み込む関数
+    function loadGoogleMapsScript() {
+        const apiKey = "{{ config('services.google_maps.api_key') }}";
+        const timestamp = new Date().getTime();  // キャッシュバスター（URLにタイムスタンプを追加）
 
-    // Google Maps APIスクリプトを動的に生成
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=places&loading=async`;
-    script.async = true;
-    script.defer = true;
+        // Google Mapsのスクリプトを作成
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=places&v=${timestamp}`;
+        script.async = true;
+        script.defer = true;
 
-    // スクリプトをHTMLに追加
-    document.head.appendChild(script);
+        // スクリプトをHTMLに追加
+        document.head.appendChild(script);
+    }
 
-
-    // initMap 関数の定義（コールバック関数）
+    // Google Mapsを初期化する関数
     function initMap() {
         console.log('Google Maps initialized!');
-        // ここに地図の初期化コードを記述
-    }
-</script>
-
-<script>
-    function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
             center: { lat: {{ $accommodation->latitude }}, lng: {{ $accommodation->longitude }} },
@@ -98,21 +95,32 @@
             map: map,
         });
     }
+
+    // ページ遷移後（routeで戻ったときなど）に地図を再初期化するためにスクリプトを読み込む
+    document.addEventListener('turbo:load', function() {
+        loadGoogleMapsScript();  // Google Maps APIスクリプトを再読み込み
+    });
+
+    // 初期ロード時にもスクリプトを読み込む
+    loadGoogleMapsScript();
 </script>
+
+
+
 
 @section('content')
 
 <div class="container w-75 mx-auto">
     <div class="picture-box">
         <div class="left">
-            <a href="#"><img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="pic1" class="rounded-4"></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="pic1" class="rounded-4"></a>
         </div>
         <div class="center">
-            <a href="#"><img src="{{ asset('storage/'. $accommodation->photos[1]->image) }}" alt="pic2" class="rounded-4 d-block mx-auto"></a>
-            <a href="#"><img src="{{ asset('storage/'. $accommodation->photos[2]->image) }}" alt="pic3" class="rounded-4 d-block mx-auto"></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[1]->image) }}" alt="pic2" class="rounded-4 d-block mx-auto"></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[2]->image) }}" alt="pic3" class="rounded-4 d-block mx-auto"></a>
         </div>
         <div class="right">
-            <a href="#"><img src="{{ asset('storage/'. $accommodation->photos[3]->image) }}" alt="pic4" class="rounded-4"></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[3]->image) }}" alt="pic4" class="rounded-4"></a>
         </div>
     </div>
 
@@ -129,7 +137,7 @@
 
     <div class="hashtag">
         @foreach ($accommodation->hashtags as $hashtag)
-        <a href="#" class="me-4 text-primary">#{{$hashtag->name}}</a>
+        <a href="{{route('accommodation.hashtag', ['name' => $hashtag->name, 'cityName' => $accommodation->city])}}" class="me-4 text-primary">#{{$hashtag->name}}</a>
         @endforeach
     </div>
 
@@ -186,7 +194,7 @@
         <h3 class="fw-bold">10% OFF Coupon</h3>
     </div>
 
-    <div class="google-location w-50 mx-auto mb-5" onload="initMap()">
+    <div class="google-location w-50 mx-auto mb-5" >
         <h3 class="fs-4">Location</h3>
         <div id="map" style="height: 250px; width: 100%; margin: auto"></div>
     </div>

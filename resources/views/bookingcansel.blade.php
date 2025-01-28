@@ -96,8 +96,13 @@ img
     </div>
     <div class="mb-3">
         <div class="d-flex justify-content-center">
-            <button class="button-yes">Yes</button>
-            <button class="button-no">No</button>
+        <form action="{{ route('host.booking.cancel', ['bookingId' => $booking->id]) }}" method="POST">
+            @csrf
+            <button type="submit" class="button-yes">Yes</button>
+        </form>
+
+    
+            <a href="{{ route('host.reservation') }}" class="button-no">No</a>
         </div>
     </div>
 </div>

@@ -297,6 +297,14 @@ class AccommodationController extends Controller
 
     }
 
+    public function pictureIndex($id)
+    {
+        $accommodation = Accommodation::with('photos')->findOrFail($id);
+
+        return view('accommodation.pictures', compact('accommodation'));
+    }
+
+
     public function index()
     {
         // $user = Auth::user();
