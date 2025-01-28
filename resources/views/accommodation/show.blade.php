@@ -75,7 +75,7 @@
 <div class="container w-75 mx-auto">
     <div class="picture-box">
         <div class="left">
-            <a href="pictures"><img src="{{ asset('asset_Araki/chintai-14-670x448.jpg') }}" alt="pic1" class="rounded-4"></a>
+            <a href="pictures"><img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="pic1" class="rounded-4"></a>
         </div>
         <div class="center">
             <a href="#"><img src="{{ asset('asset_Araki/DSC09324_w900-670x448.jpg') }}" alt="pic2" class="rounded-4 h-50 d-block mx-auto"></a>

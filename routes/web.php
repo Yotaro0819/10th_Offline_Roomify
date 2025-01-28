@@ -95,7 +95,7 @@ Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], func
     Route::get('/accommodation/create', [AccommodationController::class, 'create'])->name('accommodation.create');
     Route::post('/accommodation/store', [AccommodationController::class, 'store'])->name('accommodation.store');
     ROute::get('/accommodation/edit/{id}', [AccommodationController::class, 'edit'])->name('accommodation.edit');
-    // Route::patch('/accommodation/update', [AccommodationController::class, 'update'])->name('accommodation.update');
+    Route::patch('/accommodation/update/{id}', [AccommodationController::class, 'update'])->name('accommodation.update');
 });
 
 // admin routes

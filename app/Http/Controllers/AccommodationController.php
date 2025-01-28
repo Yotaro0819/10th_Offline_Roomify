@@ -24,7 +24,7 @@ class AccommodationController extends Controller
         $this->accommodation = $accommodation;
         $this->category      = $category;
         $this->hashtag       = $hashtag;
-        
+
     }
 
 
@@ -173,26 +173,28 @@ class AccommodationController extends Controller
             'photos.*' => 'image|mimes:jpeg,jpg,png,gif|max:1048',
         ]);
 
+
+
         try {
             // 対象の宿泊施設を取得
             $accommodation = Accommodation::findOrFail($id);
 
             // リクエストから宿泊施設の情報を更新
-            $accommodation->name = $validated['name'];
-            $accommodation->address = $validated['address'];
-            $accommodation->city = $validated['city'];
-            $accommodation->price = $validated['price'];
-            $accommodation->capacity = $validated['capacity'];
-            $accommodation->description = $validated['description'];
+            $user_id = Auth::user()->id;
+            $name = $validated['name'];
+            $address = $validated['address'];
+            $city = $validated['city'];
+            $price = $validated['price'];
+            $capacity = $validated['capacity'];
+            $description = $validated['description'];
+            $apiKey = config('services.google_maps.api_key');
 
             // 住所が変更された場合、緯度・経度も更新
             if ($accommodation->address != $validated['address']) {
-                $apiKey = config('services.google_maps.api_key');
                 $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json', [
                     'address' => $validated['address'],
                     'key' => $apiKey
                 ]);
-
                 $data = $response->json();
                 if ($data['status'] == 'OK') {
                     $accommodation->latitude = $data['results'][0]['geometry']['location']['lat'];
@@ -200,25 +202,35 @@ class AccommodationController extends Controller
                 }
             }
 
-            // 更新を保存
-            $accommodation->save();
+            // 宿泊施設の情報を更新
+            $accommodation->update([
+                'user_id' => $user_id,
+                'name' => $name,
+                'address' => $address,
+                'city' => $city,
+                'price' => $price,
+                'capacity' => $capacity,
+                'description' => $description,
+                'latitude' => $accommodation->latitude,
+                'longitude' => $accommodation->longitude,
+            ]);
 
-            // タグの更新
-            if(!empty($validated['description'])) {
+            // タグの更新処理
+            if (!empty($validated['description'])) {
                 preg_match_all('/#(\w+)/', $validated['description'], $matches);
                 $tags = $matches[1];
 
                 $tagIds = [];
-                foreach($tags as $tagName) {
+                foreach ($tags as $tagName) {
                     $tag = Hashtag::firstOrCreate(['name' => $tagName]);
-                    $tagIds[] = $tag->name; // 'id' ではなく 'name' を使用
+                    $tagIds[] = $tag->id; // 'id' を使用
                 }
 
                 // 既存のタグを削除して、新しいタグを追加
                 $accommodation->hashtags()->sync($tagIds);
             }
 
-            // 写真の更新（新しい写真を追加）
+            // 写真のアップロード処理
             if ($request->hasFile('photos')) {
                 foreach ($request->file('photos') as $photo) {
                     // 各写真を保存
@@ -232,19 +244,17 @@ class AccommodationController extends Controller
                 }
             }
 
-            // カテゴリの更新（関連するカテゴリを更新）
-            $category_accommodation = [];
-            foreach ($request->category as $category_id) {
-                $category_accommodation[] = [
-                    'category_id' => $category_id,
-                    'accommodation_id' => $accommodation->id
-                ];
-            }
+           // カテゴリの関連付け
+        $category_accommodation = [];
+        foreach ($request->category as $category_id) {
+            $category_accommodation[] = $category_id;
+        }
 
-            // 既存のカテゴリ関連を削除し、新しいカテゴリを追加
-            DB::table('category_accommodation')->where('accommodation_id', $accommodation->id)->delete();
-            DB::table('category_accommodation')->insert($category_accommodation);
+        // 既存のカテゴリ関連を同期（重複なし）
+        $accommodation->categories()->sync($category_accommodation);
 
+
+            // 成功メッセージと共にリダイレクト
             return redirect()->route('accommodation.show', $accommodation->id)
                 ->with('success', '宿泊施設が更新されました');
         } catch (\Exception $e) {
@@ -254,9 +264,11 @@ class AccommodationController extends Controller
 
 
 
+
     public function show($id)
     {
-        $accommodation = Accommodation::findOrFail($id);
+        $accommodation = Accommodation::with('photos')->findOrFail($id);
+
         return view('accommodation.show', compact('accommodation'));
 
     }
@@ -273,7 +285,19 @@ class AccommodationController extends Controller
 
     public function destroy($id)
     {
-        $this->accommodation->destroy($id);
+        $accommodation = $this->accommodation->findOrFail($id);
+
+        $photos = Photo::where('accommodation_id', $id)->get();
+
+        foreach ($photos as $photo) {
+            if ($photo->image && file_exists(storage_path('app/public/' . $photo->image))) {
+                unlink(storage_path('app/public/' . $photo->image));
+            }
+        }
+
+        Photo::where('accommodation_id', $id)->delete();
+
+        $accommodation->delete();
 
         return redirect()->route('host.index');
     }
