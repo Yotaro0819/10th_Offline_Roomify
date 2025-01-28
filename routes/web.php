@@ -19,6 +19,8 @@ Route::get('/', function () {
     return view('home');
 });
 Route::get('accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
+Route::get('/accommodation/pictures/{id}', [AccommodationController::class, 'pictureIndex'])->name('accommodation.pictures');
+
 
 Auth::routes();
 
@@ -42,18 +44,14 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     //Araki route
-    Route::get('/accommodation/pictures', function () {
-        return view('accommodation.pictures');
-    });
+
     Route::get('/messages', function () {
         return view('messages.index');
     });
     Route::get('/messages/show', function () {
         return view('messages.show');
     });
-    Route::get('/accommodation/hashtag', function () {
-        return view('accommodation.hashtag');
-    });
+    Route::get('/accommodation/hashtag/{name}/{cityName?}', [HashtagController::class, 'index'])->name('accommodation.hashtag');
     //Araki route end
 
 // host routes
