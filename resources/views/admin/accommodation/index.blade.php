@@ -122,80 +122,26 @@
                         </div>
                     </div>
 
-                            <div class="row d-flex justify-content-between">
-                                <div class="col-4">
-                                    <div class="card">
-                                        <img src="https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <p class="text-start m-0">AAA apartment</p>
-                                            <p class="m-0 text-start">100 ,kredo street,Tokyo</p>
-                                            <p class="username m-0 text-start">user1</p>
-                                            <i class="fa-solid fa-circle text-success"></i> &nbsp; activate
-                                            <button class="button-inactivate">Inactivate</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="card">
-                                        <img src="https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <p class="text-start m-0">AAA apartment</p>
-                                            <p class="m-0 text-start">100 ,kredo street,Tokyo</p>
-                                            <p class="username m-0 text-start">user1</p>
-                                            <i class="fa-solid fa-circle text-danger"></i> &nbsp; Inactivate
-                                            <button class="button-activate">activate</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="card">
-                                        <img src="https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <p class="text-start m-0">AAA apartment</p>
-                                            <p class="m-0 text-start">100 ,kredo street,Tokyo</p>
-                                            <p class="username m-0 text-start">user1</p>
-                                            <i class="fa-solid fa-circle text-success"></i> &nbsp; activate
-                                            <button class="button-inactivate">Inactivate</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="card">
-                                        <img src="https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <p class="text-start m-0">AAA apartment</p>
-                                            <p class="m-0 text-start">100 ,kredo street,Tokyo</p>
-                                            <p class="username m-0 text-start">user1</p>
-                                            <i class="fa-solid fa-circle text-success"></i> &nbsp; activate
-                                            <button class="button-inactivate">Inactivate</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="card">
-                                        <img src="https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <p class="text-start m-0">AAA apartment</p>
-                                            <p class="m-0 text-start">100 ,kredo street,Tokyo</p>
-                                            <p class="username m-0 text-start">user1</p>
-                                            <i class="fa-solid fa-circle text-success"></i> &nbsp; activate
-                                            <button class="button-inactivate">Inactivate</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="card">
-                                        <img src="https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <p class="text-start m-0">AAA apartment</p>
-                                            <p class="m-0 text-start">100 ,kredo street,Tokyo</p>
-                                            <p class="username m-0 text-start">user1</p>
-                                            <i class="fa-solid fa-circle text-success"></i> &nbsp; activate
-                                            <button class="button-inactivate">Inactivate</button>
-                                        </div>
+                        <div class="row d-flex justify-content-between">
+                        @if(all_accommodations is not empty())
+                            @foreach(all_accommodations as accommodation)
+                            <div class="col-4">
+                                <div class="card">
+                                    <img src="https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <p class="text-start m-0">{{ accommodation->name }}</p>
+                                        <p class="m-0 text-start">{{ accommodation->address }}</p>
+                                        <p class="username m-0 text-start">{{ accommoation->user->name }}</p>
+                                        <i class="fa-solid fa-circle text-success"></i> &nbsp; activate
+                                        <button class="button-inactivate">Inactivate</button>
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
+                        @elseif
+                        <div>No Accommodation</div>
+                        @endif
+                        </div>
                     </div>
                 </div>
             </div>
