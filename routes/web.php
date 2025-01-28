@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('home');
 });
+Route::get('accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
 
 Auth::routes();
 
