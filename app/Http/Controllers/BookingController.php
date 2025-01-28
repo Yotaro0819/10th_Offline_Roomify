@@ -18,9 +18,12 @@ class BookingController extends Controller
 
     public function reservation(Request $request){
        
-        $all_bookings = $this->booking->where('user_id', Auth::user()->id)->latest()->paginate(3);
+        $all_bookings = $this->booking->with('accomodation')->where('user_id', Auth::user()->id)->latest()->paginate(3);
+
+        $booking = null;
 
         return view('hostRes')->with('all_bookings', $all_bookings);
+    
     }
 
     public function showBookingStatus($bookingId)
@@ -34,7 +37,7 @@ class BookingController extends Controller
         return view('hostRes', compact('booking'));
     }
 
-    public function delete($bookingId)
+    public function cancel($bookingId)
     {
         $booking = Booking::find($bookingId);
 
@@ -45,6 +48,17 @@ class BookingController extends Controller
         $booking->status = 0;
         $booking->save();
 
-        return redirect()->route('booking.status', $booking->id)->with('success', 'Booking canceled.');
+        return redirect()->route('host.reservation')->with('success', 'Booking canceled.');
+    }
+
+    public function confirmCancel($bookingId)
+    {
+        $booking = Booking::find($bookingId);
+        
+        if (!$booking) {
+            return redirect()->back()->with('error', 'Booking not found.');
+        }
+
+        return view('booking.cancel', compact('booking'));
     }
 }

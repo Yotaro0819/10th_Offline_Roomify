@@ -55,34 +55,47 @@
         margin-top: 50px;
     }
 </style>
-@section('content')
+<!-- @section('content') -->
 <h1 class="h4 mx-5"><i class="fa-regular fa-clock"></i>Reservation Status</h1>
-<div class="card mx-auto mb-4 w-75" id="acm-booking">
-    <div class="row">
-        <div class="col">
-            <img src="{{ asset('images/' . $booking->accomodation->image) }}" alt="Accomodation Image">
-        </div>
-        <div class="col" id="info">
-            <h5 class="date">
-                <span class="start-date">{{ \Carbon\Carbon::parse($booking->check_in_date)->format('Y/m/d') }}</span> ~ 
-                <span class="end-date">{{ \Carbon\Carbon::parse($booking->check_out_date)->format('Y/m/d') }}</span>
-            </h5>
-            <div class="row" id="spaced">
-                <div class="col">{{ $booking->user->name }}</div>
-                <div class="col">{{ $booking->num_guest }} people</div>
+@if($all_bookings->count() > 0)
+    @foreach($all_bookings as $booking)
+    <div class="card mx-auto mb-4 w-75" id="acm-booking">
+        <div class="row">
+            <div class="col">
+                <img src="{{ asset('images/' . $booking->accomodation->image) }}" alt="Accomodation Image">
             </div>
-            <div class="row" id="spaced">
-                <div class="col">{{ $booking->accommodation->name }}</div>
-                <div class="col">{{ $booking->special_request ?? 'No special requests' }}</div>
+            <div class="col" id="info">
+                <h5 class="date">
+                    <span class="start-date">{{ \Carbon\Carbon::parse($booking->check_in_date)->format('Y/m/d') }}</span> ~ 
+                    <span class="end-date">{{ \Carbon\Carbon::parse($booking->check_out_date)->format('Y/m/d') }}</span>
+                </h5>
+                <div class="row" id="spaced">
+                    <div class="col">{{ $booking->user->name }}</div>
+                    <div class="col">{{ $booking->num_guest }} people</div>
+                </div>
+                <div class="row" id="spaced">
+                    <div class="col">{{ $booking->accommodation->name }}</div>
+                    <div class="col">{{ $booking->special_request ?? 'No special requests' }}</div>
+                </div>
+            </div>
+            <div class="col">
+                <form action="{{ route('host.booking.cancel', ['bookingId' => $booking->id]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="custom-btn">
+                        <i class="fa-solid fa-trash"></i> Cancel
+                    </button>
+                </form>
             </div>
         </div>
-        <div class="col">
-            <a href="{{ route('booking.cancel', $booking->id) }}" class="custom-btn"><i class="fa-solid fa-trash"></i>Cancel</a>
-        </div>
-
     </div>
-</div>
-@endsection
+@endforeach
+    <div class="pagination justify-content-center">
+        {{ $all_bookings->links() }}
+    </div>
+@else
+    <p class="text-center">No reservations found.</p>
+@endif
+<!-- @endsection -->
 
 
 

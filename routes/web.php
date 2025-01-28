@@ -90,6 +90,9 @@ Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], func
     Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
     Route::get('/reservation', [BookingController::class, 'reservation'])->name('reservation');
     Route::get('/booking/{bookingId}/status', [BookingController::class, 'showBookingStatus'])->name('booking.status');
+    Route::get('/booking/{bookingId}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
+    Route::get('/booking/{bookingId}/cancel/confirm', [BookingController::class, 'confirmCancel'])->name('booking.cancel.confirm');
+
 });
 
 // admin routes
