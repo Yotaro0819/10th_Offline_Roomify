@@ -89,19 +89,34 @@ class AccommodationController extends Controller
                 ]);
 
 
-                if(!empty($validated['description'])) {
+                if (!empty($validated['description'])) {
+                    // #タグを抽出
                     preg_match_all('/#(\w+)/', $validated['description'], $matches);
                     $tags = $matches[1];
 
+                    // #タグを取り除いてdescriptionを更新
+                    $descriptionWithoutTags = preg_replace('/#\w+/', '', $validated['description']);
+                    $accommodation->description = trim($descriptionWithoutTags); // 前後の不要なスペースを削除
+                    $accommodation->save();
+
+                    // タグを処理
                     $tagIds = [];
-                    foreach($tags as $tagName) {
-                        // 'name' カラムを使ってタグを作成または取得
-                        $tag = Hashtag::firstOrCreate(['name' => $tagName]);
-                        $tagIds[] = $tag->name; // ここでは 'id' ではなく 'name' を使う
+                    foreach ($tags as $tagName) {
+                        // タグ名が空でないか確認
+                        if (!empty($tagName)) {
+                            // 'name' カラムを使ってタグを作成または取得
+                            $tag = Hashtag::firstOrCreate(['name' => $tagName]);
+                            $tagIds[] = $tag->id; // タグのIDを保存
+                        }
                     }
 
-                    $accommodation->hashtags()->attach($tagIds);
+                    // ハッシュタグの関連付け
+                    if (!empty($tagIds)) {
+                        $accommodation->hashtags()->attach($tagIds);
+                    }
                 }
+
+
 
                 if ($request->hasFile('photos')) {
                     foreach ($request->file('photos') as $photo) {
@@ -169,7 +184,7 @@ class AccommodationController extends Controller
             'price' => 'required|integer|min:0',
             'capacity' => 'required|integer|min:1|max:100',
             'description' => 'required|string',
-            'photos' => 'nullable|array',
+            'photos' => 'nullable|array|min:4',
             'photos.*' => 'image|mimes:jpeg,jpg,png,gif|max:1048',
         ]);
 
@@ -217,18 +232,27 @@ class AccommodationController extends Controller
 
             // タグの更新処理
             if (!empty($validated['description'])) {
+                // #タグを抽出
                 preg_match_all('/#(\w+)/', $validated['description'], $matches);
                 $tags = $matches[1];
 
+                // #タグを取り除いてdescriptionを更新
+                $descriptionWithoutTags = preg_replace('/#\w+/', '', $validated['description']);
+                $accommodation->description = trim($descriptionWithoutTags); // 前後の不要なスペースを削除
+                $accommodation->save();
+
+                // タグを処理
                 $tagIds = [];
                 foreach ($tags as $tagName) {
-                    $tag = Hashtag::firstOrCreate(['name' => $tagName]);
-                    $tagIds[] = $tag->id; // 'id' を使用
+                    // タグ名が空でないか確認
+                    if (!empty($tagName)) {
+                        // 'name' カラムを使ってタグを作成または取得
+                        $tag = Hashtag::firstOrCreate(['name' => $tagName]);
+                        $tagIds[] = $tag->id; // タグのIDを保存
+                    }
                 }
-
-                // 既存のタグを削除して、新しいタグを追加
-                $accommodation->hashtags()->sync($tagIds);
             }
+
 
             // 写真のアップロード処理
             if ($request->hasFile('photos')) {

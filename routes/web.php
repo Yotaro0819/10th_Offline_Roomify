@@ -39,9 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
         return view('userRes');
     });
 
-    Route::get('/booking-form', function () {
-        return view('bookingForm');
-    });
+    Route::get('/booking-form/{id}', [BookingController::class, 'create'])->name('booking.create');
 
     Route::get('/search', function () {
         return view('search');

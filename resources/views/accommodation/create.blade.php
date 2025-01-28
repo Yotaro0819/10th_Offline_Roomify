@@ -74,6 +74,7 @@ html,body
         <div class="mb-3">
             <label for="photos" class="form-label text-start w-100 ms-4 fw-bold">Photo</label>
             <input type="file" name="photos[]" class="form-control mx-auto" id="photos" style="width: 95%; border-radius: 10px;" multiple>
+            <p class="m-0 ms-4 text-start">At least 4 pictures are needed.</p>
             <p class="m-0 ms-4 text-start">You can display your portrait or farm picture in our market.</p>
             <p class="m-0 ms-4 text-start">Acceptable formats are jpeg, jpg, png, and gif only.</p>
             <p class="m-0 ms-4 text-start">The file size is 1048Kb.</p>
