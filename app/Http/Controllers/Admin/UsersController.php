@@ -24,19 +24,32 @@ class UsersController extends Controller
 
     public function index()
     {
-        $all_users = $this->user->latest()->paginate(5);
+        $all_users = $this->user->withTrashed()->latest()->paginate(5);
 
         return view('admin.users.index')->with('all_users', $all_users);
     }
 
-    // public function search(Request $request)
-    // {
-    //     $users = $this->user->where('name', 'like', '%' . $request->search  . '%')->get()->except(Auth::user()->id);
+    public function search(Request $request)
+    {
+        $users = $this->user->where('name', 'like', '%' . $request->search  . '%')->get()->except(Auth::user()->id);
 
-    //     return view('admin.users.search')
-    //             ->with('users', $users)
-    //             ->with('search', $request->search);
-    // }
+        return view('admin.users.search')
+                ->with('users', $users)
+                ->with('search', $request->search);
+    }
 
+    public function activate($id){
+
+        $this->user->onlyTrashed()->findOrFail($id)->restore();
+
+        return redirect()->back();
+    }
+
+    public function deactivate($id)
+    {
+        $this->user->destroy($id);
+
+        return redirect()->back();
+    }
 
 }

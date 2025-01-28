@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accommodation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Booking;
@@ -58,7 +59,14 @@ class BookingController extends Controller
         if (!$booking) {
             return redirect()->back()->with('error', 'Booking not found.');
         }
+        
 
         return view('booking.cancel', compact('booking'));
+
+    }
+    public function create($id)
+    {
+        $accommodation = Accommodation::with('photos')->findOrFail($id);
+        return view('bookingForm')->with('accommodation', $accommodation);
     }
 }

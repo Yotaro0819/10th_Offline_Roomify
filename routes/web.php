@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\UsersController as AdminUserController;
+use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\Admin\AccommodationController as AdminAccommodationController;
 use App\Http\Controllers\Admin\CategoriesController as AdminCategoryController;
 use App\Http\Controllers\AccommodationController;
@@ -15,16 +15,12 @@ use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
 
 
-
-
 Route::get('/', function () {
     return view('home');
 });
+Route::get('accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
 
 Auth::routes();
-
-
-
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -38,9 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
         return view('userRes');
     });
 
-    Route::get('/booking-form', function () {
-        return view('bookingForm');
-    });
+    Route::get('/booking-form/{id}', [BookingController::class, 'create'])->name('booking.create');
 
     Route::get('/search', function () {
         return view('search');
@@ -62,45 +56,26 @@ Route::group(['middleware' => 'auth'], function () {
     });
     //Araki route end
 
-    // host routes
-    Route::group(['middleware' => 'host'], function () {
-        Route::get('/host/res', function () {
-            return view('hostRes');
-        });
-    });
-
-    // admin routes
-    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
-        Route::get('/users', [AdminUserController::class, 'index'])->name('users');
-        Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
-        Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
-    });
-
-    Route::get('/coupon', function () {
-        return view('coupon');
-    });
-
-    Route::get('/cansel', function () {
-        return view('bookingcansel');
-    });
-});
-
 // host routes
 Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
+    Route::get('/res',function(){
+        return view('hostRes');});
     Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
-    Route::get('/reservation', [BookingController::class, 'reservation'])->name('reservation');
-    Route::get('/booking/{bookingId}/status', [BookingController::class, 'showBookingStatus'])->name('booking.status');
-    Route::get('/booking/{bookingId}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
-    Route::get('/booking/{bookingId}/cancel/confirm', [BookingController::class, 'confirmCancel'])->name('booking.cancel.confirm');
-
+    Route::delete('/{id}/destroy,', [AccommodationController::class, 'destroy'])->name('destroy');
+    Route::get('/accommodation/create', [AccommodationController::class, 'create'])->name('accommodation.create');
+    Route::post('/accommodation/store', [AccommodationController::class, 'store'])->name('accommodation.store');
+    ROute::get('/accommodation/edit/{id}', [AccommodationController::class, 'edit'])->name('accommodation.edit');
+    Route::patch('/accommodation/update/{id}', [AccommodationController::class, 'update'])->name('accommodation.update');
 });
 
 // admin routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
-    Route::get('/users', [AdminUserController::class, 'index'])->name('users');
-    Route::get('/people', [AdminUserController::class, 'search'])->name('search');
+    Route::get('/users', [AdminUsersController::class, 'index'])->name('users');
+    Route::get('/people', [AdminUsersController::class, 'search'])->name('search');
     Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
     Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
+    Route::delete('/users/{id}/deactivate', [AdminUsersController::class, 'deactivate'])->name('users.deactivate');
+    Route::patch('/users/{id}/activate', [AdminUsersController::class, 'activate'])->name('users.activate');
 });
 
 Route::get('/coupon', function(){
@@ -109,6 +84,8 @@ Route::get('/coupon', function(){
 
 Route::get('/cansel', function () {
     return view('bookingcansel');
+});
+
 });
 
 

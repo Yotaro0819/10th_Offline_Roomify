@@ -117,6 +117,7 @@
                                 <input type="search" name="search" class="form-control" placeholder="Search...." style="border: 1px solid #ccc;">
                             </form>
                         </div>
+                        @if($users->isNotEmpty())
                         <table class="table">
                             <thead>
                                 <tr>
@@ -127,7 +128,7 @@
                                 </tr>
                             </thead>
                             <tbody class="align-middle">
-                                @foreach($all_users as $index => $user)
+                                @foreach($users as $index => $user)
                                 <tr class="{{ $index % 2 == 0 ? 'table-warning' : '' }}">
                                 <td scope="row"> 
                                     @if ($user->avatar)
@@ -148,6 +149,11 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        @else
+                            <div>
+                                Not found User. 
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
