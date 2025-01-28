@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('home');
 });
+Route::get('accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
 
 Auth::routes();
 
@@ -33,9 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
         return view('userRes');
     });
 
-    Route::get('/booking-form', function () {
-        return view('bookingForm');
-    });
+    Route::get('/booking-form/{id}', [BookingController::class, 'create'])->name('booking.create');
 
     Route::get('/search', function () {
         return view('accommodation.search');
@@ -62,7 +61,11 @@ Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], func
     Route::get('/res',function(){
         return view('hostRes');});
     Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
-    Route::delete('/{id}/destroy', [AccommodationController::class, 'destroy'])->name('destroy');
+    Route::delete('/{id}/destroy,', [AccommodationController::class, 'destroy'])->name('destroy');
+    Route::get('/accommodation/create', [AccommodationController::class, 'create'])->name('accommodation.create');
+    Route::post('/accommodation/store', [AccommodationController::class, 'store'])->name('accommodation.store');
+    ROute::get('/accommodation/edit/{id}', [AccommodationController::class, 'edit'])->name('accommodation.edit');
+    Route::patch('/accommodation/update/{id}', [AccommodationController::class, 'update'])->name('accommodation.update');
 });
 
 Route::get('/search_by_address', [AccommodationController::class, 'search_by_address'])->name('search_by_address');

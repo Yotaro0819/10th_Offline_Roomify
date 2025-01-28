@@ -224,11 +224,11 @@
     <!-- results -->
     <div class="col-8">
         <div class="header">
-            <p>Hits: 122 matched</p>
+            <p>Hits: {{ $all_accommodations->count() }}</p>
             <hr>
             @if(isset($all_accommodations) && $all_accommodations->count() > 0)
                 @foreach($all_accommodations as $accommodation)
-                    <a href="#" class="row">
+                    <a href="{{ route('accommodation.show', $accommodation->id )}}" class="row">
                         <div class="col">
                             <img src="#" alt="#">
                         </div>
