@@ -2,79 +2,15 @@
 
 @section('title', 'show')
 
-<style>
-    .w-10 {
-        width: 10%;
-    }
-    .w-20 {
-        width: 20%;
-    }
-    .w-85 {
-        width:85%;
-    }
-
-    .picture-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start; /* 上揃え */
-            /* height: 100vh; */
-        }
+<link rel="stylesheet" href="{{ asset('css/slidePanel.css') }}">
+<link rel="stylesheet" href="{{ asset('css/accommodationShow.css') }}">
 
 
-        .center {
-            width: 31%;
-            height: 50%;
-            display: flex;
-            flex-direction: column;
-            /* justify-content: center; */
-            /* align-items: center; */
-        }
-        .left {
-            width: 45%;
-        }
 
-        .right {
-            width: 20%;
-        }
-
-        .left img {
-            width: 100%;
-            height: 390px;
-
-        }
-
-        .right img {
-            width: 100%;
-            height: 390px;
-        }
-
-        .center img {
-            width: 100%;
-            margin-bottom:10px;
-            height: 190px;
-            border-radius: 10px;
-        }
-
-        img {
-            object-fit:cover;
-        }
-
-        .bg-gray-500 {
-            background-color:rgb(223, 223, 223);
-        }
-
-        .bg-yellow {
-            background-color: yellow;
-        }
-
-        .booking-btn {
-            background-color: #DCBF7D;
-        }
-
-
-</style>
+<script src="{{ asset('js/slidePanel.js') }}"></script>
 
 <script>
+
     // Google Maps APIスクリプトを動的に読み込む関数
     function loadGoogleMapsScript() {
         const apiKey = "{{ config('services.google_maps.api_key') }}";
@@ -116,9 +52,13 @@
 
 
 
+
 @section('content')
 
 <div class="container w-75 mx-auto ">
+
+
+
     <div class="picture-box">
         <div class="left">
             <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="pic1" class="rounded-4"></a>
@@ -153,7 +93,7 @@
         @if (Auth::check())
         <a href="{{route('booking.create', $accommodation->id)}}" class="booking-btn text-black fs-4 p-2 mx-auto d-block text-center rounded-3 my-3 shadow">Go to the Booking Page</a>
         @else
-       <a href="{{ route('login') }}?redirect={{ route('accommodation.show', $accommodation->id) }}" class="booking-btn text-black fs-4 p-2 mx-auto d-block text-center rounded-3 my-3 shadow">Go Login/Register</a>
+       <a href="{{ route('login') }}?redirect={{ route('accommodation.show', $accommodation->id) }}" class="login-btn text-black fs-4 p-2 mx-auto d-block text-center rounded-3 my-3 shadow">Go Login/Register</a>
         @endif
     </div>
 
@@ -182,11 +122,20 @@
             </div>
 
         </div>
-        <div class="border-black border rounded w-50 m-4">
-            <a href="#" class="d-flex align-items-center">
+        <div class="border-black border rounded w-50 m-4" id="openButton">
+
+            <div id="sidePanel" class="hidden">
+
+                <div id="closeButton" class="close-icon"><i class="fas fa-angle-right angle"></i></div>
+                <h2 class="text-center">Side Panel</h2>
+                <p class="text-center">This is a sliding panel.</p>
+              </div>
+
+            <div class="d-flex align-items-center">
+
                 {{-- this a tag can go review.index --}}
                 <p class="fs-1 d-flex align-items-center text-black mb-0"><img src="{{ asset('assets/240_F_540091788_AvDyNUSbtnKQfNccukuFa3ZlsHFnMYrK.jpg') }}" alt="star" class="w-10 m-1">4.8 <span class="fs-4">(5 reviews)</span></p>
-            </a>
+            </div>
 
             <p class="ms-4 fs-5 mb-0">Recent reviews</p>
 
@@ -212,6 +161,6 @@
     </div>
 </div>
 
-
-
 @endsection
+
+
