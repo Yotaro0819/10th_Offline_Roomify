@@ -159,7 +159,7 @@
                                         <div class="d-flex justify-content-center">
                                         <button class="button-inactivate text-center" data-bs-toggle="modal" data-bs-target="#deactivate-accommodation-{{ $accommodation->id }}">Deactivate</button>
                                         </div>
-                                        {{-- include a model herre --}}
+                                        {{-- include a model here --}}
                                         @include('admin.accommodation.modal.status')
                                         @endif
 

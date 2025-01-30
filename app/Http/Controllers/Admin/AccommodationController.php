@@ -27,7 +27,7 @@ class AccommodationController extends Controller
 
     public function activate($id){
 
-        $this->user->onlyTrashed()->findOrFail($id)->restore();
+        $this->accommodation->onlyTrashed()->findOrFail($id)->restore();
 
         return redirect()->back();
     }
