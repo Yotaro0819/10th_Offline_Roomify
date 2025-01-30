@@ -28,7 +28,7 @@
     #sidePanel button {
         margin: 10px;
         padding: 10px 20px;
-        background-color: #007bff;
+        background-color: #DCBF7D;
         color: white;
         border: none;
         border-radius: 5px;
@@ -36,58 +36,53 @@
     }
 
     #sidePanel button:hover {
-        background-color: #0056b3;
+        background-color: #DCBF7D;
     }
 
     #openButton {
         margin: 20px;
         padding: 10px 20px;
-
         color: black;
         border: none;
         border-radius: 5px;
         cursor: pointer;
     }
 
-    .close-icon {
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    #sidePanel .comments  {
+        max-height: calc(100vh - 150px); /* スクロール領域の高さを設定 */
+        overflow-y: auto; /* 縦方向のスクロールを有効にする */
+        padding-right: 10px; /* スクロールバーが隠れないように少し余白を追加 */
+        overscroll-behavior: contain;
+    }
+
+    #closeButton {
         position: absolute;
+        border-radius: 5px 0 0 5px;
+        background-color:#DCBF7D;
         border: 1px black solid;
-        top: 50%; /* 上下中央 */
-        left: -20px; /* パネルの左外側に配置 */
+        top: 44%;
+        left: -20px;
         width: 20px;
         height: 80px;
-        color: black;
-        font-size: 30px;
-        text-align: center;
-        border-radius: 5px 0 0 5px;
         cursor: pointer;
-        background-color:#DCBF7D;;
-        transform: translateY(-50%); /* 完全な上下中央にする */
-        transition: transform 0.3s ease, opacity 0.3s ease;
-        opacity: 0;
-        visibility: hidden;
+        font-size: 24px;
+        transition: transform 0.5s ease, opacity 0.5s ease;
     }
 
     #closeButton.shown {
         transform: translateX(0);
         opacity: 1;
-        visibility: visible;
     }
 
-    /* 非表示時 */
     #closeButton.hidden {
-        transform: translateX(20px); /* 右に移動しながら消える */
-        opacity: 0;
-        transition: transform 0.3s ease opacity 0.3s ease;
+        transform: translateX(-30%);
+        opacity:0;
     }
-
 
     #closeButton .angle {
         line-height: 80px;
     }
-
-
-
-
-
-

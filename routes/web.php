@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/search', function () {
         return view('search');
     });
+    Route::post('/review/post/{id}', [ReviewController::class, 'store'])->name('review.store');
 
 
     //Araki route

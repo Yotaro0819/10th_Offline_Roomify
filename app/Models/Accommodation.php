@@ -63,4 +63,9 @@ class Accommodation extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function averageRating()
+    {
+        return $this->reviews()->avg('star') ?? 0;
+    }
 }

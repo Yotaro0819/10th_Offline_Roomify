@@ -6,9 +6,76 @@
 <link rel="stylesheet" href="{{ asset('css/accommodationShow.css') }}">
 
 
+<style>
+    .star-rating {
+    display: flex;
+    direction: rtl; /* 右から左に変更 */
+    position: relative;
+}
+
+.star-rating label {
+    font-size: 40px;
+    cursor: pointer;
+    color: #ccc; /* 初期の色 */
+    position: relative;
+}
+
+.star-rating input {
+    display: none; /* radioボタンを非表示 */
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #f39c12; /* ホバー時の黄色 */
+}
+
+.star-rating input:checked ~ label {
+    color: #f39c12; /* チェックした後の星の色 */
+}
+
+.star-rating .half:before {
+    content: '\f005'; /* Font Awesome star */
+    font-family: FontAwesome;
+    color: #f39c12;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to right, #f39c12 50%, #ccc 50%); /* 50%を黄色、残りを灰色 */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.star-rating .full:before {
+    content: '\f005'; /* Font Awesome star */
+    font-family: FontAwesome;
+    color: #f39c12;
+}
+
+.slidePanel {
+        height: 100%;
+        overflow-y: auto; /* 垂直方向のスクロールを有効にする */
+    }
+
+</style>
+
+<script>
+    // 星がクリックされた時に選ばれた評価を表示
+    const stars = document.querySelectorAll('.star-rating input');
+    stars.forEach(star => {
+        star.addEventListener('change', () => {
+        });
+    });
+
+    // 星の評価をリセットする関数
+    function resetStars() {
+        document.querySelectorAll('.star-rating input').forEach(input => {
+            input.checked = false;
+        });
+    }
+</script>
 
 <script src="{{ asset('js/slidePanel.js') }}"></script>
-
 <script>
 
     // Google Maps APIスクリプトを動的に読み込む関数
@@ -47,6 +114,7 @@
 
     // 初期ロード時にもスクリプトを読み込む
     loadGoogleMapsScript();
+
 </script>
 
 
@@ -122,38 +190,64 @@
             </div>
 
         </div>
-        <div class="border-black border rounded w-50 m-4" id="openButton">
+        <div class="border-black border rounded w-50 m-4 sidePanel" id="openButton">
 
             <div id="sidePanel" class="hidden">
 
                 <div id="closeButton" class="close-icon hidden"><i class="fas fa-angle-right angle"></i></div>
                 <h2 class="text-center">Comments</h2>
-                <div class="ms-5">
-                    <p class="text-center">Comment index</p>
+
+                <div class="mt-5 mx-5 comments">
+                <p class="text-secondary">Latest review</p>
+
                     @forelse ($reviews as $review)
-                        <h2>{{ $review->user->name}}</h2>
+                    <div class="border rounded my-4 p-3">
+                    <a href="#">
+                        <p class="text-start m-0 fs-5">{{ $review->user->name}}</p>
+                        <p class="m-0 mb-2 text-secondary">{{$review->user->reviews->count()}} reviews</p>
+                    </a>
+                    <p class="m-0">
+                        {{-- stars --}}
+                        @for ($i = 1; $i <= 5; $i++)
+                            @if ($i <= $review->star)
+                                <i class="fas fa-star text-warning"></i>
+                            @else
+                                <i class="far fa-star text-warning"></i>
+                            @endif
+                        @endfor
+                        <span class="text-secondary">{{ $review->created_at}}</span>
+                    </p>
+                    <p class="m-0 review-text">
+                        {{-- comments(read more) --}}
+                        {{ Str::limit($review->comment, 90) }}
+                        @if (strlen($review->comment) > 90)
+                            <a href="javascript:void(0);" class="read-more text-primary" data-full="{{ $review->comment }}">Read more</a>
+                        @endif
+                    </p>
+                        <p class="text-end mb-0">{{$review->created_at}}</p>
+                    </div>
+
                     @empty
                         <h2>No reviews yet.</h2>
                     @endforelse
                 </div>
-
-                <button class="ms-5">Post Comments</button>
-              </div>
+                <button class="button-review text-center" style="margin-left: 170px;" data-bs-toggle="modal" data-bs-target="#review-accommodation-{{ $accommodation->id }}">Post Review</button>
+            </div>
 
             <div class="d-flex align-items-center">
 
                 {{-- this a tag can go review.index --}}
-                <p class="fs-1 d-flex align-items-center text-black mb-0"><img src="{{ asset('assets/240_F_540091788_AvDyNUSbtnKQfNccukuFa3ZlsHFnMYrK.jpg') }}" alt="star" class="w-10 m-1">4.8 <span class="fs-4">(5 reviews)</span></p>
+                <p class="fs-1 d-flex align-items-center text-black mb-0"><img src="{{ asset('assets/240_F_540091788_AvDyNUSbtnKQfNccukuFa3ZlsHFnMYrK.jpg') }}" alt="star" class="w-10 m-1">{{ round($accommodation->averageRating(),1) }}<span class="fs-5">({{$accommodation->reviews->count() }} reviews)</span></p>
             </div>
-
-            <p class="ms-4 fs-5 mb-0">Recent reviews</p>
 
             <div class="recent-review">
 
-                <div class=" d-flex">
-                    <img src="{{ asset('assets/istockphoto-1300845620-612x612.jpg') }}" alt="User icon" class="w-10 ms-4">
-                    <p class="d-flex align-items-center fs-5 mb-0">This place was really nice and ...</p>
-                </div>
+                    <img src="{{ asset('assets/istockphoto-1300845620-612x612.jpg') }}" alt="User icon" class="" style="width: 30px">
+                    {{ Str::limit($latest_review->comment, 140) }}
+                        @if (strlen($latest_review->comment) > 140)
+                            <a href="javascript:void(0);" class="read-more text-primary" data-full="{{ $review->comment }}">Read more</a>
+                        @endif
+
                     <p class="text-end me-4 mb-1">yyyy/mm/dd</p>
             </div>
         </div>
@@ -170,6 +264,7 @@
     </div>
 </div>
 
+@include('accommodation.modal.show')
 @endsection
 
 

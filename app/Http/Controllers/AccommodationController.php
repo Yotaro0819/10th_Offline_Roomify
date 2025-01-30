@@ -312,9 +312,10 @@ class AccommodationController extends Controller
     public function show($id)
     {
         $accommodation = Accommodation::with('photos')->findOrFail($id);
-        $reviews = Review::all();
+        $reviews = Review::latest()->get();
+        $latest_review = Review::latest()->first();
 
-        return view('accommodation.show', compact('accommodation', 'reviews'));
+        return view('accommodation.show', compact('accommodation', 'reviews', 'latest_review'));
 
     }
 

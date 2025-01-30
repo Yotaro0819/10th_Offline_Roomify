@@ -14,26 +14,40 @@ class ReviewController extends Controller
     public function __construct(Review $review) {
         $this->review = $review;
     }
+
+
     public function store(Request $request, $id)
     {
+        // バリデーション
         $validated = $request->validate([
-            'star' => 'required|numeric|min:0|max:5',
-            'comment' => 'required|string',
-            // 'photos' => 'nullable|array',
-            // 'photos.*' => 'image|mimes:jpeg,jpg,png,gif|max:1048',
+            'star' => 'nullable|numeric|min:0|max:5',
+            'comment' => 'required|required|string',
         ]);
 
-        $user_id = Auth::user()->id;
-        $accommodation_id = Accommodation::findOrFail($id);
-        $reviews = Review::all();
+        // ユーザーIDを取得
+        $user_id = Auth::id(); // Auth::user()->id の省略形
 
-        $this->review->create([
-            'user_id' => $user_id,
-            'accommodation_id' => $accommodation_id,
-            'star' => $validated['star'],
-            'comment' => $validated['comment']
-        ]);
+        // 宿泊施設の取得
+        $accommodation = Accommodation::findOrFail($id);
+        $reviews = Review::latest()->get();
 
-        return redirect()->route('accommodation.show', $accommodation_id->id)->with('reviews', $reviews);
+        // レビューを作成
+        $review = new Review();
+        $review->user_id = $user_id;
+        $review->accommodation_id = $accommodation->id;
+        $review->star = $validated['star'] ?? 0; // nullなら0を代入
+        $review->comment = $validated['comment'];
+        $review->save();
+
+        // 宿泊施設の詳細ページへリダイレクト
+        return redirect()->route('accommodation.show', $accommodation->id)
+                        ->with('reviews', $reviews);
+    }
+
+    public function average($id)
+    {
+        $reviews = Review::where('accommodation_id', $id)->get();
+        return $reviews->count() > 0 ? $reviews->sum('star') / $reviews->count() : 0;
     }
 }
+
