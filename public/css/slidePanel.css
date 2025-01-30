@@ -8,18 +8,21 @@
     #sidePanel {
         position: fixed;
         top: 0;
-        right: -33.33%; /* 初期位置は画面外 */
-        width: 33.33%; /* 画面の3分の1 */
+        right: -30%; /* 初期位置は画面外 */
+        width: 30%; /* 画面の3分の1 */
         height: 100%;
         background-color: #f4f4f4;
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
-        transition: right 0.3s ease; /* スライドアニメーション */
+        transition: right 0.5s ease; /* スライドアニメーション */
         z-index: 2;
     }
 
 
     #sidePanel.shown {
         right: 0; /* 画面内にスライド */
+    }
+    #sidePanel.hidden {
+        right: -30%; /* 画面内にスライド */
     }
 
     #sidePanel button {
@@ -34,10 +37,6 @@
 
     #sidePanel button:hover {
         background-color: #0056b3;
-    }
-
-    .hidden {
-        display: none; /* 初期状態では非表示 */
     }
 
     #openButton {
@@ -64,11 +63,31 @@
         cursor: pointer;
         background-color:#DCBF7D;;
         transform: translateY(-50%); /* 完全な上下中央にする */
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
     }
+
+    #closeButton.shown {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* 非表示時 */
+    #closeButton.hidden {
+        transform: translateX(20px); /* 右に移動しながら消える */
+        opacity: 0;
+        transition: transform 0.3s ease opacity 0.3s ease;
+    }
+
 
     #closeButton .angle {
         line-height: 80px;
     }
+
+
+
 
 
 

@@ -10,6 +10,7 @@ use App\Models\Hashtag;
 use App\Models\Photo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class AccommodationController extends Controller
 {
@@ -118,12 +119,31 @@ class AccommodationController extends Controller
 
 
 
+                // if ($request->hasFile('photos')) {
+                //     foreach ($request->file('photos') as $photo) {
+                //         // 各写真を保存
+                //         $path = $photo->store('photos', 'public');
+
+                //         // Photoモデルで保存
+                //         Photo::create([
+                //             'accommodation_id' => $accommodation->id,
+                //             'image' => $path,
+                //         ]);
+                //     }
+                // }
+
                 if ($request->hasFile('photos')) {
                     foreach ($request->file('photos') as $photo) {
-                        // 各写真を保存
-                        $path = $photo->store('photos', 'public');
+                        // ファイルの拡張子を取得
+                        $extension = $photo->getClientOriginalExtension();
 
-                        // Photoモデルで保存
+                        // ユニークなファイル名を生成（UUIDを使用）
+                        $newFileName = Str::uuid() . '.' . $extension;
+
+                        // 画像を保存（storage/app/public/photos に保存）
+                        $path = $photo->storeAs('photos', $newFileName, 'public');
+
+                        // Photoモデルに保存
                         Photo::create([
                             'accommodation_id' => $accommodation->id,
                             'image' => $path,

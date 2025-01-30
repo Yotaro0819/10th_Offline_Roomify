@@ -126,7 +126,7 @@
 
             <div id="sidePanel" class="hidden">
 
-                <div id="closeButton" class="close-icon"><i class="fas fa-angle-right angle"></i></div>
+                <div id="closeButton" class="close-icon hidden"><i class="fas fa-angle-right angle"></i></div>
                 <h2 class="text-center">Side Panel</h2>
                 <p class="text-center">This is a sliding panel.</p>
               </div>
