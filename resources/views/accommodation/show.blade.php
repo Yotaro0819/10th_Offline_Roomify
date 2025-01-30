@@ -243,7 +243,7 @@
             <div class="d-flex align-items-center">
 
                 {{-- this a tag can go review.index --}}
-                <p class="fs-1 d-flex align-items-center text-black mb-0"><img src="{{ asset('assets/240_F_540091788_AvDyNUSbtnKQfNccukuFa3ZlsHFnMYrK.jpg') }}" alt="star" class="w-10 m-1">{{ round($accommodation->averageRating(),1) }}<span class="fs-5">({{$accommodation->reviews->count() }} reviews)</span></p>
+                <p class="fs-1 d-flex align-items-center text-black mb-0"><i class="fas fa-star text-warning me-2"></i> {{ round($accommodation->averageRating(),1) }}<span class="fs-5">({{$accommodation->reviews->count() }} reviews)</span></p>
             </div>
 
             <div class="recent-review">
@@ -254,7 +254,7 @@
                             <a href="javascript:void(0);" class="read-more text-primary" data-full="{{ $review->comment }}">Read more</a>
                         @endif
 
-                    <p class="text-end me-4 mb-1">yyyy/mm/dd</p>
+                    <p class="text-end me-4 mb-1">{{ $review->created_at }}</p>
             </div>
         </div>
     </div>
