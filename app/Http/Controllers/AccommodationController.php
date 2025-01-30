@@ -315,6 +315,7 @@ class AccommodationController extends Controller
         $reviews = Review::latest()->get();
         $latest_review = Review::latest()->first();
 
+
         return view('accommodation.show', compact('accommodation', 'reviews', 'latest_review'));
 
     }

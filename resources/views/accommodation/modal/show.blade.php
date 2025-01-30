@@ -43,13 +43,15 @@
                         <label for="star0_5" class="fa fa-star half"></label>
 
                     </div>
-                    <p onclick="resetStars()" class="btn btn-warning align-items-center my-3 m-0 w-50 mx-auto">Reset Rating</p>
+                    <p onclick="resetStars()" id="reset-btn" class="btn align-items-center my-3 m-0 w-50 mx-auto">Reset Rating</p>
+                    <button type="submit" class="btn text-white btn-warning align-items-center my-3 m-0 w-50 mx-auto">Post</button>
+                <button type="button" class="btn btn-secondary align-items-center my-3 m-0 w-50 mx-auto" data-bs-dismiss="modal">Cancel</button>
+
 
                 </div>
 
             <div class="modal-footer border-0">
-                <button type="button" class="btn btn-sm" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-sm">Post</button>
+
             </div>
         </form>
 

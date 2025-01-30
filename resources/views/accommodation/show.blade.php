@@ -52,10 +52,15 @@
     color: #f39c12;
 }
 
-.slidePanel {
-        height: 100%;
-        overflow-y: auto; /* 垂直方向のスクロールを有効にする */
+
+
+#reset-btn {
+    padding: 10px;
+    border:white;
+    color: black;
     }
+
+
 
 </style>
 
