@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" href="{{ asset('css/slidePanel.css') }}">
 <link rel="stylesheet" href="{{ asset('css/accommodationShow.css') }}">
-
+<script src="{{ asset('js/slidePanel.js') }}"></script>
 
 <style>
     .star-rating {
@@ -59,6 +59,8 @@
 
 </style>
 
+
+
 <script>
     // 星がクリックされた時に選ばれた評価を表示
     const stars = document.querySelectorAll('.star-rating input');
@@ -75,7 +77,6 @@
     }
 </script>
 
-<script src="{{ asset('js/slidePanel.js') }}"></script>
 <script>
 
     // Google Maps APIスクリプトを動的に読み込む関数

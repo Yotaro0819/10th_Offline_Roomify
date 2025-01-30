@@ -164,10 +164,10 @@ class AccommodationController extends Controller
                 return redirect()->route('accommodation.show', $accommodation->id)
                     ->with('success', '宿泊施設が登録されました');
             } else {
-                return response()->json(['error' => '住所のジオコーディングに失敗しました。', 'details' => $data], 400);
+                return redirect()->route('host.accommodation.create')->with('googleMap_Error', 'Something went wrong with the address.');
             }
         } catch (\Exception $e) {
-            return response()->json(['error' => 'エラーが発生しました。', 'message' => $e->getMessage()], 500);
+            return redirect()->route('host.accommodation.create')->with('googleMap_Error', 'Something went wrong with the address.');
         }
     }
 
@@ -205,7 +205,7 @@ class AccommodationController extends Controller
             'capacity' => 'required|integer|min:1|max:100',
             'description' => 'required|string',
             'photos' => 'nullable|array|min:4',
-            'photos.*' => 'image|mimes:jpeg,jpg,png,gif|max:1048',
+            'photos.*' => 'image|mimes:jpeg,jpg,png,gif,webp|max:1048',
         ]);
 
 
@@ -302,7 +302,7 @@ class AccommodationController extends Controller
             return redirect()->route('accommodation.show', $accommodation->id)
                 ->with('success', '宿泊施設が更新されました');
         } catch (\Exception $e) {
-            return response()->json(['error' => 'エラーが発生しました。', 'message' => $e->getMessage()], 500);
+            return redirect()->route('host.accommodation.create')->with('googleMap_error', 'Something went wrong with the address.');
         }
     }
 
