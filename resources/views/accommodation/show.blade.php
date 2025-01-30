@@ -127,8 +127,17 @@
             <div id="sidePanel" class="hidden">
 
                 <div id="closeButton" class="close-icon hidden"><i class="fas fa-angle-right angle"></i></div>
-                <h2 class="text-center">Side Panel</h2>
-                <p class="text-center">This is a sliding panel.</p>
+                <h2 class="text-center">Comments</h2>
+                <div class="ms-5">
+                    <p class="text-center">Comment index</p>
+                    @forelse ($reviews as $review)
+                        <h2>{{ $review->user->name}}</h2>
+                    @empty
+                        <h2>No reviews yet.</h2>
+                    @endforelse
+                </div>
+
+                <button class="ms-5">Post Comments</button>
               </div>
 
             <div class="d-flex align-items-center">

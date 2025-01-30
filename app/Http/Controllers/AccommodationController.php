@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Accommodation;
 use App\Models\Category;
 use App\Models\Hashtag;
+use App\Models\Review;
 use App\Models\Photo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -48,7 +49,6 @@ class AccommodationController extends Controller
             'description' => 'required|string',
             'photos' => 'nullable|array',
             'photos.*' => 'image|mimes:jpeg,jpg,png,gif|max:1048',
-
         ]);
 
         // リクエストから宿泊施設名と住所を取得
@@ -312,8 +312,9 @@ class AccommodationController extends Controller
     public function show($id)
     {
         $accommodation = Accommodation::with('photos')->findOrFail($id);
+        $reviews = Review::all();
 
-        return view('accommodation.show', compact('accommodation'));
+        return view('accommodation.show', compact('accommodation', 'reviews'));
 
     }
 
