@@ -24,6 +24,9 @@
 
 @section('content')
 <h1 class="h2 mx-5">Accommodation Index</h1>
+<div class="container w-75 mx-auto text-end ms-5">
+    <p class="fw-bold fs-4">Register your new accommodation <a href="{{ route('host.accommodation.create')}}" class="btn bg-secondary text-white">Register</a></p>
+</div>
 @if($all_accommodations->isNotEmpty())
     @foreach($all_accommodations as $accommodation)
         <a href="#" class="card mx-auto mb-5 w-75" id="acm-booking">

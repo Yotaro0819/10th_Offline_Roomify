@@ -149,6 +149,14 @@ class AccommodationController extends Controller
 
     }
 
+    public function pictureIndex($id)
+    {
+        $accommodation = Accommodation::with('photos')->findOrFail($id);
+
+        return view('accommodation.pictures', compact('accommodation'));
+    }
+
+
     public function index()
     {
         // $user = Auth::user();
@@ -162,14 +170,12 @@ class AccommodationController extends Controller
     public function search_by_address(Request $request)
     {
 
-            $keyword = substr( $request->address,0,7);
+            $keyword = substr( $request->address,0,3);
             // $keyword = $request->address;
 
             // return $keyword;
 
             $accommodations = collect();
-
-
 
                 $accommodations = $this->accommodation
                     ->where('address', 'LIKE', '%'. $keyword . '%')

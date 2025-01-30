@@ -125,7 +125,11 @@
     <div class="col-5 mt-5" id="acm-booking">
         <div class="row">
             <div class="col">
+                @if($accommodation->photos->isNotEmpty())
                 <img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="#">
+                @else
+                <img src="#" alt="">
+                @endif
             </div>
             <div class="col">
                 <div>
