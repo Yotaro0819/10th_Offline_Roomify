@@ -2,7 +2,7 @@
 
 @section('title', 'message_index')
 
-<link rel="stylesheet" href="{{ asset('css/messagesIndex.css')}}">
+<link rel="stylesheet" href="{{ asset('css/messages/messagesIndex.css')}}">
 @section('content')
 <div class="container w-75 mx-auto mt-5 mb-5">
     <h2>Messages</h2>
@@ -24,7 +24,11 @@
             <div class="row">
                 <a href="{{ route('messages.show', $user->id)}}" class="d-flex text-black">
                 <div class="col-2 d-flex justify-content-center align-items-center">
-                    <img src="{{asset($user->avatar)}}" alt="avatar" class="w-35">
+                    @if ($user->avatar)
+                    <img src="{{asset('public/'.$user->avatar)}}" alt="avatar" class="w-35">
+                    @else
+                    <i class="fa-solid fa-user"></i>
+                    @endif
                 </div>
                 <div class="col-10">
                     <p class="text-start mt-3">{{ $user->name }}</p>
