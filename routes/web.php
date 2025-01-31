@@ -15,18 +15,19 @@ use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
 
 
+
 Route::get('/', function () {
     return view('home');
 });
 Route::get('accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
 Route::get('/accommodation/pictures/{id}', [AccommodationController::class, 'pictureIndex'])->name('accommodation.pictures');
-
-
+Route::get('/accommodation/hashtag/{name}/{cityName?}', [HashtagController::class, 'index'])->name('accommodation.hashtag');
 Auth::routes();
+// Guest Without login can see these pages.
+
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
     Route::get('/profile', function () {
         return view('guest_profile');
@@ -41,6 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/search', function () {
         return view('search');
     });
+    Route::post('/review/post/{id}', [ReviewController::class, 'store'])->name('review.store');
 
 
     //Araki route
@@ -51,7 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/messages/show', function () {
         return view('messages.show');
     });
-    Route::get('/accommodation/hashtag/{name}/{cityName?}', [HashtagController::class, 'index'])->name('accommodation.hashtag');
+
     //Araki route end
 
 // host routes

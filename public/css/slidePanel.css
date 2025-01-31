@@ -1,0 +1,94 @@
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        overflow-x: hidden;
+    }
+
+
+    #sidePanel {
+        position: fixed;
+        top: 0;
+        right: -30%; /* 初期位置は画面外 */
+        width: 30%; /* 画面の3分の1 */
+        height: 100%;
+        background-color: #f4f4f4;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+        transition: right 0.5s ease; /* スライドアニメーション */
+        z-index: 2;
+        border:1px black solid
+    }
+
+    .slidePanel {
+        height: 100%;
+        overflow-y: auto; /* 垂直方向のスクロールを有効にする */
+        }
+
+
+    #sidePanel.shown {
+        right: 0; /* 画面内にスライド */
+    }
+    #sidePanel.hidden {
+        right: -30%; /* 画面内にスライド */
+    }
+
+    #sidePanel button {
+        margin: 10px;
+        padding: 10px 20px;
+        background-color: #DCBF7D;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #sidePanel button:hover {
+        background-color: #DCBF7D;
+    }
+
+    #openButton {
+        margin: 20px;
+        padding: 10px 20px;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    #sidePanel .comments  {
+        max-height: calc(100vh - 150px); /* スクロール領域の高さを設定 */
+        overflow-y: auto; /* 縦方向のスクロールを有効にする */
+        padding-right: 10px; /* スクロールバーが隠れないように少し余白を追加 */
+        overscroll-behavior: contain;
+    }
+
+    #closeButton {
+        position: absolute;
+        border-radius: 5px 0 0 5px;
+        background-color:#DCBF7D;
+        border: 1px black solid;
+        top: 44%;
+        left: -20px;
+        width: 20px;
+        height: 80px;
+        cursor: pointer;
+        font-size: 24px;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    #closeButton.shown {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    #closeButton.hidden {
+        transform: translateX(-30%);
+        opacity:0;
+    }
+
+    #closeButton .angle {
+        line-height: 80px;
+    }

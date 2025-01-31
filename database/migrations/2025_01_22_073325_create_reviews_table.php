@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('comment');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('star', 2, 1);
+            $table->decimal('star', 2, 1)->nullable();
             $table->foreignId('accommodation_id')->constrained('accommodations')->onDelete('cascade');
             $table->timestamps();
         });

@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Accommodation;
 use App\Models\Category;
 use App\Models\Hashtag;
+use App\Models\Review;
 use App\Models\Photo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class AccommodationController extends Controller
 {
@@ -47,7 +49,6 @@ class AccommodationController extends Controller
             'description' => 'required|string',
             'photos' => 'nullable|array',
             'photos.*' => 'image|mimes:jpeg,jpg,png,gif|max:1048',
-
         ]);
 
         // リクエストから宿泊施設名と住所を取得
@@ -118,12 +119,31 @@ class AccommodationController extends Controller
 
 
 
+                // if ($request->hasFile('photos')) {
+                //     foreach ($request->file('photos') as $photo) {
+                //         // 各写真を保存
+                //         $path = $photo->store('photos', 'public');
+
+                //         // Photoモデルで保存
+                //         Photo::create([
+                //             'accommodation_id' => $accommodation->id,
+                //             'image' => $path,
+                //         ]);
+                //     }
+                // }
+
                 if ($request->hasFile('photos')) {
                     foreach ($request->file('photos') as $photo) {
-                        // 各写真を保存
-                        $path = $photo->store('photos', 'public');
+                        // ファイルの拡張子を取得
+                        $extension = $photo->getClientOriginalExtension();
 
-                        // Photoモデルで保存
+                        // ユニークなファイル名を生成（UUIDを使用）
+                        $newFileName = Str::uuid() . '.' . $extension;
+
+                        // 画像を保存（storage/app/public/photos に保存）
+                        $path = $photo->storeAs('photos', $newFileName, 'public');
+
+                        // Photoモデルに保存
                         Photo::create([
                             'accommodation_id' => $accommodation->id,
                             'image' => $path,
@@ -144,10 +164,10 @@ class AccommodationController extends Controller
                 return redirect()->route('accommodation.show', $accommodation->id)
                     ->with('success', '宿泊施設が登録されました');
             } else {
-                return response()->json(['error' => '住所のジオコーディングに失敗しました。', 'details' => $data], 400);
+                return redirect()->route('host.accommodation.create')->with('googleMap_Error', 'Something went wrong with the address.');
             }
         } catch (\Exception $e) {
-            return response()->json(['error' => 'エラーが発生しました。', 'message' => $e->getMessage()], 500);
+            return redirect()->route('host.accommodation.create')->with('googleMap_Error', 'Something went wrong with the address.');
         }
     }
 
@@ -185,7 +205,7 @@ class AccommodationController extends Controller
             'capacity' => 'required|integer|min:1|max:100',
             'description' => 'required|string',
             'photos' => 'nullable|array|min:4',
-            'photos.*' => 'image|mimes:jpeg,jpg,png,gif|max:1048',
+            'photos.*' => 'image|mimes:jpeg,jpg,png,gif,webp|max:1048',
         ]);
 
 
@@ -282,7 +302,7 @@ class AccommodationController extends Controller
             return redirect()->route('accommodation.show', $accommodation->id)
                 ->with('success', '宿泊施設が更新されました');
         } catch (\Exception $e) {
-            return response()->json(['error' => 'エラーが発生しました。', 'message' => $e->getMessage()], 500);
+            return redirect()->route('host.accommodation.create')->with('googleMap_error', 'Something went wrong with the address.');
         }
     }
 
@@ -292,8 +312,11 @@ class AccommodationController extends Controller
     public function show($id)
     {
         $accommodation = Accommodation::with('photos')->findOrFail($id);
+        $reviews = Review::latest()->get();
+        $latest_review = Review::latest()->first();
 
-        return view('accommodation.show', compact('accommodation'));
+
+        return view('accommodation.show', compact('accommodation', 'reviews', 'latest_review'));
 
     }
 

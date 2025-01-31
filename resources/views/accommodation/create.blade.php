@@ -32,6 +32,9 @@ html,body
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label text-start w-100 ms-4 fw-bold">Accommodation Name</label>
+            @if (session('googleMap_Error'))
+                <h3 class="text-danger">{{ session('googleMap_Error') }}</h3>
+            @endif
             <input type="text" class="form-control mx-auto" id="name" name="name" placeholder="Accommodation Name" style="width: 95%; border-radius: 10px;">
         </div>
         @error('name')
@@ -82,6 +85,9 @@ html,body
         @error('photos')
         <div class="text-danger small">{{ $message }}</div>
         @enderror
+        @error('photos.*')
+        <div class="text-danger small">{{ $message }}</div>
+        @enderror
 
         <div class="mb-3">
             <label for="description" class="form-label text-start w-100 ms-4 fw-bold">Description</label>
@@ -117,6 +123,7 @@ html,body
 
 <script>
     let autocomplete;
+    let addressSelected = false; // 住所が選択されたかを判定するフラグ
 
     function initAutocomplete() {
         const input = document.getElementById('address');
@@ -154,15 +161,23 @@ html,body
 
             // city を対応する入力フィールドに設定
             document.getElementById('city').value = city;
+
+            addressSelected = true; // 住所が選択されたことをフラグで記録
         });
     }
-</script>
 
-
-<script>
-    const apiKey = "{{ config('services.google_maps.api_key') }}";
+    // フォームの送信前に手作業入力をチェック
+    function checkAddressBeforeSubmit() {
+        if (!addressSelected && document.getElementById('address').value.trim() !== '') {
+            // 手作業で住所が入力されている場合
+            // Google Maps登録しない処理をここに追加
+            console.log('手作業で住所が入力されました。');
+            // 必要ならここで自動補完用の処理をスキップするロジックを追加
+        }
+    }
 
     // Google Maps APIスクリプトを動的に作成して読み込む
+    const apiKey = "{{ config('services.google_maps.api_key') }}";
     const script = document.createElement('script');
     script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
     script.async = true;
@@ -180,6 +195,10 @@ html,body
     script.onerror = function () {
         console.error('Failed to load Google Maps API.');
     };
+
+    // フォーム送信時に手作業入力かどうかをチェック
+    document.getElementById('yourFormId').addEventListener('submit', checkAddressBeforeSubmit);
 </script>
+
 
 @endsection
