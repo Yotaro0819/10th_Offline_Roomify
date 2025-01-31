@@ -136,36 +136,40 @@
                     </div>
 
                         <div class="row d-flex justify-content-start">
-                        @if($all_accommodations->isNotEmpty())
-                            @foreach($all_accommodations as $accommodation)
-                            <div class="col-auto">
-                                <div class="card">
-                                    <img src="https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <p class="text-start m-0 name">{{ $accommodation->name }}</p>
-                                        <p class="m-0 text-start address">{{ $accommodation->address }}</p>
-                                        <p class="username m-0 text-start user">{{ $accommodation->user->name }}</p>
-                                        @if($accommodation->trashed())
-                                        <div class="d-flex justify-content-center align-items-center">
-                                        <i class="fa-solid fa-circle text-danger "></i> &nbsp; Deactivate
+                        @if($users->isNotEmpty())
+                            @foreach($users as $user)
+                                @foreach($user->accommodations as $accommodation)
+                                    <div class="col-auto">
+                                        <div class="card">
+                                            <img src="https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <p class="text-start m-0 name">{{ $accommodation->name }}</p>
+                                                <p class="m-0 text-start address">{{ $accommodation->address }}</p>
+                                                <p class="username m-0 text-start user">{!! $user->highlighted_name !!}</p>
+                                                @if($accommodation->trashed())
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                <i class="fa-solid fa-circle text-danger "></i> &nbsp; Deactivate
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                <button class="button-activate text-center" data-bs-toggle="modal" data-bs-target="#activate-accommodation-{{ $accommodation->id }}">Activate</button>
+                                                </div>
+                                                @else
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                <i class="fa-solid fa-circle text-success "></i> &nbsp; Activate
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                <button class="button-inactivate text-center" data-bs-toggle="modal" data-bs-target="#deactivate-accommodation-{{ $accommodation->id }}">Deactivate</button>
+                                                </div>
+                                                @endif
+                                                {{-- include a model here --}}
+                                                @include('admin.accommodation.modal.status')
+                                            </div>
                                         </div>
-                                        <div class="d-flex justify-content-center">
-                                        <button class="button-activate text-center" data-bs-toggle="modal" data-bs-target="#activate-accommodation-{{ $accommodation->id }}">Activate</button>
-                                        </div>
-                                        @else
-                                        <div class="d-flex justify-content-center align-items-center">
-                                        <i class="fa-solid fa-circle text-success "></i> &nbsp; Activate
-                                        </div>
-                                        <div class="d-flex justify-content-center">
-                                        <button class="button-inactivate text-center" data-bs-toggle="modal" data-bs-target="#deactivate-accommodation-{{ $accommodation->id }}">Deactivate</button>
-                                        </div>
-                                        @endif
-                                        {{-- include a model here --}}
-                                        @include('admin.accommodation.modal.status')
                                     </div>
-                                </div>
-                            </div>
+                                @endforeach
                             @endforeach
+
+
                         @else
                         <div>No Accommodation</div>
                         @endif

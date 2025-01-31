@@ -77,6 +77,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
     Route::delete('/accommodation/{id}/deactivate', [AdminAccommodationController::class, 'deactivate'])->name('accommodation.deactivate');
     Route::patch('/accommodation/{id}/activate', [AdminAccommodationController::class, 'activate'])->name('accommodation.activate');
+    Route::get('/accommodation/search', [AdminAccommodationController::class, 'search'])->name('accommodation.search');
     Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
 });
 
