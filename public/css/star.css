@@ -1,0 +1,51 @@
+.star-rating {
+    display: flex;
+    direction: rtl; /* 右から左に変更 */
+    position: relative;
+}
+
+.star-rating label {
+    font-size: 40px;
+    cursor: pointer;
+    color: #ccc; /* 初期の色 */
+    position: relative;
+}
+
+.star-rating input {
+    display: none; /* radioボタンを非表示 */
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #f39c12; /* ホバー時の黄色 */
+}
+
+.star-rating input:checked ~ label {
+    color: #f39c12; /* チェックした後の星の色 */
+}
+
+.star-rating .half:before {
+    content: '\f005'; /* Font Awesome star */
+    font-family: FontAwesome;
+    color: #f39c12;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to right, #f39c12 50%, #ccc 50%); /* 50%を黄色、残りを灰色 */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.star-rating .full:before {
+    content: '\f005'; /* Font Awesome star */
+    font-family: FontAwesome;
+    color: #f39c12;
+}
+
+
+#reset-btn {
+    padding: 10px;
+    border:white;
+    color: black;
+    }
