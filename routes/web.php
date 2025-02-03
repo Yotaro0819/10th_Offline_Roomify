@@ -55,10 +55,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 // host routes
 Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
-    Route::get('/res', [BookingController::class, 'reservation'])->name('reservation');
-    Route::get('/res/{bookingId}', [BookingController::class, 'showBookingStatus'])->name('showBookingStatus');
+    Route::get('/res', [BookingController::class, 'reservation_host'])->name('reservation_host');
+    // Route::get('/res/{bookingId}', [BookingController::class, 'showBookingStatus'])->name('showBookingStatus');
     Route::get('/res/{bookingId}/cancel', [BookingController::class, 'confirmCancel'])->name('confirmCancel');
-    Route::post('/res/{bookingId}/cancel', [BookingController::class, 'cancel'])->name('cancel');
+    Route::delete('/res/{bookingId}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
     Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
     Route::delete('/{id}/destroy,', [AccommodationController::class, 'destroy'])->name('destroy');
     Route::get('/accommodation/create', [AccommodationController::class, 'create'])->name('accommodation.create');
