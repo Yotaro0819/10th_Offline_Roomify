@@ -2,10 +2,10 @@
 <style>
     img
     {
-        width: 195px;
-        height: 120px;
+        width: 215px;
+        height: 140px;
         border-radius: 15px;
-        margin: 15px;
+        margin: 50px;
     }
     #acm-booking
     {
@@ -23,19 +23,15 @@
         text-decoration: border;
     }
     .start-date {
-    
         padding: 5px;
-        border-radius: 5px;
         font-weight: bold;
-        font-family: arial
+        font-family: arial;
     }
 
     .end-date {
-       
         padding: 5px;
-        border-radius: 5px;
         font-weight: bold;
-        font-family: arial
+        font-family: arial;
     }
 
     #spaced{
@@ -52,12 +48,11 @@
         display: inline-block;
         font-weight: bold;
         transition: background-color 0.3s ease;
-        margin-top: 50px;
+        margin-top: 100px;
     }
 </style>
-@section('title', 'Reservation status')
-@section('content')
-<h1 class="h2 mx-5"><i class="fa-regular fa-clock"></i>Reservation Status</h1>
+<!-- @section('content') -->
+<h1 class="h4 mx-5"><i class="fa-regular fa-clock"></i>Reservation Status</h1>
 @if($all_bookings->count() > 0)
     @foreach($all_bookings as $booking)
     <div class="card mx-auto mb-4 w-75" id="acm-booking">
@@ -76,14 +71,29 @@
                     <span class="start-date">{{ \Carbon\Carbon::parse($booking->check_in_date)->format('Y/m/d') }}</span> ~ 
                     <span class="end-date">{{ \Carbon\Carbon::parse($booking->check_out_date)->format('Y/m/d') }}</span>
                 </h5>
-                <div class="row" id="spaced">
+                <div id="spaced">
+                        <p><span><i class="fa-solid fa-circle-user"></i></span> {{ $booking->user->name }}</p>
+                </div>
+
+                <div>
+                        <p><span><i class="fa-solid fa-location-dot icon-input"></i></span> {{ $booking->accommodation->name }}</p>
+                </div>
+
+                <div>
+                        <p><span><i class="fa-solid fa-paper-plane"></i></span> {{ $booking->special_request ?? 'No special requests' }}</p>
+                </div>
+
+                <div>
+                        <p><span><i class="fa-solid fa-users icon-input"></i></span> {{ $booking->num_guest }}</p>
+                </div>
+                <!-- <div class="row" id="spaced">
                     <div class="col">{{ $booking->user->name }}</div>
                     <div class="col">{{ $booking->num_guest }} people</div>
                 </div>
                 <div class="row" id="spaced">
                     <div class="col">{{ $booking->accommodation->name }}</div>
                     <div class="col">{{ $booking->special_request ?? 'No special requests' }}</div>
-                </div>
+                </div> -->
             </div>
             <div class="col">
                 <form action="{{ route('host.confirmCancel', ['bookingId' => $booking->id]) }}" method="GET">

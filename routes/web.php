@@ -33,9 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
         return view('guest_profile');
     });
 
-    Route::get('/user/res', function () {
-        return view('userRes');
-    });
+    Route::get('/guest/res', [BookingController::class, 'reservation_guest'])->name('reservation_guest');
 
     Route::get('/booking-form/{id}', [BookingController::class, 'create'])->name('booking.create');
 

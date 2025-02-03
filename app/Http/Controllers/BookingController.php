@@ -34,6 +34,7 @@ class BookingController extends Controller
     
     }
 
+
     // public function showBookingStatus($bookingId)
     // {
     //     // $booking = Booking::find($bookingId);
@@ -76,5 +77,13 @@ class BookingController extends Controller
     {
         $accommodation = Accommodation::with('photos')->findOrFail($id);
         return view('bookingForm')->with('accommodation', $accommodation);
+    }
+
+//guest 
+    public function reservation_guest(){
+
+        $all_bookings = $this->booking->with(['accommodation', 'user'])->where('user_id', Auth::id())->latest()->paginate(3);
+
+        return view('guestRes', compact('all_bookings'));
     }
 }

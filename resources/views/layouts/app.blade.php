@@ -136,7 +136,7 @@ a
                                     @endif
 
                                     @if(Auth::user()->role == "1")
-                                        <a class="dropdown-item px-3 py-3" href="#">
+                                        <a class="dropdown-item px-3 py-3" href="{{ route('reservation_guest') }}">
                                             <i class="fa-solid fa-bed"></i> Reservation status
                                         </a>
                                     @endif
