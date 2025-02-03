@@ -80,10 +80,18 @@
         border:none;
     }
 
-    .card-body {
-    min-height: 54%; /* 必要に応じて高さを設定 */
+    .message-box {
+    min-height: 200px;
+    max-height: 500px; /* 必要に応じて高さを設定 */
     overflow-y: auto; /* 垂直方向のスクロールを有効にする */
-    border-top: 1px solid rgb(209, 209, 209);
+    border-top: 1px solid rgb(165, 165, 165);
+    overscroll-behavior: contain;
+    }
+    .noMessage {
+        height: 200px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
     }
 
 
@@ -105,7 +113,7 @@
             </div>
 
 
-    <div class="card-body pt-0 p-0 gray">
+    <div class="card-body pt-0 p-0">
         <div class="message-box mx-auto mt-3">
             {{-- message box --}}
             {{-- my message --}}
@@ -122,7 +130,10 @@
                     <div class="message-time text-end">{{ $message->created_at }}</div>
                 </div>
             @empty
+            <div class="noMessage">
                 <p class="my-4 fs-4">No messages yet.</p>
+
+            </div>
             @endforelse
 
         </div>
