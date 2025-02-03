@@ -55,8 +55,9 @@
         margin-top: 50px;
     }
 </style>
-<!-- @section('content') -->
-<h1 class="h4 mx-5"><i class="fa-regular fa-clock"></i>Reservation Status</h1>
+@section('title', 'Reservation status')
+@section('content')
+<h1 class="h2 mx-5"><i class="fa-regular fa-clock"></i>Reservation Status</h1>
 @if($all_bookings->count() > 0)
     @foreach($all_bookings as $booking)
     <div class="card mx-auto mb-4 w-75" id="acm-booking">
@@ -101,7 +102,7 @@
 @else
     <p class="text-center">No reservations found.</p>
 @endif
-<!-- @endsection -->
+@endsection
 
 
 
