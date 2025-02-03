@@ -2,7 +2,7 @@
 
 @section('title', 'Admin: Users')
 
-@section('content')
+@section('content2')
 
 <style>
 

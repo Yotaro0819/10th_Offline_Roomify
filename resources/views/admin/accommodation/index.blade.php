@@ -2,11 +2,11 @@
 
 @section('title', 'Admin: Accomodation')
 
-@section('content')
+@section('content2')
 
 <style>
 
-.select-box
+/* .select-box
 {
     position: relative;
     height: 150px;
@@ -32,7 +32,7 @@
     color: white;
     font-weight: bold;
 
-}
+} */
 
 .card
 {
@@ -93,47 +93,17 @@
 
 </style>
 
-<main class="mt-3">
-            <div class="container">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-2">
-                        <div class="select-box mb-3 d-flex justify-content-center align-items-center">
-                            <div>
-                            <i class="fa-solid fa-users"></i>
-                            </div>
-                            <p class="mt-3 ">
-                                Users
-                            </p>
-                        </div>
-                        <div class="select-box mb-3 d-flex justify-content-center align-items-center">
-                            <div>
-                            <i class="fa-solid fa-house-chimney"></i>
-                            </div>
-                            <p class="mt-3 ">
-                                Accommodate
-                            </p>
-                        </div>
-                        <div class="select-box mb-3 d-flex justify-content-center align-items-center">
-                            <div>
-                            <i class="fa-solid fa-tags"></i>
-                            </div>
-                            <p class="mt-3 ">
-                                Categories
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-10">
                         <div class="row">
-                        <h3 class="col">
-                            Accomodation list
-                        </h3>
-                        <div class="col">
-                            <form action="{{ route('admin.accommodation.search') }}" class="w-50">
-                                <input type="search" name="search" class="form-control" placeholder="Search...." style="border: 1px solid #ccc;">
-                            </form>
+                            <h3 class="col">
+                                Accomodation list
+                            </h3>
+                            <div class="col">
+                                <form action="{{ route('admin.accommodation.search') }}" class="w-50">
+                                    <input type="search" name="search" class="form-control" placeholder="Search...." style="border: 1px solid #ccc;">
+                                </form>
+                            </div>
                         </div>
-                    </div>
+                    
 
                         <div class="row d-flex justify-content-start">
                         @if($all_accommodations->isNotEmpty())
@@ -170,8 +140,5 @@
                         <div>No Accommodation</div>
                         @endif
                         </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+                    
 @endsection
