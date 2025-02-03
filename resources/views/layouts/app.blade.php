@@ -116,7 +116,7 @@ a
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <a href="" class="find-button">Find a Property</a>
+                        <a href="{{ route('search') }}" class="find-button">Find a Property</a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

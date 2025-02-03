@@ -390,7 +390,8 @@ footer .right{
     <section class="properties">
         <div class="container d-flex">
             <div class="w-100">
-                <img src="https://images.pexels.com/photos/16095241/pexels-photo-16095241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image2">
+                <img src="https://images.pexels.com/photos/16095241/pexels-photo-16095241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;
+                border-radius: 50px;" class="image2">
             </div>
             <div class="w-100">
                 <h2 class="mx-auto">
