@@ -87,7 +87,7 @@ a
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <a href="" class="find-button">Find a Property</a>
+                        <a href="{{ route('search') }}" class="find-button">Find a Property</a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -117,6 +117,9 @@ a
                                     @if(Auth::user()->role == "2")
                                         <a class="dropdown-item" href="{{ route('host.index') }}">
                                             <i class="fa-solid fa-house"></i> Accommodation index
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('host.reservation_host') }}">
+                                            <i class="fa-solid fa-bed"></i> Reservation status
                                         </a>
                                     @endif
 

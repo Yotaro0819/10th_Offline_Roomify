@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/booking-form/{id}', [BookingController::class, 'create'])->name('booking.create');
 
     Route::get('/search', function () {
-        return view('search');
+        return view('accommodation.search');
     });
     Route::post('/review/post/{id}', [ReviewController::class, 'store'])->name('review.store');
 
@@ -55,10 +55,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 // host routes
 Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
-    Route::get('/res', [BookingController::class, 'reservation'])->name('reservation');
-    Route::get('/res/{bookingId}', [BookingController::class, 'showBookingStatus'])->name('showBookingStatus');
+    Route::get('/res', [BookingController::class, 'reservation_host'])->name('reservation_host');
+    // Route::get('/res/{bookingId}', [BookingController::class, 'showBookingStatus'])->name('showBookingStatus');
     Route::get('/res/{bookingId}/cancel', [BookingController::class, 'confirmCancel'])->name('confirmCancel');
-    Route::post('/res/{bookingId}/cancel', [BookingController::class, 'cancel'])->name('cancel');
+    Route::delete('/res/{bookingId}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
     Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
     Route::delete('/{id}/destroy,', [AccommodationController::class, 'destroy'])->name('destroy');
     Route::get('/accommodation/create', [AccommodationController::class, 'create'])->name('accommodation.create');
@@ -66,6 +66,10 @@ Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], func
     ROute::get('/accommodation/edit/{id}', [AccommodationController::class, 'edit'])->name('accommodation.edit');
     Route::patch('/accommodation/update/{id}', [AccommodationController::class, 'update'])->name('accommodation.update');
 });
+
+Route::get('/search', [AccommodationController::class, 'search'])->name('search');
+Route::get('/search_by_keyword', [AccommodationController::class, 'search_by_keyword'])->name('search_by_keyword');
+Route::get('/search_by_filters', [AccommodationController::class, 'search_by_filters'])->name('search_by_filters');
 
 // admin routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){

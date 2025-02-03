@@ -17,22 +17,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CategorySeeder::class,
-        ]);
-
-        $this->call([
             NationalitySeeder::class,
-        ]);
-
-        $this->call([
             UserSeeder::class,
-        ]);
-
-        $this->call([
-            AccommodationSeeder::class,
-        ]);
-
-        $this->call([
             BookingSeeder::class,
+            AccommodationSeeder::class,
+            CategoryAccommodationSeeder::class,
+
         ]);
+
     }
 }

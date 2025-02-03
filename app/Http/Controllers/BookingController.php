@@ -10,33 +10,41 @@ use App\Models\Booking;
 class BookingController extends Controller
 {
     private $booking;
+    private $accommodation;
 
-    public function __construct(Booking $booking){
+    public function __construct(Booking $booking, Accommodation $accommodation){
         
         $this->booking = $booking;
-
+        $this->accommodation = $accommodation;
     }
 
-    public function reservation(Request $request){
+    public function reservation_host(){
        
-        $all_bookings = $this->booking->with('accomodation')->where('user_id', Auth::user()->id)->latest()->paginate(3);
+        // $all_bookings = $this->booking->where('user_id', Auth::user()->id)->latest()->paginate(3);
+        // $all_accommodations = $this->accommodation->where('user_id', Auth::user()->id)->get();
+        // $all_bookings = $this->booking->where('user_id', Auth::user()->id)->get();
 
-        $booking = null;
+        // return view('hostRes')->with('all_bookings', $all_accommodations);
 
-        return view('hostRes')->with('all_bookings', $all_bookings);
+        $accommodationIds = $this->accommodation->where('user_id', Auth::id())->select('id');
+
+        $all_bookings = $this->booking->with(['accommodation', 'user'])->whereIn('accommodation_id', $accommodationIds)->latest()->paginate(3);
+
+        return view('hostRes', compact('all_bookings'));
     
     }
 
-    public function showBookingStatus($bookingId)
-    {
-        $booking = Booking::find($bookingId);
+    // public function showBookingStatus($bookingId)
+    // {
+    //     // $booking = Booking::find($bookingId);
+    //     $all_bookings = $this->booking->get();
 
-        if (!$booking) {
-            return redirect()->back()->with('error', 'Booking not found.');
-        }
+    //     // if (!$booking) {
+    //     //     return redirect()->back()->with('error', 'Booking not found.');
+    //     // }
 
-        return view('hostRes', compact('booking'));
-    }
+    //     return view('hostRes')->with('all_bookings', $all_bookings);
+    // }
 
     public function cancel($bookingId)
     {
@@ -47,23 +55,23 @@ class BookingController extends Controller
         }
 
         $booking->status = 0;
-        $booking->save();
+        $booking->delete();
 
-        return redirect()->route('host.reservation')->with('success', 'Booking canceled.');
+        return redirect()->route('host.reservation_host')->with('success', 'Booking canceled.');
     }
 
     public function confirmCancel($bookingId)
     {
-        $booking = Booking::find($bookingId);
+        $booking = Booking::with(['accommodation', 'user'])->find($bookingId);
         
         if (!$booking) {
-            return redirect()->back()->with('error', 'Booking not found.');
+            return redirect()->route('host.reservation_host')->with('error', 'Booking not found.');
         }
         
-
-        return view('booking.cancel', compact('booking'));
+        return view('bookingcancel', compact('booking'));
 
     }
+
     public function create($id)
     {
         $accommodation = Accommodation::with('photos')->findOrFail($id);
