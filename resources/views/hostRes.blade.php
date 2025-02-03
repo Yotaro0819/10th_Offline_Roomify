@@ -75,14 +75,29 @@
                     <span class="start-date">{{ \Carbon\Carbon::parse($booking->check_in_date)->format('Y/m/d') }}</span> ~ 
                     <span class="end-date">{{ \Carbon\Carbon::parse($booking->check_out_date)->format('Y/m/d') }}</span>
                 </h5>
-                <div class="row" id="spaced">
+                <div>
+                        <p><span><i class="fa-solid fa-comment icon-input"></i></span>{{ $booking->user->name }}</p>
+                </div>
+
+                <div>
+                        <p><span><i class="fa-solid fa-location-dot icon-input"></i></span>{{ $booking->accommodation->name }}</p>
+                </div>
+
+                <div>
+                        <p class="fw-bold"><span><i class="fa-solid fa-money-bill icon-input"></i></span>{{ $booking->special_request ?? 'No special requests' }}</p>
+                </div>
+
+                <div>
+                        <p class="fw-bold"><span><i class="fa-solid fa-users icon-input"></i></span>{{ $booking->num_guest }}</p>
+                </div>
+                <!-- <div class="row" id="spaced">
                     <div class="col">{{ $booking->user->name }}</div>
                     <div class="col">{{ $booking->num_guest }} people</div>
                 </div>
                 <div class="row" id="spaced">
                     <div class="col">{{ $booking->accommodation->name }}</div>
                     <div class="col">{{ $booking->special_request ?? 'No special requests' }}</div>
-                </div>
+                </div> -->
             </div>
             <div class="col">
                 <form action="{{ route('host.confirmCancel', ['bookingId' => $booking->id]) }}" method="GET">
