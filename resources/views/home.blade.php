@@ -399,7 +399,7 @@ footer .right{
                     on our Listing
                 </h2>
                 <div class="card-container">
-                     <div class="card mx-auto" style="width: 60%">
+                     <div class="card mx-auto" style="width: 60%; height: auto;">
                         <img src="" alt="">
                         <h3>Bilding Name</h3>
                         <p class="address">Address</p>
