@@ -138,6 +138,9 @@
         @endforeach
     @endforeach
 @else
-<div>No Accommodation</div>
+<div>
+no user's accommodation
+</div>
 @endif
+
 @endsection
