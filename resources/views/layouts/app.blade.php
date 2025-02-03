@@ -118,6 +118,9 @@ a
                                         <a class="dropdown-item" href="{{ route('host.index') }}">
                                             <i class="fa-solid fa-house"></i> Accommodation index
                                         </a>
+                                        <a class="dropdown-item" href="{{ route('host.reservation_host') }}">
+                                            <i class="fa-solid fa-bed"></i> Reservation status
+                                        </a>
                                     @endif
 
                                     @if(Auth::user()->role == "0")
