@@ -19,7 +19,7 @@ class AccommodationController extends Controller
     // master push
     private $accommodation;
     private $category;
-    private $hashtag;
+    private $hash;
 
 
 
@@ -27,7 +27,7 @@ class AccommodationController extends Controller
     {
         $this->accommodation = $accommodation;
         $this->category      = $category;
-        $this->hashtag       = $hashtag;
+        $this->hash       = $hashtag;
 
     }
 
