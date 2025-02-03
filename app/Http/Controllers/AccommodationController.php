@@ -15,6 +15,8 @@ use Illuminate\Support\Str;
 
 class AccommodationController extends Controller
 {
+
+    // master push
     private $accommodation;
     private $category;
 
