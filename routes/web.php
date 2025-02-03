@@ -47,21 +47,18 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Araki route
 
-    Route::get('/messages', function () {
-        return view('messages.index');
-    });
-    Route::get('/messages/show', function () {
-        return view('messages.show');
-    });
-
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('messages.show');
+    Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
+    Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
     //Araki route end
 
 // host routes
 Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
-    Route::get('/res', [BookingController::class, 'reservation'])->name('reservation');
-    Route::get('/res/{bookingId}', [BookingController::class, 'showBookingStatus'])->name('showBookingStatus');
+    Route::get('/res', [BookingController::class, 'reservation_host'])->name('reservation_host');
+    // Route::get('/res/{bookingId}', [BookingController::class, 'showBookingStatus'])->name('showBookingStatus');
     Route::get('/res/{bookingId}/cancel', [BookingController::class, 'confirmCancel'])->name('confirmCancel');
-    Route::post('/res/{bookingId}/cancel', [BookingController::class, 'cancel'])->name('cancel');
+    Route::delete('/res/{bookingId}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
     Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
     Route::delete('/{id}/destroy,', [AccommodationController::class, 'destroy'])->name('destroy');
     Route::get('/accommodation/create', [AccommodationController::class, 'create'])->name('accommodation.create');

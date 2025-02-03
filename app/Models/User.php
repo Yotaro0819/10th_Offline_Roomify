@@ -78,6 +78,9 @@ class User extends Authenticatable
         return $this->hasMany(Review::class);
     }
 
-
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 
 }

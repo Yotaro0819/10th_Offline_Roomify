@@ -2,85 +2,11 @@
 
 @section('title', 'show')
 
-<link rel="stylesheet" href="{{ asset('css/slidePanel.css') }}">
-<link rel="stylesheet" href="{{ asset('css/accommodationShow.css') }}">
+<link rel="stylesheet" href="{{ asset('css/accommodationShow/slidePanel.css') }}">
+<link rel="stylesheet" href="{{ asset('css/accommodationShow/accommodationShow.css') }}">
+<link rel="stylesheet" href="{{ asset('css/accommodationShow/star.css') }}">
 <script src="{{ asset('js/slidePanel.js') }}"></script>
-
-<style>
-    .star-rating {
-    display: flex;
-    direction: rtl; /* 右から左に変更 */
-    position: relative;
-}
-
-.star-rating label {
-    font-size: 40px;
-    cursor: pointer;
-    color: #ccc; /* 初期の色 */
-    position: relative;
-}
-
-.star-rating input {
-    display: none; /* radioボタンを非表示 */
-}
-
-.star-rating label:hover,
-.star-rating label:hover ~ label {
-    color: #f39c12; /* ホバー時の黄色 */
-}
-
-.star-rating input:checked ~ label {
-    color: #f39c12; /* チェックした後の星の色 */
-}
-
-.star-rating .half:before {
-    content: '\f005'; /* Font Awesome star */
-    font-family: FontAwesome;
-    color: #f39c12;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(to right, #f39c12 50%, #ccc 50%); /* 50%を黄色、残りを灰色 */
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.star-rating .full:before {
-    content: '\f005'; /* Font Awesome star */
-    font-family: FontAwesome;
-    color: #f39c12;
-}
-
-
-
-#reset-btn {
-    padding: 10px;
-    border:white;
-    color: black;
-    }
-
-
-
-</style>
-
-
-
-<script>
-    // 星がクリックされた時に選ばれた評価を表示
-    const stars = document.querySelectorAll('.star-rating input');
-    stars.forEach(star => {
-        star.addEventListener('change', () => {
-        });
-    });
-
-    // 星の評価をリセットする関数
-    function resetStars() {
-        document.querySelectorAll('.star-rating input').forEach(input => {
-            input.checked = false;
-        });
-    }
-</script>
+<script src="{{ asset('js/star.js') }}"></script>
 
 <script>
 
@@ -122,11 +48,6 @@
     loadGoogleMapsScript();
 
 </script>
-
-
-
-
-
 @section('content')
 
 <div class="container w-75 mx-auto ">
@@ -184,16 +105,17 @@
                 <a href="#" class="d-flex align-items-center">
                     {{-- this a tag can go message page --}}
                 @if ($accommodation->user->avatar)
-                <img src="{{ asset('storage/' . $accommodation->user->avatar) }}" alt="">
+                <img src="{{ asset('storage/' . $accommodation->user->avatar) }}" alt="" class="rounded">
                 @else
-                <img src="{{ asset('assets/istockphoto-1300845620-612x612.jpg') }}" alt="User icon" class="w-20 my-2">
+                    <i class="fa-solid fa-user m-3" style="font-size:40px"></i>
                 @endif
                 <div class="d-flex flex-column justify-content-center">
                     <p class="ms-4 fs-5 text-black">{{ $accommodation->user->name}}</p>
-                    <p class="ms-4 fs-5 text-black">{{$accommodation->user->nationality->nationality}}</p>
+                    <p class="ms-4 fs-5 text-black m-0">{{$accommodation->user->nationality->nationality}}</p>
                 </div>
                 </a>
             </div>
+            <p class="w-50 mx-auto text-center"><a href="{{ route('messages.show', $accommodation->user->id)}}" class="btn border-black shadow">Send Message</a></p>
 
         </div>
         <div class="border-black border rounded w-50 m-4 sidePanel" id="openButton">
@@ -208,7 +130,7 @@
 
                     @forelse ($reviews as $review)
                     <div class="border rounded my-4 p-3">
-                    <a href="#">
+                    <a href="/profile">
                         <p class="text-start m-0 fs-5">{{ $review->user->name}}</p>
                         <p class="m-0 mb-2 text-secondary">{{$review->user->reviews->count()}} reviews</p>
                     </a>
@@ -248,9 +170,9 @@
 
             <div class="recent-review">
 
-                    <img src="{{ asset('assets/istockphoto-1300845620-612x612.jpg') }}" alt="User icon" class="" style="width: 30px">
-                    {{ Str::limit($latest_review->comment, 140) }}
-                        @if (strlen($latest_review->comment) > 140)
+                    <img src="{{ asset('assets/istockphoto-1300845620-612x612.jpg') }}" alt="User icon" class="mb-0" style="width: 30px">
+                    {{ Str::limit($latest_review->comment, 220) }}
+                        @if (strlen($latest_review->comment) > 220)
                             <a href="javascript:void(0);" class="read-more text-primary" data-full="{{ $review->comment }}">Read more</a>
                         @endif
 

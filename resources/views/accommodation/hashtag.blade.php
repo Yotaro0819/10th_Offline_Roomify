@@ -4,7 +4,7 @@
 
 <style>
 .card-title, .card-text {
-    text-align: left !important;
+    text-align: left;
   }
 .img {
     object-fit: cover;
@@ -19,7 +19,7 @@
 </style>
 @section('content')
 
-<div class="container w-75 vh-100">
+<div class="container w-75">
     <a href="{{ url()->previous() }}" class="text-black d-block mt-5"><i class="fa-solid fa-angles-left"></i> Back to the accommodation page</a>
 
     <h2 class="fs-5 mb-0 mt-5">Hashtag: <span class="fw-bold">{{$hashtag->name}}</span></h2>
@@ -28,7 +28,7 @@
 
 
     <div class="container mt-4">
-        <div class="row">
+        <div class="row justify-content-start">
 
     @forelse ($all_accommodations as $accommodation)
     <div class="col-12 col-md-4 mb-4">

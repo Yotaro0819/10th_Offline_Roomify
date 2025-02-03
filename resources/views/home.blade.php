@@ -112,7 +112,7 @@ h2{
     border: 1px solid #ccc;
     border-radius: 50px;
     padding: 10px;
-    color: #000; 
+    color: #000;
     height: 30px;
 }
 
@@ -193,7 +193,7 @@ input::placeholder {
 .hosting .btn{
     background-color: #dcbf7d;
     color: #ffffff;
-    width: 170px; 
+    width: 170px;
     padding: 20px;
     border-radius: 40px;
 }
@@ -257,7 +257,7 @@ input::placeholder {
 .discover .btn{
     background-color: #dcbf7d;
     color: #ffffff;
-    width: 170px; 
+    width: 170px;
     padding: 20px;
     border-radius: 40px;
 }
@@ -335,14 +335,14 @@ footer .right{
             <br>
             <div class="card">
                 <h2>FIND</h2>
-                
+
                 <form action="" class="search-form">
                     <div class="form-container">
                         <div class="form-group">
                             <label for="location" class="form-label">Location</label>
                             <input type="text" id="location" class="form-control" placeholder="Which city do you prefer?">
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="check_in" class="form-label">Check in</label>
                             <div class="input-container">
@@ -350,7 +350,7 @@ footer .right{
                                 <span class="placeholder-text">Add Dates</span>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="check_out" class="form-label">Check out</label>
                             <input type="date" id="check_out" class="form-control" placeholder="Add Dates">
@@ -375,7 +375,11 @@ footer .right{
                 <br>
                 <p>Earn extra just by renting your propety...</p>
                 <br>
+                @if(Auth::check() && Auth::user()->role == '2')
+                <a href="#" class="btn">Go host page</a>
+                @else
                 <a href="#" class="btn">Become A Host</a>
+                @endif
             </div>
             <div class="col-6">
                 <img src="https://images.pexels.com/photos/16095241/pexels-photo-16095241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image2">
@@ -384,37 +388,43 @@ footer .right{
     </section>
 
     <section class="properties">
-        <div class="container">
-            <h2>
-                Featured Properties<br>
-                on our Listing
-            </h2>
-            <div class="card-container">
-                 <div class="card">
-                    <img src="" alt="">
-                    <h3>Bilding Name</h3>
-                    <p class="address">Address</p>
-                    <div class="row">
-                        <div class="col-auto">
-                            <h4 id="price">$price</h4>
-                        </div>
-                        <div class="col-auto">
-                            <p id="night">/ 6 night</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-auto">
-                            <p><i class="fa-solid fa-bed"></i> 4 Beds</p>
-                        </div>
-                        <div class="col-auto">
-                            <p><i class="fa-regular fa-user"></i> 8 Sleeps</p>
-                        </div>
-                        <div class="col-auto">
-                            <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> 1350 Sq Ft</p>
-                        </div>
-                    </div>
-                 </div>
+        <div class="container d-flex">
+            <div class="w-100">
+                <img src="https://images.pexels.com/photos/16095241/pexels-photo-16095241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image2">
             </div>
+            <div class="w-100">
+                <h2 class="mx-auto">
+                    Featured Properties<br>
+                    on our Listing
+                </h2>
+                <div class="card-container">
+                     <div class="card mx-auto" style="width: 60%">
+                        <img src="" alt="">
+                        <h3>Bilding Name</h3>
+                        <p class="address">Address</p>
+                        <div class="row">
+                            <div class="col-auto">
+                                <h4 id="price">$price</h4>
+                            </div>
+                            <div class="col-auto">
+                                <p id="night">/ 6 night</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <p><i class="fa-solid fa-bed"></i> 4 Beds</p>
+                            </div>
+                            <div class="col-auto">
+                                <p><i class="fa-regular fa-user"></i> 8 Sleeps</p>
+                            </div>
+                            <div class="col-auto">
+                                <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> 1350 Sq Ft</p>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
