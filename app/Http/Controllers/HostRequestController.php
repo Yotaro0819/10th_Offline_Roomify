@@ -24,7 +24,7 @@ class HostRequestController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->route('hostRequest.create')->with('success', 'Send request was successful.');
+        return redirect()->route('hostRequest.create')->with('success', 'Send request was successful');
     }
 
     public function index()
