@@ -66,7 +66,6 @@
 @else
     <h3 class="text-muted text-center mt-3"> No Accomodations Yet</h3>
 @endif
-
     <div class="d-flex justify-content-center">
         {{ $all_accommodations->links('pagination::simple-tailwind', ['class' => 'pagination']) }}
     </div>
