@@ -73,5 +73,14 @@ class User extends Authenticatable
         return $this->hasMany(Accommodation::class)->latest();
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 
 }
