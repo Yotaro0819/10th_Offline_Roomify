@@ -159,33 +159,69 @@ class AccommodationController extends Controller
 
     public function index()
     {
-        // $user = Auth::user();
         $all_accommodations = $this->accommodation->where('user_id', Auth::user()->id)->latest()->paginate(3);
-
-        // return $all_accommodations;
 
         return view('acm_index_host')->with('all_accommodations', $all_accommodations);
     }
 
-    public function search_by_address(Request $request)
+    public function search()
     {
+        $accommodations =  $this->accommodation->get();
+        $categories     =  $this->category->get();
 
-            $keyword = substr( $request->address,0,3);
-            // $keyword = $request->address;
-
-            // return $keyword;
-
-            $accommodations = collect();
-
-                $accommodations = $this->accommodation
-                    ->where('address', 'LIKE', '%'. $keyword . '%')
-                    ->get();
-
-
-            return view('accommodation.search')
-                ->with('all_accommodations', $accommodations);
+        return view('accommodation.search')->with('accommodations', $accommodations)
+                                                 ->with('categories', $categories);
     }
 
+    public function search_by_keyword(Request $request)
+    {
+        $accommodations = $this->accommodation
+                    ->where('address', 'LIKE', '%'. $request->keyword . '%')
+                    ->orWhere('name', 'LIKE', '%'. $request->keyword . '%')
+                    ->orWhere('city', 'LIKE', '%'. $request->keyword . '%')
+                    ->orWhere('price', 'LIKE', '%'. $request->keyword . '%')
+                    ->paginate(5);
+
+        $categories     =  $this->category->get();
+
+
+        return view('accommodation.search')->with('all_accommodations', $accommodations)
+                                                 ->with('categories', $categories);
+    }
+
+    public function search_by_filters(Request $request)
+    {
+        $query = $this->accommodation->query();
+
+        $query->when($request->capacity, function ($q, $capacity) {
+            $capacityRanges = [
+                'capa_1' => [1, 2],
+                'capa_2' => [3, 5],
+                'capa_3' => [6, 10],
+            ];
+
+            if (isset($capacityRanges[$capacity])) {
+                $q->whereBetween('capacity', $capacityRanges[$capacity]);
+            } elseif ($capacity === 'capa_4') {
+                $q->where('capacity', '>', 10);
+            }
+        });
+
+        $query->when($request->filled(['min_price', 'max_price']), function ($q) use ($request) {
+            $q->whereBetween('price', [$request->min_price, $request->max_price]);
+        });
+
+        $query->when($request->filled('city'), function ($q) use ($request) {
+            $q->where('city', 'LIKE', '%' . $request->city . '%');
+        });
+
+        $categories     =  $this->category->get();
+        $accommodations = $query->get();
+
+        return view('accommodation.search')->with('all_accommodations', $accommodations)
+                                                 ->with('categories', $categories);
+
+    }
 
     public function destroy($id)
     {

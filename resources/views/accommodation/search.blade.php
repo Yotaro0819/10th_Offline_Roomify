@@ -105,43 +105,56 @@
     <!-- search side -->
     <div class="col-4">
         <!-- address search -->
-        <form action="{{ route('search_by_address')}}" method="get">
+        <form action="{{ route('search_by_keyword')}}" method="get">
             @csrf
             @method("GET")
 
             <div class="card border-0">
-                <div class="card-header">Place you want to stay</div>
+                <div class="card-header">Keyword Search</div>
                 <div class="card-body">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" style="border-radius:15px" name="address" placeholder="Address Search">
+                        <input type="text" class="form-control" style="border-radius:15px; color: black" name="keyword" placeholder="Type Keyword">
                         <button type="submit" class="btn input-icon input-group-text"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
             </div>
         </form>
 
-        <form action="#" method="get">
+        <form action="{{ route('search_by_filters')}}" method="get">
+            @csrf
+            @method("GET")
+
+            <!-- city -->
+            <div class="card border-0">
+                <div class="card-header">City</div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" style="border-radius:15px; color: black" name="city" placeholder="Place you want to stay">
+                    </div>
+                </div>
+            </div>
+
             <!-- capacity -->
             <div class="card border-0">
                 <div class="card-header">Capacity</div>
                 <div class="card-body">
-                    <div class="search-bar">
-                        <input type="radio" class="form-check-input" name="capacity" id="capa_1">
+                    <div class="form-check search-bar">
+                        <input type="radio" class="form-check-input" name="capacity" id="capa_1" value="capa_1">
                         <label class="form-check-label" for="capa_1">1 ~ 2 people</label>
                     </div>
 
-                    <div class="search-bar">
-                        <input type="radio" class="form-check-input" name="capacity" id="capa_2">
+                    <div class="form-check search-bar">
+                        <input type="radio" class="form-check-input" name="capacity" id="capa_2" value="capa_2">
                         <label class="form-check-label" for="capa_2">3 ~ 5 people</label>
                     </div>
 
-                    <div class="search-bar">
-                        <input type="radio" class="form-check-input" name="capacity" id="capa_3">
+                    <div class="form-check search-bar">
+                        <input type="radio" class="form-check-input" name="capacity" id="capa_3" value="capa_3">
                         <label class="form-check-label" for="capa_3">6 ~ 10 people</label>
                     </div>
 
-                    <div class="search-bar">
-                        <input type="radio" class="form-check-input" name="capacity" id="capa_4">
+                    <div class="form-check search-bar">
+                        <input type="radio" class="form-check-input" name="capacity" id="capa_4" value="capa_4">
                         <label class="form-check-label" for="capa_4">More than 10 people</label>
                     </div>
                 </div>
@@ -151,50 +164,12 @@
             <div class="card border-0">
                 <div class="card-header">Category</div>
                 <div class="card-body">
-                    <div class="search-bar">
-                        <input type="checkbox" class="form-check-input" value="" id="">
-                        <label class="form-check-label" for="">WI-FI</label>
-                    </div>
-
-                    <div class="search-bar">
-                        <input type="checkbox" class="form-check-input" name="" id="">
-                        <label class="form-check-label" for="">Kitchen</label>
-                    </div>
-
-                    <div class="search-bar">
-                        <input type="checkbox" class="form-check-input" name="" id="">
-                        <label class="form-check-label" for="">Nice View</label>
-                    </div>
-
-                    <div class="search-bar">
-                        <input type="checkbox" class="form-check-input" name="" id="">
-                        <label class="form-check-label" for="">Parking</label>
-                    </div>
-
-                    <div class="search-bar">
-                        <input type="checkbox" class="form-check-input" name="" id="">
-                        <label class="form-check-label" for="">TV</label>
-                    </div>
-
-                    <div class="search-bar">
-                        <input type="checkbox" class="form-check-input" name="" id="">
-                        <label class="form-check-label" for="">Air Conditioner</label>
-                    </div>
-
-                    <div class="search-bar">
-                        <input type="checkbox" class="form-check-input" name="" id="">
-                        <label class="form-check-label" for="">Washer</label>
-                    </div>
-
-                    <div class="search-bar">
-                        <input type="checkbox" class="form-check-input" name="" id="">
-                        <label class="form-check-label" for="">Hair Dryer</label>
-                    </div>
-
-                    <div class="search-bar">
-                        <input type="checkbox" class="form-check-input" name="" id="">
-                        <label class="form-check-label" for="">Refrigerator</label>
-                    </div>
+                    @foreach($categories as $category)
+                        <div class="search-bar">
+                            <input type="checkbox" class="form-check-input" value="" id="{{ $category->id }}">
+                            <label class="form-check-label" for="{{ $category->id }}">{{ $category->category_name }}</label>
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
@@ -204,12 +179,12 @@
                 <div class="card-body">
                     <div class="mb-2">
                         <label for="min_price" class="form-label left-align">Minimum</label>
-                        <input type="number" class="form-control" name="min_price">
+                        <input type="number" class="form-control" name="min_price" style="color: black">
                     </div>
 
                     <div class="mb-2">
                         <label for="max_price" class="form-label left-align">Maximum</label>
-                        <input type="number" class="form-control" name="max_price">
+                        <input type="number" class="form-control" name="max_price" style="color: black">
                     </div>
                 </div>
             </div>
@@ -225,9 +200,9 @@
     <!-- results -->
     <div class="col-8">
         <div class="header">
-            <p>Hits: {{ $all_accommodations->count() }}</p>
-            <hr>
             @if(isset($all_accommodations) && $all_accommodations->count() > 0)
+                <p>Hits: {{ $all_accommodations->count() }}</p>
+            <hr>
                 @foreach($all_accommodations as $accommodation)
                     <a href="{{ route('accommodation.show', $accommodation->id )}}" class="row" style="color:black">
                         <div class="col">
@@ -254,6 +229,7 @@
                         </div>
                     </a>
                     <hr>
+
                 @endforeach
             @else
                 <div class="alert">
@@ -261,13 +237,10 @@
                 </div>
             @endif
 
+
         </div>
-
     </div>
-</div>
 
-<div class="d-flex justify-content-center">
-    {{-- {{ $all_accommodations->links()}} --}}
-</div>
 
+</div>
 @endsection

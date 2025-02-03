@@ -88,7 +88,7 @@
                         <div class="row mb-4">
                             <div class="col-md-6 input-group">
                                 <i class="fa-regular fa-envelope input-icon"></i>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" style="border-radius: 15px; color: black"name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" style="border-radius: 15px; color: black" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
                             </div>
 
                             @error('email')
