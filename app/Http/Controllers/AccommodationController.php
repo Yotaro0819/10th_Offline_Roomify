@@ -19,13 +19,15 @@ class AccommodationController extends Controller
     // master push
     private $accommodation;
     private $category;
+    private $hashtag;
 
 
 
-    public function __construct(Accommodation $accommodation, Category $category)
+    public function __construct(Accommodation $accommodation, Category $category, Hashtag $hashtag)
     {
         $this->accommodation = $accommodation;
         $this->category      = $category;
+        $this->hashtag       = $hashtag;
     }
 
 
