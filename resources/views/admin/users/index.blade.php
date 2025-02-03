@@ -8,7 +8,7 @@
 
 .button-inactivate{
     padding: 10px 20px;
-    font-size: 14px;
+    font-size: 12px;
     color: white;
     background-color: #dc3545;
     border: none;
