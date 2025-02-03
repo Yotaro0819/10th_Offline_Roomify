@@ -25,7 +25,6 @@
 
 </head>
 
-
 <style>
 
 nav
@@ -112,24 +111,20 @@ a
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <a href="{{ route('search') }}" class="find-button">Find a Property</a>
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                     <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
-
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -151,7 +146,6 @@ a
                                             <i class="fa-solid fa-bed"></i> Reservation status
                                         </a>
                                     @endif
-
                                     @if(Auth::user()->role == "0")
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.users') }}">
                                             users
@@ -163,7 +157,6 @@ a
                                             categories
                                         </a>
                                     @endif
-
                                     <a class="dropdown-item px-3 py-3" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
@@ -267,5 +260,4 @@ a
             @endif
         </div>
 </body>
-
 </html>
