@@ -62,7 +62,13 @@
     <div class="card mx-auto mb-4 w-75" id="acm-booking">
         <div class="row">
             <div class="col">
-                <img src="{{ asset('images/' . $booking->accommodation->image) }}" alt="Accomodation Image">
+            @if ($booking->accommodation)
+                @if ($booking->accommodation->image)
+                    <img src="{{ asset('images/' . $booking->accommodation->image) }}" alt="Accommodation Image">
+                @else
+                    <img src="{{ asset('images/default-placeholder.jpg') }}" alt="No Image Available">
+                @endif
+            @endif
             </div>
             <div class="col" id="info">
                 <h5 class="date">
@@ -79,9 +85,8 @@
                 </div>
             </div>
             <div class="col">
-                <form action="{{ route('host.booking.cancel', ['bookingId' => $booking->id]) }}" method="POST">
+                <form action="{{ route('host.confirmCancel', ['bookingId' => $booking->id]) }}" method="GET">
                     @csrf
-                    @method('DELETE')
                     <button type="submit" class="custom-btn">
                         <i class="fa-solid fa-trash"></i> Cancel
                     </button>
@@ -89,9 +94,9 @@
             </div>
         </div>
     </div>
-@endforeach
+    @endforeach
     <div class="pagination justify-content-center">
-        {{ $all_bookings->links() }}
+        {{ $all_bookings->links('pagination::simple-tailwind') }}
     </div>
 @else
     <p class="text-center">No reservations found.</p>

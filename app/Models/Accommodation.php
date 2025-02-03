@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Accommodation extends Model
 {
     use HasFactory;
+    // use SoftDeletes;
+
     protected $table = 'accommodations';
 
     protected $fillable = [
@@ -55,4 +58,13 @@ class Accommodation extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    public function getImageAttribute($value)
+    {
+        return asset('images/' . $value);
+    }
 }
