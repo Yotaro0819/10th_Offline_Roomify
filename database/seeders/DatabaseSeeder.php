@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             NationalitySeeder::class,
             UserSeeder::class,
-            BookingSeeder::class,
             AccommodationSeeder::class,
             CategoryAccommodationSeeder::class,
+            BookingSeeder::class,
 
         ]);
 
