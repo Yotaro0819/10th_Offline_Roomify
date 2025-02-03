@@ -389,9 +389,9 @@ class AccommodationController extends Controller
         return view('accommodation.search')->with('all_accommodations', $accommodations)
                                                  ->with('categories', $categories);
     }
-
     public function search_by_filters(Request $request)
     {
+
         $query = $this->accommodation->query();
 
         $query->when($request->capacity, function ($q, $capacity) {
@@ -416,9 +416,13 @@ class AccommodationController extends Controller
             $q->where('city', 'LIKE', '%' . $request->city . '%');
         });
 
-        $query->when($request->filled('category'), function ($q) use ($request) {
+        $query->when($request->has('category'), function ($q) use ($request) {
             $q->whereHas('categories', function($query) use ($request) {
-                $query->where('categories.id', $request->category);
+                if (is_array($request->category)) {
+                    $query->whereIn('category_id', $request->category);
+                } else {
+                    $query->where('category_id', $request->category);
+                }
             });
         });
 
