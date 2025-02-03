@@ -380,8 +380,10 @@ class AccommodationController extends Controller
             $q->where('city', 'LIKE', '%' . $request->city . '%');
         });
 
-        $query->when($request->filled('city'), function ($q) use ($request) {
-            $q->where('city', 'LIKE', '%' . $request->city . '%');
+        $query->when($request->filled('category'), function ($q) use ($request) {
+            $q->whereHas('categories', function($query) use ($request) {
+                $query->where('categories.id', $request->category);
+            });
         });
 
 

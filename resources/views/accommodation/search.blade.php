@@ -165,10 +165,12 @@
                 <div class="card-header">Category</div>
                 <div class="card-body">
                     @foreach($categories as $category)
-                        <div class="search-bar">
-                            <input type="checkbox" class="form-check-input" value="" id="{{ $category->id }}">
-                            <label class="form-check-label" for="{{ $category->id }}">{{ $category->category_name }}</label>
-                        </div>
+                    <select name="category" class="form-control search-bar">
+                        <option value="">Select Category</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
                     @endforeach
                 </div>
             </div>

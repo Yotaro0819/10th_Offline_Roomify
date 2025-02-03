@@ -23,9 +23,9 @@
 @section('title', 'Accommodation Index for Host')
 
 @section('content')
-<h1 class="h2 mx-5">Accommodation Index</h1>
-<div class="container w-75 mx-auto text-end ms-5">
-    <i class="fa-solid fa-circle-plus"></i><span></span><a href="{{ route('host.accommodation.create')}}" class="btn bg-secondary text-white"></a><p class="fs-5">Register your new accommodation</p>
+<h1 class="h2" style="margin-top: 20px; margin-left: 40px">Accommodation Index</h1>
+<div class="container text-end mx-auto">
+    <a href="{{ route('host.accommodation.create')}}" style="margin-right: 120px"><i class="fa-solid fa-circle-plus"></i> <span class="fs-5">Register your new accommodation</span></a>
 </div>
 @if($all_accommodations->isNotEmpty())
     @foreach($all_accommodations as $accommodation)
