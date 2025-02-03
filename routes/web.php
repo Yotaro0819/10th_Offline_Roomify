@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/booking-form/{id}', [BookingController::class, 'create'])->name('booking.create');
 
     Route::get('/search', function () {
-        return view('search');
+        return view('accommodation.search');
     });
     Route::post('/review/post/{id}', [ReviewController::class, 'store'])->name('review.store');
 
@@ -66,6 +66,10 @@ Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], func
     ROute::get('/accommodation/edit/{id}', [AccommodationController::class, 'edit'])->name('accommodation.edit');
     Route::patch('/accommodation/update/{id}', [AccommodationController::class, 'update'])->name('accommodation.update');
 });
+
+Route::get('/search', [AccommodationController::class, 'search'])->name('search');
+Route::get('/search_by_keyword', [AccommodationController::class, 'search_by_keyword'])->name('search_by_keyword');
+Route::get('/search_by_filters', [AccommodationController::class, 'search_by_filters'])->name('search_by_filters');
 
 // admin routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
