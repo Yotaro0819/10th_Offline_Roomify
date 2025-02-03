@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Accommodation;
 use App\Models\Category;
 use App\Models\Hashtag;
+use App\Models\Review;
 use App\Models\Photo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class AccommodationController extends Controller
 {
@@ -44,7 +46,6 @@ class AccommodationController extends Controller
             'description' => 'required|string',
             'photos' => 'nullable|array',
             'photos.*' => 'image|mimes:jpeg,jpg,png,gif|max:1048',
-
         ]);
 
         // リクエストから宿泊施設名と住所を取得
@@ -100,12 +101,33 @@ class AccommodationController extends Controller
                     $accommodation->hashtags()->attach($tagIds);
                 }
 
+
+
+                // if ($request->hasFile('photos')) {
+                //     foreach ($request->file('photos') as $photo) {
+                //         // 各写真を保存
+                //         $path = $photo->store('photos', 'public');
+
+                //         // Photoモデルで保存
+                //         Photo::create([
+                //             'accommodation_id' => $accommodation->id,
+                //             'image' => $path,
+                //         ]);
+                //     }
+                // }
+
                 if ($request->hasFile('photos')) {
                     foreach ($request->file('photos') as $photo) {
-                        // 各写真を保存
-                        $path = $photo->store('photos', 'public');
+                        // ファイルの拡張子を取得
+                        $extension = $photo->getClientOriginalExtension();
 
-                        // Photoモデルで保存
+                        // ユニークなファイル名を生成（UUIDを使用）
+                        $newFileName = Str::uuid() . '.' . $extension;
+
+                        // 画像を保存（storage/app/public/photos に保存）
+                        $path = $photo->storeAs('photos', $newFileName, 'public');
+
+                        // Photoモデルに保存
                         Photo::create([
                             'accommodation_id' => $accommodation->id,
                             'image' => $path,
@@ -132,20 +154,159 @@ class AccommodationController extends Controller
                 return redirect()->route('accommodation.show', $accommodation->id)
                     ->with('success', '宿泊施設が登録されました');
             } else {
-                return response()->json(['error' => '住所のジオコーディングに失敗しました。', 'details' => $data], 400);
+                return redirect()->route('host.accommodation.create')->with('googleMap_Error', 'Something went wrong with the address.');
             }
         } catch (\Exception $e) {
-            return response()->json(['error' => 'エラーが発生しました。', 'message' => $e->getMessage()], 500);
+            return redirect()->route('host.accommodation.create')->with('googleMap_Error', 'Something went wrong with the address.');
+        }
+    }
+
+    public function edit($id)
+    {
+        $accommodation = $this->accommodation->findOrFail($id);
+
+        if(Auth::user()->id != $accommodation->user->id){
+            return redirect()->route('host.index');
         }
 
+        $all_categories = $this->category->all();
+        $all_hashtags = $this->hashtag->all();
+
+        $selected_categories = [];
+        foreach($accommodation->categoryAccommodation as $category_accommodation) {
+            $selected_categories[] = $category_accommodation->category_id;
+        }
+
+        return view('accommodation.edit')
+                ->with('accommodation', $accommodation)
+                ->with('all_categories', $all_categories)
+                ->with('selected_categories', $selected_categories)
+                ->with('all_hashtags', $all_hashtags);
 
     }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'address' => 'required|string',
+            'city' => 'required|string|max:255',
+            'price' => 'required|integer|min:0',
+            'capacity' => 'required|integer|min:1|max:100',
+            'description' => 'required|string',
+            'photos' => 'nullable|array|min:4',
+            'photos.*' => 'image|mimes:jpeg,jpg,png,gif,webp|max:1048',
+        ]);
+
+
+
+        try {
+            // 対象の宿泊施設を取得
+            $accommodation = Accommodation::findOrFail($id);
+
+            // リクエストから宿泊施設の情報を更新
+            $user_id = Auth::user()->id;
+            $name = $validated['name'];
+            $address = $validated['address'];
+            $city = $validated['city'];
+            $price = $validated['price'];
+            $capacity = $validated['capacity'];
+            $description = $validated['description'];
+            $apiKey = config('services.google_maps.api_key');
+
+            // 住所が変更された場合、緯度・経度も更新
+            if ($accommodation->address != $validated['address']) {
+                $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json', [
+                    'address' => $validated['address'],
+                    'key' => $apiKey
+                ]);
+                $data = $response->json();
+                if ($data['status'] == 'OK') {
+                    $accommodation->latitude = $data['results'][0]['geometry']['location']['lat'];
+                    $accommodation->longitude = $data['results'][0]['geometry']['location']['lng'];
+                }
+            }
+
+            // 宿泊施設の情報を更新
+            $accommodation->update([
+                'user_id' => $user_id,
+                'name' => $name,
+                'address' => $address,
+                'city' => $city,
+                'price' => $price,
+                'capacity' => $capacity,
+                'description' => $description,
+                'latitude' => $accommodation->latitude,
+                'longitude' => $accommodation->longitude,
+            ]);
+
+            // タグの更新処理
+            if (!empty($validated['description'])) {
+                // #タグを抽出
+                preg_match_all('/#(\w+)/', $validated['description'], $matches);
+                $tags = $matches[1];
+
+                // #タグを取り除いてdescriptionを更新
+                $descriptionWithoutTags = preg_replace('/#\w+/', '', $validated['description']);
+                $accommodation->description = trim($descriptionWithoutTags); // 前後の不要なスペースを削除
+                $accommodation->save();
+
+                // タグを処理
+                $tagIds = [];
+                foreach ($tags as $tagName) {
+                    // タグ名が空でないか確認
+                    if (!empty($tagName)) {
+                        // 'name' カラムを使ってタグを作成または取得
+                        $tag = Hashtag::firstOrCreate(['name' => $tagName]);
+                        $tagIds[] = $tag->id; // タグのIDを保存
+                    }
+                }
+            }
+
+
+            // 写真のアップロード処理
+            if ($request->hasFile('photos')) {
+                foreach ($request->file('photos') as $photo) {
+                    // 各写真を保存
+                    $path = $photo->store('photos', 'public');
+
+                    // Photoモデルで保存
+                    Photo::create([
+                        'accommodation_id' => $accommodation->id,
+                        'image' => $path,
+                    ]);
+                }
+            }
+
+           // カテゴリの関連付け
+        $category_accommodation = [];
+        foreach ($request->category as $category_id) {
+            $category_accommodation[] = $category_id;
+        }
+
+        // 既存のカテゴリ関連を同期（重複なし）
+        $accommodation->categories()->sync($category_accommodation);
+
+
+            // 成功メッセージと共にリダイレクト
+            return redirect()->route('accommodation.show', $accommodation->id)
+                ->with('success', '宿泊施設が更新されました');
+        } catch (\Exception $e) {
+            return redirect()->route('host.accommodation.create')->with('googleMap_error', 'Something went wrong with the address.');
+        }
+    }
+
+
 
 
     public function show($id)
     {
-        $accommodation = Accommodation::findOrFail($id);
-        return view('accommodation.show', compact('accommodation'));
+        $accommodation = Accommodation::with('photos')->findOrFail($id);
+        $reviews = Review::latest()->get();
+        $latest_review = Review::latest()->first();
+
+
+        return view('accommodation.show', compact('accommodation', 'reviews', 'latest_review'));
 
     }
 

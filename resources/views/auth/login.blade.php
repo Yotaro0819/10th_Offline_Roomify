@@ -84,6 +84,9 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
+                        @if(request()->has('redirect'))
+                        <input type="hidden" name="redirect" value="{{ request()->get('redirect') }}">
+                        @endif
 
                         <div class="row mb-4">
                             <div class="col-md-6 input-group">

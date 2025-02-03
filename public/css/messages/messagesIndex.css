@@ -1,0 +1,27 @@
+main {
+    min-height: 54%;
+}
+.w-10 {
+    width: 10%;
+}
+.w-35 {
+    width: 35%;
+}
+.w-85 {
+    width: 85%;
+}
+
+.bg-gray {
+    background-color: rgba(239, 239, 239, 0.884) !important;
+}
+
+.userindex {
+    max-height: 500px; /* 必要に応じて高さを設定 */
+    overflow-y: auto; /* 垂直方向のスクロールを有効にする */
+    border-top: 1px solid rgb(165, 165, 165);
+    overscroll-behavior: contain;
+}
+
+.fa-user {
+    font-size:40px;
+}
