@@ -47,13 +47,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Araki route
 
-    Route::get('/messages', function () {
-        return view('messages.index');
-    });
-    Route::get('/messages/show', function () {
-        return view('messages.show');
-    });
-
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('messages.show');
+    Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
+    Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
     //Araki route end
 
 // host routes
