@@ -14,7 +14,7 @@
                     @csrf
                     @method('DELETE')
 
-                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">Cansel</button>
+                    <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Cansel</button>
                     <button type="submit" class="btn btn-danger btn-sm">Deactivate</button>
                 </form>
             </div>
@@ -22,10 +22,9 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="activate-user-{{ $user->id }}">
     <div class="modal-dialog">
-        <div class="modal-content border-danger">
+        <div class="modal-content border-success">
             <div class="modal-header border-success">
                 <h3 class="h5 modal-title text-success">
                     <i class="fa-solid fa-user-check"></i> Activate User
@@ -40,7 +39,7 @@
                     @csrf
                     @method('PATCH')
 
-                    <button type="button" class="btn btn-outline-success btn-sm" data-bs-dismiss="modal">Cansel</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cansel</button>
                     <button type="submit" class="btn btn-success btn-sm">Activate</button>
                 </form>
             </div>
