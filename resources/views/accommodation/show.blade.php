@@ -165,7 +165,7 @@
             <div class="d-flex align-items-center">
 
                 {{-- this a tag can go review.index --}}
-                <p class="fs-1 d-flex align-items-center text-black mb-0"><i class="fas fa-star text-warning me-2"></i> {{ round($avarages,1) }}<span class="fs-5">({{$accommodation->reviews->count() }} reviews)</span></p>
+                <p class="fs-1 d-flex align-items-center text-black mb-0"><i class="fas fa-star text-warning me-2"></i> {{ round($average,1) }}<span class="fs-5">({{$accommodation->reviews->count() }} reviews)</span></p>
             </div>
 
             <div class="recent-review">

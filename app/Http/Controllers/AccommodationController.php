@@ -320,10 +320,11 @@ class AccommodationController extends Controller
         $latest_review = $reviews->first();
         $sumOfReview = $reviews->sum('star');
 
-        $avarages = ($sumOfReview/count($reviews));
+        $average = count($reviews) > 0 ? $sumOfReview / count($reviews) : 0;
+
 
         // ビューにデータを渡す
-        return view('accommodation.show', compact('accommodation', 'reviews', 'latest_review', 'avarages'));
+        return view('accommodation.show', compact('accommodation', 'reviews', 'latest_review', 'average'));
     }
 
 
