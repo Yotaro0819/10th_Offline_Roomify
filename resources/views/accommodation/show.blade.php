@@ -165,18 +165,25 @@
             <div class="d-flex align-items-center">
 
                 {{-- this a tag can go review.index --}}
-                <p class="fs-1 d-flex align-items-center text-black mb-0"><i class="fas fa-star text-warning me-2"></i> {{ round($accommodation->averageRating(),1) }}<span class="fs-5">({{$accommodation->reviews->count() }} reviews)</span></p>
+                <p class="fs-1 d-flex align-items-center text-black mb-0"><i class="fas fa-star text-warning me-2"></i> {{ round($avarages,1) }}<span class="fs-5">({{$accommodation->reviews->count() }} reviews)</span></p>
             </div>
 
             <div class="recent-review">
 
-                    <img src="{{ asset('assets/istockphoto-1300845620-612x612.jpg') }}" alt="User icon" class="mb-0" style="width: 30px">
-                    {{ Str::limit($latest_review->comment, 220) }}
-                        @if (strlen($latest_review->comment) > 220)
-                            <a href="javascript:void(0);" class="read-more text-primary" data-full="{{ $review->comment }}">Read more</a>
-                        @endif
+                @if ($latest_review)
+                <img src="{{ asset('assets/istockphoto-1300845620-612x612.jpg') }}" alt="User icon" class="mb-0" style="width: 30px">
 
-                    <p class="text-end me-4 mb-1">{{ $review->created_at }}</p>
+                {{ Str::limit($latest_review->comment, 220) }}
+
+                @if (strlen($latest_review->comment) > 220)
+                    <a href="javascript:void(0);" class="read-more text-primary" data-full="{{ $latest_review->comment }}">Read more</a>
+                @endif
+
+                <p class="text-end me-4 mb-1">{{ $latest_review->created_at }}</p>
+            @else
+                <p>No reviews yet.</p>
+            @endif
+
             </div>
         </div>
     </div>
