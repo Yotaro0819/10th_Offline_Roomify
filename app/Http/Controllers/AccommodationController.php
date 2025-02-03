@@ -416,15 +416,23 @@ class AccommodationController extends Controller
             $q->where('city', 'LIKE', '%' . $request->city . '%');
         });
 
-        $query->when($request->has('category'), function ($q) use ($request) {
-            $q->whereHas('categories', function($query) use ($request) {
-                if (is_array($request->category)) {
-                    $query->whereIn('category_id', $request->category);
-                } else {
-                    $query->where('category_id', $request->category);
-                }
-            });
-        });
+        // $query->when($request->has('category'), function ($q) use ($request) {
+        //     $q->whereHas('categories', function($query) use ($request) {
+        //         if (is_array($request->category)) {
+        //             $query->whereIn('category_id', $request->category);
+        //         } else {
+        //             $query->where('category_id', $request->category);
+        //         }
+        //     });
+        // });
+
+        if ($request->has('category') && is_array($request->category)) {
+            foreach ($request->category as $categoryId) {
+                $query->whereHas('categories', function($q) use ($categoryId) {
+                    $q->where('category_id', $categoryId);
+                });
+            }
+        }
 
         $categories     =  $this->category->get();
         $accommodations = $query->get();
