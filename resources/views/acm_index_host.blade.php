@@ -25,13 +25,13 @@
 @section('content')
 <h1 class="h2 mx-5">Accommodation Index</h1>
 <div class="container w-75 mx-auto text-end ms-5">
-    <p class="fw-bold fs-4">Register your new accommodation <a href="{{ route('host.accommodation.create')}}" class="btn bg-secondary text-white">Register</a></p>
+    <i class="fa-solid fa-circle-plus"></i><span></span><a href="{{ route('host.accommodation.create')}}" class="btn bg-secondary text-white"></a><p class="fs-5">Register your new accommodation</p>
 </div>
 @if($all_accommodations->isNotEmpty())
     @foreach($all_accommodations as $accommodation)
         <a href="#" class="card mx-auto mb-5 w-75" id="acm-booking">
             <div class="row">
-                <div class="col my-3">
+                <div class="col my-auto">
                     <img src="#" alt="#">
                 </div>
 
