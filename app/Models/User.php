@@ -70,7 +70,7 @@ class User extends Authenticatable
     }
 
     public function accommodations(){
-        return $this->hasMany(Accommodation::class)->latest();
+        return $this->hasMany(Accommodation::class)->latest()->withTrashed();
     }
 
     public function reviews()

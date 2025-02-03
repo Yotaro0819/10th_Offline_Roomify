@@ -44,8 +44,8 @@ class AccommodationController extends Controller
 
     public function search(Request $request)
     {
-        $users = $this->user->where('name', 'like', '%' . $request->search  . '%')->get()->except(Auth::user()->id);
-        $accommodations = $this->accommodation->where('name', 'like', '%' . $request->search  . '%')->get()->except(Auth::user()->id);
+        $users = $this->user->withTrashed()->where('name', 'like', '%' . $request->search  . '%')->get()->except(Auth::user()->id);
+        $accommodations = $this->accommodation->withTrashed()->where('name', 'like', '%' . $request->search  . '%')->get()->except(Auth::user()->id);
 
         $search = $request->search;
         
