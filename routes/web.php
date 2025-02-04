@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
+
 Route::get('accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
 Route::get('/accommodation/pictures/{id}', [AccommodationController::class, 'pictureIndex'])->name('accommodation.pictures');
 Route::get('/accommodation/hashtag/{name}/{cityName?}', [HashtagController::class, 'index'])->name('accommodation.hashtag');
@@ -31,8 +32,8 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
 //guest routes
-Route::group(['prefix' => 'guest', 'as' => 'guest.', 'middleware' => 'guest'], function(){
-    Route::get('/guest/res', [BookingController::class, 'reservation_guest'])->name('reservation_guest');
+Route::group(['prefix' => 'guest', 'as' => 'guest.'], function(){
+    Route::get('/res', [BookingController::class, 'reservation_guest'])->name('reservation_guest');
     Route::get('/res/{bookingId}/cancel', [BookingController::class, 'confirmGuestCancel'])->name('confirmGuestCancel');
     Route::delete('/res/{bookingId}/cancel', [BookingController::class, 'guestCancel'])->name('guestCancel');
 });
