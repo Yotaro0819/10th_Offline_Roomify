@@ -11,12 +11,14 @@ use App\Models\User;
 
 class AccommodationController extends Controller
 {
-    
+
     private $accommodation;
     private $user;
 
     public function __construct(Accommodation $accommodation, User $user)
     {
+        $this->user = $user;
+
         $this->accommodation = $accommodation;
         $this->user = $user;
     }
