@@ -378,7 +378,7 @@ footer .right{
                 @if(Auth::check() && Auth::user()->role == '2')
                 <a href="#" class="btn">Go host page</a>
                 @else
-                <a href="#" class="btn">Become A Host</a>
+                <a href="{{ route('hostRequest.create')}}" class="btn">Become A Host</a>
                 @endif
             </div>
             <div class="col-6">

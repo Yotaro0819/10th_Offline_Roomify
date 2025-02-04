@@ -10,9 +10,11 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CouponContoller;
 use App\Http\Controllers\HashtagController;
+use App\Http\Controllers\HostRequestController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
+
 
 
 
@@ -48,6 +50,11 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.', 'middleware' => 'guest'], f
     Route::post('/review/post/{id}', [ReviewController::class, 'store'])->name('review.store');
 
 
+    Route::get('/host-request', [HostRequestController::class, 'create'])->name('hostRequest.create');
+    Route::post('/host-request/store', [HostRequestController::class, 'store'])->name('hostRequest.store');
+
+
+
     //Araki route
 
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
@@ -70,12 +77,20 @@ Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], func
     Route::patch('/accommodation/update/{id}', [AccommodationController::class, 'update'])->name('accommodation.update');
 });
 
+
+
+
 Route::get('/search', [AccommodationController::class, 'search'])->name('search');
 Route::get('/search_by_keyword', [AccommodationController::class, 'search_by_keyword'])->name('search_by_keyword');
 Route::get('/search_by_filters', [AccommodationController::class, 'search_by_filters'])->name('search_by_filters');
 
 // admin routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
+     // hostRequest page approve or reject.
+    Route::get('/host-request/index', [HostRequestController::class, 'index'])->name('hostRequest.index');
+    Route::post('/host-request/approve/{id}', [HostRequestController::class, 'approve'])->name('hostRequest.approve');
+    Route::post('/host-request/reject/{id}', [HostRequestController::class, 'reject'])->name('hostRequest.reject');
+    
     Route::get('/users', [AdminUsersController::class, 'index'])->name('users');
     Route::get('/people', [AdminUsersController::class, 'search'])->name('search');
     Route::delete('/users/{id}/deactivate', [AdminUsersController::class, 'deactivate'])->name('users.deactivate');
