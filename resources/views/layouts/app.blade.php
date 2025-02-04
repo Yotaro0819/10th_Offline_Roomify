@@ -180,14 +180,15 @@ a
                 <div class="container">
                     <div class="row d-flex justify-content-center">
                         <div class="col-2">
-                            <div class="select-box mb-3 d-flex justify-content-center align-items-center">
-                                <div>
-                                <i class="fa-solid fa-users"></i>
+                            <a href="{{ route('admin.users') }}" class="text-decoration-none">
+                                <div class="select-box mb-3 d-flex justify-content-center align-items-center">
+                                    <div>
+                                        <i class="fa-solid fa-users"></i>
+                                    </div>
+                                    <p class="mt-3">Users</p>
                                 </div>
-                                <p class="mt-3 ">
-                                    Users
-                                </p>
-                            </div>
+                            </a>
+                            <a href="{{ route('admin.accommodation') }}" class="text-decoration-none">
                             <div class="select-box mb-3 d-flex justify-content-center align-items-center">
                                 <div>
                                 <i class="fa-solid fa-house-chimney"></i>
@@ -196,6 +197,8 @@ a
                                     Accommodate
                                 </p>
                             </div>
+                            </a>
+                            <a href="{{ route('admin.categories') }}" class="text-decoration-none">
                             <div class="select-box mb-3 d-flex justify-content-center align-items-center">
                                 <div>
                                 <i class="fa-solid fa-tags"></i>
@@ -204,6 +207,7 @@ a
                                     Categories
                                 </p>
                             </div>
+                            </a>
                         </div>
                         <div class="col-10">
                             @yield('content2')

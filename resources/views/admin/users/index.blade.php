@@ -63,6 +63,8 @@
             <th scope="col"></th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col"></th>
             <th scope="col"></th>
             </tr>
         </thead>
@@ -78,6 +80,19 @@
                 </td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email}}</td>
+                @if($user->role == 1)
+                <td>
+                    Guest
+                </td>
+                @elseif($user->role == 2)
+                <td>
+                    Host
+                </td>
+                @elseif($user->role == 0)
+                <td>
+                    Admin
+                </td>
+                @endif
 
                 @if($user->trashed())
                     <td class="">
@@ -94,6 +109,7 @@
                         <button class="button-inactivate" data-bs-toggle="modal" data-bs-target="#deactivate-user-{{ $user->id }}">Deactivate</button>
                     </td>
                 @endif
+                
                 {{-- include a model herre --}}
                 @include('admin.users.modal.status')
             </tr>
