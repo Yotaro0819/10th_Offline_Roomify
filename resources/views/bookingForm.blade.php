@@ -56,14 +56,14 @@
     <h1 class="h2 ms-5" style="color: #004aad; font-size: 40px; font-weight: bolder"><a href="#">< </a> BOOK YOUR STAY</h1>
 
     <!-- left side -->
-    <div class="col-7 w-50">
+    <div class="col-7 w-50 mt-3">
         <form action="#" method="post">
         @csrf
 
         <div class="row mb-4">
             <div class="col">
                 <label for="name" class="form-label">Full Name<span class="text-danger">*</span></label>
-                <input type="text" name="name" class="form-control" placeholder="Enter name">
+                <input type="text" name="guest_name" class="form-control" placeholder="Enter name">
             </div>
             <div class="col">
                 <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
@@ -114,7 +114,7 @@
     </div>
 
     <!-- right side -->
-    <div class="col-5 mt-4" id="acm-booking">
+    <div class="col-5 mt-4 ms-4" id="acm-booking">
         <div class="row">
             <div class="col">
                 @if($accommodation->photos->isNotEmpty())

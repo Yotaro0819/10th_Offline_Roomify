@@ -81,7 +81,7 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'              => 'required|string|max:255',
+            'guest_name'        => 'required|string|max:255',
             'email'             => 'required|string',
             'num_guest'         => 'required|string|max:255',
             'check_in_date'     => 'required|date|after_or_equal:today',
