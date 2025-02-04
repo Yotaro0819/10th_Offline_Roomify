@@ -28,6 +28,7 @@ class AccommodationController extends Controller
         $this->accommodation = $accommodation;
         $this->category      = $category;
         $this->hashtag       = $hashtag;
+
     }
 
 
@@ -91,18 +92,31 @@ class AccommodationController extends Controller
                 ]);
 
 
-                if(!empty($validated['description'])) {
+                if (!empty($validated['description'])) {
+                    // #タグを抽出
                     preg_match_all('/#(\w+)/', $validated['description'], $matches);
                     $tags = $matches[1];
 
+                    // #タグを取り除いてdescriptionを更新
+                    $descriptionWithoutTags = preg_replace('/#\w+/', '', $validated['description']);
+                    $accommodation->description = trim($descriptionWithoutTags); // 前後の不要なスペースを削除
+                    $accommodation->save();
+
+                    // タグを処理
                     $tagIds = [];
-                    foreach($tags as $tagName) {
-                        // 'name' カラムを使ってタグを作成または取得
-                        $tag = Hashtag::firstOrCreate(['name' => $tagName]);
-                        $tagIds[] = $tag->name; // ここでは 'id' ではなく 'name' を使う
+                    foreach ($tags as $tagName) {
+                        // タグ名が空でないか確認
+                        if (!empty($tagName)) {
+                            // 'name' カラムを使ってタグを作成または取得
+                            $tag = Hashtag::firstOrCreate(['name' => $tagName]);
+                            $tagIds[] = $tag->id; // タグのIDを保存
+                        }
                     }
 
-                    $accommodation->hashtags()->attach($tagIds);
+                    // ハッシュタグの関連付け
+                    if (!empty($tagIds)) {
+                        $accommodation->hashtags()->attach($tagIds);
+                    }
                 }
 
 
@@ -148,12 +162,6 @@ class AccommodationController extends Controller
                 }
 
                 DB::table('category_accommodation')->insert($category_accommodation);
-
-
-
-
-
-
 
                 return redirect()->route('accommodation.show', $accommodation->id)
                     ->with('success', '宿泊施設が登録されました');
@@ -306,13 +314,19 @@ class AccommodationController extends Controller
     public function show($id)
     {
         $accommodation = Accommodation::with('photos')->findOrFail($id);
-        $reviews = Review::latest()->get();
-        $latest_review = Review::latest()->first();
+
+        $reviews = Review::where('accommodation_id', $id)->latest()->get();
+
+        $latest_review = $reviews->first();
+        $sumOfReview = $reviews->sum('star');
+
+        $average = count($reviews) > 0 ? $sumOfReview / count($reviews) : 0;
 
 
-        return view('accommodation.show', compact('accommodation', 'reviews', 'latest_review'));
-
+        // ビューにデータを渡す
+        return view('accommodation.show', compact('accommodation', 'reviews', 'latest_review', 'average'));
     }
+
 
     public function pictureIndex($id)
     {
@@ -324,9 +338,31 @@ class AccommodationController extends Controller
 
     public function index()
     {
+        // $user = Auth::user();
         $all_accommodations = $this->accommodation->where('user_id', Auth::user()->id)->latest()->paginate(3);
 
+        // return $all_accommodations;
+
         return view('acm_index_host')->with('all_accommodations', $all_accommodations);
+    }
+
+    public function destroy($id)
+    {
+        $accommodation = $this->accommodation->findOrFail($id);
+
+        $photos = Photo::where('accommodation_id', $id)->get();
+
+        foreach ($photos as $photo) {
+            if ($photo->image && file_exists(storage_path('app/public/' . $photo->image))) {
+                unlink(storage_path('app/public/' . $photo->image));
+            }
+        }
+
+        Photo::where('accommodation_id', $id)->delete();
+
+        $accommodation->delete();
+
+        return redirect()->route('host.index');
     }
 
     public function search()
@@ -353,9 +389,9 @@ class AccommodationController extends Controller
         return view('accommodation.search')->with('all_accommodations', $accommodations)
                                                  ->with('categories', $categories);
     }
-
     public function search_by_filters(Request $request)
     {
+
         $query = $this->accommodation->query();
 
         $query->when($request->capacity, function ($q, $capacity) {
@@ -380,19 +416,30 @@ class AccommodationController extends Controller
             $q->where('city', 'LIKE', '%' . $request->city . '%');
         });
 
+        // $query->when($request->has('category'), function ($q) use ($request) {
+        //     $q->whereHas('categories', function($query) use ($request) {
+        //         if (is_array($request->category)) {
+        //             $query->whereIn('category_id', $request->category);
+        //         } else {
+        //             $query->where('category_id', $request->category);
+        //         }
+        //     });
+        // });
+
+        if ($request->has('category') && is_array($request->category)) {
+            foreach ($request->category as $categoryId) {
+                $query->whereHas('categories', function($q) use ($categoryId) {
+                    $q->where('category_id', $categoryId);
+                });
+            }
+        }
+
         $categories     =  $this->category->get();
         $accommodations = $query->get();
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
                                                  ->with('categories', $categories);
 
-    }
-
-    public function destroy($id)
-    {
-        $this->accommodation->destroy($id);
-
-        return redirect()->route('host.index');
     }
 }
 

@@ -378,7 +378,7 @@ footer .right{
                 @if(Auth::check() && Auth::user()->role == '2')
                 <a href="#" class="btn">Go host page</a>
                 @else
-                <a href="#" class="btn">Become A Host</a>
+                <a href="{{ route('hostRequest.create')}}" class="btn">Become A Host</a>
                 @endif
             </div>
             <div class="col-6">
@@ -399,7 +399,7 @@ footer .right{
                     on our Listing
                 </h2>
                 <div class="card-container">
-                     <div class="card mx-auto" style="width: 60%">
+                     <div class="card mx-auto" style="width: 60%; height: auto;">
                         <img src="" alt="">
                         <h3>Bilding Name</h3>
                         <p class="address">Address</p>
