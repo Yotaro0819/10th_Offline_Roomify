@@ -94,7 +94,7 @@
                 </div> -->
             </div>
             <div class="col">
-                <form action="{{ route('host.confirmCancel', ['bookingId' => $booking->id]) }}" method="GET">
+                <form action="{{ route('guest.confirmGuestCancel', ['bookingId' => $booking->id]) }}" method="GET">
                     @csrf
                     <button type="submit" class="custom-btn">
                         <i class="fa-solid fa-trash"></i> Cancel
