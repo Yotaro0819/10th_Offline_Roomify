@@ -13,6 +13,8 @@ class Category extends Model
 
     protected $fillable = ['category_name'];
 
+    public $timestamps = false;
+
     public function accommodations()
     {
         return $this->belongsToMany(Accommodation::class, 'category_accommodation');
