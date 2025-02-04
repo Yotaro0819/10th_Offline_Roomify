@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\Admin\AccommodationController as AdminAccommodationController;
-use App\Http\Controllers\Admin\CategoriesController as AdminCategoryController;
+use App\Http\Controllers\Admin\CategoriesController as AdminCategoriesController;
 use App\Http\Controllers\AccommodationController;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\BookingController;
@@ -99,7 +99,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
     Route::delete('/accommodation/{id}/deactivate', [AdminAccommodationController::class, 'deactivate'])->name('accommodation.deactivate');
     Route::patch('/accommodation/{id}/activate', [AdminAccommodationController::class, 'activate'])->name('accommodation.activate');
-    Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories');
+    Route::get('/accommodation/search', [AdminAccommodationController::class, 'search'])->name('accommodation.search');
+    Route::get('/categories', [AdminCategoriesController::class, 'index'])->name('categories');
+    Route::get('/categories/store', [AdminCategoriesController::class, 'store'])->name('category.store');
+    Route::delete('/categories/delete/{id}', [AdminCategoriesController::class, 'delete'])->name('category.delete');
+    Route::patch('/categories/edit/{id}', [AdminCategoriesController::class, 'update'])->name('category.edit');
 });
 
 Route::get('/coupon', function(){
@@ -111,6 +115,8 @@ Route::get('/cansel', function () {
 });
 
 });
+
+
 
 
 

@@ -25,7 +25,6 @@
 
 </head>
 
-
 <style>
 
 nav
@@ -69,6 +68,35 @@ a
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* admin-select-box */
+
+.select-box
+{
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 20px;
+    background-color: #004aad;
+}
+
+.select-box i
+{
+    color: white;
+    font-size: 4rem;
+    opacity: 0.2;
+
+}
+
+.select-box p
+{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+
+}
 
 </style>
 
@@ -83,24 +111,20 @@ a
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <a href="{{ route('search') }}" class="find-button">Find a Property</a>
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
+                    <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
-
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -122,7 +146,6 @@ a
                                             <i class="fa-solid fa-bed"></i> Reservation status
                                         </a>
                                     @endif
-
                                     @if(Auth::user()->role == "0")
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.users') }}">
                                             users
@@ -132,12 +155,6 @@ a
                                         </a>
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.categories') }}">
                                             categories
-                                        </a>
-                                    @endif
-
-                                    @if(Auth::user()->role == "1")
-                                        <a class="dropdown-item px-3 py-3" href="{{ route('guest.reservation_guest') }}">
-                                            <i class="fa-solid fa-bed"></i> Reservation status
                                         </a>
                                     @endif
                                     <a class="dropdown-item px-3 py-3" href="{{ route('logout') }}"
@@ -158,51 +175,93 @@ a
         </nav>
         @endif
 
-        <main class="pt-4">
-            @yield('content')
-        </main>
-
-        @if (!Route::is('register') && !Route::is('login'))
-        <footer class="mt-3">
-            <div class="row">
-                <div class="col-auto">
-                    <h1>ROOMIFY</h1>
-                </div>
-                <div class="col-auto">
-                    <h5>COMPANY</h5>
-                    <p><a href="#">About Us</a></p>
-                    <p><a href="#">Contact Us</a></p>
-                </div>
-                <div class="col-auto">
-                    <h5>HELP CENTER</h5>
-                    <p><a href="#">Find a Property</a></p>
-                    <p><a href="#">How To Host?</a></p>
-                    <p><a href="#">FAQs</a></p>
-                    <p><a href="#">Rental Guides</a></p>
-                </div>
-                <div class="col-auto title">
-                    <h5>CONTACT INFO</h5>
-                    <p>Phone: 1234567890</p>
-                    <p>Email: roomify@gmail.com</p>
-                    <p>Location: 100 Smart Street, Tokyo, <br>JAPAN</p>
-                    <div class="app">
-                            <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-                            <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
-                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        @if (request()->is('admin/*'))
+        <main class="mt-3">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-2">
+                            <a href="{{ route('admin.users') }}" class="text-decoration-none">
+                                <div class="select-box mb-3 d-flex justify-content-center align-items-center">
+                                    <div>
+                                        <i class="fa-solid fa-users"></i>
+                                    </div>
+                                    <p class="mt-3">Users</p>
+                                </div>
+                            </a>
+                            <a href="{{ route('admin.accommodation') }}" class="text-decoration-none">
+                            <div class="select-box mb-3 d-flex justify-content-center align-items-center">
+                                <div>
+                                <i class="fa-solid fa-house-chimney"></i>
+                                </div>
+                                <p class="mt-3 ">
+                                    Accommodate
+                                </p>
+                            </div>
+                            </a>
+                            <a href="{{ route('admin.categories') }}" class="text-decoration-none">
+                            <div class="select-box mb-3 d-flex justify-content-center align-items-center">
+                                <div>
+                                <i class="fa-solid fa-tags"></i>
+                                </div>
+                                <p class="mt-3 ">
+                                    Categories
+                                </p>
+                            </div>
+                            </a>
+                        </div>
+                        <div class="col-10">
+                            @yield('content2')
+                        </div>
                     </div>
                 </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col">
-                    <small class="left">(c) 2025 @roomify | All rights reserved</small>
+            </main>
+            @else
+            <main class="pt-4">
+                @yield('content')
+            </main>
+            @endif
+
+            @if (!Route::is('register') && !Route::is('login'))
+            <footer class="mt-3">
+                <div class="row">
+                    <div class="col-auto">
+                        <h1>ROOMIFY</h1>
+                    </div>
+                    <div class="col-auto">
+                        <h5>COMPANY</h5>
+                        <p><a href="#">About Us</a></p>
+                        <p><a href="#">Contact Us</a></p>
+                    </div>
+                    <div class="col-auto">
+                        <h5>HELP CENTER</h5>
+                        <p><a href="#">Find a Property</a></p>
+                        <p><a href="#">How To Host?</a></p>
+                        <p><a href="#">FAQs</a></p>
+                        <p><a href="#">Rental Guides</a></p>
+                    </div>
+                    <div class="col-auto title">
+                        <h5>CONTACT INFO</h5>
+                        <p>Phone: 1234567890</p>
+                        <p>Email: roomify@gmail.com</p>
+                        <p>Location: 100 Smart Street, Tokyo, <br>JAPAN</p>
+                        <div class="app">
+                                <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                                <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
+                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <small class="right">Created with love by @roomify</small>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <small class="left">(c) 2025 @roomify | All rights reserved</small>
+                    </div>
+                    <div class="col">
+                        <small class="right">Created with love by @roomify</small>
+                    </div>
                 </div>
-            </div>
-        </footer>
-        @endif
-    </div>
+            </footer>
+            @endif
+        </div>
 </body>
 </html>
