@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Host Booking Cancel')
+@section('title', 'Guest Booking Cancel')
 
 @section('content')
 
@@ -114,18 +114,18 @@ img
     </div>
     <div class="mt-5 text-center">
         <h3>Do you want to cansel reservation?</h3>
-        <p>If you cansel, the user will be notified that reservation has been canseled.</p>
+        <p>If you cansel, the host will be notified that reservation has been canseled.</p>
     </div>
     <div class="mb-3">
         <div class="d-flex justify-content-center">
-        <form action="{{ route('host.booking.cancel', ['bookingId' => $booking->id]) }}" method="POST">
+        <form action="{{ route('guest.guestCancel', ['bookingId' => $booking->id]) }}" method="POST">
             @csrf
             @method('DELETE')
             <button type="submit" class="button-yes">Yes</button>
         </form>
 
     
-            <a href="{{ route('host.reservation_host') }}" class="button-no">No</a>
+            <a href="{{ route('guest.reservation_guest') }}" class="button-no">No</a>
         </div>
     </div>
 </div>
