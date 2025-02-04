@@ -13,13 +13,13 @@ class BookingController extends Controller
     private $accommodation;
 
     public function __construct(Booking $booking, Accommodation $accommodation){
-        
+
         $this->booking = $booking;
         $this->accommodation = $accommodation;
     }
 
     public function reservation_host(){
-       
+
         // $all_bookings = $this->booking->where('user_id', Auth::user()->id)->latest()->paginate(3);
         // $all_accommodations = $this->accommodation->where('user_id', Auth::user()->id)->get();
         // $all_bookings = $this->booking->where('user_id', Auth::user()->id)->get();
@@ -31,7 +31,7 @@ class BookingController extends Controller
         $all_bookings = $this->booking->with(['accommodation', 'user'])->whereIn('accommodation_id', $accommodationIds)->latest()->paginate(3);
 
         return view('hostRes', compact('all_bookings'));
-    
+
     }
 
     // public function showBookingStatus($bookingId)
@@ -63,11 +63,11 @@ class BookingController extends Controller
     public function confirmCancel($bookingId)
     {
         $booking = Booking::with(['accommodation', 'user'])->find($bookingId);
-        
+
         if (!$booking) {
             return redirect()->route('host.reservation_host')->with('error', 'Booking not found.');
         }
-        
+
         return view('bookingcancel', compact('booking'));
 
     }
@@ -76,5 +76,19 @@ class BookingController extends Controller
     {
         $accommodation = Accommodation::with('photos')->findOrFail($id);
         return view('bookingForm')->with('accommodation', $accommodation);
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name'              => 'required|string|max:255',
+            'email'             => 'required|string',
+            'num_guest'         => 'required|string|max:255',
+            'check_in_date'     => 'required|date|after_or_equal:today',
+            'check_out_date'    => 'required|date|after:check_in_date',
+            'special_request'   => 'required',
+        ]);
+
+
     }
 }

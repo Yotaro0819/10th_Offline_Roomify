@@ -41,9 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/booking-form/{id}', [BookingController::class, 'create'])->name('booking.create');
 
-    Route::get('/search', function () {
-        return view('accommodation.search');
-    });
+
     Route::post('/review/post/{id}', [ReviewController::class, 'store'])->name('review.store');
 
 
@@ -87,7 +85,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::get('/host-request/index', [HostRequestController::class, 'index'])->name('hostRequest.index');
     Route::post('/host-request/approve/{id}', [HostRequestController::class, 'approve'])->name('hostRequest.approve');
     Route::post('/host-request/reject/{id}', [HostRequestController::class, 'reject'])->name('hostRequest.reject');
-    
+
     Route::get('/users', [AdminUsersController::class, 'index'])->name('users');
     Route::get('/people', [AdminUsersController::class, 'search'])->name('search');
     Route::delete('/users/{id}/deactivate', [AdminUsersController::class, 'deactivate'])->name('users.deactivate');
