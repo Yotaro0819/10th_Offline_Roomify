@@ -26,16 +26,18 @@
         padding: 5px;
         font-weight: bold;
         font-family: arial;
+        font-size: 25px;
     }
 
     .end-date {
         padding: 5px;
         font-weight: bold;
         font-family: arial;
+        font-size: 25px;
     }
 
     #spaced{
-        margin-top: 15px;
+        margin-top: 30px;
     }
 
     .custom-btn {
@@ -51,8 +53,8 @@
         margin-top: 100px;
     }
 </style>
-<!-- @section('content') -->
-<h1 class="h4 mx-5"><i class="fa-regular fa-clock"></i>Reservation Status</h1>
+@section('content')
+<h1 class="h2 mx-5">Reservation Status</h1>
 @if($all_bookings->count() > 0)
     @foreach($all_bookings as $booking)
     <div class="card mx-auto mb-4 w-75" id="acm-booking">
@@ -72,10 +74,6 @@
                     <span class="end-date">{{ \Carbon\Carbon::parse($booking->check_out_date)->format('Y/m/d') }}</span>
                 </h5>
                 <div id="spaced">
-                        <p><span><i class="fa-solid fa-circle-user"></i></span> {{ $booking->user->name }}</p>
-                </div>
-
-                <div>
                         <p><span><i class="fa-solid fa-location-dot icon-input"></i></span> {{ $booking->accommodation->name }}</p>
                 </div>
 
@@ -96,7 +94,7 @@
                 </div> -->
             </div>
             <div class="col">
-                <form action="{{ route('host.confirmCancel', ['bookingId' => $booking->id]) }}" method="GET">
+                <form action="{{ route('guest.confirmGuestCancel', ['bookingId' => $booking->id]) }}" method="GET">
                     @csrf
                     <button type="submit" class="custom-btn">
                         <i class="fa-solid fa-trash"></i> Cancel

@@ -78,27 +78,36 @@ class BookingController extends Controller
         return view('bookingForm')->with('accommodation', $accommodation);
     }
 
-    public function store(Request $request)
+//guest
+    public function reservation_guest(){
+
+        $all_bookings = $this->booking->with(['accommodation', 'user'])->where('user_id', Auth::id())->latest()->paginate(3);
+
+        return view('guestRes', compact('all_bookings'));
+    }
+
+    public function confirmGuestCancel($bookingId)
     {
-        $accommodation = $this->accommodation->findOrFail($id);
+        $booking = Booking::with(['accommodation', 'user'])->find($bookingId);
 
-        $request->validate([
-            'check_in_date'     => 'required|date|after_or_equal:today',
-            'check_out_date'    => 'required|date|after:check_in_date',
-            'num_guest'         => 'required|integer|min:1',
-            'guest_name'        => 'required|string|max:50',
-            'email'             => 'required|email',
-            'special_request'   => 'required|text|max:500',
-        ]);
+        if (!$booking || $booking->user_id !== Auth::id()) {
+            return redirect()->route('guest.reservation_guest')->with('error', 'Booking not found or you do not have permission to cancel it.');
+        }
 
-        $this->booking->user_id          = Auth::user()->id;
-        $this->booking->check_in_date    = $request->check_in_date;
-        $this->booking->check_out_date   = $request->check_out_date;
-        $this->booking->guest_name       = $request->guest_name;
-        $this->booking->num_guest        = $request->num_guest;
-        $this->booking->email            = $request->email;
-        $this->booking->special_request  = $request->special_request;
+        return view('guest_bookingcancel', compact('booking'));
+    }
 
-        $this->booking->save();
+    public function guestCancel($bookingId)
+    {
+        $booking = Booking::find($bookingId);
+
+        if (!$booking || $booking->user_id !== Auth::id()) {
+            return redirect()->route('guest.reservation_guest')->with('error', 'Booking not found or you do not have permission to cancel it.');
+        }
+
+        $booking->status = 0;
+        $booking->delete();
+
+        return redirect()->route('guest.reservation_guest')->with('success', 'Your reservation has been canceled.');
     }
 }
