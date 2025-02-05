@@ -26,7 +26,6 @@
 </head>
 
 <style>
-
 nav
 {
     height: 70px;
@@ -97,6 +96,7 @@ a
     font-weight: bold;
 
 }
+
 
 </style>
 

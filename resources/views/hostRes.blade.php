@@ -51,8 +51,8 @@
         margin-top: 100px;
     }
 </style>
-<!-- @section('content') -->
-<h1 class="h4 mx-5"><i class="fa-regular fa-clock"></i>Reservation Status</h1>
+@section('content')
+<h1 class="h2 mx-5">Reservation Status</h1>
 @if($all_bookings->count() > 0)
     @foreach($all_bookings as $booking)
     <div class="card mx-auto mb-4 w-75" id="acm-booking">
