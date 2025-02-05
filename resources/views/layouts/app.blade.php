@@ -26,7 +26,6 @@
 </head>
 
 <style>
-
 nav
 {
     height: 70px;
@@ -98,6 +97,7 @@ a
 
 }
 
+
 </style>
 
 <body>
@@ -155,6 +155,11 @@ a
                                         </a>
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.categories') }}">
                                             categories
+                                        </a>
+                                    @endif
+                                    @if(Auth::user()->role == "1")
+                                        <a class="dropdown-item" href="{{ route('guest.reservation_guest') }}">
+                                            <i class="fa-solid fa-bed"></i> Reservation status
                                         </a>
                                     @endif
                                     <a class="dropdown-item px-3 py-3" href="{{ route('logout') }}"
