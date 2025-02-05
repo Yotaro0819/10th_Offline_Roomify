@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->string('guest_name');
             $table->date('check_in_date');
             $table->date('check_out_date');
             $table->integer('num_guest');

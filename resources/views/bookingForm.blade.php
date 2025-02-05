@@ -62,7 +62,7 @@
 
         <div class="row mb-4">
             <div class="col">
-                <label for="name" class="form-label">Full Name<span class="text-danger">*</span></label>
+                <label for="name" class="form-label">Guest Name<span class="text-danger">*</span></label>
                 <input type="text" name="guest_name" class="form-control" placeholder="Enter name">
             </div>
             <div class="col">
@@ -140,18 +140,18 @@
         </div>
 
         <div class="row">
-            <div class="col">₱1,273 x 23 nights</div>
-            <div class="col price">₱2,451.32</div>
+            <div class="col">Per Nights</div>
+            <div class="col price">${{ $accommodation->price }} </div>
         </div>
 
         <div class="row">
             <div class="col">Cleaning Fee</div>
-            <div class="col price">₱2,983.12</div>
+            <div class="col price">$2,983.12</div>
         </div>
 
         <div class="row">
             <div class="col">Roomify Service Fee</div>
-            <div class="col price">₱1,221.34</div>
+            <div class="col price">$1,221.34</div>
         </div>
 
         <hr style="color: #dcbf7d">
@@ -160,7 +160,7 @@
             <div class="col">
                 <h2 class="h4">Total fee</h2>
             </div>
-            <div class="col price">₱106,601.99</div>
+            <div class="col price">$106,601.99 ~</div>
         </div>
 
         <div class="row mt-5">
