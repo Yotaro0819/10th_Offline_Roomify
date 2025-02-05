@@ -77,4 +77,37 @@ class BookingController extends Controller
         $accommodation = Accommodation::with('photos')->findOrFail($id);
         return view('bookingForm')->with('accommodation', $accommodation);
     }
+
+//guest 
+    public function reservation_guest(){
+
+        $all_bookings = $this->booking->with(['accommodation', 'user'])->where('user_id', Auth::id())->latest()->paginate(3);
+
+        return view('guestRes', compact('all_bookings'));
+    }
+
+    public function confirmGuestCancel($bookingId)
+    {
+        $booking = Booking::with(['accommodation', 'user'])->find($bookingId);
+        
+        if (!$booking || $booking->user_id !== Auth::id()) {
+            return redirect()->route('guest.reservation_guest')->with('error', 'Booking not found or you do not have permission to cancel it.');
+        }
+        
+        return view('guest_bookingcancel', compact('booking'));
+    }
+   
+    public function guestCancel($bookingId)
+    {
+        $booking = Booking::find($bookingId);
+
+        if (!$booking || $booking->user_id !== Auth::id()) {
+            return redirect()->route('guest.reservation_guest')->with('error', 'Booking not found or you do not have permission to cancel it.');
+        }
+
+        $booking->status = 0;
+        $booking->delete();
+
+        return redirect()->route('guest.reservation_guest')->with('success', 'Your reservation has been canceled.');
+    }
 }
