@@ -34,7 +34,6 @@ class BookingController extends Controller
     
     }
 
-
     // public function showBookingStatus($bookingId)
     // {
     //     // $booking = Booking::find($bookingId);
@@ -95,7 +94,7 @@ class BookingController extends Controller
             return redirect()->route('guest.reservation_guest')->with('error', 'Booking not found or you do not have permission to cancel it.');
         }
         
-        return view('bookingcancel', compact('booking'));
+        return view('guest_bookingcancel', compact('booking'));
     }
    
     public function guestCancel($bookingId)
