@@ -1,5 +1,17 @@
 html, body {
-    font-family: sans-serif
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .btn
@@ -67,11 +79,11 @@ a
 
 /* design of circle */
 .corner-circle {
-width: 100px; /* 円の直径 */
-height: 100px; /* 円の直径 */
-background-color: #dcbf7d; /* 円の背景色 */
-border-radius: 50%; /* 円形にする */
-position: absolute; /* 配置を自由に調整 */
+    width: 100px; /* 円の直径 */
+    height: 100px; /* 円の直径 */
+    background-color: #dcbf7d; /* 円の背景色 */
+    border-radius: 50%; /* 円形にする */
+    position: absolute; /* 配置を自由に調整 */
 }
 
 /* left top */
@@ -125,9 +137,15 @@ position: absolute; /* 配置を自由に調整 */
     object-fit: cover;
 }
 
+main{
+    flex-grow: 1;
+}
+
 footer{
     background-color: #eeeeee;
     padding: 30px 0;
+    width: 100%;
+    margin-top: auto;
 }
 
 footer h1{
