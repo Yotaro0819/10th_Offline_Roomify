@@ -78,6 +78,31 @@ class BookingController extends Controller
         return view('bookingForm')->with('accommodation', $accommodation);
     }
 
+    public function store(Request $request)
+    {
+        $accommodation = Accommodation::findOrFail($id);
+
+        $request->validate([
+            'check_in_date'     => 'required|date|after_or_equal:today',
+            'check_out_date'    => 'required|date|after:check_in_date',
+            'num_guest'         => 'required|integer|min:1',
+            'guest_name'        => 'required|string|max:50',
+            'email'             => 'required|email',
+            'special_request'   => 'nullable|max:500',
+        ]);
+
+        $this->booking->user_id          = Auth::user()->id;
+        $this->booking->check_in_date    = $request->check_in_date;
+        $this->booking->check_out_date   = $request->check_out_date;
+        $this->booking->guest_name       = $request->guest_name;
+        $this->booking->num_guest        = $request->num_guest;
+        $this->booking->email            = $request->email;
+        $this->booking->special_request  = $request->special_request;
+        $this->booking->save();
+
+        return redirect()->route('reservation_guest');
+    }
+
 //guest
     public function reservation_guest(){
 

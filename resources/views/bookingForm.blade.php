@@ -57,7 +57,7 @@
 
     <!-- left side -->
     <div class="col-7 w-50 mt-3">
-        <form action="#" method="post">
+        <form action="{{ route('booking.store', $accommodation->id )}}" method="post">
         @csrf
 
         <div class="row mb-4">
@@ -92,7 +92,7 @@
             </div>
         </div>
 
-        <div class="row mb-4">
+        {{-- <div class="row mb-4">
             <div class="col">
                 <label class="form-label">Use a coupon<span class="text-danger">*</span></label>
                 <div>
@@ -103,7 +103,7 @@
                     <label for="couponNo">No</label>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="row mb-4">
             <div class="col">
@@ -141,17 +141,17 @@
 
         <div class="row">
             <div class="col">Per Nights</div>
-            <div class="col price">${{ $accommodation->price }} </div>
+            <div class="col price">¥{{ $accommodation->price }} </div>
         </div>
 
         <div class="row">
             <div class="col">Cleaning Fee</div>
-            <div class="col price">$2,983.12</div>
+            <div class="col price">¥2,983.12</div>
         </div>
 
         <div class="row">
             <div class="col">Roomify Service Fee</div>
-            <div class="col price">$1,221.34</div>
+            <div class="col price">¥1,221.34</div>
         </div>
 
         <hr style="color: #dcbf7d">
@@ -160,7 +160,7 @@
             <div class="col">
                 <h2 class="h4">Total fee</h2>
             </div>
-            <div class="col price">$106,601.99 ~</div>
+            <div class="col price">¥106,601.99 ~</div>
         </div>
 
         <div class="row mt-5">
