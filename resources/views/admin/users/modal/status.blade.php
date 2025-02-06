@@ -46,3 +46,29 @@
         </div>
     </div>
 </div>
+
+    <div class="modal fade" id="change-host-{{ $user->id }}">
+        <div class="modal-dialog">
+            <div class="modal-content border-success">
+                <div class="modal-header border-success">
+                    <h3 class="h5 modal-title text-success">
+                        <i class="fa-solid fa-user-check"></i> Change to guest
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to change to guest <span class="fw-bold">{{ $user->name }}</span>
+                </div>
+
+                <div class="modal-footer border-0">
+                    <form action="{{ route('admin.users.change', $user->id) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success btn-sm">Change</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+

@@ -20,7 +20,6 @@ class AccommodationController extends Controller
         $this->user = $user;
 
         $this->accommodation = $accommodation;
-        $this->user = $user;
     }
 
     public function index()

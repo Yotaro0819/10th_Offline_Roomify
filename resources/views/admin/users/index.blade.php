@@ -6,6 +6,23 @@
 
 <style>
 
+.button-change-guest {
+    padding: 10px 20px;
+    font-size: 12px;
+    color: white;
+    background-color: #004aad;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width:  100px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 .button-inactivate{
     padding: 10px 20px;
     font-size: 12px;
@@ -66,53 +83,57 @@
             <th scope="col">Role</th>
             <th scope="col"></th>
             <th scope="col"></th>
+            <th scope="col"></th>
             </tr>
         </thead>
         <tbody class="align-middle">
             @foreach($all_users as $index => $user)
-            <tr class="{{ $index % 2 == 0 ? 'table-warning' : '' }}">
-                <td scope="row"> 
-                    @if ($user->avatar)
-                    <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="rounded-circle d-block mx-auto avatar-md">
-                    @else
-                    <i class="fa-solid fa-circle-user d-block icon-md ms-2"></i>
+                @if ($user->role == 1 || $user->role == 2)
+                <tr class="{{ $index % 2 == 0 ? 'table-warning' : '' }}">
+                    <td scope="row"> 
+                        @if ($user->avatar)
+                        <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="rounded-circle d-block mx-auto avatar-md">
+                        @else
+                        <i class="fa-solid fa-circle-user d-block icon-md ms-2"></i>
+                        @endif
+                    </td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email}}</td>
+                    @if($user->role == 1)
+                    <td>
+                        Guest
+                    </td>
+                    @elseif($user->role == 2)
+                    <td>
+                        Host
+                    </td>
                     @endif
-                </td>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email}}</td>
-                @if($user->role == 1)
-                <td>
-                    Guest
-                </td>
-                @elseif($user->role == 2)
-                <td>
-                    Host
-                </td>
-                @elseif($user->role == 0)
-                <td>
-                    Admin
-                </td>
-                @endif
-
-                @if($user->trashed())
-                    <td class="">
-                        <i class="fa-solid fa-circle text-danger"></i> &nbsp; Deactivate
+                    @if($user->trashed())
+                        <td class="">
+                            <i class="fa-solid fa-circle text-danger"></i> &nbsp; Deactivate
+                        </td>
+                        <td class="">
+                            <button class="button-activate" data-bs-toggle="modal" data-bs-target="#activate-user-{{ $user->id }}">Activate</button>
+                        </td>
+                    @else
+                        <td class="">
+                            <i class="fa-solid fa-circle text-success"></i> &nbsp; Activate
+                        </td>
+                        <td class="">
+                            <button class="button-inactivate" data-bs-toggle="modal" data-bs-target="#deactivate-user-{{ $user->id }}">Deactivate</button>
+                        </td>
+                    @endif
+                    @if($user->role == 2)
+                    <td>
+                        <button class="button-change-guest" data-bs-toggle="modal" data-bs-target="#change-host-{{ $user->id }}">Change to guest</button>
                     </td>
-                    <td class="text-center">
-                        <button class="button-activate" data-bs-toggle="modal" data-bs-target="#activate-user-{{ $user->id }}">Activate</button>
-                    </td>
-                @else
-                    <td class="">
-                        <i class="fa-solid fa-circle text-success"></i> &nbsp; Activate
-                    </td>
-                    <td class="text-center">
-                        <button class="button-inactivate" data-bs-toggle="modal" data-bs-target="#deactivate-user-{{ $user->id }}">Deactivate</button>
-                    </td>
-                @endif
-                
+                    @else
+                        <td></td>
+                    @endif
+                </tr>
                 {{-- include a model herre --}}
                 @include('admin.users.modal.status')
-            </tr>
+                @endif
             @endforeach
         </tbody>
     </table>
