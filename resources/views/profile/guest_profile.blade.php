@@ -9,18 +9,21 @@
                 <div class="row">
                     <div class="co-4">
                         <!-- avatar -->
-                        <img src="" alt="">
-                        <!-- <i class="fa-solid fa-circle-user text-secondary d-block text-center icon-lg"></i> -->
+                        @if(Auth::user()->avatar)
+                            <img src="{{ asset('storage/' . $user->avatar) }}" class="img-fluid rounded-circle" width="150">
+                        @else
+                            <i class="fa-solid fa-circle-user text-secondary d-block text-center icon-lg"></i>
+                        @endif
                     </div>
                     <div class="col-8">
                         <div class="row md-8">
                             <div class="col-auto">
-                                <h2>Username</h2>
+                                <h2>{{ Auth::user()->name }}</h2>
                             </div>
                         </div>
                         <div class="row md-8">
                             <div class="col-auto">
-                                <h5>Language</h5>
+                                <h5>{{ Auth::user()->nationality->nationality ?? 'Not available' }}</h5>
                             </div>
                             <div class="col-auto">
                                 <h5>My place of location</h5>

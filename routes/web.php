@@ -38,9 +38,7 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.'], function(){
     Route::delete('/res/{bookingId}/cancel', [BookingController::class, 'guestCancel'])->name('guestCancel');
 });
 
-    Route::get('/profile', function () {
-        return view('guest_profile');
-    });
+    Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
 
     Route::get('/booking-form/{id}', [BookingController::class, 'create'])->name('booking.create');
