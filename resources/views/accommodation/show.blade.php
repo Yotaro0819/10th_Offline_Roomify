@@ -50,7 +50,7 @@
 </script>
 @section('content')
 
-<div class="container w-75 mx-auto ">
+<div class="container w-75 mx-auto">
 
 
 
@@ -189,6 +189,7 @@
     </div>
 
     <div class="coupon-section bg-yellow border-black border text-center rounded-3 w-25 mx-auto">
+        <p class="m-0 fw-bold">Accommodation Rank: {{ $accommodation->rank }}</p>
         <h3 class="fs-4">Get coupon</h3>
         <h3 class="fw-bold">10% OFF Coupon</h3>
     </div>
