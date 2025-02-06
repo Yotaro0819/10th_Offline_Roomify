@@ -65,7 +65,6 @@ class AccommodationController extends Controller
         $apiKey = config('services.google_maps.api_key');
 
 
-
         try {
             // Google Geocoding APIを使用して緯度と経度、住所コンポーネントを取得
             $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json', [
@@ -308,8 +307,6 @@ class AccommodationController extends Controller
             return redirect()->route('host.accommodation.create')->with('googleMap_error', 'Something went wrong with the address.');
         }
     }
-
-
 
 
     public function show($id)
