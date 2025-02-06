@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Accommodation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Booking;
-
+use App\Models\Accommodation;
 class BookingController extends Controller
 {
     private $booking;
@@ -75,23 +74,37 @@ class BookingController extends Controller
     public function create($id)
     {
         $accommodation = Accommodation::with('photos')->findOrFail($id);
-        return view('bookingForm')->with('accommodation', $accommodation);
+
+        $cleaning_fee  = $accommodation->price * 0.1;
+        $service_fee   = $accommodation->price * 0.15;
+        $total_fee     = $accommodation->price + $cleaning_fee + $service_fee;
+
+        return view('bookingForm')->with('accommodation', $accommodation)
+                                        ->with('cleaning_fee', $cleaning_fee)
+                                        ->with('service_fee', $service_fee)
+                                        ->with('total_fee', $total_fee);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        $accommodation = Accommodation::findOrFail($id);
+        $accommodation = $this->accommodation->findOrFail($id);
 
         $request->validate([
             'check_in_date'     => 'required|date|after_or_equal:today',
             'check_out_date'    => 'required|date|after:check_in_date',
-            'num_guest'         => 'required|integer|min:1',
+            'num_guest'         => [
+                                    'required',
+                                    'integer',
+                                    'min:1',
+                                    'max:' . $accommodation->capacity
+                                    ],
             'guest_name'        => 'required|string|max:50',
             'email'             => 'required|email',
             'special_request'   => 'nullable|max:500',
         ]);
 
         $this->booking->user_id          = Auth::user()->id;
+        $this->booking->accommodation_id = $accommodation->id;
         $this->booking->check_in_date    = $request->check_in_date;
         $this->booking->check_out_date   = $request->check_out_date;
         $this->booking->guest_name       = $request->guest_name;
@@ -100,7 +113,7 @@ class BookingController extends Controller
         $this->booking->special_request  = $request->special_request;
         $this->booking->save();
 
-        return redirect()->route('reservation_guest');
+        return redirect()->route('guest.reservation_guest');
     }
 
 //guest

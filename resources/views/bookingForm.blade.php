@@ -53,11 +53,11 @@
 </style>
 
 <div class="row gx-5 mx-auto">
-    <h1 class="h2 ms-5" style="color: #004aad; font-size: 40px; font-weight: bolder"><a href="#">< </a> BOOK YOUR STAY</h1>
+    <h1 class="h2 ms-5" style="color: #004aad; font-size: 40px; font-weight: bolder"><a href="{{ route('search')}}">< </a> BOOK YOUR STAY</h1>
 
     <!-- left side -->
     <div class="col-7 w-50 mt-3">
-        <form action="{{ route('booking.store', $accommodation->id )}}" method="post">
+        <form action="{{ route('guest.booking.store', $accommodation->id )}}" method="post">
         @csrf
 
         <div class="row mb-4">
@@ -65,31 +65,56 @@
                 <label for="name" class="form-label">Guest Name<span class="text-danger">*</span></label>
                 <input type="text" name="guest_name" class="form-control" placeholder="Enter name">
             </div>
+            <!-- error directive-->
+            @error('guest_name')
+                <div class="text-danger small">{{ $message }}</div>
+            @enderror
+
             <div class="col">
                 <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
                 <input type="email" name ="email" class="form-control" placeholder="example@gmail.com">
             </div>
+            <!-- error directive-->
+            @error('email')
+                <div class="text-danger small">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="row mb-4">
             <div class="col">
                 <label for="num_of_guest" class="form-label">Number of Guest<span class="text-danger">*</span></label>
-                <input type="number" name="num_guest" class="form-control w-75" placeholder="1 adult - 1 room">
+                <input type="number" name="num_guest" class="form-control w-75" placeholder="Maximum {{ $accommodation->capacity }} guests">
             </div>
+
+            <!-- error directive-->
+            @error('num_guest')
+                <div class="text-danger small">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="row mb-4">
             <div class="col">
-                <label for="arrival_date" class="form-label">Arrival Date<span class="text-danger">*</span></label>
+                <label for="check_in_date" class="form-label">Arrival Date<span class="text-danger">*</span></label>
                 <input type="date" name="check_in_date" class="form-control w-75">
             </div>
+
+            <!-- error directive-->
+            @error('check_in_date')
+                <div class="text-danger small">{{ $message }}</div>
+            @enderror
         </div>
+
 
         <div class="row mb-4">
             <div class="col">
-                <label for="departure_date" class="form-label">Departure Date<span class="text-danger">*</span></label>
+                <label for="check_out_date" class="form-label">Departure Date<span class="text-danger">*</span></label>
                 <input type="date" name="check_out_date" class="form-control w-75">
             </div>
+
+            <!-- error directive-->
+            @error('check_out_date')
+                <div class="text-danger small">{{ $message }}</div>
+            @enderror
         </div>
 
         {{-- <div class="row mb-4">
@@ -110,6 +135,11 @@
                 <label for="special_request" class="form-label">Special Request</label>
                 <textarea class="form-control" name="special_request" id="special_request" cols="26" rows="10" placeholder="type your massage here"></textarea>
             </div>
+
+            <!-- error directive-->
+            @error('special_request')
+                <div class="text-danger small">{{ $message }}</div>
+            @enderror
         </div>
     </div>
 
@@ -141,17 +171,17 @@
 
         <div class="row">
             <div class="col">Per Nights</div>
-            <div class="col price">¥{{ $accommodation->price }} </div>
+            <div class="col price">¥{{ $accommodation->price }}</div>
         </div>
 
         <div class="row">
             <div class="col">Cleaning Fee</div>
-            <div class="col price">¥2,983.12</div>
+            <div class="col price">¥ {{ $cleaning_fee }}</div>
         </div>
 
         <div class="row">
             <div class="col">Roomify Service Fee</div>
-            <div class="col price">¥1,221.34</div>
+            <div class="col price">¥ {{ $service_fee }}</div>
         </div>
 
         <hr style="color: #dcbf7d">
@@ -160,7 +190,7 @@
             <div class="col">
                 <h2 class="h4">Total fee</h2>
             </div>
-            <div class="col price">¥106,601.99 ~</div>
+            <div class="col price">¥ {{ $total_fee }} ~</div>
         </div>
 
         <div class="row mt-5">

@@ -36,6 +36,8 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.'], function(){
     Route::get('/res', [BookingController::class, 'reservation_guest'])->name('reservation_guest');
     Route::get('/res/{bookingId}/cancel', [BookingController::class, 'confirmGuestCancel'])->name('confirmGuestCancel');
     Route::delete('/res/{bookingId}/cancel', [BookingController::class, 'guestCancel'])->name('guestCancel');
+    Route::get('/booking-form/{id}', [BookingController::class, 'create'])->name('booking.create');
+    Route::post('/booking/{id}', [BookingController::class, 'store'])->name('booking.store');
 });
 
 Route::get('/search', [AccommodationController::class, 'search'])->name('search');
@@ -48,8 +50,6 @@ Route::get('/search_by_filters', [AccommodationController::class, 'search_by_fil
     });
 
 
-    Route::get('/booking-form/{id}', [BookingController::class, 'create'])->name('booking.create');
-    Route::post('/booking/{id}', [BookingController::class,'store'])->name('booking.store');
 
 
     Route::post('/review/post/{id}', [ReviewController::class, 'store'])->name('review.store');
