@@ -30,7 +30,7 @@ class HostRequestController extends Controller
     public function index()
     {
         $requests = HostRequest::where('status', 'pending')->get();
-        return view('hostRequest.index', compact('requests'));
+        return view('hostRequest.index')->with('requests', $requests);
     }
 
     public function approve($id)
