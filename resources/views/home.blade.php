@@ -393,7 +393,11 @@ footer .right{
                 <div class="card-container">
                     @foreach($accommodations as $accommodation)
                      <div class="card mx-auto">
-                        <img src="{{ $accommodation->photos->first()->url }}" alt="Accommodation Image">
+                        @if ($accommodation->photos->isNotEmpty())
+                            <img src="{{ $accommodation->photos->first()->url }}" alt="Accommodation Image">
+                        @else
+                            <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available">
+                        @endif
                         <h3>{{ $accommodation->name }}</h3>
                         <p class="address">{{ $accommodation->address }}</p>
                         <div class="row">
