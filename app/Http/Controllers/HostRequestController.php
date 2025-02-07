@@ -24,13 +24,13 @@ class HostRequestController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->route('hostRequest.create')->with('success', 'Send request was successful.');
+        return redirect()->route('hostRequest.create')->with('success', 'Send request was successful');
     }
 
     public function index()
     {
         $requests = HostRequest::where('status', 'pending')->get();
-        return view('hostRequest.index', compact('requests'));
+        return view('hostRequest.index')->with('requests', $requests);
     }
 
     public function approve($id)

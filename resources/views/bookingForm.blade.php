@@ -11,7 +11,7 @@
 
     #acm-booking
     {
-        border: solid, 4px, #dcbf7d;
+        border: solid 4px #dcbf7d;
         border-radius: 30px;
         width:400px;
         height: 350px;
@@ -22,7 +22,6 @@
         border-color:#004aad;
         color: #ffffff;
         background-color: #004aad;
-        align-content: left;
         font-weight: bold;
         width:400px;
     }
@@ -38,22 +37,107 @@
     {
         text-align: right;
     }
-
-    a
-    {
-        color: #004aad;
-    }
-
     img
     {
         width: 150px;
         height: 100px;
         border-radius: 30px;
     }
+
+    .ui-datepicker-range a
+    {
+        background-color: #dcbf7d !important;
+        color: white !important;
+    }
 </style>
 
+
+<script>
+    var checkInDate = null;
+    var checkOutDate = null;
+    var perNightPrice = {{ $accommodation->price }};
+
+    function highlightRange(date) {
+        if (checkInDate && checkOutDate) {
+            if (date >= checkInDate && date <= checkOutDate){
+                return [true, "ui-datepicker-range"];
+            }
+        } else if (checkInDate && date.getTime() === checkInDate.getTime()) {
+            return [true, "ui-datepicker-range"];
+        }
+        return [true, ""];
+    }
+
+    function calculateDays() {
+    if (checkInDate && checkOutDate) {
+        var diff = checkOutDate - checkInDate;
+        var days = Math.round(diff / (1000 * 60 * 60 * 24));
+
+        $("#total_days").text(days);
+        $("#total_days_for_confirmation").text(days);
+
+        if (days > 1) {
+            $("#stay_label").text("nights stay");
+        } else {
+            $("#stay_label").text("night stay");
+        }
+
+        calculateTotalFee(days);
+        return days;
+    }
+        return 0;
+    }
+
+    function calculateTotalFee(days) {
+    var cleaningFee = {{ $cleaning_fee }} * days;
+    var serviceFee  = {{ $service_fee }} * days;
+    var stayFee     =  days * perNightPrice;
+    var totalFee    = stayFee + cleaningFee + serviceFee;
+
+    $("#cleaningFee").text(cleaningFee.toLocaleString());
+    $("#serviceFee").text(serviceFee.toLocaleString());
+    $("#stayFee").text(stayFee.toLocaleString());
+    $("#total_fee_display").text(totalFee.toLocaleString());
+    }
+
+
+    $(document).ready(function() {
+        $("#check_in_datepicker").datepicker({
+            minDate: 1,
+            dateFormat: 'yy-mm-dd',
+            onSelect: function(selectedDate) {
+                checkInDate = $(this).datepicker('getDate');
+                checkOutDate = null;
+                $("#check_out_datepicker").val("");
+
+                var minCheckOutDate = new Date(checkInDate);
+                minCheckOutDate.setDate(minCheckOutDate.getDate() + 1);
+
+                $("#check_out_datepicker").datepicker("option", "minDate", minCheckOutDate);
+                $("#check_in_datepicker").datepicker("refresh");
+                $("#check_out_datepicker").datepicker("refresh");
+                calculateDays();
+            },
+            beforeShowDay: highlightRange
+        });
+
+        $("#check_out_datepicker").datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate: 2,
+            onSelect: function(selectedDate) {
+                checkOutDate = $(this).datepicker('getDate');
+                $("#check_in_datepicker").datepicker("refresh");
+                $("#check_out_datepicker").datepicker("refresh");
+                calculateDays();
+            },
+            beforeShowDay: highlightRange
+        });
+    });
+</script>
+
+
 <div class="row gx-5 mx-auto">
-    <h1 class="h2 ms-5" style="color: #004aad; font-size: 40px; font-weight: bolder"><a href="{{ route('search')}}">< </a> BOOK YOUR STAY</h1>
+    <h1 class="h2 ms-5" style="font-size: 30px"><a href="{{ route('search')}}">< </a> BOOK YOUR STAY</h1>
 
     <!-- left side -->
     <div class="col-7 w-50 mt-3">
@@ -95,7 +179,7 @@
         <div class="row mb-4">
             <div class="col">
                 <label for="check_in_date" class="form-label">Arrival Date<span class="text-danger">*</span></label>
-                <input type="date" name="check_in_date" class="form-control w-75">
+                <input type="text" name="check_in_date" class="form-control w-75"  id="check_in_datepicker" placeholder="Select Check-In Date">
             </div>
 
             <!-- error directive-->
@@ -108,8 +192,13 @@
         <div class="row mb-4">
             <div class="col">
                 <label for="check_out_date" class="form-label">Departure Date<span class="text-danger">*</span></label>
-                <input type="date" name="check_out_date" class="form-control w-75">
+                <input type="text" name="check_out_date" class="form-control w-75"  id="check_out_datepicker" placeholder="Select Check-Out Date">
+
+                <div class="form-text w-75 text-end">
+                    <span id="total_days"></span> <span id="stay_label"></span>
+                </div>
             </div>
+
 
             <!-- error directive-->
             @error('check_out_date')
@@ -133,7 +222,7 @@
         <div class="row mb-4">
             <div class="col">
                 <label for="special_request" class="form-label">Special Request</label>
-                <textarea class="form-control" name="special_request" id="special_request" cols="26" rows="10" placeholder="type your massage here"></textarea>
+                <textarea class="form-control" name="special_request" id="special_request" cols="26" rows="10" placeholder="Type your massage here"></textarea>
             </div>
 
             <!-- error directive-->
@@ -170,18 +259,18 @@
         </div>
 
         <div class="row">
-            <div class="col">Per Nights</div>
-            <div class="col price">¥{{ $accommodation->price }}</div>
+            <div class="col"><span>¥{{ $accommodation->price}} </span> /night x <span id="total_days_for_confirmation"></span></div>
+            <div class="col price">¥ <span id="stayFee"></span></div>
         </div>
 
         <div class="row">
             <div class="col">Cleaning Fee</div>
-            <div class="col price">¥ {{ $cleaning_fee }}</div>
+            <div class="col price">¥ <span id="cleaningFee"></span></div>
         </div>
 
         <div class="row">
             <div class="col">Roomify Service Fee</div>
-            <div class="col price">¥ {{ $service_fee }}</div>
+            <div class="col price">¥ <span id="serviceFee"></span></div>
         </div>
 
         <hr style="color: #dcbf7d">
@@ -190,7 +279,7 @@
             <div class="col">
                 <h2 class="h4">Total fee</h2>
             </div>
-            <div class="col price">¥ {{ $total_fee }} ~</div>
+            <div class="col price">¥ <span id="total_fee_display">{{ $total_fee }}</span></div>
         </div>
 
         <div class="row mt-5">

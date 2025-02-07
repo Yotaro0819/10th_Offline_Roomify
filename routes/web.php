@@ -87,7 +87,7 @@ Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], func
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
      // hostRequest page approve or reject.
     Route::get('/host-request/index', [HostRequestController::class, 'index'])->name('hostRequest.index');
-    Route::post('/host-request/approve/{id}', [HostRequestController::class, 'approve'])->name('hostRequest.approve');
+    Route::patch('/host-request/approve/{id}', [HostRequestController::class, 'approve'])->name('hostRequest.approve');
     Route::post('/host-request/reject/{id}', [HostRequestController::class, 'reject'])->name('hostRequest.reject');
 
     Route::get('/users', [AdminUsersController::class, 'index'])->name('users');
