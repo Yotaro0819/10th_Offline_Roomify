@@ -11,6 +11,8 @@ class ProfileController extends Controller
 
         $user = User::findOrFail($id);
 
-        return view('guest_profile', compact('user'));
+        $reviews = $user->reviews()->latest()->get();
+
+        return view('profile.guest_profile', compact('user', 'reviews'));
     }  
 }
