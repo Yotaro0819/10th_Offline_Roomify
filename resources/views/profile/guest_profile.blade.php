@@ -8,7 +8,7 @@
 
   .card{
     background: #fff;
-    padding: 40px;
+    padding: 60px;
     border-radius: 20px;
     height: 550px;
     width: 1200px;
@@ -23,21 +23,17 @@
   }
 
   .profile-icon{
-    font-size: 150px;
+    font-size: 170px;
     color: gray;
   }
 
-  #{
-    text-align: left;
+  .name{
+    width: 400px;
+    margin-left: 180px;
   }
 
   h4{
     color: #666;
-  }
-
-  .right-align{
-    margin-left: 350px;
-    margin-top: 50px;
   }
 
   .row .info{
@@ -69,7 +65,7 @@
 <div class="container">
     <div class="card">
         <div class="row">
-            <div class="col-4 d-flex justify-content-start align-items-center" id="icon">
+            <div class="col-auto d-flex justify-content-start align-items-center text-left" id="icon">
                 <!-- avatar -->
                 @if(Auth::user()->avatar)
                     <img src="{{ asset('storage/' . $user->avatar) }}" class="profile-img">
@@ -78,40 +74,26 @@
                 @endif
             </div>
             <div class="col-auto">
-                <h4>{{ Auth::user()->name }}</h4>
-                <hr>
-                <div class="row info">
-                    <div class="col-auto">
+                <div class="name mt-3">
+                    <h4>{{ Auth::user()->name }}</h4>
+                    <hr>
+                </div>
+                <div class="row info align-items-center mt-3">
+                    <div class="col-auto me-1 mt-4">
                         <h4>{{ Auth::user()->nationality->nationality ?? 'Not available' }}</h4>
                         <hr>
                     </div>
                     <div class="col-auto">
-                    <h4>About Me</h4>
-                    <p>I'm from {{ Auth::user()->nationality->nationality ?? 'a beautiful country' }}. I enjoy meeting new people and sharing my culture with others.</p>
-                        <!-- <h4>My place of location</h4>
-                        <hr> -->
-                    </div>
-                    <!-- <div class="col-auto">
-                        <h4>Hobby</h4>
+                        <h4 class="mb-1">About Me</h4>
+                        <p>I'm from {{ Auth::user()->nationality->nationality ?? 'a beautiful country' }}. I enjoy meeting new people and sharing my culture with others.</p>
                         <hr>
-                    </div> -->
+                    </div>
                 </div>
-                <!-- If the user is host
-                <div class="row info">
-                    <div class="col-auto">
-                        <h4><i class="fa-solid fa-star"></i>Star</h4>
-                        <hr>
-                    </div>
-                    <div class="col-auto">
-                        <h4>Hosting experience</h4>
-                        <hr>
-                    </div>
-                </div> -->
             </div>
         </div>
         
         <div class="row">
-            <div class="reviews">
+            <div class="reviews mt-4">
                 <h4>Reviews</h4>
                 <hr class="line">
             </div>
