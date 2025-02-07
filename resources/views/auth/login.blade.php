@@ -66,6 +66,54 @@
         font-style: italic;
         color:#004aad !important;
     }
+
+        /* design of circle */
+    .corner-circle {
+        width: 100px;
+        height: 100px;
+        background-color: #dcbf7d;
+        border-radius: 50%;
+        position: absolute;
+    }
+
+    /* left top */
+    .circle-left-1
+    {
+        width: 650px;
+        height: 650px;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+    }
+
+    /* left bottom */
+    .circle-left-2 {
+        width: 400px;
+        height: 400px;
+        bottom: 100px;
+        left: 0;
+        transform: translate(-50%, 80%);
+    }
+
+    /* right bottom top */
+    .circle-right-1
+    {
+        width: 500px;
+        height: 800px;
+        bottom: 300px;
+        right: 50px;
+        transform: translate(70%, 65%);
+    }
+
+    /* right bottom bottom */
+    .circle-right-2
+    {
+        width: 900px;
+        height: 500px;
+        bottom: 0px;
+        right: 0px;
+        transform: translate(50%, 50%);
+    }
 </style>
 
 @section('content')
@@ -123,7 +171,7 @@
                                 </button>
                             </div>
 
-                            <p class="fw-light mt-1">Not a member yet? <a href="{{ route('register') }}">Resister!</a></p>
+                            <p class="fw-light mt-1">Not a member yet? <a href="{{ route('register') }}" class="fw-bold">Resister!</a></p>
 
                         </div>
                     </form>

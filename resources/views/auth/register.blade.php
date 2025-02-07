@@ -94,6 +94,53 @@
         font-weight: bold
     }
 
+    /* design of circle */
+    .corner-circle {
+        width: 100px;
+        height: 100px;
+        background-color: #dcbf7d;
+        border-radius: 50%;
+        position: absolute;
+    }
+
+    /* left top */
+    .circle-left-1
+    {
+        width: 650px;
+        height: 650px;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+    }
+
+    /* left bottom */
+    .circle-left-2 {
+        width: 400px;
+        height: 400px;
+        bottom: 100px;
+        left: 0;
+        transform: translate(-50%, 80%);
+    }
+
+    /* right bottom top */
+    .circle-right-1
+    {
+        width: 500px;
+        height: 800px;
+        bottom: 300px;
+        right: 50px;
+        transform: translate(70%, 65%);
+    }
+
+    /* right bottom bottom */
+    .circle-right-2
+    {
+        width: 900px;
+        height: 500px;
+        bottom: 0px;
+        right: 0px;
+        transform: translate(50%, 50%);
+    }
 
 </style>
 @section('content')
@@ -109,7 +156,7 @@
             <div class="card border-0 mx-auto w-50">
                 <div class="card-header border-0">
                     {{ __('Register') }}
-                    <p>Please enter your Name, Email and your Password</p>
+                    <p>Please enter your information</p>
                 </div>
 
 
@@ -164,6 +211,18 @@
                         </div>
 
                         <div class="row mb-4">
+                            <div class="col input-group">
+                                    <div class="input-group-text border-end-0" style="background-color: #004aad; border-radius:15px 0 0 15px">
+                                        <i class="fa-solid fa-lock" style="color:#ffffff; font-size: 30px;"></i>
+                                    </div>
+                                <input id="sample" type="text" class="form-control border-start-0" name="sample" style="border-radius:0 15px 15px 0" required placeholder="sample">
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row mb-4">
                             <div class="col-md-6 input-group">
                                 <i class="fa-solid fa-earth-americas input-icon" id="national_flag"></i>
 
@@ -184,7 +243,7 @@
                                 </button>
                             </div>
 
-                            <p class="fw-light mt-1">Already have an Account? <a href="{{ route('login') }}">Login!</a></p>
+                            <p class="fw-light mt-1">Already have an Account? <a href="{{ route('login') }}" class="fw-bold">Login!</a></p>
                         </div>
 
                     </form>
