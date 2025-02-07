@@ -9,15 +9,41 @@ html, body {
     padding: 0;
 }
 
+#hero{
+    background-image: url('https://images.pexels.com/photos/16663162/pexels-photo-16663162.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 30px;
+}
+
 h2{
     font-weight: bold;
     font-family: arial black;
+    text-align: left;
+    margin-right: 400px;
+}
+
+#hero_p{
+    margin-right: 500px;
 }
 
 .card{
     width: 900px;
     height: 200px;
     backdrop-filter: blur(6px);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 20px;
 }
 
 .card h2 {
@@ -34,6 +60,8 @@ h2{
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #fff;
+    margin-top: -10px;
 }
 
 .search-form .form-container{
@@ -42,6 +70,7 @@ h2{
     gap: 16px;
     flex-wrap: wrap;
     justify-content: space-between;
+    height: 100px;
 }
 
 .search-form .form-group{
@@ -78,12 +107,15 @@ h2{
     width: 100%;
 }
 
-.search-form .form-control{
-    position: relative;
-    z-index: 1;
-    background-color: transparent;
-    padding: left;
+.search-form .form-control {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    padding: 10px;
+    color: #000;
+    height: 30px;
 }
+
 .search-form input{
     padding: 5px;
     font-size: 16px;
@@ -136,13 +168,32 @@ input::placeholder {
     padding: 80px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: 200px 0;
+    flex-wrap: wrap;
+}
+
+.hosting .col-6 {
+    flex: 1;
+    margin: 10px;
+}
+
+
+.hosting h2 {
+    white-space: nowrap;
+    font-size: 2rem;
+    margin: 0;
+}
+
+.hosting .image2{
+    border-radius: 50px;
+    margin-top: -30px;
 }
 
 .hosting .btn{
     background-color: #dcbf7d;
     color: #ffffff;
-    width: 170px; 
+    width: 170px;
     padding: 20px;
     border-radius: 40px;
 }
@@ -206,7 +257,7 @@ input::placeholder {
 .discover .btn{
     background-color: #dcbf7d;
     color: #ffffff;
-    width: 170px; 
+    width: 170px;
     padding: 20px;
     border-radius: 40px;
 }
@@ -216,6 +267,11 @@ input::placeholder {
     color: #004aad;
     border-bottom: 5px solid #dcbf7d;
     margin-bottom: 10px;
+}
+
+.discover .image3{
+    border-radius: 50px;
+    margin-top: -30px;
 }
 
 footer{
@@ -266,28 +322,27 @@ footer .right{
 </style>
 <main>
     <section class="top">
-        <div class="container">
-            <img src="" alt="">
+        <div class="container" id="hero">
             <h2>
                 Stay Unique,<br>
                 Experience Authentic Tokyo.
             </h2>
             <br>
             <p>
-                Turn your Tokyo trip into a personal story Unique stays,<br>
+                Turn your Tokyo trip into a personal story.Unique stays,<br>
                 unforgettable moments, and memorises to last a lifetime.
             </p>
             <br>
             <div class="card">
                 <h2>FIND</h2>
                 
-                <form action="#" class="search-form">
+                <form action="" class="search-form">
                     <div class="form-container">
                         <div class="form-group">
                             <label for="location" class="form-label">Location</label>
                             <input type="text" id="location" class="form-control" placeholder="Which city do you prefer?">
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="check_in" class="form-label">Check in</label>
                             <div class="input-container">
@@ -295,7 +350,7 @@ footer .right{
                                 <span class="placeholder-text">Add Dates</span>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="check_out" class="form-label">Check out</label>
                             <input type="date" id="check_out" class="form-control" placeholder="Add Dates">
@@ -320,46 +375,49 @@ footer .right{
                 <br>
                 <p>Earn extra just by renting your propety...</p>
                 <br>
-                <a href="{{ route('messages.index') }}" class="btn">Become A Host</a>
+                <a href="#" class="btn">Become A Host</a>
             </div>
             <div class="col-6">
-                <img src="" alt="">
+                <img src="https://images.pexels.com/photos/16095241/pexels-photo-16095241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image2">
             </div>
         </div>
     </section>
 
     <section class="properties">
-        <div class="container">
-            <h2>
-                Featured Properties<br>
-                on our Listing
-            </h2>
-            <div class="card-container">
-                 <div class="card">
-                    <img src="" alt="">
-                    <h3>Bilding Name</h3>
-                    <p class="address">Address</p>
-                    <div class="row">
-                        <div class="col-auto">
-                            <h4 id="price">$price</h4>
+        <div class="container d-flex">
+            <div class="w-100">
+                <h2 class="mx-auto">
+                    Featured Properties<br>
+                    on our Listing
+                </h2>
+                <div class="card-container">
+                     <div class="card mx-auto" style="width: 60%; height: auto;">
+                        <img src="" alt="">
+                        <h3>Bilding Name</h3>
+                        <p class="address">Address</p>
+                        <div class="row">
+                            <div class="col-auto">
+                                <h4 id="price">$price</h4>
+                            </div>
+                            <div class="col-auto">
+                                <p id="night">/ 6 night</p>
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            <p id="night">/ 6 night</p>
+                        <div class="row">
+                            <div class="col-auto">
+                                <p><i class="fa-solid fa-bed"></i> 4 Beds</p>
+                            </div>
+                            <div class="col-auto">
+                                <p><i class="fa-regular fa-user"></i> 8 Sleeps</p>
+                            </div>
+                            <div class="col-auto">
+                                <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> 1350 Sq Ft</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-auto">
-                            <p><i class="fa-solid fa-bed"></i> 4 Beds</p>
-                        </div>
-                        <div class="col-auto">
-                            <p><i class="fa-regular fa-user"></i> 8 Sleeps</p>
-                        </div>
-                        <div class="col-auto">
-                            <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> 1350 Sq Ft</p>
-                        </div>
-                    </div>
-                 </div>
+                     </div>
+                </div>
             </div>
+
         </div>
     </section>
 
@@ -379,7 +437,7 @@ footer .right{
                     <a href="#" class="btn">Discover More</a>
                 </div>
                 <div class="col-6">
-                    <img src="" alt="">
+                    <img src="https://images.pexels.com/photos/16277345/pexels-photo-16277345.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image3">
                 </div>
             </div>
     </section>

@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryAccommodation extends Model
 {
+    protected $table = 'category_accommodation';
+    public $timestamps = false;
+
+    protected $fillable = ['accommodation_id', 'category_id'];
     public function accommodation()
     {
         return $this->belongsTo(Accommodation::class);

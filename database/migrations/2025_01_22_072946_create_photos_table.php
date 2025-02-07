@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('accommodation_id')->constrained('accommodations')->onDelete('cascade');
             $table->longText('image');
+            $table->timestamps();
         });
     }
 

@@ -6,11 +6,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    use SoftDeletes;
 
     protected $table = "users";
 
@@ -40,7 +43,6 @@ class User extends Authenticatable
     const ROLE_GUEST = 1;
     const ROLE_HOST  = 2;
 
-
     protected function casts(): array
     {
         return [
@@ -64,6 +66,21 @@ class User extends Authenticatable
     }
 
     public function nationality() {
-        return $this->belongsTo(Nationality::class);
+        return $this->belongsTo(Nationality::class, 'nationality_id');
     }
+
+    public function accommodations(){
+        return $this->hasMany(Accommodation::class)->latest()->withTrashed();
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
 }

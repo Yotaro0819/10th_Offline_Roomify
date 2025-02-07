@@ -63,9 +63,9 @@
 
     a
     {
+        font-style: italic;
         color:#004aad !important;
     }
-
 </style>
 
 @section('content')
@@ -84,19 +84,24 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
+                        @if(request()->has('redirect'))
+                        <input type="hidden" name="redirect" value="{{ request()->get('redirect') }}">
+                        @endif
 
                         <div class="row mb-4">
                             <div class="col-md-6 input-group">
                                 <i class="fa-regular fa-envelope input-icon"></i>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" style="border-radius: 15px; color: black"name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" style="border-radius: 15px; color: black" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
                             </div>
+
+                            @error('email')
+                                <p class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </p>
+                            @enderror
                         </div>
+
+
 
                         <div class="row mb-4">
                             <div class="col-md-6 input-group">
