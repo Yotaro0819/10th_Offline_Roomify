@@ -156,13 +156,13 @@ a
                                     @endif
                                     @if(Auth::user()->role == "0")
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.users') }}">
-                                            users
+                                            <i class="fa-solid fa-users"></i> users
                                         </a>
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.accommodation') }}">
-                                            accommodation
+                                        <i class="fa-solid fa-house-chimney"></i> accommodation
                                         </a>
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.categories') }}">
-                                            categories
+                                            <i class="fa-solid fa-tags"></i> categories
                                         </a>
                                     @endif
                                     @if(Auth::user()->role == "1")

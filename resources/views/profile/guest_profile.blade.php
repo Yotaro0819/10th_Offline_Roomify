@@ -10,7 +10,7 @@
     background: #fff;
     padding: 60px;
     border-radius: 20px;
-    height: 550px;
+    height: 600px;
     width: 1200px;
     margin: 100px 50px;
   }
@@ -78,8 +78,8 @@
                     <h4>{{ Auth::user()->name }}</h4>
                     <hr>
                 </div>
-                <div class="row info align-items-center mt-3">
-                    <div class="col-auto me-1 mt-4">
+                <div class="row info align-items-center mt-5">
+                    <div class="col-auto mt-4" style="position: relative; left: 50px;">
                         <h4>{{ Auth::user()->nationality->nationality ?? 'Not available' }}</h4>
                         <hr>
                     </div>
