@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
+            $table->string('name')->nullable();
+            $table->decimal('discount_value', 5, 0);
+            $table->timestamp('valid_from')->nullable();
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
+
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
         });
     }
 
@@ -24,4 +31,11 @@ return new class extends Migration
     {
         Schema::dropIfExists('coupons');
     }
+
+        // DatabaseSeeder.php
+    public function run(): void
+    {
+        $this->call(CouponSeeder::class);
+    }
+
 };

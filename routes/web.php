@@ -8,7 +8,7 @@ use App\Http\Controllers\AccommodationController;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CouponContoller;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\HashtagController;
 use App\Http\Controllers\HostRequestController;
 use App\Http\Controllers\MessageController;
@@ -107,9 +107,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::patch('/categories/edit/{id}', [AdminCategoriesController::class, 'update'])->name('category.edit');
 });
 
-Route::get('/coupon', function(){
-    return view('coupon');
-});
+Route::get('/coupones/{id}/', [CouponController::class, 'index'])->name('coupones.index');
+Route::delete('/coupones/{id}/delete', [CouponController::class, 'destroy'])->name('coupones.delete');
+
 
 Route::get('/cansel', function () {
     return view('bookingcansel');
