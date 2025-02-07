@@ -8,7 +8,7 @@ use App\Http\Controllers\AccommodationController;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CouponContoller;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\HashtagController;
 use App\Http\Controllers\HostRequestController;
 use App\Http\Controllers\MessageController;
@@ -94,6 +94,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::get('/people', [AdminUsersController::class, 'search'])->name('search');
     Route::delete('/users/{id}/deactivate', [AdminUsersController::class, 'deactivate'])->name('users.deactivate');
     Route::patch('/users/{id}/activate', [AdminUsersController::class, 'activate'])->name('users.activate');
+    Route::patch('/users/{id}/change', [AdminUsersController::class, 'change'])->name('users.change');
     Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
     Route::delete('/accommodation/{id}/deactivate', [AdminAccommodationController::class, 'deactivate'])->name('accommodation.deactivate');
     Route::patch('/accommodation/{id}/activate', [AdminAccommodationController::class, 'activate'])->name('accommodation.activate');
@@ -104,9 +105,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::patch('/categories/edit/{id}', [AdminCategoriesController::class, 'update'])->name('category.edit');
 });
 
-Route::get('/coupon', function(){
-    return view('coupon');
-});
+Route::get('/coupones/{id}/', [CouponController::class, 'index'])->name('coupones.index');
+Route::delete('/coupones/{id}/delete', [CouponController::class, 'destroy'])->name('coupones.delete');
+
 
 Route::get('/cansel', function () {
     return view('bookingcansel');

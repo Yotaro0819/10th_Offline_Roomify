@@ -52,4 +52,12 @@ class UsersController extends Controller
         return redirect()->back();
     }
 
+    public function change($id)
+    {
+        $user  = $this->user->withTrashed()->findOrFail($id);
+        $user->update(['role' => '1']);
+
+        return back();
+    }
+
 }

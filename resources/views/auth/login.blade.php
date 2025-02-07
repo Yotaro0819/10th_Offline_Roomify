@@ -164,6 +164,16 @@
                             </div>
                         </div>
 
+
+                        <div class="row mb-4">
+                            <div class="col input-group">
+                                    <div class="input-group-text border-end-0" style="border-color:#004aad; border-radius: 15px 0 0 15px">
+                                        <i class="fa-solid fa-lock" style="color:#004aad; font-size: 30px;"></i>
+                                    </div>
+                                <input id="sample" type="text" class="form-control border-start-0" name="sample" style="border-radius:0 15px 15px 0" required placeholder="sample">
+                            </div>
+                        </div>
+
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4 mx-auto w-100">
                                 <button type="submit" class="btn w-100 fw-bold" style="color:#dcbf7d; border-color: #dcbf7d">
