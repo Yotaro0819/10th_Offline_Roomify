@@ -8,11 +8,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
 
-html,body
+html,body,main
     {
         position: relative;
+        min-height: 100vh;
     }
-
 
 .coupon-title {
 font-family: 'Monoton', sans-serif;
@@ -30,29 +30,22 @@ position: relative;
 transform: rotateX(10deg) rotateY(10deg);
 }
 
-
 .coupon {
     border: 2px solid #dcbf7d;
-    display: flex;
-    align-items: stretch;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
     border-radius: 10px; 
     background-color: white;
+    
 }
 
-.col-3 {
+.coupon-right {
     border-right: 2px dashed #dcbf7d !important;
-    font-family: 'Monoton';
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Monoton', sans-serif;
+    padding:20px;
 
-}
-
-.col-9 {
-    border-left: none !important;
-    display: flex;
-    align-items: center;
 }
 
 .coupon_price
@@ -131,8 +124,12 @@ transform: rotateX(10deg) rotateY(10deg);
     transform: rotate(15deg); 
 }
 
-</style>
+.button {
+    border: none;      
+    background-color: transparent;
+}
 
+</style>
 
 <div class="container">
 
@@ -146,71 +143,31 @@ transform: rotateX(10deg) rotateY(10deg);
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col-5">
             <h1 class="coupon-title text-center">Your Coupon</h1>
-        
-            <div class="row coupon mb-3">
-                <div class="col-3">
-                    COUPON
-                </div>
-                <div class="col-9">
-                    <div>
-                        <p class="m-0 mt-2 coupon_price">10%OFF</p>
-                        
-                        <p class="m-0 mb-2">Expiration Date: 05/06/2025</p>
+            
+            @if($all_coupones->isNotEmpty())
+                @foreach($all_coupones as $coupon)
+                    <div class="coupon mb-3">
+                    <form action="{{route ('coupones.delete', $coupon->id )}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="button d-flex align-items-center w-100">
+                    <div class="text-start coupon-right" style="width: 20%">
+                        COUPON
                     </div>
-                </div>
-            </div>
-
-            <div class="row coupon mb-3">
-                <div class="col-3">
-                    COUPON
-                </div>
-                <div class="col-9">
-                    <div>
-                        <p class="m-0 mt-2 coupon_price">10%OFF</p>
-                        
-                        <p class="m-0 mb-2">Expiration Date: 05/06/2025</p>
+                    <div class="" style="width: 80%">
+                        <div >
+                            <p class="m-0 mt-2 coupon_price">{{ $coupon->name }}</p>
+                            
+                            <p class="m-0 mb-2">Expiration Date: {{ $coupon->expires_at }}</p>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="row coupon mb-3">
-                <div class="col-3">
-                    COUPON
-                </div>
-                <div class="col-9">
-                    <div>
-                        <p class="m-0 mt-2 coupon_price">10%OFF</p>
-                        
-                        <p class="m-0 mb-2">Expiration Date: 05/06/2025</p>
+                    </button>
+                    </form>
                     </div>
-                </div>
-            </div>
-
-            <div class="row coupon mb-3">
-                <div class="col-3">
-                    COUPON
-                </div>
-                <div class="col-9">
-                    <div>
-                        <p class="m-0 mt-2 coupon_price">10%OFF</p>
-                        
-                        <p class="m-0 mb-2">Expiration Date: 05/06/2025</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row coupon mb-3">
-                <div class="col-3">
-                    COUPON
-                </div>
-                <div class="col-9">
-                    <div>
-                        <p class="m-0 mt-2 coupon_price">10%OFF</p>
-                        
-                        <p class="m-0 mb-2">Expiration Date: 05/06/2025</p>
-                    </div>
-                </div>
-            </div>
+                @endforeach
+            @else
+                <div>No coupon</div>
+            @endif
         </div>
     </div>
 </div>
