@@ -391,30 +391,29 @@ footer .right{
                     on our Listing
                 </h2>
                 <div class="card-container">
-                     <div class="card mx-auto" style="width: 60%; height: auto;">
-                        <img src="" alt="">
-                        <h3>Bilding Name</h3>
-                        <p class="address">Address</p>
+                    @foreach($accommodations as $accommodation)
+                     <div class="card mx-auto">
+                        <img src="{{ $accommodation->photos->first()->url }}" alt="Accommodation Image">
+                        <h3>{{ $accommodation->name }}</h3>
+                        <p class="address">{{ $accommodation->address }}</p>
                         <div class="row">
                             <div class="col-auto">
-                                <h4 id="price">$price</h4>
+                                <h4 id="price">${{ $accommodation->price }}</h4>
                             </div>
                             <div class="col-auto">
-                                <p id="night">/ 6 night</p>
+                                <p id="night">/ {{ $accommodation->capacity }}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-auto">
-                                <p><i class="fa-solid fa-bed"></i> 4 Beds</p>
+                                <p><i class="fa-regular fa-user"></i> {{ $accommodation->capacity }}Sleeps</p>
                             </div>
                             <div class="col-auto">
-                                <p><i class="fa-regular fa-user"></i> 8 Sleeps</p>
-                            </div>
-                            <div class="col-auto">
-                                <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> 1350 Sq Ft</p>
+                                <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> {{ $accommodation->city }}</p>
                             </div>
                         </div>
                      </div>
+                    @endforeach
                 </div>
             </div>
 

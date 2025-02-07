@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accommodation;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // Accommodationデータを取得し、関連情報（カテゴリ、ハッシュタグ、ユーザーなど）も一緒にロード
+        $accommodations = Accommodation::with(['categories', 'hashtags', 'photos', 'user', 'reviews'])->get();
+
+        return view('home', compact('accommodations'));
     }
 }
