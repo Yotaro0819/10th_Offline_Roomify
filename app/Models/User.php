@@ -66,7 +66,7 @@ class User extends Authenticatable
     }
 
     public function nationality() {
-        return $this->belongsTo(Nationality::class);
+        return $this->belongsTo(Nationality::class, 'nationality_id');
     }
 
     public function accommodations(){

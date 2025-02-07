@@ -39,6 +39,9 @@ class ReviewController extends Controller
         $review->comment = $validated['comment'];
         $review->save();
 
+        // レビューのリストを取得して宿泊施設の詳細ページに渡す
+        $reviews = Review::where('accommodation_id', $accommodation->id)->latest()->get();
+
         // 宿泊施設の詳細ページへリダイレクト
         return redirect()->route('accommodation.show', $accommodation->id)
                         ->with('reviews', $reviews);

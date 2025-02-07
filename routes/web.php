@@ -45,9 +45,7 @@ Route::get('/search_by_keyword', [AccommodationController::class, 'search_by_key
 Route::get('/search_by_filters', [AccommodationController::class, 'search_by_filters'])->name('search_by_filters');
 
 
-    Route::get('/profile', function () {
-        return view('guest_profile');
-    });
+    Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
 
 

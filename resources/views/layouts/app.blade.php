@@ -150,6 +150,9 @@ a
                                         <a class="dropdown-item" href="{{ route('host.reservation_host') }}">
                                             <i class="fa-solid fa-bed"></i> Reservation status
                                         </a>
+                                        <a class="dropdown-item" href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
+                                            <i class="fa-solid fa-address-card"></i> Profile
+                                        </a>
                                     @endif
                                     @if(Auth::user()->role == "0")
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.users') }}">
@@ -165,6 +168,9 @@ a
                                     @if(Auth::user()->role == "1")
                                         <a class="dropdown-item" href="{{ route('guest.reservation_guest') }}">
                                             <i class="fa-solid fa-bed"></i> Reservation status
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
+                                            <i class="fa-solid fa-address-card"></i> Profile
                                         </a>
                                     @endif
                                     <a class="dropdown-item px-3 py-3" href="{{ route('logout') }}"
