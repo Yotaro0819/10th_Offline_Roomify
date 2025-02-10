@@ -33,7 +33,7 @@
         <div class="card mx-auto mb-5 w-75" id="acm-booking">
             <div class="row">
                 <div class="d-flex justify-between">
-                    <a href="">
+                    <a href="{{ route('accommodation.show', $accommodation->id) }}">
                         <div class="d-flex">
                             <div class="my-auto" style="margin:100px;">
                                 <img src="#" alt="#">
