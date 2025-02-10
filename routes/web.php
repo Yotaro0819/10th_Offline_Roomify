@@ -8,19 +8,18 @@ use App\Http\Controllers\AccommodationController;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CouponContoller;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\HashtagController;
 use App\Http\Controllers\HostRequestController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 
 
 
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
 Route::get('/accommodation/pictures/{id}', [AccommodationController::class, 'pictureIndex'])->name('accommodation.pictures');
@@ -45,9 +44,7 @@ Route::get('/search_by_keyword', [AccommodationController::class, 'search_by_key
 Route::get('/search_by_filters', [AccommodationController::class, 'search_by_filters'])->name('search_by_filters');
 
 
-    Route::get('/profile', function () {
-        return view('guest_profile');
-    });
+    Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
 
 
@@ -60,15 +57,28 @@ Route::get('/search_by_filters', [AccommodationController::class, 'search_by_fil
 
 
 
-    //Araki route
-
-    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
-    Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('messages.show');
-    Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
-    Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
-    //Araki route end
+//Araki route
+Route::get('/accommodation/pictures', function () {
+    return view('accommodation.pictures');
+});
+Route::get('/messages', function () {
+    return view('messages.index');
+});
+Route::get('/messages/show', function () {
+    return view('messages.show');
+});
+Route::get('/accommodation/hashtag', function () {
+    return view('accommodation.hashtag');
+});
+//Araki route end
 
 // host routes
+Route::group(['middleware' => 'host'], function(){
+    Route::get('/host/res',function(){
+        return view('hostRes');
+    });
+});
+
 Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
     Route::get('/res', [BookingController::class, 'reservation_host'])->name('reservation_host');
     // Route::get('/res/{bookingId}', [BookingController::class, 'showBookingStatus'])->name('showBookingStatus');
@@ -94,6 +104,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::get('/people', [AdminUsersController::class, 'search'])->name('search');
     Route::delete('/users/{id}/deactivate', [AdminUsersController::class, 'deactivate'])->name('users.deactivate');
     Route::patch('/users/{id}/activate', [AdminUsersController::class, 'activate'])->name('users.activate');
+    Route::patch('/users/{id}/change', [AdminUsersController::class, 'change'])->name('users.change');
     Route::get('/accommodation', [AdminAccommodationController::class, 'index'])->name('accommodation');
     Route::delete('/accommodation/{id}/deactivate', [AdminAccommodationController::class, 'deactivate'])->name('accommodation.deactivate');
     Route::patch('/accommodation/{id}/activate', [AdminAccommodationController::class, 'activate'])->name('accommodation.activate');
@@ -104,9 +115,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::patch('/categories/edit/{id}', [AdminCategoriesController::class, 'update'])->name('category.edit');
 });
 
-Route::get('/coupon', function(){
-    return view('coupon');
-});
+Route::get('/coupones/{id}/', [CouponController::class, 'index'])->name('coupones.index');
+Route::delete('/coupones/{id}/delete', [CouponController::class, 'destroy'])->name('coupones.delete');
+
 
 Route::get('/cansel', function () {
     return view('bookingcansel');

@@ -8,7 +8,6 @@ use App\Models\Accommodation;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
-
 class AccommodationController extends Controller
 {
 
@@ -59,7 +58,6 @@ class AccommodationController extends Controller
             $accommodation->highlighted_name = preg_replace("/(" . preg_quote($search, '/') . ")/i", '<mark>$1</mark>', $accommodation->name);
             return $accommodation;
         });
-
 
         return view('admin.accommodation.search')
                 ->with('users', $users)

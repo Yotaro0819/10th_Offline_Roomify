@@ -328,7 +328,7 @@ footer .right{
                 Experience Authentic Tokyo.
             </h2>
             <br>
-            <p id="hero_p">
+            <p>
                 Turn your Tokyo trip into a personal story.Unique stays,<br>
                 unforgettable moments, and memorises to last a lifetime.
             </p>
@@ -390,39 +390,38 @@ footer .right{
     <section class="properties">
         <div class="container d-flex">
             <div class="w-100">
-                <img src="https://images.pexels.com/photos/16095241/pexels-photo-16095241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;
-                border-radius: 50px;" class="image2">
-            </div>
-            <div class="w-100">
                 <h2 class="mx-auto">
                     Featured Properties<br>
                     on our Listing
                 </h2>
                 <div class="card-container">
-                     <div class="card mx-auto" style="width: 60%; height: auto;">
-                        <img src="" alt="">
-                        <h3>Bilding Name</h3>
-                        <p class="address">Address</p>
+                    @foreach($accommodations as $accommodation)
+                     <div class="card mx-auto">
+                        @if ($accommodation->photos->isNotEmpty())
+                            <img src="{{ $accommodation->photos->first()->url }}" alt="Accommodation Image">
+                        @else
+                            <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available">
+                        @endif
+                        <h3>{{ $accommodation->name }}</h3>
+                        <p class="address">{{ $accommodation->address }}</p>
                         <div class="row">
                             <div class="col-auto">
-                                <h4 id="price">$price</h4>
+                                <h4 id="price">${{ $accommodation->price }}</h4>
                             </div>
                             <div class="col-auto">
-                                <p id="night">/ 6 night</p>
+                                <p id="night">/ {{ $accommodation->capacity }}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-auto">
-                                <p><i class="fa-solid fa-bed"></i> 4 Beds</p>
+                                <p><i class="fa-regular fa-user"></i> {{ $accommodation->capacity }}Sleeps</p>
                             </div>
                             <div class="col-auto">
-                                <p><i class="fa-regular fa-user"></i> 8 Sleeps</p>
-                            </div>
-                            <div class="col-auto">
-                                <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> 1350 Sq Ft</p>
+                                <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> {{ $accommodation->city }}</p>
                             </div>
                         </div>
                      </div>
+                    @endforeach
                 </div>
             </div>
 
