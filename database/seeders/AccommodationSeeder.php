@@ -85,7 +85,20 @@ class AccommodationSeeder extends Seeder
             'rank'          => 'B',
             'created_at'    => now(),
             'updated_at'    => now(),
-        ]
+        ],
+        [
+            'name'          => 'Senso-ji Temple',
+            'user_id'       => 3,
+            'address'       => '2-3-1 Asakusa, Taito City, Tokyo, Japan',
+            'price'         => 25000,
+            'city'          => 'Taito City',
+            'latitude'      => 35.714765,
+            'longitude'     => 139.796655,
+            'capacity'      => 5,
+            'description'   => 'Stay near the historic Senso-ji Temple and experience traditional Japan.',
+            'created_at'    => now(),
+            'updated_at'    => now(),
+        ],
     ];
 
     DB::table('accommodations')->insert($accommodations);
