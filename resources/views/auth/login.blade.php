@@ -27,6 +27,10 @@
         border-right: 0;
         border-radius: 15px 0 0 15px;
         width: 50px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .input-group input{
         border: 1px solid #004aad;
@@ -37,7 +41,21 @@
     .input-icon{
         color:#004aad;
         font-size: 28px;
+        position: relative;
+        margin-left: -10px;
     }
+    .input-group .form-control.is-invalid {
+        border-color: #dc3545 !important;
+        border-radius: 0 15px 15px 0 !important;
+    }
+
+    .input-group .input-group-text.has-error {
+        border-color: #dc3545 !important;
+    }
+    .input-group .input-group-text.has-error .input-icon {
+        color: #dc3545 !important;
+    }
+
     .form-control{
     color: #000000 !important;
     background-color: #ffffff !important;
@@ -56,16 +74,17 @@
         -webkit-text-fill-color: #000000 !important;
         transition: background-color 5000s ease-in-out 0s;
     }
-
-    ::placeholder{
-        color: #A5A5A5;
-        font-weight: bold;
-    }
     p{
         font-size: 18px;
         font-weight: lighter;
         color: #004aad;
     }
+
+    ::placeholder{
+        color: #A5A5A5;
+        font-weight: bold;
+    }
+
     a{
         font-style: italic;
         color:#004aad !important;
@@ -85,7 +104,6 @@
         left: 0;
         transform: translate(-50%, -50%);
     }
-
     /* left bottom */
     .circle-left-2 {
         width: 400px;
@@ -94,7 +112,6 @@
         left: 0;
         transform: translate(-50%, 80%);
     }
-
     /* right bottom top */
     .circle-right-1{
         width: 500px;
@@ -103,7 +120,6 @@
         right: 50px;
         transform: translate(70%, 65%);
     }
-
     /* right bottom bottom */
     .circle-right-2{
         width: 900px;
@@ -113,6 +129,7 @@
         transform: translate(50%, 50%);
     }
 </style>
+
 @section('content')
 <div class="container">
     <div class="corner-circle circle-left-1"></div>
@@ -141,9 +158,9 @@
                                 <input id="email" type="email" class="form-control ps-2 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
 
                                 @error('email')
-                                    <p class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
-                                    </p>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
@@ -180,3 +197,19 @@
     </div>
 </div>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Find all invalid inputs
+        document.querySelectorAll('.is-invalid').forEach(function(input) {
+            // Find the associated input-group-text and add error class
+            let inputGroup = input.closest('.input-group');
+            if (inputGroup) {
+                let inputGroupText = inputGroup.querySelector('.input-group-text');
+                if (inputGroupText) {
+                    inputGroupText.classList.add('has-error');
+                }
+            }
+        });
+    });
+</script>

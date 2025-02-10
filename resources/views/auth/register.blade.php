@@ -4,6 +4,9 @@
     html,body{
         overflow: hidden;
     }
+    .card .card-header{
+        color: #ffffff;
+    }
     body{
         background-color: #004aad !important;
     }
@@ -19,13 +22,6 @@
         color:#ffffff !important;
         background-color: #dcbf7d !important;
     }
-    .form-control, .form-select{
-        border-color: #ffffff;
-        background-color: transparent;
-    }
-    .card .card-header{
-        color: #ffffff;
-    }
     .input-group .input-group-text{
         border: 1px solid #ffffff;
         border-right: 0;
@@ -33,14 +29,22 @@
         background-color:#004aad;
         width: 50px;
         position: relative;
-        padding-right:10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .input-group input{
+        outline: none;
+        border: 1px solid #ffffff;
+        border-left: 0;
+        border-radius: 15px;
     }
 
     .input-icon{
         color:#ffffff;
         font-size: 28px;
-        position:static;
-
+        position: relative;
+        margin-left: -10px;
     }
     .input-group .form-control.is-invalid {
         border-color: #dc3545 !important;
@@ -53,23 +57,22 @@
     .input-group .input-group-text.has-error .input-icon {
         color: #dc3545 !important;
     }
-    .input-group input{
-        outline: none;
-        border: 1px solid #ffffff;
-        border-left: 0;
-        border-radius: 15px;
-    }
-    .input-group select{
-        border-radius: 0 15px 15px 0;
-        border-left: 0;
-        background-color: transparent;
-        color: #ffffff;
-    }
     .form-control:focus {
         color:#ffffff !important;
         box-shadow: none !important;
         border-color: #ffffff !important;
         background-color: #004aad !important;
+    }
+    .form-control, .form-select{
+        border-color: #ffffff;
+        background-color: transparent;
+    }
+
+    .input-group select{
+        border-radius: 0 15px 15px 0;
+        border-left: 0;
+        background-color: transparent;
+        color: #ffffff;
     }
     input:-webkit-autofill,
     input:-webkit-autofill:hover,
@@ -137,8 +140,8 @@
         transform: translate(50%, 50%);
     }
 </style>
-@section('content')
 
+@section('content')
 <div class="container">
     <div class="corner-circle circle-left-1"></div>
     <div class="corner-circle circle-left-2"></div>
@@ -195,7 +198,9 @@
                                 <input id="password" type="password" class="form-control ps-2 @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
 
                                 @error('password')
-                                    <div class="text-danger small invalid-feedback d-block">{{ $message }}</div>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
