@@ -1,103 +1,147 @@
 @extends('layouts.app')
 
 <style>
-    html,body
-    {
+    html,body{
         overflow: hidden;
     }
-    body
-    {
+    .card .card-header{
+        color: #ffffff;
+    }
+    body{
         background-color: #004aad !important;
     }
-
-    .btn
-    {
+    .btn{
         border-color:#dcbf7d;
         color: #dcbf7d;
         background-color: transparent;
         align-content: left;
         font-weight: bold;
     }
-
-
-    .btn:hover
-    {
+    .btn:hover{
         border-color:#dcbf7d !important;
         color:#ffffff !important;
         background-color: #dcbf7d !important;
     }
+    .input-group .input-group-text{
+        border: 1px solid #ffffff;
+        border-right: 0;
+        border-radius: 15px 0 0 15px;
+        background-color:#004aad;
+        width: 50px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .input-group input{
+        outline: none;
+        border: 1px solid #ffffff;
+        border-left: 0;
+        border-radius: 15px;
+    }
 
-    .form-control
-    {
+    .input-icon{
+        color:#ffffff;
+        font-size: 28px;
+        position: relative;
+        margin-left: -10px;
+    }
+    .input-group .form-control.is-invalid {
+        border-color: #dc3545 !important;
+        border-radius: 0 15px 15px 0 !important;
+    }
+
+    .input-group .input-group-text.has-error {
+        border-color: #dc3545 !important;
+    }
+    .input-group .input-group-text.has-error .input-icon {
+        color: #dc3545 !important;
+    }
+    .form-control:focus {
+        color:#ffffff !important;
+        box-shadow: none !important;
+        border-color: #ffffff !important;
+        background-color: #004aad !important;
+    }
+    .form-control, .form-select{
         border-color: #ffffff;
         background-color: transparent;
     }
 
-    .card .card-header
-    {
-        color: #ffffff;
-    }
-
-    .input-group .input-icon
-    {
-        color: #ffffff;
-        font-size: 30px;
-    }
-
-    .input-group input
-    {
-        border: 1px solid #ffffff;
-    }
-
-    .form-control
-    {
+    .input-group select{
+        border-radius: 0 15px 15px 0;
+        border-left: 0;
         background-color: transparent;
-        align-content: center;
-        padding-left: 2.5rem;
+        color: #ffffff;
     }
-    p
-    {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px #004aad inset !important;
+        -webkit-text-fill-color: #ffffff !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+    select:invalid{
+        color:#D3D3D3;
+        font-weight: bold
+    }
+    p{
         font-size: 18px;
         font-weight: lighter;
         color: #ffffff;
     }
-    ::placeholder
-    {
+    ::placeholder{
         color: #D3D3D3 !important;
         font-weight: bold;
     }
-
-    a
-    {
+    a{
         color: #dcbf7d !important;
         font-style: italic;
     }
-
-    .input-group select
-    {
-        width: 100%;
-        padding-left: 4rem;
-        background-color: transparent;
-        color: #ffffff;
-    }
-
-    #national_flag
-    {
+    /* design of circle */
+    .corner-circle {
+        width: 100px;
+        height: 100px;
+        background-color: #dcbf7d;
+        border-radius: 50%;
         position: absolute;
-        top: 35%;
-        transform: translateY(-50%);
     }
-
-    select:invalid
-    {
-        color:#D3D3D3;
-        font-weight: bold
+    /* left top */
+    .circle-left-1{
+        width: 650px;
+        height: 650px;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
     }
-
-
+    /* left bottom */
+    .circle-left-2 {
+        width: 400px;
+        height: 400px;
+        bottom: 100px;
+        left: 0;
+        transform: translate(-50%, 80%);
+    }
+    /* right bottom top */
+    .circle-right-1{
+        width: 500px;
+        height: 800px;
+        bottom: 300px;
+        right: 50px;
+        transform: translate(70%, 65%);
+    }
+    /* right bottom bottom */
+    .circle-right-2{
+        width: 900px;
+        height: 500px;
+        bottom: 0px;
+        right: 0px;
+        transform: translate(50%, 50%);
+    }
 </style>
-@section('content')
 
+@section('content')
 <div class="container">
     <div class="corner-circle circle-left-1"></div>
     <div class="corner-circle circle-left-2"></div>
@@ -109,10 +153,8 @@
             <div class="card border-0 mx-auto w-50">
                 <div class="card-header border-0">
                     {{ __('Register') }}
-                    <p>Please enter your Name, Email and your Password</p>
+                    <p>Please enter your information</p>
                 </div>
-
-
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -120,8 +162,11 @@
 
                         <div class="row mb-4">
                             <div class="col-md-6 input-group">
-                                <i class="fa-regular fa-user input-icon"></i>
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" style="border-radius: 15px" name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="Username">
+                                <div class="input-group-text">
+                                    <i class="fa-regular fa-user input-icon"></i>
+                                </div>
+                                <input id="name" type="text" class="form-control ps-2 @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="Username">
+
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -132,8 +177,10 @@
 
                         <div class="row mb-4">
                             <div class="col-md-6 input-group">
-                                <i class="fa-regular fa-envelope input-icon"></i>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" style="border-radius: 15px"name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
+                                <div class="input-group-text">
+                                    <i class="fa-regular fa-envelope input-icon"></i>
+                                </div>
+                                <input id="email" type="email" class="form-control ps-2 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -145,8 +192,10 @@
 
                         <div class="row mb-4">
                             <div class="col-md-6 input-group">
-                                <i class="fa-solid fa-lock input-icon"></i>
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" style="border-radius: 15px" name="password" required autocomplete="new-password" placeholder="Password">
+                                <div class="input-group-text">
+                                    <i class="fa-solid fa-lock input-icon"></i>
+                                </div>
+                                <input id="password" type="password" class="form-control ps-2 @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -158,16 +207,20 @@
 
                         <div class="row mb-4">
                             <div class="col-md-6 input-group">
-                                <i class="fa-solid fa-lock input-icon"></i>
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" style="border-radius: 15px" required autocomplete="new-password" placeholder="Re-enter Password">
+                                <div class="input-group-text">
+                                    <i class="fa-solid fa-lock input-icon"></i>
+                                </div>
+                                <input id="password-confirm" type="password" class="form-control ps-2" name="password_confirmation" required autocomplete="new-password" placeholder="Re-enter Password">
                             </div>
                         </div>
 
                         <div class="row mb-4">
-                            <div class="col-md-6 input-group">
-                                <i class="fa-solid fa-earth-americas input-icon" id="national_flag"></i>
+                            <div class="col-md-6 input-group" style="height: 37.3px">
+                                <div class="input-group-text" style="height: 37.3px">
+                                    <i class="fa-solid fa-earth-americas input-icon"></i>
+                                </div>
 
-                                <select class="form-select mb-3 input-group" aria-label="Default select example" style="border-radius: 15px;" required>
+                                <select class="form-select mb-3 ps-2" aria-label="Default select example" required>
                                     <option value="" selected><span> Nationality</span></option>
                                     <option value="1">🇯🇵 Japan</option>
                                     <option value="2">🇰🇷 Korea</option>
@@ -184,7 +237,7 @@
                                 </button>
                             </div>
 
-                            <p class="fw-light mt-1">Already have an Account? <a href="{{ route('login') }}">Login!</a></p>
+                            <p class="fw-light mt-1">Already have an Account? <a href="{{ route('login') }}" class="fw-bold">Login!</a></p>
                         </div>
 
                     </form>
@@ -194,3 +247,19 @@
     </div>
 </div>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Find all invalid inputs
+        document.querySelectorAll('.is-invalid').forEach(function(input) {
+            // Find the associated input-group-text and add error class
+            let inputGroup = input.closest('.input-group');
+            if (inputGroup) {
+                let inputGroupText = inputGroup.querySelector('.input-group-text');
+                if (inputGroupText) {
+                    inputGroupText.classList.add('has-error');
+                }
+            }
+        });
+    });
+</script>
