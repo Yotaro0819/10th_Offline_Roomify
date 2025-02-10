@@ -26,18 +26,21 @@
     .card .card-header{
         color: #ffffff;
     }
-
-    .input-group {
-    position: relative;
-    margin-bottom: 1rem;  /* Space for error message */
-}
-
     .input-group .input-group-text{
         border: 1px solid #ffffff;
         border-right: 0;
         border-radius: 15px 0 0 15px;
         background-color:#004aad;
         width: 50px;
+        position: relative;
+        padding-right:10px;
+    }
+
+    .input-icon{
+        color:#ffffff;
+        font-size: 28px;
+        position:static;
+
     }
     .input-group .form-control.is-invalid {
         border-color: #dc3545 !important;
@@ -61,10 +64,6 @@
         border-left: 0;
         background-color: transparent;
         color: #ffffff;
-    }
-    .input-icon{
-        color:#ffffff;
-        font-size: 28px;
     }
     .form-control:focus {
         color:#ffffff !important;
@@ -190,9 +189,9 @@
 
                         <div class="row mb-4">
                             <div class="col-md-6 input-group">
-                                <span class="input-group-text">
+                                <div class="input-group-text">
                                     <i class="fa-solid fa-lock input-icon"></i>
-                                </span>
+                                </div>
                                 <input id="password" type="password" class="form-control ps-2 @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
 
                                 @error('password')
@@ -258,4 +257,4 @@
             }
         });
     });
-    </script>
+</script>
