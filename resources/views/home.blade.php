@@ -376,7 +376,7 @@ footer .right{
                 <p>Earn extra just by renting your propety...</p>
                 <br>
                 @if(Auth::check() && Auth::user()->role == '2')
-                <a href="#" class="btn">Go host page</a>
+                <a href="{{ route('host.index')}}" class="btn">Go host page</a>
                 @else
                 <a href="{{ route('hostRequest.create')}}" class="btn">Become A Host</a>
                 @endif

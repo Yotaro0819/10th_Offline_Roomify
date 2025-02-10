@@ -115,7 +115,4 @@ class MessageController extends Controller
     return view('messages.index', compact('all_users'));
 }
 
-
-
-
 }
