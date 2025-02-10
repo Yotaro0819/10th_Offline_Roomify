@@ -53,9 +53,10 @@
 <div class="container w-75 mx-auto">
 
 
-
     <div class="picture-box">
         <div class="left">
+    <a href="{{ route('host.accommodation.edit', $accommodation->id)}}">test route</a>
+
             <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="pic1" class="rounded-4"></a>
         </div>
         <div class="center">
