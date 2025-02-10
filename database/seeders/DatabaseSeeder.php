@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             AccommodationSeeder::class,
             CategoryAccommodationSeeder::class,
             BookingSeeder::class,
-
+            EcoitemSeeder::class,
+            EcoitemAccommodationSeeder::class
         ]);
 
     }

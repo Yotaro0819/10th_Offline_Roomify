@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Accommodation;
 use App\Models\Category;
+use App\Models\Ecoitem;
 use App\Models\Hashtag;
 use App\Models\Review;
 use App\Models\Photo;
@@ -36,22 +37,24 @@ class AccommodationController extends Controller
 
     public function create()
     {
-
         $all_categories = Category::all();
-        return view('accommodation.create')->with('all_categories', $all_categories);
+        $all_ecoitems = Ecoitem::all();
+        return view('accommodation.create')->with('all_categories', $all_categories)->with('all_ecoitems', $all_ecoitems);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'address' => 'required|string',
-            'city' => 'required|string|max:255',
-            'price' => 'required|integer|min:0',
-            'capacity' => 'required|integer|min:1|max:100',
+            'name'        => 'required|string|max:255',
+            'address'     => 'required|string',
+            'city'        => 'required|string|max:255',
+            'price'       => 'required|integer|min:0',
+            'capacity'    => 'required|integer|min:1|max:100',
             'description' => 'required|string',
-            'photos' => 'nullable|array',
-            'photos.*' => 'image|mimes:jpeg,jpg,png,gif|max:1048',
+            'photos'      => 'nullable|array',
+            'photos.*'    => 'image|mimes:jpeg,jpg,png,gif|max:1048',
+            'ecoitem'     => 'nullable|array',
+            'ecoitem.*'   => 'exists:ecoitems,id',
         ]);
 
         // リクエストから宿泊施設名と住所を取得
@@ -65,7 +68,7 @@ class AccommodationController extends Controller
         $apiKey = config('services.google_maps.api_key');
 
 
-        try {
+        // try {
             // Google Geocoding APIを使用して緯度と経度、住所コンポーネントを取得
             $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json', [
                 'address' => $address,
@@ -79,19 +82,35 @@ class AccommodationController extends Controller
                 $latitude = $data['results'][0]['geometry']['location']['lat'];
                 $longitude = $data['results'][0]['geometry']['location']['lng'];
 
+                $ecoitemIds = $request->ecoitem ?? [];
+                $ecoitems = Ecoitem::whereIn('id', $ecoitemIds)->get();
+                $totalPoints = $ecoitems->sum('point');
+                $ecoitems->count();
+
+                // 平均ポイントの計算
+                $sumPoints = $totalPoints;
+
+                // ランクを決定
+                if ($sumPoints >= 31) {
+                    $rank = 'A';
+                } elseif ($sumPoints >= 16) {
+                    $rank = 'B';
+                }
+
                 $accommodation = Accommodation::create([
-                    'user_id' => $user_id,
-                    'name' => $name,
-                    'address' => $address,
-                    'city' => $city,
-                    'price' => $price,
-                    'capacity' => $capacity,
+                    'user_id'     => $user_id,
+                    'name'        => $name,
+                    'address'     => $address,
+                    'city'        => $city,
+                    'price'       => $price,
+                    'capacity'    => $capacity,
                     'description' => $description,
-                    'latitude' => $latitude,
-                    'longitude' => $longitude,
+                    'rank'        => $rank,
+                    'latitude'    => $latitude,
+                    'longitude'   => $longitude,
                 ]);
 
-
+                // タグのsection
                 if (!empty($validated['description'])) {
                     // #タグを抽出
                     preg_match_all('/#(\w+)/', $validated['description'], $matches);
@@ -102,47 +121,27 @@ class AccommodationController extends Controller
                     $accommodation->description = trim($descriptionWithoutTags); // 前後の不要なスペースを削除
                     $accommodation->save();
 
-                    // タグを処理
                     $tagIds = [];
                     foreach ($tags as $tagName) {
-                        // タグ名が空でないか確認
                         if (!empty($tagName)) {
-                            // 'name' カラムを使ってタグを作成または取得
                             $tag = Hashtag::firstOrCreate(['name' => $tagName]);
                             $tagIds[] = $tag->id; // タグのIDを保存
                         }
                     }
 
-                    // ハッシュタグの関連付け
                     if (!empty($tagIds)) {
                         $accommodation->hashtags()->attach($tagIds);
                     }
                 }
 
-
-
-                // if ($request->hasFile('photos')) {
-                //     foreach ($request->file('photos') as $photo) {
-                //         // 各写真を保存
-                //         $path = $photo->store('photos', 'public');
-
-                //         // Photoモデルで保存
-                //         Photo::create([
-                //             'accommodation_id' => $accommodation->id,
-                //             'image' => $path,
-                //         ]);
-                //     }
-                // }
-
+                // 画像のsection
                 if ($request->hasFile('photos')) {
                     foreach ($request->file('photos') as $photo) {
-                        // ファイルの拡張子を取得
+
                         $extension = $photo->getClientOriginalExtension();
 
-                        // ユニークなファイル名を生成（UUIDを使用）
                         $newFileName = Str::uuid() . '.' . $extension;
 
-                        // 画像を保存（storage/app/public/photos に保存）
                         $path = $photo->storeAs('photos', $newFileName, 'public');
 
                         // Photoモデルに保存
@@ -153,6 +152,7 @@ class AccommodationController extends Controller
                     }
                 }
 
+                // カテゴリーのsection
                 $category_accommodation = [];
                 foreach ($request->category as $category_id) {
                     $category_accommodation[] = [
@@ -163,14 +163,26 @@ class AccommodationController extends Controller
 
                 DB::table('category_accommodation')->insert($category_accommodation);
 
+
+                // エコフレンドリーのsection
+                $ecoitem_accommodation = [];
+                foreach ($request->ecoitem as $ecoitem_id) {
+                    $ecoitem_accommodation[] = [
+                        'ecoitem_id' => $ecoitem_id,
+                        'accommodation_id' => $accommodation->id
+                    ];
+                }
+
+                DB::table('ecoitem_accommodation')->insert($ecoitem_accommodation);
+
                 return redirect()->route('accommodation.show', $accommodation->id)
                     ->with('success', '宿泊施設が登録されました');
             } else {
                 return redirect()->route('host.accommodation.create')->with('googleMap_Error', 'Something went wrong with the address.');
             }
-        } catch (\Exception $e) {
-            return redirect()->route('host.accommodation.create')->with('googleMap_Error', 'Something went wrong with the address.');
-        }
+        // } catch (\Exception $e) {
+        //     return redirect()->route('host.accommodation.create')->with('googleMap_Error', 'Something went wrong with the address.');
+        // }
     }
 
     public function edit($id)
@@ -300,6 +312,16 @@ class AccommodationController extends Controller
         $accommodation->categories()->sync($category_accommodation);
 
 
+        $ecoitem_accommodation = [];
+        foreach ($request->ecoitem as $ecoitem_id) {
+            $ecoitem_accommodation[] = $ecoitem_id;
+        }
+
+        // 既存のカテゴリ関連を同期（重複なし）
+        $accommodation->ecoitems()->sync($ecoitem_accommodation);
+
+
+
             // 成功メッセージと共にリダイレクト
             return redirect()->route('accommodation.show', $accommodation->id)
                 ->with('success', '宿泊施設が更新されました');
@@ -385,7 +407,7 @@ class AccommodationController extends Controller
 
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
-                                                 ->with('categories', $categories);
+                                                ->with('categories', $categories);
     }
     public function search_by_filters(Request $request)
     {
@@ -413,16 +435,6 @@ class AccommodationController extends Controller
         $query->when($request->filled('city'), function ($q) use ($request) {
             $q->where('city', 'LIKE', '%' . $request->city . '%');
         });
-
-        // $query->when($request->has('category'), function ($q) use ($request) {
-        //     $q->whereHas('categories', function($query) use ($request) {
-        //         if (is_array($request->category)) {
-        //             $query->whereIn('category_id', $request->category);
-        //         } else {
-        //             $query->where('category_id', $request->category);
-        //         }
-        //     });
-        // });
 
         if ($request->has('category') && is_array($request->category)) {
             foreach ($request->category as $categoryId) {
