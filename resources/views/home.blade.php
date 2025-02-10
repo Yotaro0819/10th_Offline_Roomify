@@ -203,6 +203,9 @@ input::placeholder {
     color: #004aad;
     border-bottom: 5px solid #dcbf7d;
     margin-bottom: 10px;
+    text-align: left;
+    position: relative;
+    top: -100px;
 }
 
 .card-container{
@@ -213,7 +216,7 @@ input::placeholder {
 
 .card-container .card{
     width: calc(33.33% - 16px);
-    padding: 20px;
+    padding: 10px;
     text-align: left;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -390,36 +393,38 @@ footer .right{
     <section class="properties">
         <div class="container d-flex">
             <div class="w-100">
-                <h2 class="mx-auto">
+                <h2 class="ms-0">
                     Featured Properties<br>
                     on our Listing
                 </h2>
                 <div class="card-container">
-                    @foreach($accommodations as $accommodation)
+                    @foreach($accommodations->take(6) as $accommodation)
                      <div class="card mx-auto">
-                        @if ($accommodation->photos->isNotEmpty())
-                            <img src="{{ $accommodation->photos->first()->url }}" alt="Accommodation Image">
-                        @else
-                            <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available">
-                        @endif
-                        <h3>{{ $accommodation->name }}</h3>
-                        <p class="address">{{ $accommodation->address }}</p>
-                        <div class="row">
-                            <div class="col-auto">
-                                <h4 id="price">${{ $accommodation->price }}</h4>
+                        <a href="{{ route('accommodation.show', $accommodation->id) }}" class="stretched-link">
+                            @if ($accommodation->photos->isNotEmpty())
+                                <img src="{{ $accommodation->photos->first()->url }}" alt="Accommodation Image">
+                            @else
+                                <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available">
+                            @endif
+                            <h3>{{ $accommodation->name }}</h3>
+                            <p class="address">{{ $accommodation->address }}</p>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <h4 id="price">${{ $accommodation->price }}</h4>
+                                </div>
+                                <div class="col-auto">
+                                    <p id="night">/ {{ $accommodation->capacity }}</p>
+                                </div>
                             </div>
-                            <div class="col-auto">
-                                <p id="night">/ {{ $accommodation->capacity }}</p>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <p><i class="fa-regular fa-user"></i> {{ $accommodation->capacity }}Sleeps</p>
+                                </div>
+                                <div class="col-auto">
+                                    <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> {{ $accommodation->city }}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-auto">
-                                <p><i class="fa-regular fa-user"></i> {{ $accommodation->capacity }}Sleeps</p>
-                            </div>
-                            <div class="col-auto">
-                                <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> {{ $accommodation->city }}</p>
-                            </div>
-                        </div>
+                        </a>
                      </div>
                     @endforeach
                 </div>
