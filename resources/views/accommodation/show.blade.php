@@ -55,7 +55,7 @@
 
     <div class="picture-box">
         <div class="left">
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="pic1" class="rounded-4"></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[0]) ? asset('storage/'. $accommodation->photos[0]->image) : asset('images/default-image.jpg') }}" alt="pic1" class="rounded-4"></a>
         </div>
         <div class="center">
             <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[1]) ? asset('storage/'. $accommodation->photos[1]->image) : asset('images/default-image.jpg') }}" alt="pic2" class="rounded-4 "></a>

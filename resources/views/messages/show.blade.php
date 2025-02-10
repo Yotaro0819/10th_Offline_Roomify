@@ -99,7 +99,7 @@
 
 @section('content')
 <div class="container mx-auto my-5" style="width: 60%;">
-<a href="{{ route('messages.index')}}" class="text-black"><i class="fa-solid fa-angles-left"></i> Back to the accommodation page</a>
+<a href="{{ route('messages.index', $user->id)}}" class="text-black"><i class="fa-solid fa-angles-left"></i> Back to the accommodation page</a>
 
     {{-- user info --}}
     <div class="card rounded-4 w-85 mx-auto d-flex p-0">

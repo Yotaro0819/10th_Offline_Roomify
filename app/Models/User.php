@@ -83,4 +83,20 @@ class User extends Authenticatable
         return $this->hasMany(Message::class);
     }
 
+    public function latestMessage($userId)
+    {
+        return Message::where(function($query) use ($userId) {
+                    // 現在のユーザーが送信者、他のユーザーが受信者
+                    $query->where('sender_id', $this->id)
+                        ->where('receiver_id', $userId);
+                })
+                ->orWhere(function($query) use ($userId) {
+                    // 他のユーザーが送信者、現在のユーザーが受信者
+                    $query->where('sender_id', $userId)
+                        ->where('receiver_id', $this->id);
+                })
+                ->latest() // 最新のメッセージを取得
+                ->first(); // 一番最新のメッセージを取得
+    }
+
 }
