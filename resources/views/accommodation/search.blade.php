@@ -179,12 +179,12 @@
                 <div class="card-body">
                     <div class="mb-2">
                         <label for="min_price" class="form-label left-align">Minimum</label>
-                        <input type="number" class="form-control" name="min_price" style="color: black">
+                        <input type="range" class="form-control" name="min_price" style="color: black">
                     </div>
 
                     <div class="mb-2">
                         <label for="max_price" class="form-label left-align">Maximum</label>
-                        <input type="number" class="form-control" name="max_price" style="color: black">
+                        <input type="range" class="form-control" name="max_price" style="color: black">
                     </div>
                 </div>
             </div>
