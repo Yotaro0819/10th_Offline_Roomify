@@ -2,7 +2,7 @@ html, body {
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    /* height: 100%; */
     min-height: 100vh;
     margin: 0;
     padding: 0;
@@ -75,54 +75,6 @@ html, body {
 a
 {
     text-decoration: none;
-}
-
-/* design of circle */
-.corner-circle {
-    width: 100px; /* 円の直径 */
-    height: 100px; /* 円の直径 */
-    background-color: #dcbf7d; /* 円の背景色 */
-    border-radius: 50%; /* 円形にする */
-    position: absolute; /* 配置を自由に調整 */
-}
-
-/* left top */
-.circle-left-1
-{
-    width: 650px;
-    height: 650px;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
-}
-
-/* left bottom */
-.circle-left-2 {
-    width: 400px;
-    height: 400px;
-    bottom: 100px;
-    left: 0;
-    transform: translate(-50%, 80%);
-}
-
-/* right bottom top */
-.circle-right-1
-{
-    width: 500px;
-    height: 800px;
-    bottom: 300px;
-    right: 50px;
-    transform: translate(70%, 65%);
-}
-
-/* right bottom bottom */
-.circle-right-2
-{
-    width: 900px;
-    height: 500px;
-    bottom: 0px;
-    right: 0px;
-    transform: translate(50%, 50%);
 }
 
 .icon-md

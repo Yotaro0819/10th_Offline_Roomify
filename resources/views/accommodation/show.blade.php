@@ -50,13 +50,12 @@
 </script>
 @section('content')
 
-<div class="container w-75 mx-auto ">
-
+<div class="container w-75 mx-auto">
 
 
     <div class="picture-box">
         <div class="left">
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[0]) ? asset('storage/'. $accommodation->photos[0]->image) : asset('images/default-image.jpg') }}" alt="pic1" class="rounded-4"></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="pic1" class="rounded-4"></a>
         </div>
         <div class="center">
             <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[1]) ? asset('storage/'. $accommodation->photos[1]->image) : asset('images/default-image.jpg') }}" alt="pic2" class="rounded-4 "></a>
@@ -189,6 +188,7 @@
     </div>
 
     <div class="coupon-section bg-yellow border-black border text-center rounded-3 w-25 mx-auto">
+        <p class="m-0 fw-bold">Accommodation Rank: {{ $accommodation->rank }}</p>
         <h3 class="fs-4">Get coupon</h3>
         <h3 class="fw-bold">10% OFF Coupon</h3>
     </div>

@@ -98,8 +98,8 @@ html,body
         @enderror
 
 
-
-        <div class="form-check form-check-inline d-flex justify-content-center align-items-center flex-wrap w-50 mx-auto">
+        <label for="category" class="form-label text-start w-100 ms-4 fw-bold">Categories</label>
+        <div class="form-check form-check-inline d-flex justify-content-center align-items-center flex-wrap w-75 mx-auto">
 
             @foreach ($all_categories as $category)
             <div class="form-check form-check-inline">
@@ -113,6 +113,20 @@ html,body
             @enderror
         </div>
 
+        <label for="ecoitem" class="form-label text-start w-100 ms-4 fw-bold">Eco-friendly</label>
+        <div class="form-check w-50 mx-auto">
+
+            @foreach ($all_ecoitems as $ecoitem)
+            <div class="form-check text-start">
+                <input type="checkbox" name="ecoitem[]" id="{{ $ecoitem->ecoitem_name }}" value="{{ $ecoitem->id }}" class="form-check-input">
+                <label for="{{ $ecoitem->ecoitem_name }}" class="form-check-label">{{ $ecoitem->ecoitem_name }} {{$ecoitem->point}} point</label>
+            </div>
+            @endforeach
+
+            @error('ecoitem')
+            <div class="text-danger small">{{ $message }}</div>
+            @enderror
+        </div>
 
 
 
@@ -179,7 +193,7 @@ html,body
     // Google Maps APIスクリプトを動的に作成して読み込む
     const apiKey = "{{ config('services.google_maps.api_key') }}";
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&language=en`;
     script.async = true;
     script.defer = true;
 

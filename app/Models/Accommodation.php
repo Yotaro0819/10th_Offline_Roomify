@@ -23,6 +23,7 @@ class Accommodation extends Model
         'city',
         'latitude',
         'longitude',
+        'rank',
         'capacity',
         'description',
     ];
@@ -39,6 +40,11 @@ class Accommodation extends Model
         return $this->belongsToMany(Hashtag::class, 'hashtag_accommodation');
     }
 
+    public function ecoitems()
+    {
+        return $this->belongsToMany(Ecoitem::class, 'ecoitem_accommodation');
+    }
+
     public function categoryAccommodation()
     {
         return $this->hasMany(CategoryAccommodation::class);
@@ -47,6 +53,11 @@ class Accommodation extends Model
     public function hashtagAccommodation()
     {
         return $this->hasMany(HashtagAccommodation::class);
+    }
+
+    public function ecoitemAccommodation()
+    {
+        return $this->hasMany(EcoitemAccommodation::class);
     }
 
     public function photos()
