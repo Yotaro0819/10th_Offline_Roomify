@@ -177,15 +177,15 @@
             <div class="card border-0">
                 <div class="card-header">Budget Range</div>
                 <div class="card-body">
-                    <div class="mb-2">
+                    {{-- <div class="mb-2">
                         <label for="min_price" class="form-label left-align">Minimum</label>
-                        <input type="range" class="form-control" name="min_price" style="color: black">
+                        <input type="range" class="form-range" name="min_price" style="color: black">
                     </div>
 
                     <div class="mb-2">
                         <label for="max_price" class="form-label left-align">Maximum</label>
-                        <input type="range" class="form-control" name="max_price" style="color: black">
-                    </div>
+                        <input type="range" class="form-range" name="max_price" style="color: black">
+                    </div> --}}
                 </div>
             </div>
 
