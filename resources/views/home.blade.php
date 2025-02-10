@@ -394,7 +394,7 @@ footer .right{
                     on our Listing
                 </h2>
                 <div class="card-container">
-                    @foreach($accommodations as $accommodation)
+                    @foreach($accommodations->take(6) as $accommodation)
                      <div class="card mx-auto">
                         @if ($accommodation->photos->isNotEmpty())
                             <img src="{{ $accommodation->photos->first()->url }}" alt="Accommodation Image">
