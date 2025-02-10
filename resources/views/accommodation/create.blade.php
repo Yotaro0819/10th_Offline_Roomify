@@ -123,7 +123,7 @@ html,body
             </div>
             @endforeach
 
-            @error('category')
+            @error('ecoitem')
             <div class="text-danger small">{{ $message }}</div>
             @enderror
         </div>

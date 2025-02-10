@@ -335,7 +335,7 @@ footer .right{
             <br>
             <div class="card">
                 <h2>FIND</h2>
-                
+
                 <form action="" class="search-form">
                     <div class="form-container">
                         <div class="form-group">
@@ -375,7 +375,11 @@ footer .right{
                 <br>
                 <p>Earn extra just by renting your propety...</p>
                 <br>
-                <a href="#" class="btn">Become A Host</a>
+                @if(Auth::check() && Auth::user()->role == '2')
+                <a href="{{ route('host.index')}}" class="btn">Go host page</a>
+                @else
+                <a href="{{ route('hostRequest.create')}}" class="btn">Become A Host</a>
+                @endif
             </div>
             <div class="col-6">
                 <img src="https://images.pexels.com/photos/16095241/pexels-photo-16095241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image2">

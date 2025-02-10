@@ -22,14 +22,16 @@ class AccommodationController extends Controller
     private $accommodation;
     private $category;
     private $hashtag;
+    private $ecoitem;
 
 
 
-    public function __construct(Accommodation $accommodation, Category $category, Hashtag $hashtag)
+    public function __construct(Accommodation $accommodation, Category $category, Hashtag $hashtag, Ecoitem $ecoitem)
     {
         $this->accommodation = $accommodation;
         $this->category      = $category;
         $this->hashtag       = $hashtag;
+        $this->ecoitem       = $ecoitem;
 
     }
 
@@ -189,23 +191,31 @@ class AccommodationController extends Controller
     {
         $accommodation = $this->accommodation->findOrFail($id);
 
+
         if(Auth::user()->id != $accommodation->user->id){
             return redirect()->route('host.index');
         }
 
         $all_categories = $this->category->all();
+        $all_ecoitems = $this->ecoitem->all();
         $all_hashtags = $this->hashtag->all();
 
         $selected_categories = [];
         foreach($accommodation->categoryAccommodation as $category_accommodation) {
             $selected_categories[] = $category_accommodation->category_id;
         }
+        $selected_ecoitems = [];
+        foreach($accommodation->ecoitemAccommodation as $ecoitem_accommodation) {
+            $selected_ecoitems[] = $ecoitem_accommodation->ecoitem_id;
+        }
 
         return view('accommodation.edit')
                 ->with('accommodation', $accommodation)
                 ->with('all_categories', $all_categories)
                 ->with('selected_categories', $selected_categories)
-                ->with('all_hashtags', $all_hashtags);
+                ->with('all_hashtags', $all_hashtags)
+                ->with('all_ecoitems', $all_ecoitems)
+                ->with('selected_ecoitems', $selected_ecoitems);
 
     }
 
@@ -221,8 +231,6 @@ class AccommodationController extends Controller
             'photos' => 'nullable|array|min:4',
             'photos.*' => 'image|mimes:jpeg,jpg,png,gif,webp|max:1048',
         ]);
-
-
 
         try {
             // 対象の宿泊施設を取得
@@ -251,6 +259,31 @@ class AccommodationController extends Controller
                 }
             }
 
+            //ecoitems　section
+            $ecoitem_accommodation = [];
+            foreach ($request->ecoitem as $ecoitem_id) {
+                $ecoitem_accommodation[] = $ecoitem_id;
+            }
+
+            // 既存のカテゴリ関連を同期（重複なし）
+            $accommodation->ecoitems()->sync($ecoitem_accommodation);
+
+            $ecoitemIds = $request->ecoitem ?? [];
+                $ecoitems = Ecoitem::whereIn('id', $ecoitemIds)->get();
+                $totalPoints = $ecoitems->sum('point');
+                $ecoitems->count();
+
+                // 平均ポイントの計算
+                $sumPoints = $totalPoints;
+
+                // ランクを決定
+                if ($sumPoints >= 31) {
+                    $rank = 'A';
+                } elseif ($sumPoints >= 16) {
+                    $rank = 'B';
+                }
+
+
             // 宿泊施設の情報を更新
             $accommodation->update([
                 'user_id' => $user_id,
@@ -260,6 +293,7 @@ class AccommodationController extends Controller
                 'price' => $price,
                 'capacity' => $capacity,
                 'description' => $description,
+                'rank' => $rank,
                 'latitude' => $accommodation->latitude,
                 'longitude' => $accommodation->longitude,
             ]);
@@ -310,16 +344,6 @@ class AccommodationController extends Controller
 
         // 既存のカテゴリ関連を同期（重複なし）
         $accommodation->categories()->sync($category_accommodation);
-
-
-        $ecoitem_accommodation = [];
-        foreach ($request->ecoitem as $ecoitem_id) {
-            $ecoitem_accommodation[] = $ecoitem_id;
-        }
-
-        // 既存のカテゴリ関連を同期（重複なし）
-        $accommodation->ecoitems()->sync($ecoitem_accommodation);
-
 
 
             // 成功メッセージと共にリダイレクト

@@ -53,9 +53,10 @@
 <div class="container w-75 mx-auto">
 
 
-
     <div class="picture-box">
         <div class="left">
+    <a href="{{ route('host.accommodation.edit', $accommodation->id)}}">test route</a>
+
             <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="pic1" class="rounded-4"></a>
         </div>
         <div class="center">
@@ -86,7 +87,7 @@
 
     <div class="w-50 mx-auto">
         @if (Auth::check())
-        <a href="{{route('.guest.booking.create', $accommodation->id)}}" class="booking-btn text-black fs-4 p-2 mx-auto d-block text-center rounded-3 my-3 shadow">Go to the Booking Page</a>
+        <a href="{{route('guest.booking.create', $accommodation->id)}}" class="booking-btn text-black fs-4 p-2 mx-auto d-block text-center rounded-3 my-3 shadow">Go to the Booking Page</a>
         @else
        <a href="{{ route('login') }}?redirect={{ route('accommodation.show', $accommodation->id) }}" class="login-btn text-black fs-4 p-2 mx-auto d-block text-center rounded-3 my-3 shadow">Go Login/Register</a>
         @endif

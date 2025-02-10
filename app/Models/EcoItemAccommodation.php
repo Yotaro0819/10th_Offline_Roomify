@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EcoitemAccommodation extends Model
 {
+    protected $table = 'ecoitem_accommodation';
     public $timestamps = false;
 
     protected $fillable = ['ecoitem_id', 'accommodation_id'];
