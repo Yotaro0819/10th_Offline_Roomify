@@ -1,73 +1,75 @@
 @extends('layouts.app')
 
 <style>
-    html,body
-    {
+    html,body{
         overflow: hidden;
     }
-
-    .card
-    {
+    .card{
         margin-top: 50px;
     }
-
-    .card .card-header
-    {
+    .card .card-header{
         color: #004aad;
     }
-
-    .btn
-    {
+    .btn{
         border-color:#dcbf7d;
         color: #dcbf7d;
         background-color: transparent;
         align-content: left;
         font-weight: bold;
     }
-
-    .btn:hover
-    {
+    .btn:hover{
         border-color:#dcbf7d !important;
         color: #ffffff !important;
         background-color: #dcbf7d !important;
     }
-    .input-group .input-icon
-    {
-        color: #004aad;
-        font-size: 30px;
+    .input-group .input-group-text{
+        border: 1px solid #004aad;
+        border-right: 0;
+        border-radius: 15px 0 0 15px;
+        width: 50px;
+    }
+    .input-group input{
+        border: 1px solid #004aad;
+        outline: none;
+        border-left: 0;
+        border-radius: 15px;
+    }
+    .input-icon{
+        color:#004aad;
+        font-size: 28px;
+    }
+    .form-control{
+    color: #000000 !important;
+    background-color: #ffffff !important;
+    }
+    .form-control:focus{
+        color: #000000 !important;
+        background-color: #ffffff !important;
+        box-shadow: none !important;
+        border-color: #004aad !important;
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+        -webkit-text-fill-color: #000000 !important;
+        transition: background-color 5000s ease-in-out 0s;
     }
 
-    .input-group input
-    {
-        border: 1px solid #004aad;
-    }
-    .form-control
-    {
-        border-radius: 15px;
-        background-color: #ffffff;
-        align-content: center;
-        padding-left: 2.5rem;
-    }
-    ::placeholder
-    {
+    ::placeholder{
         color: #A5A5A5;
         font-weight: bold;
     }
-
-    p
-    {
+    p{
         font-size: 18px;
         font-weight: lighter;
         color: #004aad;
     }
-
-    a
-    {
+    a{
         font-style: italic;
         color:#004aad !important;
     }
-
-        /* design of circle */
     .corner-circle {
         width: 100px;
         height: 100px;
@@ -75,10 +77,8 @@
         border-radius: 50%;
         position: absolute;
     }
-
     /* left top */
-    .circle-left-1
-    {
+    .circle-left-1{
         width: 650px;
         height: 650px;
         top: 0;
@@ -96,8 +96,7 @@
     }
 
     /* right bottom top */
-    .circle-right-1
-    {
+    .circle-right-1{
         width: 500px;
         height: 800px;
         bottom: 300px;
@@ -106,8 +105,7 @@
     }
 
     /* right bottom bottom */
-    .circle-right-2
-    {
+    .circle-right-2{
         width: 900px;
         height: 500px;
         bottom: 0px;
@@ -115,7 +113,6 @@
         transform: translate(50%, 50%);
     }
 </style>
-
 @section('content')
 <div class="container">
     <div class="corner-circle circle-left-1"></div>
@@ -138,39 +135,31 @@
 
                         <div class="row mb-4">
                             <div class="col-md-6 input-group">
-                                <i class="fa-regular fa-envelope input-icon"></i>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" style="border-radius: 15px; color: black" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
+                                <div class="input-group-text">
+                                    <i class="fa-regular fa-envelope input-icon"></i>
+                                </div>
+                                <input id="email" type="email" class="form-control ps-2 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
+
+                                @error('email')
+                                    <p class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </p>
+                                @enderror
                             </div>
-
-                            @error('email')
-                                <p class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </p>
-                            @enderror
                         </div>
-
-
 
                         <div class="row mb-4">
                             <div class="col-md-6 input-group">
-                                <i class="fa-solid fa-lock input-icon"></i>
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" style="border-radius: 15px; color: black" name="password" required autocomplete="new-password" placeholder="Password">
+                                <div class="input-group-text">
+                                    <i class="fa-solid fa-lock input-icon"></i>
+                                </div>
+                                <input id="password" type="password" class="form-control ps-2 @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                        </div>
-
-
-                        <div class="row mb-4">
-                            <div class="col input-group">
-                                    <div class="input-group-text border-end-0" style="border-color:#004aad; border-radius: 15px 0 0 15px">
-                                        <i class="fa-solid fa-lock" style="color:#004aad; font-size: 30px;"></i>
-                                    </div>
-                                <input id="sample" type="text" class="form-control border-start-0" name="sample" style="border-radius:0 15px 15px 0" required placeholder="sample">
                             </div>
                         </div>
 
