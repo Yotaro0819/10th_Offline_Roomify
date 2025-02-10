@@ -55,7 +55,6 @@
 
     <div class="picture-box">
         <div class="left">
-    <a href="{{ route('host.accommodation.edit', $accommodation->id)}}">test route</a>
 
             <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="pic1" class="rounded-4"></a>
         </div>
@@ -103,7 +102,7 @@
         <div class="border-black border-top border-bottom w-50 m-4">
             <h2 class="ms-2">Host Info</h2>
             <div class="d-flex">
-                <a href="#" class="d-flex align-items-center">
+                <a href="{{ route('profile.show', $accommodation->user->id)}}" class="d-flex align-items-center">
                     {{-- this a tag can go message page --}}
                 @if ($accommodation->user->avatar)
                 <img src="{{ asset('storage/' . $accommodation->user->avatar) }}" alt="" class="rounded">
