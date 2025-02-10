@@ -13,14 +13,13 @@ use App\Http\Controllers\HashtagController;
 use App\Http\Controllers\HostRequestController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 
 
 
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
 Route::get('/accommodation/pictures/{id}', [AccommodationController::class, 'pictureIndex'])->name('accommodation.pictures');
@@ -58,26 +57,26 @@ Route::get('/search_by_filters', [AccommodationController::class, 'search_by_fil
 
 
 
-    //Araki route
-
-    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
-    Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('messages.show');
-    Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
-    Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
-    //Araki route end
+//Araki route
+Route::get('/accommodation/pictures', function () {
+    return view('accommodation.pictures');
+});
+Route::get('/messages', function () {
+    return view('messages.index');
+});
+Route::get('/messages/show', function () {
+    return view('messages.show');
+});
+Route::get('/accommodation/hashtag', function () {
+    return view('accommodation.hashtag');
+});
+//Araki route end
 
 // host routes
-Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
-    Route::get('/res', [BookingController::class, 'reservation_host'])->name('reservation_host');
-    // Route::get('/res/{bookingId}', [BookingController::class, 'showBookingStatus'])->name('showBookingStatus');
-    Route::get('/res/{bookingId}/cancel', [BookingController::class, 'confirmCancel'])->name('confirmCancel');
-    Route::delete('/res/{bookingId}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
-    Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
-    Route::delete('/{id}/destroy,', [AccommodationController::class, 'destroy'])->name('destroy');
-    Route::get('/accommodation/create', [AccommodationController::class, 'create'])->name('accommodation.create');
-    Route::post('/accommodation/store', [AccommodationController::class, 'store'])->name('accommodation.store');
-    ROute::get('/accommodation/edit/{id}', [AccommodationController::class, 'edit'])->name('accommodation.edit');
-    Route::patch('/accommodation/update/{id}', [AccommodationController::class, 'update'])->name('accommodation.update');
+Route::group(['middleware' => 'host'], function(){
+    Route::get('/host/res',function(){
+        return view('hostRes');
+    });
 });
 
 

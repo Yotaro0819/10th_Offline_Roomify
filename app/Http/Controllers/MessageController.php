@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
+    //
+
     protected $message;
 
     public function __construct(Message $message)
@@ -114,8 +116,5 @@ class MessageController extends Controller
 
     return view('messages.index', compact('all_users'));
 }
-
-
-
 
 }

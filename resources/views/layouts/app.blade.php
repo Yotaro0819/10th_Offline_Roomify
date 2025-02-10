@@ -153,6 +153,9 @@ a
                                         <a class="dropdown-item" href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
                                             <i class="fa-solid fa-address-card"></i> Profile
                                         </a>
+                                        <a class="dropdown-item" href="{{ route('res') }}">
+                                            Reservation Status
+                                        </a>
                                     @endif
                                     @if(Auth::user()->role == "0")
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.users') }}">
@@ -183,6 +186,7 @@ a
                                     </form>
 
                                 </div>
+
                             </li>
                         @endguest
                     </ul>
