@@ -79,6 +79,19 @@ Route::group(['middleware' => 'host'], function(){
     });
 });
 
+Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
+    Route::get('/res', [BookingController::class, 'reservation_host'])->name('reservation_host');
+    // Route::get('/res/{bookingId}', [BookingController::class, 'showBookingStatus'])->name('showBookingStatus');
+    Route::get('/res/{bookingId}/cancel', [BookingController::class, 'confirmCancel'])->name('confirmCancel');
+    Route::delete('/res/{bookingId}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
+    Route::get('/acmindex', [AccommodationController::class, 'index'])->name('index');
+    Route::delete('/{id}/destroy,', [AccommodationController::class, 'destroy'])->name('destroy');
+    Route::get('/accommodation/create', [AccommodationController::class, 'create'])->name('accommodation.create');
+    Route::post('/accommodation/store', [AccommodationController::class, 'store'])->name('accommodation.store');
+    ROute::get('/accommodation/edit/{id}', [AccommodationController::class, 'edit'])->name('accommodation.edit');
+    Route::patch('/accommodation/update/{id}', [AccommodationController::class, 'update'])->name('accommodation.update');
+});
+
 
 // admin routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
