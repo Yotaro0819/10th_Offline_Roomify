@@ -56,14 +56,14 @@
 
     <div class="picture-box">
         <div class="left">
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="pic1" class="rounded-4"></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[0]) ? asset('storage/'. $accommodation->photos[0]->image) : asset('images/default-image.jpg') }}" alt="pic1" class="rounded-4"></a>
         </div>
         <div class="center">
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[1]->image) }}" alt="pic2" class="rounded-4 "></a>
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[2]->image) }}" alt="pic3" class="rounded-4 "></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[1]) ? asset('storage/'. $accommodation->photos[1]->image) : asset('images/default-image.jpg') }}" alt="pic2" class="rounded-4 "></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[2]) ? asset('storage/'. $accommodation->photos[2]->image) : asset('images/default-image.jpg') }}" alt="pic3" class="rounded-4 "></a>
         </div>
         <div class="right">
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[3]->image) }}" alt="pic4" class="rounded-4"></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[3]) ? asset('storage/'. $accommodation->photos[3]->image) : asset('images/default-image.jpg') }}" alt="pic4" class="rounded-4"></a>
         </div>
     </div>
 

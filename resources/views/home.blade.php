@@ -396,29 +396,31 @@ footer .right{
                 <div class="card-container">
                     @foreach($accommodations->take(6) as $accommodation)
                      <div class="card mx-auto">
-                        @if ($accommodation->photos->isNotEmpty())
-                            <img src="{{ $accommodation->photos->first()->url }}" alt="Accommodation Image">
-                        @else
-                            <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available">
-                        @endif
-                        <h3>{{ $accommodation->name }}</h3>
-                        <p class="address">{{ $accommodation->address }}</p>
-                        <div class="row">
-                            <div class="col-auto">
-                                <h4 id="price">${{ $accommodation->price }}</h4>
+                        <a href="{{ route('accommodation.show', $accommodation->id) }}" class="stretched-link">
+                            @if ($accommodation->photos->isNotEmpty())
+                                <img src="{{ $accommodation->photos->first()->url }}" alt="Accommodation Image">
+                            @else
+                                <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available">
+                            @endif
+                            <h3>{{ $accommodation->name }}</h3>
+                            <p class="address">{{ $accommodation->address }}</p>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <h4 id="price">${{ $accommodation->price }}</h4>
+                                </div>
+                                <div class="col-auto">
+                                    <p id="night">/ {{ $accommodation->capacity }}</p>
+                                </div>
                             </div>
-                            <div class="col-auto">
-                                <p id="night">/ {{ $accommodation->capacity }}</p>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <p><i class="fa-regular fa-user"></i> {{ $accommodation->capacity }}Sleeps</p>
+                                </div>
+                                <div class="col-auto">
+                                    <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> {{ $accommodation->city }}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-auto">
-                                <p><i class="fa-regular fa-user"></i> {{ $accommodation->capacity }}Sleeps</p>
-                            </div>
-                            <div class="col-auto">
-                                <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> {{ $accommodation->city }}</p>
-                            </div>
-                        </div>
+                        </a>
                      </div>
                     @endforeach
                 </div>
