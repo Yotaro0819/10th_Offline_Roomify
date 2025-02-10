@@ -203,6 +203,9 @@ input::placeholder {
     color: #004aad;
     border-bottom: 5px solid #dcbf7d;
     margin-bottom: 10px;
+    text-align: left;
+    position: relative;
+    top: -100px;
 }
 
 .card-container{
@@ -213,7 +216,7 @@ input::placeholder {
 
 .card-container .card{
     width: calc(33.33% - 16px);
-    padding: 20px;
+    padding: 10px;
     text-align: left;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -386,7 +389,7 @@ footer .right{
     <section class="properties">
         <div class="container d-flex">
             <div class="w-100">
-                <h2 class="mx-auto">
+                <h2 class="ms-0">
                     Featured Properties<br>
                     on our Listing
                 </h2>
