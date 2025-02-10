@@ -108,6 +108,22 @@ html,body
             @enderror
         </div>
 
+        <label for="ecoitem" class="form-label text-start w-100 ms-4 fw-bold">Eco-friendly</label>
+        <div class="form-check w-50 mx-auto">
+
+            @foreach ($all_ecoitems as $ecoitem)
+            <div class="form-check text-start">
+                <input type="checkbox" name="ecoitem[]" id="{{ $ecoitem->ecoitem_name }}" value="{{ $ecoitem->id }}" class="form-check-input"
+                @if(in_array($ecoitem->id, $accommodation->ecoitems->pluck('id')->toArray())) checked @endif>
+                <label for="{{ $ecoitem->ecoitem_name }}" class="form-check-label">{{ $ecoitem->ecoitem_name }} {{$ecoitem->point}} point</label>
+
+            </div>
+            @endforeach
+
+            @error('ecoitem')
+            <div class="text-danger small">{{ $message }}</div>
+            @enderror
+        </div>
 
 
 

@@ -8,6 +8,7 @@ use App\Models\Booking;
 use App\Models\Accommodation;
 class BookingController extends Controller
 {
+    //
     private $booking;
     private $accommodation;
 
