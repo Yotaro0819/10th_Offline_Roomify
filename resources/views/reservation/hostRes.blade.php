@@ -68,11 +68,11 @@
             </div>
             <div class="col" id="info">
                 <h5 class="date">
-                    <span class="start-date">{{ \Carbon\Carbon::parse($booking->check_in_date)->format('Y/m/d') }}</span> ~ 
+                    <span class="start-date">{{ \Carbon\Carbon::parse($booking->check_in_date)->format('Y/m/d') }}</span> ~
                     <span class="end-date">{{ \Carbon\Carbon::parse($booking->check_out_date)->format('Y/m/d') }}</span>
                 </h5>
                 <div id="spaced">
-                        <p><span><i class="fa-solid fa-circle-user"></i></span> {{ $booking->user->name }}</p>
+                        <p><span><i class="fa-solid fa-circle-user"></i></span> {{ $booking->host_name }}</p>
                 </div>
 
                 <div>
@@ -87,7 +87,7 @@
                         <p><span><i class="fa-solid fa-users icon-input"></i></span> {{ $booking->num_guest }}</p>
                 </div>
                 <!-- <div class="row" id="spaced">
-                    <div class="col">{{ $booking->user->name }}</div>
+                    <div class="col">{{ $booking->host_name }}</div>
                     <div class="col">{{ $booking->num_guest }} people</div>
                 </div>
                 <div class="row" id="spaced">
