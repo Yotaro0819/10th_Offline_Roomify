@@ -436,17 +436,17 @@ footer .right{
     <section class="discover">
         <div class="container row">
                 <div class="col-6">
-                    <h2>
-                        Discover More<br>
-                        About Property<br>
-                        Rental
-                    </h2>
-                    <p>
-                        hbhbhbbhbhbhbhbhbhbhbhbhbhbbhbhbhbhbhb
-                        bhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbb
-                        bhbhbhbhbhbhbhbhbhbhbhbhbhbhbhhbhbhbhb
-                    </p>
-                    <a href="#" class="btn">Discover More</a>
+                    @if(Auth::check() && Auth::user()->role == '2')
+                        <h2>Writing a Newsletter!</h2>
+                        <p>When you list a property, you can send a newsletter<br>
+                         to past guests who have stayed there before!</p>
+                        <a href="#" class="btn">Try Writing a Newsletter</a>
+                    @else
+                        <h2>Would You Like to Receive Newsletters ?</h2>
+                        <p>You can recieve newsletters from the hosts of <br>
+                            accommodations you've stayed at in past!</p>
+                        <a href="#" class="btn">Check Your Newsletter</a>
+                    @endif
                 </div>
                 <div class="col-6">
                     <img src="https://images.pexels.com/photos/16277345/pexels-photo-16277345.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image3">
