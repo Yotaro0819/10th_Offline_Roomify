@@ -14,6 +14,8 @@ use App\Http\Controllers\HostRequestController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PayPalController;
+
 
 
 
@@ -105,6 +107,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
 
 Route::get('/coupones/{id}/', [CouponController::class, 'index'])->name('coupones.index');
 Route::delete('/coupones/{id}/delete', [CouponController::class, 'destroy'])->name('coupones.delete');
+
+
+Route::get('/paypal', function () {
+    return view('paypal');
+})->name('paypal');
+Route::post('/paypal/payment', [PayPalController::class, 'createPayment'])->name('paypal.payment');
+Route::get('/payment/capture', [PaypalController::class, 'capturePayment'])->name('payment.capture');
+
 
 
 Route::get('/cansel', function () {
