@@ -96,6 +96,7 @@ class AccommodationSeeder extends Seeder
             'longitude'     => 139.796655,
             'capacity'      => 5,
             'description'   => 'Stay near the historic Senso-ji Temple and experience traditional Japan.',
+            'rank'          => 'C',
             'created_at'    => now(),
             'updated_at'    => now(),
         ],

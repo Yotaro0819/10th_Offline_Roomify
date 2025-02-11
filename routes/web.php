@@ -26,6 +26,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
 Route::get('/accommodation/pictures/{id}', [AccommodationController::class, 'pictureIndex'])->name('accommodation.pictures');
 Route::get('/accommodation/hashtag/{name}/{cityName?}', [HashtagController::class, 'index'])->name('accommodation.hashtag');
+
 Auth::routes();
 // Guest Without login can see these pages.
 
@@ -60,7 +61,7 @@ Route::get('/search_by_filters', [AccommodationController::class, 'search_by_fil
 
 
 //Araki route
-Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+Route::get('/messages/{id}', [MessageController::class, 'index'])->name('messages.index');
 Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('messages.show');
 Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
 Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
