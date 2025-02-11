@@ -120,14 +120,16 @@ a
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <a href="{{ route('search') }}" class="find-button">Find a Property</a>
-                        @if(Auth::user())
-                        {{-- if login user is guest or admin, bookings for guest is shown --}}
-                        <a href="{{ route('messages.index', Auth::user()->id) }}" class="find-button ms-3">Messages</a>
-                        <a href="{{ route('guest.reservation_guest')}}" class="find-button ms-3">Your booings</a>
-                            @if(Auth::user()->role === "2")
-                        {{-- if login user is host, bookings for your accommodation is also shown --}}
-                            <a href="{{ route('host.reservation_host')}}" class="find-button ms-3">Guest's Bookings</a>
-                            @endif
+                        @if(Auth::user()) {{-- login pattern --}}
+                            <a href="{{ route('messages.index', Auth::user()->id) }}" class="find-button ms-3">Messages</a>
+                                @if(Auth::user()->role === "1") {{-- guest pattern --}}
+                                <a href="{{ route('guest.reservation_guest')}}" class="find-button ms-3">Your booings</a>
+                                @elseif(Auth::user()->role === "2") {{-- host pattern　--}}
+                                <a href="{{ route('guest.reservation_guest')}}" class="find-button ms-3">Your booings</a>
+                                <a href="{{ route('host.reservation_host')}}" class="find-button ms-3">Guest's Bookings</a>
+                                @elseif(Auth::user()->role === "0") {{-- admin pattern --}}
+                                <a href="{{ route('admin.hostRequest.index')}}" class="find-button ms-3">Host Requests</a>
+                                @endif
                         @endif
                     </ul>
                     <!-- Right Side Of Navbar -->
