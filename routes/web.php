@@ -115,6 +115,10 @@ Route::get('/cansel', function () {
     return view('bookingcansel');
 });
 
+Route::get('/newsletter', function (){
+    return view('guestNewsletter');
+});
+
 });
 
 
