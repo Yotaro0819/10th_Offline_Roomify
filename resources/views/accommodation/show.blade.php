@@ -50,20 +50,19 @@
 </script>
 @section('content')
 
-<div class="container w-75 mx-auto ">
-
+<div class="container w-75 mx-auto">
 
 
     <div class="picture-box">
         <div class="left">
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="pic1" class="rounded-4"></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[0]) ? asset('storage/'. $accommodation->photos[0]->image) : asset('images/default-image.jpg') }}" alt="pic1" class="rounded-4"></a>
         </div>
         <div class="center">
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[1]->image) }}" alt="pic2" class="rounded-4 "></a>
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[2]->image) }}" alt="pic3" class="rounded-4 "></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[1]) ? asset('storage/'. $accommodation->photos[1]->image) : asset('images/default-image.jpg') }}" alt="pic2" class="rounded-4 "></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[2]) ? asset('storage/'. $accommodation->photos[2]->image) : asset('images/default-image.jpg') }}" alt="pic3" class="rounded-4 "></a>
         </div>
         <div class="right">
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ asset('storage/'. $accommodation->photos[3]->image) }}" alt="pic4" class="rounded-4"></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[3]) ? asset('storage/'. $accommodation->photos[3]->image) : asset('images/default-image.jpg') }}" alt="pic4" class="rounded-4"></a>
         </div>
     </div>
 
@@ -86,7 +85,7 @@
 
     <div class="w-50 mx-auto">
         @if (Auth::check())
-        <a href="{{route('.guest.booking.create', $accommodation->id)}}" class="booking-btn text-black fs-4 p-2 mx-auto d-block text-center rounded-3 my-3 shadow">Go to the Booking Page</a>
+        <a href="{{route('guest.booking.create', $accommodation->id)}}" class="booking-btn text-black fs-4 p-2 mx-auto d-block text-center rounded-3 my-3 shadow">Go to the Booking Page</a>
         @else
        <a href="{{ route('login') }}?redirect={{ route('accommodation.show', $accommodation->id) }}" class="login-btn text-black fs-4 p-2 mx-auto d-block text-center rounded-3 my-3 shadow">Go Login/Register</a>
         @endif
@@ -189,6 +188,7 @@
     </div>
 
     <div class="coupon-section bg-yellow border-black border text-center rounded-3 w-25 mx-auto">
+        <p class="m-0 fw-bold">Accommodation Rank: {{ $accommodation->rank }}</p>
         <h3 class="fs-4">Get coupon</h3>
         <h3 class="fw-bold">10% OFF Coupon</h3>
     </div>

@@ -19,6 +19,7 @@
     {
         margin-right: 10px;
     }
+
 </style>
 @section('title', 'Accommodation Index for Host')
 
@@ -29,38 +30,46 @@
 </div>
 @if($all_accommodations->isNotEmpty())
     @foreach($all_accommodations as $accommodation)
-        <a href="#" class="card mx-auto mb-5 w-75" id="acm-booking">
+        <div class="card mx-auto mb-5 w-75" id="acm-booking">
             <div class="row">
-                <div class="col my-auto">
-                    <img src="#" alt="#">
-                </div>
+                <div class="d-flex justify-between">
+                    <a href="{{ route('accommodation.show', $accommodation->id) }}">
+                        <div class="d-flex">
+                            <div class="my-auto" style="margin:100px;">
+                                <img src="#" alt="#">
+                            </div>
 
-                <div class="col text-start">
-                    <h2 class="h3 my-2 fw-bold" style="color:#004aad">{{ Str::limit($accommodation->name, 30) }}</h2>
+                            <div class="text-start" style="margin-right:120px;">
+                                <h2 class="h3 my-2 fw-bold" style="color:#004aad">{{ Str::limit($accommodation->name, 30) }}</h2>
 
-                    <div>
-                        <p><span><i class="fa-solid fa-comment icon-input"></i></span>{{ Str::limit($accommodation->description, 40) }}</p>
+                                <div>
+                                    <p><span><i class="fa-solid fa-comment icon-input"></i></span>{{ Str::limit($accommodation->description, 40) }}</p>
+                                </div>
+
+                                <div>
+                                    <p><span><i class="fa-solid fa-location-dot icon-input"></i></span>{{ Str::limit($accommodation->address, 40) }}</p>
+                                </div>
+
+                                <div>
+                                    <p class="fw-bold"><span><i class="fa-solid fa-money-bill icon-input"></i></span>￥{{ $accommodation->price }}</p>
+                                </div>
+
+                                <div>
+                                    <p class="fw-bold"><span><i class="fa-solid fa-users icon-input"></i></span>{{ $accommodation->capacity }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="my-auto">
+                        <button class="btn text-white" style="background-color: #A5A5A5" data-bs-toggle="modal" data-bs-target="#delete-acm-{{ $accommodation->id }}"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                        <a href="{{ route('host.accommodation.edit', $accommodation->id )}}" class="btn text-white" style="background-color: #dcbf7d"><i class="fa-solid fa-pen"></i> Edit</a>
                     </div>
-
-                    <div>
-                        <p><span><i class="fa-solid fa-location-dot icon-input"></i></span>{{ Str::limit($accommodation->address, 40) }}</p>
-                    </div>
-
-                    <div>
-                        <p class="fw-bold"><span><i class="fa-solid fa-money-bill icon-input"></i></span>￥{{ $accommodation->price }}</p>
-                    </div>
-
-                    <div>
-                        <p class="fw-bold"><span><i class="fa-solid fa-users icon-input"></i></span>{{ $accommodation->capacity }}</p>
-                    </div>
-                </div>
-
-                <div class="col my-auto">
-                    <button class="btn text-white" style="background-color: #A5A5A5" data-bs-toggle="modal" data-bs-target="#delete-acm-{{ $accommodation->id }}"><i class="fa-solid fa-trash-can"></i> Delete</button>
-                    <button class="btn text-white" style="background-color: #dcbf7d"><i class="fa-solid fa-pen"></i> Edit</button>
                 </div>
             </div>
-        </a>
+
+
+        </div>
         @include('modals_host.delete')
     @endforeach
 @else

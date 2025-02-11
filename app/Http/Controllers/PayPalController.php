@@ -44,14 +44,30 @@ public function capturePayment(Request $request)
     $provider->setAccessToken($token);
 
     // リダイレクトURLからtoken（注文ID）を取得
-    $orderId = $request->query('token');  // PayPalからのトークンを受け取る
+    $orderId = $request->query('token'); 
+    
+    // PayPalからのトークンを受け取る
+    $data = [
+        'payer_id' => $request->query('PayerID'), // PayerIDを取得して渡す
+        'payment_source' => [
+            'paypal' => [
+                'email' => $request->query('PayerEmail'), // PayPalのメールアドレスを追加
+            ]
+        ]
+    ];
 
     // 注文ID（$orderId）を使用して支払い確認
 
-    $response = $provider->confirmOrder($orderId, $additionalParam); // 注文IDを渡す
+    $response = $provider->confirmOrder($orderId, $data); // 注文IDを渡す
 
-    if ($response['status'] == 'COMPLETED') {
-        return view('payment.success'); // 支払い完了画面
+    dd($response); 
+
+
+    if (isset($response['status']) && $response['status'] == 'COMPLETED') {
+        return view('home'); // 支払い完了画面
+    } elseif (isset($response['status']) && $response['status'] == 'PAYER_ACTION_REQUIRED') {
+        // 支払いに追加アクションが必要な場合、PayPalのページにリダイレクト
+        return redirect($response['links'][1]['href']);
     } else {
         return back()->with('error', '支払いに失敗しました。');
     }

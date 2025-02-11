@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
+    //
+
     protected $message;
 
     public function __construct(Message $message)
@@ -16,35 +18,36 @@ class MessageController extends Controller
         $this->message = $message;
     }
     public function index(Request $request)
-{
-    $search = $request->input('search');
+    {
+        $user = Auth::user(); // 現在の認証されたユーザーを取得
+        $search = $request->input('search');
 
-    // 検索ワードがあればユーザー名で検索
-    if ($search) {
-        $all_users = User::where('name', 'like', '%' . $search . '%')
-                         ->where('id', '!=', Auth::id()) // 自分を除外
-                         ->get();
-    } else {
-        // 検索ワードがなければすべてのユーザーを表示（自分を除外）
-        $all_users = User::where('id', '!=', Auth::id())->get();
+        // 検索ワードがあればユーザー名で検索
+        if ($search) {
+            $all_users = User::where('name', 'like', '%' . $search . '%')
+                            ->where('id', '!=', $user->id) // 自分を除外
+                            ->get();
+        } else {
+            // 検索ワードがなければすべてのユーザーを表示（自分を除外）
+            $all_users = User::where('id', '!=', $user->id)->get();
+        }
+
+        // 各ユーザーとの最新メッセージを取得
+        $all_users = $all_users->map(function($userItem) use ($user) {
+            // 各ユーザーとの最新メッセージを取得
+            $userItem->latest_message = $userItem->latestMessage($user->id);
+            return $userItem;
+        });
+
+        // メッセージの日時がない場合は非常に古い日付 (例えば、now() より前) を設定
+        $all_users = $all_users->sortByDesc(function($userItem) {
+            // メッセージが存在しない場合は適当な古い日付を使う
+            return $userItem->latest_message ? $userItem->latest_message->created_at : now()->subYears(100);
+        });
+
+        return view('messages.index', compact('all_users'));
     }
 
-    // 各ユーザーとの最新メッセージを取得
-    foreach ($all_users as $user) {
-        $user->latest_message = Message::where(function($query) use ($user) {
-                $query->where('sender_id', Auth::id())
-                      ->where('receiver_id', $user->id);
-            })
-            ->orWhere(function($query) use ($user) {
-                $query->where('sender_id', $user->id)
-                      ->where('receiver_id', Auth::id());
-            })
-            ->latest()
-            ->first();
-    }
-
-    return view('messages.index', compact('all_users'));
-}
 
     public function show($id)
     {
@@ -114,8 +117,5 @@ class MessageController extends Controller
 
     return view('messages.index', compact('all_users'));
 }
-
-
-
 
 }

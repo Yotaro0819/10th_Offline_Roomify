@@ -13,6 +13,7 @@ use App\Http\Controllers\HashtagController;
 use App\Http\Controllers\HostRequestController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PayPalController;
 
@@ -20,9 +21,7 @@ use App\Http\Controllers\PayPalController;
 
 
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
 Route::get('/accommodation/pictures/{id}', [AccommodationController::class, 'pictureIndex'])->name('accommodation.pictures');
@@ -60,15 +59,20 @@ Route::get('/search_by_filters', [AccommodationController::class, 'search_by_fil
 
 
 
-    //Araki route
-
-    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
-    Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('messages.show');
-    Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
-    Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
-    //Araki route end
+//Araki route
+Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('messages.show');
+Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
+Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
+//Araki route end
 
 // host routes
+Route::group(['middleware' => 'host'], function(){
+    Route::get('/host/res',function(){
+        return view('hostRes');
+    });
+});
+
 Route::group(['prefix' => 'host', 'as' => 'host.', 'middleware' => 'host'], function(){
     Route::get('/res', [BookingController::class, 'reservation_host'])->name('reservation_host');
     // Route::get('/res/{bookingId}', [BookingController::class, 'showBookingStatus'])->name('showBookingStatus');

@@ -203,6 +203,9 @@ input::placeholder {
     color: #004aad;
     border-bottom: 5px solid #dcbf7d;
     margin-bottom: 10px;
+    text-align: left;
+    position: relative;
+    top: -100px;
 }
 
 .card-container{
@@ -213,7 +216,7 @@ input::placeholder {
 
 .card-container .card{
     width: calc(33.33% - 16px);
-    padding: 20px;
+    padding: 10px;
     text-align: left;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -328,7 +331,7 @@ footer .right{
                 Experience Authentic Tokyo.
             </h2>
             <br>
-            <p id="hero_p">
+            <p>
                 Turn your Tokyo trip into a personal story.Unique stays,<br>
                 unforgettable moments, and memorises to last a lifetime.
             </p>
@@ -376,7 +379,7 @@ footer .right{
                 <p>Earn extra just by renting your propety...</p>
                 <br>
                 @if(Auth::check() && Auth::user()->role == '2')
-                <a href="#" class="btn">Go host page</a>
+                <a href="{{ route('host.index')}}" class="btn">Go host page</a>
                 @else
                 <a href="{{ route('hostRequest.create')}}" class="btn">Become A Host</a>
                 @endif
@@ -390,39 +393,40 @@ footer .right{
     <section class="properties">
         <div class="container d-flex">
             <div class="w-100">
-                <img src="https://images.pexels.com/photos/16095241/pexels-photo-16095241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;
-                border-radius: 50px;" class="image2">
-            </div>
-            <div class="w-100">
-                <h2 class="mx-auto">
+                <h2 class="ms-0">
                     Featured Properties<br>
                     on our Listing
                 </h2>
                 <div class="card-container">
-                     <div class="card mx-auto" style="width: 60%; height: auto;">
-                        <img src="" alt="">
-                        <h3>Bilding Name</h3>
-                        <p class="address">Address</p>
-                        <div class="row">
-                            <div class="col-auto">
-                                <h4 id="price">$price</h4>
+                    @foreach($accommodations->take(6) as $accommodation)
+                     <div class="card mx-auto">
+                        <a href="{{ route('accommodation.show', $accommodation->id) }}" class="stretched-link">
+                            @if ($accommodation->photos->isNotEmpty())
+                                <img src="{{ $accommodation->photos->first()->url }}" alt="Accommodation Image">
+                            @else
+                                <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available">
+                            @endif
+                            <h3>{{ $accommodation->name }}</h3>
+                            <p class="address">{{ $accommodation->address }}</p>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <h4 id="price">${{ $accommodation->price }}</h4>
+                                </div>
+                                <div class="col-auto">
+                                    <p id="night">/ {{ $accommodation->capacity }}</p>
+                                </div>
                             </div>
-                            <div class="col-auto">
-                                <p id="night">/ 6 night</p>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <p><i class="fa-regular fa-user"></i> {{ $accommodation->capacity }}Sleeps</p>
+                                </div>
+                                <div class="col-auto">
+                                    <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> {{ $accommodation->city }}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-auto">
-                                <p><i class="fa-solid fa-bed"></i> 4 Beds</p>
-                            </div>
-                            <div class="col-auto">
-                                <p><i class="fa-regular fa-user"></i> 8 Sleeps</p>
-                            </div>
-                            <div class="col-auto">
-                                <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> 1350 Sq Ft</p>
-                            </div>
-                        </div>
+                        </a>
                      </div>
+                    @endforeach
                 </div>
             </div>
 
@@ -432,17 +436,17 @@ footer .right{
     <section class="discover">
         <div class="container row">
                 <div class="col-6">
-                    <h2>
-                        Discover More<br>
-                        About Property<br>
-                        Rental
-                    </h2>
-                    <p>
-                        hbhbhbbhbhbhbhbhbhbhbhbhbhbbhbhbhbhbhb
-                        bhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbb
-                        bhbhbhbhbhbhbhbhbhbhbhbhbhbhbhhbhbhbhb
-                    </p>
-                    <a href="#" class="btn">Discover More</a>
+                    @if(Auth::check() && Auth::user()->role == '2')
+                        <h2>Writing a Newsletter!</h2>
+                        <p>When you list a property, you can send a newsletter<br>
+                         to past guests who have stayed there before!</p>
+                        <a href="#" class="btn">Try Writing a Newsletter</a>
+                    @else
+                        <h2>Would You Like to Receive Newsletters ?</h2>
+                        <p>You can recieve newsletters from the hosts of <br>
+                            accommodations you've stayed at in past!</p>
+                        <a href="#" class="btn">Check Your Newsletter</a>
+                    @endif
                 </div>
                 <div class="col-6">
                     <img src="https://images.pexels.com/photos/16277345/pexels-photo-16277345.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image3">

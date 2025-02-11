@@ -25,6 +25,7 @@ class AccommodationSeeder extends Seeder
             'longitude'     => 139.74543290,
             'capacity'      => 5,
             'description'   => 'Perfect place to stay.',
+            'rank'          => 'C',
             'created_at'    => now(),
             'updated_at'    => now(),
         ],
@@ -38,6 +39,7 @@ class AccommodationSeeder extends Seeder
             'longitude'     => 139.81079460,
             'capacity'      => 4,
             'description'   => 'Enjoy stay with very sceanic view',
+            'rank'          => 'B',
             'created_at'    => now(),
             'updated_at'    => now(),
         ],
@@ -51,6 +53,8 @@ class AccommodationSeeder extends Seeder
             'longitude'     => 139.71250650,
             'capacity'      => 10,
             'description'   => 'Sinjuku Gyoen is a authentic place in Japan. This appotunity is limited to you.',
+            'rank'          => 'C',
+
             'created_at'    => now(),
             'updated_at'    => now(),
         ],
@@ -64,6 +68,7 @@ class AccommodationSeeder extends Seeder
             'longitude'     => 139.69314980,
             'capacity'      => 5,
             'description'   => "It's a tranquil place surrounded by abundant greenery.",
+            'rank'          => 'A',
             'created_at'    => now(),
             'updated_at'    => now(),
         ],
@@ -77,9 +82,23 @@ class AccommodationSeeder extends Seeder
             'longitude'     => 139.70299980,
             'capacity'      => 3,
             'description'   => 'It is a traditional Japanese building with a rich history. Staying here will become a treasured experience in your life.',
+            'rank'          => 'B',
             'created_at'    => now(),
             'updated_at'    => now(),
-        ]
+        ],
+        [
+            'name'          => 'Senso-ji Temple',
+            'user_id'       => 3,
+            'address'       => '2-3-1 Asakusa, Taito City, Tokyo, Japan',
+            'price'         => 25000,
+            'city'          => 'Taito City',
+            'latitude'      => 35.714765,
+            'longitude'     => 139.796655,
+            'capacity'      => 5,
+            'description'   => 'Stay near the historic Senso-ji Temple and experience traditional Japan.',
+            'created_at'    => now(),
+            'updated_at'    => now(),
+        ],
     ];
 
     DB::table('accommodations')->insert($accommodations);

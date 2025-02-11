@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('longitude', 11, 8)->nullable();
             $table->integer('capacity');
             $table->text('description');
+            $table->enum('rank',['A', 'B', 'C'])->default('C');
             $table->timestamps();
 
             // 外部キー制約（user_id, category_id）
