@@ -189,20 +189,20 @@
 
                     <div class="range-slider">
                         <span class="slider-track"></span>
-                        <input type="range" name="min_val" id="min_val" min="1000" max="12000" value="2000">
-                        <input type="range" name="max_val" id="max_val" min="1000" max="12000" value="2000">
+                        <input type="range" name="min_val" id="min_val" min="0" max="12000" value="2000">
+                        <input type="range" name="max_val" id="max_val" min="0" max="12000" value="7000">
                         <div class="tooltip min-tooltip"></div>
                         <div class="tooltip max-tooltip"></div>
 
                     </div>
                     <div class="input-box">
                         <div class="min-box">
-                            <div class="input-trap">
+                            <div class="input-wrap">
                                 <input type="text" name="min_input" class="input-field min-input">
                             </div>
                         </div>
                         <div class="max-box">
-                            <div class="input-trap">
+                            <div class="input-wrap">
                                 <input type="text" name="max_input" class="input-field max-input">
                             </div>
                         </div>
@@ -210,142 +210,106 @@
                 </div>
             </div>
 
+<style>
+    .range-slider {
+        position: relative;
+        width: 100%;
+        height: 5px;
+        margin: 30px 0;
+        background-color: #8a8a8a;
+    }
+/*
+.slider-track {
+    height: 100%;
+    position: absolute;
+    background-color: #fe696a;
+}
 
-            <style>
-                .range-slider{
-                    position: relative;
-                    width: 100%;
-                    height: 5px;
-                    margin: 30px 0;
-                    background-color: #8a8a8a;
-                }
+.range-slider input {
+    position: absolute;
+    width: 100%;
+    background: none;
+    pointer-events: none;
+    top: 50%;
+    transform: translateY(-50%);
+    appearance: none;
+}
 
-                .slider-track{
-                    height:100%;
-                    position: absolute;
-                    background-color: #004aad;
-                }
+input[type="range"]::-webkit-slider-thumb {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 3px solid #FFF;
+    background: #FFF;
+    pointer-events: auto;
+    appearance: none;
+    cursor: pointer;
+    box-shadow: 0 .125rem .5625rem -0.125rem rgba(0, 0, 0, .25);
+}
 
-                .range-slider input{
-                    position: absolute;
-                    width: 100%;
-                    background-color: none;
-                    pointer-events: none;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    appearance: none;
-                }
+input[type="range"]::-moz-range-thumb {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 3px solid #FFF;
+    background: #FFF;
+    pointer-events: auto;
+    -moz-appearance: none;
+    cursor: pointer;
+    box-shadow: 0 .125rem .5625rem -0.125rem rgba(0, 0, 0, .25);
+}
 
-                input[type="range"]::-webkit-slider-thumb{
-                    height: 25px;
-                    width: 25px;
-                    border-radius: 50%;
-                    border: 3px solid #ffffff;
-                    background: #ffffff;
-                    pointer-events: auto;
-                    appearance: none;
-                    cursor: pointer;
-                    box-shadow: 0 .125rem .5625rem -0.125rem rgba(0, 0, 0, 25);
-                }
 
-                input[type="range"]::-moz-range-thumb{
-                    height: 25px;
-                    width: 25px;
-                    border-radius: 50%;
-                    border: 3px solid #ffffff;
-                    background: #ffffff;
-                    pointer-events: auto;
-                    cursor: pointer;
-                    -moz-appearance: none;
-                    box-shadow: 0 .125rem .5625rem -0.125rem rgba(0, 0, 0, 25);
-                }
+.input-box {
+    display: flex;
+}
 
-                .tooltip{
-                    padding: .25rem .5rem;
-                    border: 0;
-                    background: #373f50;
-                    color: #ffffff;
-                    font-size: .75rem;
-                    line-height: 1.2;
-                    border-radius: .25rem;
-                    bottom: 120%;
-                    display: block;
-                    position: absolute;
-                    text-align:center;
-                    white-space: nowrap;
-                }
+.min-box,
+.max-box {
+    width: 50%;
+}
 
-                .min-tooltip{
-                    left: 50%;
-                    transform: translateX(-50%) translateY(-100%);
-                    z-index: 5;
-                }
+.min-box {
+    padding-right: .5rem;
+    margin-right: .5rem;
+}
 
-                .max-tooltip{
-                    right: 50%;
-                    transform: translateX(50%) translateY(-100%);
-                }
+.input-wrap {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+}
 
-                .input-box{
-                    display: flex;
-                }
+.tooltip{
+    padding: .25rem .5rem;
+    border: 0;
+    background-color: #373f50;
+    color: #FFF;
+    font-size: .75rem;
+    line-height: 1.2;
+    border-radius: .25rem;
+    bottom: 120%;
+    display: block;
+    position: absolute;
+    text-align: center;
+    white-space: nowrap;
+}
 
-                .min-box, .max-box{
-                    width: 50%;
-                }
+.min-tooltip{
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+    z-index: 5;
+}
 
-                .min-box{
-                    padding-right:.5rem;
+.max-tooltip{
+    right: 50%;
+    transform: translateX(50%) translateY(-100%);
+} */
 
-                    margin-right: .5rem
-                }
+</style>
 
-                .input-wrap{
-                    position: relative;
-                    display:flex;
-                    flex-wrap: wrap;
-                    align-items: stretch;
-                    width: 100%;
-
-                }
-
-                .inout-addon{
-                    display:flex;
-                    align-items: center;
-                    padding: .625rem 1rem;
-                    font-size: 0.9375rem;
-                    font-weight: 400;
-                    line-height: 1.5;
-                    color: #4b566b;
-                    text-align: center;
-                    white-space: nowrap;
-                    background-color: #fff;
-                    border: 1px solid #d4d7e5;
-                    border-radius: .25rem;
-                    border-top-right-radius: 0;
-                    border-bottom-right-radius: 0;
-                }
-
-                .input-field{
-                    margin-left: -1ps;
-                    padding: .425rem .75rem;
-                    font-size: 0.8125rem;
-                    border-radius: .25rem;
-                    position: relative;
-                    flex: 1 1 auto;
-                    width: 1%;
-                    min-width: 0;
-                    color: #4b566b;
-                    background-color: #ffff;
-                    background-clip: padding-box;
-                    border: 1px solid #d4d7e5;
-                    border-top-left-radius: 0;
-                    border-bottom-right-radius: 0;
-                }
-                .input-field:focus{
-                    outline: none;
-                }
-            </style>
 
             <div class="row my-4">
                 <div class="col me-5">
