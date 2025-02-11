@@ -16,9 +16,13 @@ return new class extends Migration
             $table->date('check_in_date');
             $table->date('check_out_date');
             $table->integer('num_guest');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('guest_id')->constrained('users')->ondelete('cascade');
+            $table->foreignId('host_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('accommodation_id')->constrained('accommodations')->onDelete('cascade');
             $table->timestamps();
+            $table->string('guest_name', 50)->nullable();
+            $table->string('guest_email');
+            $table->text('special_request')->nullable();
             $table->integer('status')->default(1); //(1: confirmed, 2: processing, 0: canceled)
         });
     }

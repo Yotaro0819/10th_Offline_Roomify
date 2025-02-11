@@ -120,6 +120,15 @@ a
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <a href="{{ route('search') }}" class="find-button">Find a Property</a>
+                        @if(Auth::user())
+                        {{-- if login user is guest or admin, bookings for guest is shown --}}
+                        <a href="{{ route('messages.index', Auth::user()->id) }}" class="find-button ms-3">Messages</a>
+                        <a href="{{ route('guest.reservation_guest')}}" class="find-button ms-3">Your booings</a>
+                            @if(Auth::user()->role === "2")
+                        {{-- if login user is host, bookings for your accommodation is also shown --}}
+                            <a href="{{ route('host.reservation_host')}}" class="find-button ms-3">Guest's Bookings</a>
+                            @endif
+                        @endif
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
