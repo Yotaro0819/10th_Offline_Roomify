@@ -7,8 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class Booking extends Model
 {
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function guest(){
+        return $this->belongsTo(User::class, 'guest_id');
+    }
+
+    public function host()
+    {
+        return $this->belongsTo(User::class, 'host_id');
     }
 
     public function accommodation()
@@ -16,8 +21,8 @@ class Booking extends Model
         return $this->belongsTo(Accommodation::class);
     }
 
-    public function specialRequest()
-    {
-        return $this->hasOne(SpecialRequest::class);
-    }
+    // public function specialRequest()
+    // {
+    //     return $this->hasOne(specialRequest::class);
+    // }
 }

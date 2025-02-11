@@ -20,6 +20,7 @@ class BookingSeeder extends Seeder{
                 'check_out_date' => Carbon::now()->addDays(3)->toDateString(),
                 'status' => 1, // 1 for 'confirmed'
                 'num_guest' => 2,
+                'host_name' => 'host',
                 'guest_name' => 'guest1',
                 'guest_email' => 'guest1@example.com',
                 'created_at' => Carbon::now(),
@@ -33,8 +34,9 @@ class BookingSeeder extends Seeder{
                 'check_out_date' => Carbon::now()->addDays(6)->toDateString(),
                 'status' => 2, // 2 for 'pending'
                 'num_guest' => 3,
-                'guest_name' => 'guest4',
-                'guest_email' => 'guest4@example.com',
+                'host_name' => 'host',
+                'guest_name' => 'guest2',
+                'guest_email' => 'guest2@example.com',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],

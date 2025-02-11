@@ -20,7 +20,8 @@ return new class extends Migration
             $table->foreignId('host_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('accommodation_id')->constrained('accommodations')->onDelete('cascade');
             $table->timestamps();
-            $table->string('guest_name', 50)->nullable();
+            $table->string('host_name', 50);
+            $table->string('guest_name', 50);
             $table->string('guest_email');
             $table->text('special_request')->nullable();
             $table->integer('status')->default(1); //(1: confirmed, 2: processing, 0: canceled)
