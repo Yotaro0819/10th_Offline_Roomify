@@ -81,17 +81,30 @@
     }
 
     .message-box {
-    min-height: 200px;
-    max-height: 500px; /* 必要に応じて高さを設定 */
-    overflow-y: auto; /* 垂直方向のスクロールを有効にする */
-    border-top: 1px solid rgb(165, 165, 165);
-    overscroll-behavior: contain;
+        min-height: 200px;
+        max-height: 500px; /* 必要に応じて高さを設定 */
+        overflow-y: auto; /* 垂直方向のスクロールを有効にする */
+        border-top: 1px solid rgb(165, 165, 165);
+        overscroll-behavior: contain;
     }
     .noMessage {
         height: 200px;
         display:flex;
         align-items:center;
         justify-content:center;
+    }
+
+    .notification-section {
+        min-height:200px;
+        max-height: 500px;
+        max-width: 300px;
+        overflow-y: auto;
+        overscroll:behavior: contain;
+    }
+
+    .notification {
+        height: 100px;
+        text-align:left;
     }
 
 
@@ -153,9 +166,17 @@
             </div>
             </div>
         </div>
-        <div class="border ms-4 rounded">
+        <div class="border ms-4 rounded-4">
             <h3 class="mt-4 text-center text-danger">Important infomations</h3>
-
+            <div class="notification-section">
+                @foreach ($notifications as $notification)
+                    <div class="card m-2 ">
+                        <div class="card-body notification">
+                            <p class="fw-bold">{{ $notification->title}}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 </div>

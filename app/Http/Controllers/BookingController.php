@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Booking;
 use App\Models\Accommodation;
+use App\Models\Notification;
 use App\Models\User;
 
 class BookingController extends Controller
@@ -152,6 +153,13 @@ class BookingController extends Controller
 
         $booking->status = 0;
         $booking->delete();
+
+
+        Notification::create([
+            'receiver_id' => $booking->host_id,
+            'title' => $booking->guest_name . ' canceled the booking for '. $booking->accommodation->name,
+            'notification' => $booking->guest_name . ' canceled the booking for '. $booking->accommodation->name,
+        ]);
 
         return redirect()->route('guest.reservation_guest')->with('success', 'Your reservation has been canceled.');
     }
