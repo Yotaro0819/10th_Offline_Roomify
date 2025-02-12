@@ -105,7 +105,7 @@
     <!-- search side -->
     <div class="col-4">
         <!-- address search -->
-        <form action="{{ route('search_by_keyword')}}" method="get">
+        <form action="{{ route('guest.search_by_keyword')}}" method="get">
             @csrf
             @method("GET")
 
@@ -120,7 +120,7 @@
             </div>
         </form>
 
-        <form action="{{ route('search_by_filters')}}" method="get">
+        <form action="{{ route('guest.search_by_filters')}}" method="get">
             @csrf
             @method("GET")
 
@@ -189,8 +189,8 @@
 
                     <div class="range-slider">
                         <span class="slider-track"></span>
-                        <input type="range" name="min_val" id="min_val" min="0" max="12000" value="2000">
-                        <input type="range" name="max_val" id="max_val" min="0" max="12000" value="7000">
+                        <input type="range" name="min_val" id="min_val" min="0" max="12000" value="2000" oninput="slideMin()">
+                        <input type="range" name="max_val" id="max_val" min="0" max="12000" value="7000" oninput="slideMax()">
                         <div class="tooltip min-tooltip"></div>
                         <div class="tooltip max-tooltip"></div>
 
@@ -218,97 +218,163 @@
         margin: 30px 0;
         background-color: #8a8a8a;
     }
-/*
-.slider-track {
-    height: 100%;
-    position: absolute;
-    background-color: #fe696a;
-}
+    .slider-track {
+        height: 100%;
+        position: absolute;
+        background-color: #fe696a;
+    }
 
-.range-slider input {
-    position: absolute;
-    width: 100%;
-    background: none;
-    pointer-events: none;
-    top: 50%;
-    transform: translateY(-50%);
-    appearance: none;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    border: 3px solid #FFF;
-    background: #FFF;
-    pointer-events: auto;
-    appearance: none;
-    cursor: pointer;
-    box-shadow: 0 .125rem .5625rem -0.125rem rgba(0, 0, 0, .25);
-}
-
-input[type="range"]::-moz-range-thumb {
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    border: 3px solid #FFF;
-    background: #FFF;
-    pointer-events: auto;
-    -moz-appearance: none;
-    cursor: pointer;
-    box-shadow: 0 .125rem .5625rem -0.125rem rgba(0, 0, 0, .25);
-}
+    .range-slider input {
+        position: absolute;
+        width: 100%;
+        background: none;
+        pointer-events: none;
+        top: 50%;
+        transform: translateY(-50%);
+        appearance: none;
+    }
 
 
-.input-box {
-    display: flex;
-}
+    input[type="range"]::-webkit-slider-thumb {
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        border: 3px solid #FFF;
+        background: #FFF;
+        pointer-events: auto;
+        appearance: none;
+        cursor: pointer;
+        box-shadow: 0 .125rem .5625rem -0.125rem rgba(0, 0, 0, .25);
+    }
 
-.min-box,
-.max-box {
-    width: 50%;
-}
+    input[type="range"]::-moz-range-thumb {
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        border: 3px solid #FFF;
+        background: #FFF;
+        pointer-events: auto;
+        cursor: pointer;
+        -moz-appearance: none;
+        box-shadow: 0 .125rem .5625rem -0.125rem rgba(0, 0, 0, .25);
+    }
 
-.min-box {
-    padding-right: .5rem;
-    margin-right: .5rem;
-}
+    .tooltip{
+        padding: .25rem .5rem;
+        border: 0;
+        background: #373f50;
+        color: #FFF;
+        font-size: .75rem;
+        line-height: 1.2;
+        border-radius: .25rem;
+        bottom: 120%;
+        display: block;
+        position: absolute;
+        text-align: center;
+        white-space: nowrap;
+    }
 
-.input-wrap {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    width: 100%;
-}
+    .min-tooltip{
+        left: 50%;
+        transform: translateX(-50%) translateY(-100%);
+        z-index: 5;
+    }
 
-.tooltip{
-    padding: .25rem .5rem;
-    border: 0;
-    background-color: #373f50;
-    color: #FFF;
-    font-size: .75rem;
-    line-height: 1.2;
-    border-radius: .25rem;
-    bottom: 120%;
-    display: block;
-    position: absolute;
-    text-align: center;
-    white-space: nowrap;
-}
+    .max-tooltip{
+        right: 50%;
+        transform: translateX(50%) translateY(-100%);
+    }
+    .input-box {
+        display: flex;
+    }
+    .min-box,
+    .max-box {
+        width: 50%;
+    }
 
-.min-tooltip{
-    left: 50%;
-    transform: translateX(-50%) translateY(-100%);
-    z-index: 5;
-}
+    .min-box {
+        padding-right: .5rem;
+        margin-right: .5rem;
+    }
+    .input-wrap {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        width: 100%;
+    }
 
-.max-tooltip{
-    right: 50%;
-    transform: translateX(50%) translateY(-100%);
-} */
+    .input-adddon{
+        display: flex;
+        align-items: center;
+        padding: .625rem 1rem;
+        font-size: 0.9375rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #4b566b;
+        text-align: center;
+        white-space: nowrap;
+        background-color: #fff;
+        border: 1px solid #d4d4d4;
+        border-radius: .25erem;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
 
+    .input-field{
+        margin-left: -1px;
+        padding: .425rem .75rem;
+        font-size: 0.8125rem;
+        border-radius: .25rem;
+        position: relative;
+        flex: 1 1 auto;
+        width: 1%;
+        min-width: 0;
+        color: #4b566b;
+        background-color: #ffff;
+        background-clip: padding-box;
+        border: 1px solid #d4d4d4;
+        border-top-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .input-field:focus{
+        outline: none;
+    }
 </style>
+<script>
+    window.onload = function(){
+        slideMin();
+    }
+
+    const minVal = document.querySelector(".min-val");
+    const maxVal = document.querySelector(".max-val");
+    const priceInputMin = document.querySelector(".min-input");
+    const priceInputMax = document.querySelector(".max-input");
+    const minTooltip = document.querySelector(".min-tooltip");
+    const maxTooltip = document.querySelector(".max-tooltip");
+    const minGap = 0;
+    const range = document.querySelector(".slider-track");
+    const sliderMinValue = parseInt(minVal.min);
+    const sliderMaxValue = parseInt(maxVal.max);
+
+    function slideMin(){
+        let gap = perseInt(maxVal.value) - perseInt(minVal.val);
+        if(gap <= minGap){
+            minVal.value = perseInt(maxVal.value) - minGap;
+        }
+        minTooltip.innerHTML = "$" + minVal.value;
+        priceInputMin.value = minVal.value;
+    }
+
+    functon slideMax(){
+        let gap = perseInt(maxVal.value) - perseInt(minVal.val);
+        if(gap <= minGap){
+            minVal.value = perseInt(maxVal.value) - minGap;
+        }
+    }
+
+</script>
 
 
             <div class="row my-4">
