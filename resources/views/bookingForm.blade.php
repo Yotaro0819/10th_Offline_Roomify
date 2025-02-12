@@ -141,7 +141,7 @@
 
     <!-- left side -->
     <div class="col-7 w-50 mt-3">
-        <form action="{{ route('guest.booking.store', $accommodation->id )}}" method="post">
+        <form action="{{ route('paypal.payment', $accommodation->id )}}" method="post">
         @csrf
 
         <div class="row mb-4">

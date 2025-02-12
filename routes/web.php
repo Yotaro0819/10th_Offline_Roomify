@@ -117,8 +117,9 @@ Route::delete('/coupones/{id}/delete', [CouponController::class, 'destroy'])->na
 Route::get('/paypal', function () {
     return view('paypal');
 })->name('paypal');
-Route::post('/paypal/payment', [PayPalController::class, 'createPayment'])->name('paypal.payment');
-Route::get('/payment/capture', [PaypalController::class, 'capturePayment'])->name('payment.capture');
+Route::post('/paypal/{id}/payment', [PayPalController::class, 'createPayment'])->name('paypal.payment');
+Route::get('/paypal/{id}/capture', [PaypalController::class, 'capturepayment'])->name('paypal.capture');
+Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal.cancel');
 
 
 

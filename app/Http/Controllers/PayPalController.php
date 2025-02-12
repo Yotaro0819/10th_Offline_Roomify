@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
-
+use App\Models\Payment;
+use Illuminate\Support\Facades\Auth;
 
 class PaypalController extends Controller
 {
-    
-public function createPayment()
+
+public function createPayment(Request $request, $accommodation_id)
 {
     $provider = new PayPalClient;
     $provider->setApiCredentials(config('paypal'));
@@ -19,8 +20,8 @@ public function createPayment()
     $response = $provider->createOrder([
         "intent" => "CAPTURE",
         "application_context" => [
-            "return_url" => route('payment.capture'),
-            "cancel_url" => route('canscel')
+            "return_url" => route('paypal.capture'),
+            "cancel_url" => route('paypal.cancel')
         ],
         "purchase_units" => [
             [
@@ -33,16 +34,18 @@ public function createPayment()
     ]);
 
 //  dd($response);
- if(isset($response["id"]) && $response['id'] != null){
+    if(isset($response["id"]) && $response['id'] != null){
     foreach ($response['links'] as $link){
         if($link['rel'] == 'approve') {
             // session() ->put('product_name', $request->product_name);
             // session() ->put('quantity', $request->quantity);
+            session() ->put('accommodation_id', $accommodation_id);
+            session() ->put('payment_info', $request->all());
             return redirect()->away($link['href']);
         }
     }
     }else {
-        return redirect()->route(cansel);
+        return redirect()->route(cancel);
     }      
 }
 
@@ -50,38 +53,28 @@ public function capturePayment(Request $request)
 {
     $provider = new PayPalClient;
     $provider->setApiCredentials(config('paypal'));
-    $token = $provider->getAccessToken(); // アクセストークンの取得
-    $provider->setAccessToken($token);
+    $provider->getAccessToken();
+    $response = $provider->capturePaymentOrder($request->token);
 
-    // リダイレクトURLからtoken（注文ID）を取得
-    $orderId = $request->query('token'); 
-    
-    // PayPalからのトークンを受け取る
-    $data = [
-        'payer_id' => $request->query('PayerID'), // PayerIDを取得して渡す
-        'payment_source' => [
-            'paypal' => [
-                'email' => $request->query('PayerEmail'), // PayPalのメールアドレスを追加
-            ]
-        ]
-    ];
+    if(isset($response['status']) && $response['status'] == 'COMPLETED'){
 
-    // 注文ID（$orderId）を使用して支払い確認
+    $payment = new Payment;
+    $payment->payment_id = $response['id'];
+    $payment->amount = $response['purchase_units'][0]['payments']['captures'][0]['amount']['value'];
+    $payment->payment_method = "PayPal";
+    $payment->accommodation_id = session()->get('accommodation_id');
+    $payment->user_id = Auth::user()->id;
+    $payment->save();
 
-    $response = $provider->confirmOrder($orderId, $data); // 注文IDを渡す
-
-    dd($response); 
-
-
-    if (isset($response['status']) && $response['status'] == 'COMPLETED') {
-        return view('home'); // 支払い完了画面
-    } elseif (isset($response['status']) && $response['status'] == 'PAYER_ACTION_REQUIRED') {
-        // 支払いに追加アクションが必要な場合、PayPalのページにリダイレクト
-        return redirect($response['links'][1]['href']);
-    } else {
-        return back()->with('error', '支払いに失敗しました。');
+    return redirect()->route('guest.booking.store', session()->get('accommodation_id'));
+    }else{
+        return redirect()->route('cancel');
     }
 }
 
+public function Cancel()
+{
+    return view('paypal_cancel');
+}
 
 }
