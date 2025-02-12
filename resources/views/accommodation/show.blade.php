@@ -119,8 +119,8 @@
         </div>
         <div class="border-black border rounded w-50 m-4 sidePanel" id="openButton">
 
+            {{-- sidePanel --}}
             <div id="sidePanel" class="hidden">
-
                 <div id="closeButton" class="close-icon hidden"><i class="fas fa-angle-right angle"></i></div>
                 <h2 class="text-center">Comments</h2>
 

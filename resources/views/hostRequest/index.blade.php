@@ -13,7 +13,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>User Id</th>
+                <th>User</th>
                 <th>Message</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -23,7 +23,7 @@
 
             @forelse ($requests as $request)
             <tr>
-                <td>{{ $request->user_id }}</td>
+                <td>{{ $request->user->name }}</td>
                 <td>{{ $request->message }}</td>
                 <td>{{ $request->status }}</td>
                 <td>
@@ -32,10 +32,12 @@
                         @method('PATCH')
                         <button class="btn btn-success">Approve</button>
                     </form>
-                    <form action="{{ route('admin.hostRequest.reject', $request->id) }}" method="POST" class="d-inline">
-                        @csrf
-                        <button class="btn btn-danger">Reject</button>
-                    </form>
+
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#reject-request-{{ $request->id }}">
+                        Reject
+                    </button>
+                    @include('hostRequest.modal.reject')
+
                 </td>
             </tr>
             @empty
