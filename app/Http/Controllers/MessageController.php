@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,39 +20,36 @@ class MessageController extends Controller
     }
     public function index(Request $request)
     {
-        $user = Auth::user(); // 現在の認証されたユーザーを取得
+        $user = Auth::user();
+        $notifications = Notification::where('receiver_id', $user->id)->get();
         $search = $request->input('search');
 
-        // 検索ワードがあればユーザー名で検索
         if ($search) {
             $all_users = User::where('name', 'like', '%' . $search . '%')
-                            ->where('id', '!=', $user->id) // 自分を除外
+                            ->where('id', '!=', $user->id)
                             ->get();
         } else {
-            // 検索ワードがなければすべてのユーザーを表示（自分を除外）
             $all_users = User::where('id', '!=', $user->id)->get();
         }
 
-        // 各ユーザーとの最新メッセージを取得
         $all_users = $all_users->map(function($userItem) use ($user) {
-            // 各ユーザーとの最新メッセージを取得
             $userItem->latest_message = $userItem->latestMessage($user->id);
             return $userItem;
         });
 
-        // メッセージの日時がない場合は非常に古い日付 (例えば、now() より前) を設定
         $all_users = $all_users->sortByDesc(function($userItem) {
-            // メッセージが存在しない場合は適当な古い日付を使う
+
             return $userItem->latest_message ? $userItem->latest_message->created_at : now()->subYears(100);
         });
 
-        return view('messages.index', compact('all_users'));
+        return view('messages.index', compact('all_users', 'notifications'));
     }
 
 
     public function show($id)
     {
         $auth_id = Auth::user()->id;
+        $notifications = Notification::where('receiver_id', $auth_id)->get();
 
         $all_messages = Message::where(function ($query) use ($id) {
             $query->where('sender_id', Auth::user()->id)
@@ -66,7 +64,7 @@ class MessageController extends Controller
 
         $user = User::findOrFail($id);
 
-        return view('messages.show', compact('user', 'all_messages'));
+        return view('messages.show', compact('user', 'all_messages', 'notifications'));
     }
 
     public function store(Request $request, $id)
