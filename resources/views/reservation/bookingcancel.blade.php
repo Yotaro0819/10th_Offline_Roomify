@@ -10,7 +10,7 @@
     border-radius: 50px;
 }
 
-img 
+img
 {
     width: 100%;
     object-fit: cover;
@@ -49,12 +49,12 @@ img
 }
 
 .con{
-    border: 2px solid #ddd;          
-    padding: 20px;                    
-    background-color: #fff;           
+    border: 2px solid #ddd;
+    padding: 20px;
+    background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;                                       
-    margin: 20px auto;                
+    width: 100%;
+    margin: 20px auto;
 }
 
 .soft-highlight {
@@ -76,14 +76,14 @@ img
             <div class="row">
                 <div class="col-8">
                     <h4 class="m-0 soft-highlight">
-                    {{ \Carbon\Carbon::parse($booking->check_in_date)->format('Y/m/d') }} 〜 
+                    {{ \Carbon\Carbon::parse($booking->check_in_date)->format('Y/m/d') }} 〜
                     {{ \Carbon\Carbon::parse($booking->check_out_date)->format('Y/m/d') }}
                     </h4>
                 </div>
                 <div class="col-4 d-flex align-items-center">
                     <!-- <i class="fa-solid fa-circle-user"> -->
                     <i class="fa-solid fa-circle-user fs-3"></i>
-                    <h4 class="m-0 ms-2">{{ $booking->user->name}}</h4>
+                    <h4 class="m-0 ms-2">{{ $booking->guest_name}}</h4>
                 </div>
             </div>
             <div class="row mt-5">
@@ -95,7 +95,7 @@ img
                 </div>
                 <div class="col-6">
                     <p>{{ $booking->accommodation->name }}</p>
-                    <p>{{ $booking->user->name }}</p>
+                    <p>{{ $booking->host_name }}</p>
                     <p>{{ $booking->special_request ?? 'No special requests' }}</p>
 
                     @php
@@ -124,7 +124,7 @@ img
             <button type="submit" class="button-yes">Yes</button>
         </form>
 
-    
+
             <a href="{{ route('host.reservation_host') }}" class="button-no">No</a>
         </div>
     </div>

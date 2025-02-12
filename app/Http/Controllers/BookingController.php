@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Booking;
 use App\Models\Accommodation;
+use App\Models\User;
+
 class BookingController extends Controller
 {
     //
@@ -26,11 +28,11 @@ class BookingController extends Controller
 
         // return view('hostRes')->with('all_bookings', $all_accommodations);
 
-        $accommodationIds = $this->accommodation->where('user_id', Auth::id())->select('id');
+        $accommodationIds = $this->accommodation->where('host_id', Auth::id())->select('id');
 
-        $all_bookings = $this->booking->with(['accommodation', 'user'])->whereIn('accommodation_id', $accommodationIds)->latest()->paginate(3);
+        $all_bookings = $this->booking->with(['accommodation', 'guest', 'host'])->whereIn('accommodation_id', $accommodationIds)->latest()->paginate(3);
 
-        return view('hostRes', compact('all_bookings'));
+        return view('reservation/hostRes', compact('all_bookings'));
 
     }
 
@@ -62,13 +64,13 @@ class BookingController extends Controller
 
     public function confirmCancel($bookingId)
     {
-        $booking = Booking::with(['accommodation', 'user'])->find($bookingId);
+        $booking = Booking::with(['accommodation', 'guest', 'host'])->find($bookingId);
 
         if (!$booking) {
             return redirect()->route('host.reservation_host')->with('error', 'Booking not found.');
         }
 
-        return view('bookingcancel', compact('booking'));
+        return view('reservation/bookingcancel', compact('booking'));
 
     }
 
@@ -89,6 +91,8 @@ class BookingController extends Controller
     public function store(Request $request, $id)
     {
         $accommodation = $this->accommodation->findOrFail($id);
+        $hostId = $accommodation->user_id;
+        $hostName = User::findOrFail($hostId)->name;
 
         $request->validate([
             'check_in_date'     => 'required|date|after_or_equal:today',
@@ -100,17 +104,19 @@ class BookingController extends Controller
                                     'max:' . $accommodation->capacity
                                     ],
             'guest_name'        => 'required|string|max:50',
-            'email'             => 'required|email',
+            'guest_email'             => 'required|email',
             'special_request'   => 'nullable|max:500',
         ]);
 
-        $this->booking->user_id          = Auth::user()->id;
+        $this->booking->guest_id         = Auth::user()->id;
+        $this->booking->host_id          = $hostId;
         $this->booking->accommodation_id = $accommodation->id;
         $this->booking->check_in_date    = $request->check_in_date;
         $this->booking->check_out_date   = $request->check_out_date;
+        $this->booking->host_name        = $hostName;
         $this->booking->guest_name       = $request->guest_name;
         $this->booking->num_guest        = $request->num_guest;
-        $this->booking->email            = $request->email;
+        $this->booking->guest_email      = $request->guest_email;
         $this->booking->special_request  = $request->special_request;
         $this->booking->save();
 
@@ -120,27 +126,27 @@ class BookingController extends Controller
 //guest
     public function reservation_guest(){
 
-        $all_bookings = $this->booking->with(['accommodation', 'user'])->where('user_id', Auth::id())->latest()->paginate(3);
+        $all_bookings = $this->booking->with(['accommodation', 'guest', 'host'])->where('guest_id', Auth::id())->latest()->paginate(3);
 
-        return view('guestRes', compact('all_bookings'));
+        return view('reservation/guestRes', compact('all_bookings'));
     }
 
     public function confirmGuestCancel($bookingId)
     {
-        $booking = Booking::with(['accommodation', 'user'])->find($bookingId);
+        $booking = Booking::with(['accommodation', 'guest', 'host'])->find($bookingId);
 
-        if (!$booking || $booking->user_id !== Auth::id()) {
+        if (!$booking || $booking->guest_id !== Auth::id()) {
             return redirect()->route('guest.reservation_guest')->with('error', 'Booking not found or you do not have permission to cancel it.');
         }
 
-        return view('guest_bookingcancel', compact('booking'));
+        return view('reservation/guest_bookingcancel', compact('booking'));
     }
 
     public function guestCancel($bookingId)
     {
         $booking = Booking::find($bookingId);
 
-        if (!$booking || $booking->user_id !== Auth::id()) {
+        if (!$booking || $booking->guest_id !== Auth::id()) {
             return redirect()->route('guest.reservation_guest')->with('error', 'Booking not found or you do not have permission to cancel it.');
         }
 
