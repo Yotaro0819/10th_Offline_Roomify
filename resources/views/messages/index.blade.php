@@ -3,21 +3,8 @@
 @section('title', 'message_index')
 
 <link rel="stylesheet" href="{{ asset('css/messages/messagesIndex.css')}}">
+<link rel="stylesheet" href="{{ asset('css/messages/modal.css')}}">
 
-<style>
-     .notification-section {
-        min-height:200px;
-        max-height: 500px;
-        max-width: 300px;
-        overflow-y: auto;
-        overscroll:behavior: contain;
-    }
-
-    .notification {
-        height: 100px;
-        text-align:left;
-    }
-</style>
 @section('content')
 <div class="container mx-auto mt-4 mb-5" style="width: 70%;">
     <h2 style="margin-bottom:12.5px;">Messages</h2>

@@ -4,10 +4,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="h5 modal-title">
-                    {{$notification->title}}
+                   【{{$notification->title}}】
                 </h3>
             </div>
-                <div class="modal-body">
+                <div class="modal-body modal-notification-body">
                     <p>{{$notification->notification}}</p>
                 </div>
                 <div class="modal-footer border-0">

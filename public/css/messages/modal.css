@@ -1,0 +1,16 @@
+.notification-section {
+    min-height:200px;
+    max-height: 500px;
+    max-width: 300px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.notification {
+    height: 100px;
+    text-align:left;
+}
+
+.modal-notification-body {
+    height: 300px;
+}

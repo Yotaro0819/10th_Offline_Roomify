@@ -63,7 +63,7 @@ class BookingController extends Controller
         // create important notification -araki
         Notification::create([
             'receiver_id' => $booking->guest_id,
-            'title' => $booking->guest_name . ' canceled the booking of '. $booking->accommodation->name,
+            'title' => 'Host canceled your Booking',
             'notification' => $booking->guest_name . ' canceled the booking of '. $booking->accommodation->name,
         ]);
 
@@ -164,7 +164,7 @@ class BookingController extends Controller
         // create important notification -araki
         Notification::create([
             'receiver_id' => $booking->host_id,
-            'title' => $booking->guest_name . ' canceled the booking of '. $booking->accommodation->name,
+            'title' => 'Guest Canceled your Booking',
             'notification' => $booking->guest_name . ' canceled the booking of '. $booking->accommodation->name,
         ]);
 
