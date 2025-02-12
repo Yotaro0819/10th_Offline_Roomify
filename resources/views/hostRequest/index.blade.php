@@ -3,6 +3,9 @@
     main {
         min-height:54%;
     }
+    .border-none {
+        border:none;
+    }
 </style>
 @section('content2')
 <div class="container">
@@ -10,15 +13,15 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ユーザーID</th>
-                <th>メッセージ</th>
-                <th>ステータス</th>
-                <th>操作</th>
+                <th>User Id</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
 
-            @foreach ($requests as $request)
+            @forelse ($requests as $request)
             <tr>
                 <td>{{ $request->user_id }}</td>
                 <td>{{ $request->message }}</td>
@@ -35,7 +38,11 @@
                     </form>
                 </td>
             </tr>
-            @endforeach
+            @empty
+            <tr>
+                <td class="border-none fw-bold">No requests</td>
+            </tr>
+            @endforelse
         </tbody>
     </table>
 </div>
