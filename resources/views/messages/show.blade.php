@@ -1,101 +1,8 @@
 @extends('layouts.app')
 
 @section('title', 'Messages')
-
-<style>
-    .w-10 {
-        width: 10%;
-    }
-
-    .w-35 {
-        width: 35%;
-    }
-
-    .w-85 {
-        width: 85%;
-    }
-    .w-95 {
-        width: 95%;
-    }
-
-    .gray {
-        background-color: rgba(239, 239, 239, 0.884);
-    }
-
-    .message-card {
-    border-radius: 15px;
-    border: 1px solid #e0e0e0;
-    margin: 10px 0;
-    padding: 10px;
-    text-align: left; /* 中央揃えを解除 */
-}
-
-
-    .message-header {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .message-content {
-        margin-bottom: 5px;
-    }
-
-    .message-time {
-        font-size: 0.8rem;
-        color: gray;
-        text-align: right;
-    }
-
-    textarea {
-        border-radius: 10px;
-        resize: none;
-        font-size: 1rem;
-        padding: 0.5rem;
-        width: 100%;
-
-    }
-
-    textarea:focus {
-    outline: none;
-    }
-
-    .btn-send {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 10px;
-
-    }
-
-    .btn-cancel {
-        background-color: #6c757d;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 10px;
-    }
-
-    .textarea-edit {
-        border:none;
-    }
-
-    .message-box {
-    min-height: 200px;
-    max-height: 500px; /* 必要に応じて高さを設定 */
-    overflow-y: auto; /* 垂直方向のスクロールを有効にする */
-    border-top: 1px solid rgb(165, 165, 165);
-    overscroll-behavior: contain;
-    }
-    .noMessage {
-        height: 200px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-    }
-
-
-</style>
+<link rel="stylesheet" href="{{ asset('css/messages/modal.css')}}">
+.css')}}">
 
 @section('content')
 <div class="container mx-auto my-5" style="width: 70%;">
@@ -153,9 +60,21 @@
             </div>
             </div>
         </div>
-        <div class="border ms-4 rounded">
+        <div class="border ms-4 rounded-4">
             <h3 class="mt-4 text-center text-danger">Important infomations</h3>
-
+            <div class="notification-section">
+                @foreach ($notifications as $notification)
+                <div class="card m-2">
+                    <button class="btn" data-bs-toggle="modal" data-bs-target="#notification-{{ $notification->id }}">
+                        See detail
+                            <div class="card-body notification">
+                                <p class="fw-bold">{{ $notification->title}}</p>
+                            </div>
+                    </button>
+                </div>
+                    @include('messages.modal.notification')
+                @endforeach
+            </div>
         </div>
     </div>
 </div>

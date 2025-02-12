@@ -109,4 +109,9 @@ class User extends Authenticatable
         $this->hasMany(Booking::class, 'host_id');
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'receiver_id');
+    }
+
 }

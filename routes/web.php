@@ -95,6 +95,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::patch('/host-request/approve/{id}', [HostRequestController::class, 'approve'])->name('hostRequest.approve');
     Route::post('/host-request/reject/{id}', [HostRequestController::class, 'reject'])->name('hostRequest.reject');
 
+    //admin pages
     Route::get('/users', [AdminUsersController::class, 'index'])->name('users');
     Route::get('/people', [AdminUsersController::class, 'search'])->name('search');
     Route::delete('/users/{id}/deactivate', [AdminUsersController::class, 'deactivate'])->name('users.deactivate');
