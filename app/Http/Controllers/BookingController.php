@@ -60,6 +60,13 @@ class BookingController extends Controller
         $booking->status = 0;
         $booking->delete();
 
+        // create important notification -araki
+        Notification::create([
+            'receiver_id' => $booking->guest_id,
+            'title' => $booking->guest_name . ' canceled the booking of '. $booking->accommodation->name,
+            'notification' => $booking->guest_name . ' canceled the booking of '. $booking->accommodation->name,
+        ]);
+
         return redirect()->route('host.reservation_host')->with('success', 'Booking canceled.');
     }
 
@@ -154,11 +161,11 @@ class BookingController extends Controller
         $booking->status = 0;
         $booking->delete();
 
-
+        // create important notification -araki
         Notification::create([
             'receiver_id' => $booking->host_id,
-            'title' => $booking->guest_name . ' canceled the booking for '. $booking->accommodation->name,
-            'notification' => $booking->guest_name . ' canceled the booking for '. $booking->accommodation->name,
+            'title' => $booking->guest_name . ' canceled the booking of '. $booking->accommodation->name,
+            'notification' => $booking->guest_name . ' canceled the booking of '. $booking->accommodation->name,
         ]);
 
         return redirect()->route('guest.reservation_guest')->with('success', 'Your reservation has been canceled.');

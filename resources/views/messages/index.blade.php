@@ -72,11 +72,15 @@
             <h3 class="mt-4 text-center text-danger">Important infomations</h3>
             <div class="notification-section">
                 @foreach ($notifications as $notification)
-                    <div class="card m-2">
-                        <div class="card-body notification">
-                            <p class="fw-bold">{{ $notification->title}}</p>
-                        </div>
-                    </div>
+                <div class="card m-2">
+                    <button class="btn" data-bs-toggle="modal" data-bs-target="#notification-{{ $notification->id }}">
+                        See detail
+                            <div class="card-body notification">
+                                <p class="fw-bold">{{ $notification->title}}</p>
+                            </div>
+                    </button>
+                </div>
+                    @include('messages.modal.notification')
                 @endforeach
             </div>
         </div>
