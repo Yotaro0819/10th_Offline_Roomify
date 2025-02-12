@@ -472,7 +472,7 @@ class AccommodationController extends Controller
         $accommodations = $query->get();
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
-                                                 ->with('categories', $categories);
+                                                ->with('categories', $categories);
 
     }
 }
