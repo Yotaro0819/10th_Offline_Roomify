@@ -198,12 +198,12 @@
                     <div class="input-box">
                         <div class="min-box">
                             <div class="input-wrap">
-                                <input type="text" name="min_input" class="input-field min-input">
+                                <input type="text" name="min_input" class="input-field min-input" onchange="setMinInput()">
                             </div>
                         </div>
                         <div class="max-box">
                             <div class="input-wrap">
-                                <input type="text" name="max_input" class="input-field max-input">
+                                <input type="text" name="max_input" class="input-field max-input" onchange="setMaxInput()">
                             </div>
                         </div>
                     </div>
@@ -345,6 +345,7 @@
 <script>
     window.onload = function(){
         slideMin();
+        slideMax();
     }
 
     const minVal = document.querySelector(".min-val");
@@ -365,14 +366,45 @@
         }
         minTooltip.innerHTML = "$" + minVal.value;
         priceInputMin.value = minVal.value;
+        setArea();
     }
 
-    functon slideMax(){
+    function slideMax(){
         let gap = perseInt(maxVal.value) - perseInt(minVal.val);
         if(gap <= minGap){
-            minVal.value = perseInt(maxVal.value) - minGap;
+            maxVal.value = perseInt(maxVal.value) - minGap;
         }
+        maxTooltip.innerHTML = "$" + maxVal.value;
+        priceInputMax.value = maxVal.value;
+        setArea();
     }
+
+    function setArea(){
+        range.style.left = (minVal.value / sliderMaxValue) * 100 + "%";
+        minTooltip.style.left = (minVal.value / sliderMaxValue) * 100 + "%";
+        range.style.right = 100 - (maxVal.value /sliderMaxValue) * 100 + "%";
+        maxTooltip.style.range = 100 - (maxVal.value /sliderMaxValue) * 100 + "%";
+    }
+
+    function setMinInput(){
+        let minPrice = perseInt(priceInputMin.value);
+        if(minPrice < sliderMinValue){
+            priceInputMin.value = sliderMinValue;
+        }
+        minVal.value = priceInputMin.value;
+        slideMin();
+    }
+
+    function setMaxInput(){
+        let maxPrice = perseInt(priceInputMax.value);
+        if(maxPrice > sliderMaxValue){
+            priceInputMax.value = sliderMaxValue;
+        }
+        maxVal.value = priceInputMax.value;
+        slideMax();
+    }
+
+
 
 </script>
 
