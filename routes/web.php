@@ -14,6 +14,7 @@ use App\Http\Controllers\HostRequestController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -47,9 +48,6 @@ Route::get('/search_by_filters', [AccommodationController::class, 'search_by_fil
 
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
-
-
-
     Route::post('/review/post/{id}', [ReviewController::class, 'store'])->name('review.store');
 
 
@@ -63,6 +61,7 @@ Route::get('/messages/{id}', [MessageController::class, 'index'])->name('message
 Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('messages.show');
 Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
 Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
+Route::patch('/messages/update/{id}', [NotificationController::class, 'update'])->name('notification.update');
 //Araki route end
 
 // host routes

@@ -1,6 +1,31 @@
 @extends('layouts.app')
 
 @section('title', 'message_index')
+<script>
+    $(document).ready(function() {
+        // 通知の「Read」ボタンがクリックされたとき
+        $('.notification-form').on('submit', function(e) {
+            e.preventDefault();  // フォームの通常の送信を防ぐ
+
+            const form = $(this);
+            const notificationId = form.closest('.notification').attr('id').split('-')[1]; // notification-1 から 1 を取得
+
+            $.ajax({
+                url: form.attr('action'),
+                type: 'PATCH',
+                data: form.serialize(),  // フォームデータを送信
+                success: function(response) {
+                    // 成功した場合、通知を「既読」として表示
+                    form.find('button').text('Already Read');
+                    form.find('button').prop('disabled', true); // ボタンを無効化
+                },
+                error: function(xhr, status, error) {
+                    alert('Error: ' + error);
+                }
+            });
+        });
+    });
+</script>
 
 <link rel="stylesheet" href="{{ asset('css/messages/messagesIndex.css')}}">
 <link rel="stylesheet" href="{{ asset('css/messages/modal.css')}}">

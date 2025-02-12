@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('receiver_id');
             $table->string('title');
             $table->string('notification');
+            $table->enum('status', ['read', 'unread'])->default('unread');
             $table->timestamps();
 
             $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
