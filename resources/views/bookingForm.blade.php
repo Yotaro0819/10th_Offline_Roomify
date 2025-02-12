@@ -156,7 +156,7 @@
 
             <div class="col">
                 <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
-                <input type="email" name ="email" class="form-control" placeholder="example@gmail.com">
+                <input type="email" name ="guest_email" class="form-control" placeholder="example@gmail.com">
             </div>
             <!-- error directive-->
             @error('email')

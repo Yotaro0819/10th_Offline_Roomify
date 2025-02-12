@@ -99,4 +99,14 @@ class User extends Authenticatable
                 ->first(); // 一番最新のメッセージを取得
     }
 
+    public function guestbookings()
+    {
+        $this->hasMany(Booking::class, 'guest_id');
+    }
+
+    public function hostBookings()
+    {
+        $this->hasMany(Booking::class, 'host_id');
+    }
+
 }
