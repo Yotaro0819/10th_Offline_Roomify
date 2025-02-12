@@ -18,6 +18,10 @@ public function createPayment()
 
     $response = $provider->createOrder([
         "intent" => "CAPTURE",
+        "application_context" => [
+            "return_url" => route('payment.capture'),
+            "cancel_url" => route('canscel')
+        ],
         "purchase_units" => [
             [
                 "amount" => [
@@ -27,13 +31,19 @@ public function createPayment()
             ]
         ]
     ]);
-    
-    if (isset($response['id'])) {
-        return redirect()->route('payment.capture', ['token' => $response['id']]);
-    } else {
-        return back()->with('error', '支払いに失敗しました。');
+
+//  dd($response);
+ if(isset($response["id"]) && $response['id'] != null){
+    foreach ($response['links'] as $link){
+        if($link['rel'] == 'approve') {
+            // session() ->put('product_name', $request->product_name);
+            // session() ->put('quantity', $request->quantity);
+            return redirect()->away($link['href']);
+        }
     }
-    
+    }else {
+        return redirect()->route(cansel);
+    }      
 }
 
 public function capturePayment(Request $request)
