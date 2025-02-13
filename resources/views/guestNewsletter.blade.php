@@ -60,15 +60,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  gap: 20px;
 }
 
 .arrow-container {
   position: relative;
+  width: 50px;
+  text-align: center;
 }
 
 .cross-mark {
-  display: none; /* 初期状態では非表示 */
+  display: none;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -88,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const envelopeIcon = document.getElementById("envelope-icon");
     const usersCol = document.getElementById("users-col");
     const arrowIcon = document.getElementById("arrow-icon");
-    const arrowContainer = document.getElementById("arrow-icon");
     const crossMark = document.getElementById("cross-mark");
     const originalEnvelopePosition = document.getElementById("original-envelope-position");
 
@@ -99,12 +100,12 @@ document.addEventListener("DOMContentLoaded", function() {
             usersCol.insertAdjacentElement("beforebegin", envelopeIcon);
             envelopeIcon.classList.add("envelope-move");
             arrowIcon.style.opacity = "none"; 
-            crossMark.style.opacity = "none";
+            crossMark.style.opacity = "block";
         } else {
             message.textContent = "Do not receive emails from the host.";
             originalEnvelopePosition.appendChild(envelopeIcon);
             envelopeIcon.classList.add("envelope-move");
-            arrowIcon.style.display = "none";
+            arrowIcon.style.display = "block";
             crossMark.style.display = "none";
         }
     });
@@ -122,8 +123,8 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="col" id="original-envelope-position">
                 <i class="fa-solid fa-envelope fa-2x" id="envelope-icon"></i>
             </div>
-            <div class="col arrow-container" id="arrow-container">
-                <i class="fa-solid fa-arrow-right fa-3x" style="color: #dcbf7d"></i>
+            <div class="col arrow-container">
+                <i class="fa-solid fa-arrow-right fa-3x" style="color: #dcbf7d" id="arrow-icon"></i>
                 <span class="cross-mark" id="cross-mark"><i class="fa-solid fa-xmark"></i></span>
             </div>
             <div class="col" id="users-col">
