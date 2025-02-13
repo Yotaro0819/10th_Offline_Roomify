@@ -70,43 +70,67 @@
 }
 
 .cross-mark {
-  display: none;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 30px;
   color: red;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .envelope-move {
+  transform: translateX(70px);
   transition: transform 0.5s ease-in-out;
 }
+
+.hidden{
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+.visible{
+    opacity: 1 !important;
+}
 </style>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const toggleInput = document.getElementById("toggle");
     const message = document.getElementById("message");
-    const envelopeIcon = document.getElementById("envelope-icon");
-    const usersCol = document.getElementById("users-col");
-    const arrowIcon = document.getElementById("arrow-icon");
-    const crossMark = document.getElementById("cross-mark");
-    const originalEnvelopePosition = document.getElementById("original-envelope-position");
+    const envelopeIcon = document.getElementById("envelope-icon"); // メールアイコン
+    const arrowIcon = document.getElementById("arrow-icon"); // 矢印
+    const crossMark = document.getElementById("cross-mark"); // バツ
+
+    // 初期状態ではバツを非表示
+    crossMark.classList.add("hidden");
 
     // チェック状態が変わったときの処理
     toggleInput.addEventListener("change", function() {
         if (this.checked) {
+            // メールアイコンを右に移動
+            envelopeIcon.classList.add("envelope-move");
+
+            // 矢印を表示
+            arrowIcon.style.display = "none";
+
+            // バツを非表示
+            crossMark.classList.add("hidden");
+
             message.textContent = "Receive emails from the host.";
-            usersCol.insertAdjacentElement("beforebegin", envelopeIcon);
-            envelopeIcon.classList.add("envelope-move");
-            arrowIcon.style.opacity = "none"; 
-            crossMark.style.opacity = "block";
         } else {
+            // メールアイコンを元の位置に戻す
+            envelopeIcon.classList.remove("envelope-move");
+
+            // 矢印を非表示
+            arrowIcon.style.display = "inline";
+
+            // バツを表示
+            crossMark.classList.remove("hidden");
+            crossMark.classList.remove("visible");
+
             message.textContent = "Do not receive emails from the host.";
-            originalEnvelopePosition.appendChild(envelopeIcon);
-            envelopeIcon.classList.add("envelope-move");
-            arrowIcon.style.display = "block";
-            crossMark.style.display = "none";
         }
     });
 });
