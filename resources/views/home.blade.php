@@ -445,7 +445,12 @@ footer .right{
                         <h2>Would You Like to Receive Newsletters ?</h2>
                         <p>You can recieve newsletters from the hosts of <br>
                             accommodations you've stayed at in past!</p>
-                        <a href="{{ url('/newsletter') }}" class="btn">Check Your Newsletter</a>
+                            @if(Auth::check())
+                                <a href="{{ url('/newsletter') }}" class="btn">Check Your Newsletter</a>
+                            @else
+                                <a href="{{ route('login') }}" class="btn">Check Your Newsletter</a>
+                            @endif
+                        <!-- <a href="{{ url('/newsletter') }}" class="btn">Check Your Newsletter</a> -->
                     @endif
                 </div>
                 <div class="col-6">
