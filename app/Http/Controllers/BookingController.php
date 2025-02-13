@@ -90,7 +90,7 @@ class BookingController extends Controller
         $service_fee   = $accommodation->price * 0.15;
         $total_fee     = $accommodation->price + $cleaning_fee + $service_fee;
 
-        return view('bookingForm')->with('accommodation', $accommodation)
+        return view('reservation.bookingForm')->with('accommodation', $accommodation)
                                         ->with('cleaning_fee', $cleaning_fee)
                                         ->with('service_fee', $service_fee)
                                         ->with('total_fee', $total_fee);
