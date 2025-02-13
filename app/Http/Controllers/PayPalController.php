@@ -20,7 +20,7 @@ public function createPayment(Request $request, $accommodation_id)
     $response = $provider->createOrder([
         "intent" => "CAPTURE",
         "application_context" => [
-            "return_url" => route('paypal.capture'),
+            "return_url" => route('paypal.capture', ['id' => $accommodation_id]),
             "cancel_url" => route('paypal.cancel')
         ],
         "purchase_units" => [
@@ -39,13 +39,15 @@ public function createPayment(Request $request, $accommodation_id)
         if($link['rel'] == 'approve') {
             // session() ->put('product_name', $request->product_name);
             // session() ->put('quantity', $request->quantity);
-            session() ->put('accommodation_id', $accommodation_id);
-            session() ->put('payment_info', $request->all());
+            session()->put('accommodation_id', $accommodation_id);
+            session()->put('payment_info', $request->all());
+            
+            // dd(session()->get('accommodation_id'));
             return redirect()->away($link['href']);
         }
     }
     }else {
-        return redirect()->route(cancel);
+        return redirect()->route(paypal.cancel);
     }      
 }
 
@@ -58,17 +60,24 @@ public function capturePayment(Request $request)
 
     if(isset($response['status']) && $response['status'] == 'COMPLETED'){
 
+    $accommodation_id = session()->get('accommodation_id');
+
+    // dd('Accommodation ID: ' . $accommodation_id);
+    
+    
+
     $payment = new Payment;
     $payment->payment_id = $response['id'];
     $payment->amount = $response['purchase_units'][0]['payments']['captures'][0]['amount']['value'];
     $payment->payment_method = "PayPal";
-    $payment->accommodation_id = session()->get('accommodation_id');
+    // $payment->accommodation_id = session()->get('accommodation_id');
+    $payment->accommodation_id = (int) $accommodation_id; 
     $payment->user_id = Auth::user()->id;
     $payment->save();
 
-    return redirect()->route('guest.booking.store', session()->get('accommodation_id'));
+    return redirect()->route('guest.booking.store', $accommodation_id);
     }else{
-        return redirect()->route('cancel');
+        return redirect()->route('bookingcansel');
     }
 }
 
