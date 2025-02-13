@@ -2,7 +2,8 @@
 
 @section('title', 'Messages')
 <link rel="stylesheet" href="{{ asset('css/messages/modal.css')}}">
-.css')}}">
+<link rel="stylesheet" href="{{ asset('css/messages/messagesShow.css')}}">
+
 
 @section('content')
 <div class="container mx-auto my-5" style="width: 70%;">
@@ -64,14 +65,26 @@
             <h3 class="mt-4 text-center text-danger">Important infomations</h3>
             <div class="notification-section">
                 @foreach ($notifications as $notification)
-                <div class="card m-2">
-                    <button class="btn" data-bs-toggle="modal" data-bs-target="#notification-{{ $notification->id }}">
-                        See detail
-                            <div class="card-body notification">
-                                <p class="fw-bold">{{ $notification->title}}</p>
-                            </div>
-                    </button>
-                </div>
+                    @if ($notification->status == 'read')
+                        <div class="card m-2 read">
+                            <button class="btn" data-bs-toggle="modal" data-bs-target="#notification-{{ $notification->id }}">
+                                See detail
+                                    <div class="card-body notification">
+                                        <p class="fw-bold">{{ $notification->title}}</p>
+                                    </div>
+                            </button>
+                        </div>
+                    @elseif($notification->status === 'unread')
+                        <div class="card m-2">
+                            <button class="btn" data-bs-toggle="modal" data-bs-target="#notification-{{ $notification->id }}">
+                                See detail
+                                    <div class="card-body notification">
+                                        <p class="fw-bold">{{ $notification->title}}</p>
+                                    </div>
+                            </button>
+                        </div>
+                    @endif
+
                     @include('messages.modal.notification')
                 @endforeach
             </div>

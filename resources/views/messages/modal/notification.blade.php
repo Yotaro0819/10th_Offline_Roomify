@@ -21,8 +21,13 @@
                             <form action="{{route('notification.update', $notification->id)}}" method="post" class="notification-form">
                                 @csrf
                                 @method('PATCH')
-                                <button type="submit" class="btn btn-primary">Read</button>
+                                <button type="submit" class="read-btn">Read</button>
                                 <button type="button" class="close btn-sm" data-bs-dismiss="modal">Close</button>
+                            </form>
+                            <form action="{{ route('notification.confirm', $notification->id) }}" method="post">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn confirm btn-primary">confirm & delete</button>
                             </form>
 
                         </div>

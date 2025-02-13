@@ -62,6 +62,7 @@ Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('mes
 Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
 Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
 Route::patch('/messages/update/{id}', [NotificationController::class, 'update'])->name('notification.update');
+ROute::patch('/messages/confirm/{id}', [NotificationController::class, 'confirm'])->name('notification.confirm');
 //Araki route end
 
 // host routes

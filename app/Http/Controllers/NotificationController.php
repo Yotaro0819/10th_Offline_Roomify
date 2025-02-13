@@ -15,6 +15,17 @@ class NotificationController extends Controller
             'status' => 'read',
         ]);
 
-        return response()->json(['message' => 'Notification updated']);
+        return redirect()->back();
+    }
+
+    public function confirm($id)
+    {
+        $notification = Notification::findOrFail($id);
+
+        $notification->update([
+            'status' => 'confirm',
+        ]);
+
+        return redirect()->back();
     }
 }
