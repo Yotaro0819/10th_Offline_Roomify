@@ -39,7 +39,7 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.'], function(){
     Route::get('/res/{bookingId}/cancel', [BookingController::class, 'confirmGuestCancel'])->name('confirmGuestCancel');
     Route::delete('/res/{bookingId}/cancel', [BookingController::class, 'guestCancel'])->name('guestCancel');
     Route::get('/booking-form/{id}', [BookingController::class, 'create'])->name('booking.create');
-    Route::post('/booking/{id}', [BookingController::class, 'store'])->name('booking.store');
+    Route::get('/booking/{id}', [BookingController::class, 'store'])->name('booking.store');
     Route::get('/search', [AccommodationController::class, 'search'])->name('search');
     Route::get('/search_by_keyword', [AccommodationController::class, 'search_by_keyword'])->name('search_by_keyword');
     Route::get('/search_by_filters', [AccommodationController::class, 'search_by_filters'])->name('search_by_filters');
