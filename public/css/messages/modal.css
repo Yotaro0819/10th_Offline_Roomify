@@ -14,3 +14,10 @@
 .modal-notification-body {
     height: 300px;
 }
+
+.close {
+    background-color:rgb(179, 179, 179);
+    border-radius: 10px;
+    border:none;
+    padding:4px 10px;
+}
