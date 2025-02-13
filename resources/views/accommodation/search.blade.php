@@ -4,42 +4,35 @@
 
 @section('content')
 <style>
-
-    .card
-    {
-        background-color: #dcbf7d;
-        border-radius: 30px;
+    .card {
+        border: 5px solid #6a6c6e26;
+        box-shadow: inset;
+        border-radius: 20px;
         width: 360px;
     }
 
-    .card-header
-    {
-        font-size: 24px;
+    .card-header{
+        font-size: 20px;
         color: #004aad;
-
     }
 
-    textarea
-    {
+    textarea{
         background-color: #ffffff;
     }
 
-    .btn
-    {
+    .btn{
         border-color:#004aad;
         color: #ffffff;
         background-color: #004aad;
         font-weight: bold;
     }
 
-    .btn:hover
-    {
+    .btn:hover{
         border-color:#004aad;
         color: #ffffff;
         background-color: #004aad;
     }
-    .search-bar
-    {
+    .search-bar{
         display: flex;
         align-items: center;
         gap: 10px;
@@ -47,25 +40,21 @@
         font-size: 18px;
     }
 
-    ::placeholder
-    {
+    ::placeholder{
         text-align: center;
     }
 
-    .form-select option
-    {
+    .form-select option{
         text-align: center
     }
 
-    .input-group
-    {
+    .input-group{
         position: relative;
         display: flex;
         align-items: center;
     }
 
-    .input-group .input-icon
-    {
+    .input-group .input-icon{
         position: absolute;
         left:280px;
         top: 50%;
@@ -80,24 +69,89 @@
         height: 100%;
     }
 
-    .input-group .form-control
-    {
-        padding-left: 2.5rem; /* Add padding to prevent text overlap with the icon */
-        padding-right: 2.5rem; /* Add padding to prevent text overlap with the icon */
+    .input-group .form-control{
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
         border-radius: 10px;
         background-color: #ffffff;
     }
-    .input-group-text
-    {
+    .input-group-text{
         position: absolute;
         transform: translateY(-50%);
         border: none;
     }
-
-    img
-    {
+    img{
         width: 270px;
         height: 200px;
+    }
+
+    .alert{
+        font-size: 20px;
+        text-align: center;
+        margin-top: 200px;
+    }
+
+    .alert p{
+        margin-top: 10px;
+        font-size: 17px;
+    }
+
+    /* search_by_budget */
+    :root{
+        --blue-color: #004aad;
+        --gray-color: #77889926;
+    }
+    .range-slider{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        padding-block: 20px;
+    }
+
+    .range-slider .dragging{
+        cursor: ew-resize;
+    }
+    .range{
+        width: 100%;
+        display: grid;
+        position: relative;
+        z-index: 5;
+    }
+    .range input {
+        grid-row: 2;
+        grid-column: 1;
+        pointer-events: none;
+        appearance: none;
+        background: transparent;
+
+    }
+    .range input::-webkit-slider-thumb {
+        pointer-events: auto;
+        appearance: none;
+        width: 24px;
+        height: 24px;
+        background: var(--blue-color);
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .slider{
+        position: absolute;
+        height: 10px;
+        width: 100%;
+        background: var(--gray-color);
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 5px;
+        overflow: hidden;
+        z-index: -1;
+    }
+    .progress{
+        position: absolute;
+        height: 100%;
+        background: var(--blue-color);
+        cursor: ew-resize;
     }
 </style>
 
@@ -109,11 +163,11 @@
             @csrf
             @method("GET")
 
-            <div class="card border-0">
+            <div class="card">
                 <div class="card-header">Keyword Search</div>
                 <div class="card-body">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" style="border-radius:15px; color: black" name="keyword" placeholder="Type Keyword">
+                        <input type="text" class="form-control" style="border-radius:15px; color: black" name="keyword" value="{{ request()->input('keyword') }}" placeholder="Type Keyword">
                         <button type="submit" class="btn input-icon input-group-text"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
@@ -125,48 +179,48 @@
             @method("GET")
 
             <!-- city -->
-            <div class="card border-0">
+            <div class="card">
                 <div class="card-header">City</div>
                 <div class="card-body">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" style="border-radius:15px; color: black" name="city" placeholder="Place you want to stay">
+                        <input type="text" class="form-control" style="border-radius:15px; color: black" name="city" value="{{ request()->input('city') }}" placeholder="Place you want to stay">
                     </div>
                 </div>
             </div>
 
             <!-- capacity -->
-            <div class="card border-0">
+            <div class="card">
                 <div class="card-header">Capacity</div>
                 <div class="card-body">
                     <div class="form-check search-bar">
-                        <input type="radio" class="form-check-input" name="capacity" id="capa_1" value="capa_1">
+                        <input type="radio" class="form-check-input" name="capacity" id="capa_1" value="capa_1" {{ request()->input('capacity') == 'capa_1' ? 'checked' : '' }}>
                         <label class="form-check-label" for="capa_1">1 ~ 2 people</label>
                     </div>
 
                     <div class="form-check search-bar">
-                        <input type="radio" class="form-check-input" name="capacity" id="capa_2" value="capa_2">
+                        <input type="radio" class="form-check-input" name="capacity" id="capa_2" value="capa_2" {{ request()->input('capacity') == 'capa_2' ? 'checked' : '' }}>
                         <label class="form-check-label" for="capa_2">3 ~ 5 people</label>
                     </div>
 
                     <div class="form-check search-bar">
-                        <input type="radio" class="form-check-input" name="capacity" id="capa_3" value="capa_3">
+                        <input type="radio" class="form-check-input" name="capacity" id="capa_3" value="capa_3" {{ request()->input('capacity') == 'capa_3' ? 'checked' : '' }}>
                         <label class="form-check-label" for="capa_3">6 ~ 10 people</label>
                     </div>
 
                     <div class="form-check search-bar">
-                        <input type="radio" class="form-check-input" name="capacity" id="capa_4" value="capa_4">
+                        <input type="radio" class="form-check-input" name="capacity" id="capa_4" value="capa_4" {{ request()->input('capacity') == 'capa_4' ? 'checked' : '' }}>
                         <label class="form-check-label" for="capa_4">More than 10 people</label>
                     </div>
                 </div>
             </div>
 
             <!-- category -->
-            <div class="card border-0">
+            <div class="card">
                 <div class="card-header">Category</div>
                 <div class="card-body">
                     @foreach($categories as $category)
                         <div class="search-bar">
-                            <input type="checkbox" name="category[]" class="form-check-input" value="{{ $category->id }}" id="{{ $category->id }}">
+                            <input type="checkbox" name="category[]" class="form-check-input" value="{{ $category->id }}" id="{{ $category->id }}" {{ in_array($category->id, request()->input('category', [])) ? 'checked' : '' }}>
                             <label class="form-check-label" for="{{ $category->id }}">{{ $category->category_name }}</label>
                         </div>
                     @endforeach
@@ -174,240 +228,32 @@
             </div>
 
             <!-- price -->
-            <div class="card border-0">
+            <div class="card">
                 <div class="card-header">Budget Range</div>
                 <div class="card-body">
-                    {{-- <div class="mb-2">
-                        <label for="min_price" class="form-label left-align">Minimum</label>
-                        <input type="range" class="form-range" name="min_price" style="color: black">
-                    </div>
-
-                    <div class="mb-2">
-                        <label for="max_price" class="form-label left-align">Maximum</label>
-                        <input type="range" class="form-range" name="max_price" style="color: black">
-                    </div> --}}
-
-                    <div class="range-slider">
-                        <span class="slider-track"></span>
-                        <input type="range" name="min_val" id="min_val" min="0" max="12000" value="2000" oninput="slideMin()">
-                        <input type="range" name="max_val" id="max_val" min="0" max="12000" value="7000" oninput="slideMax()">
-                        <div class="tooltip min-tooltip"></div>
-                        <div class="tooltip max-tooltip"></div>
-
-                    </div>
-                    <div class="input-box">
-                        <div class="min-box">
-                            <div class="input-wrap">
-                                <input type="text" name="min_input" class="input-field min-input" onchange="setMinInput()">
+                    <div class="container">
+                        <div class="range-slider">
+                            <div class="price-filed">
+                                <div>Minimum:</div>
+                                <input type="number" class="min-price form-control" name="min_price" value="{{ request()->input('min_price', 5000) }}" min="5000" max="100000">
                             </div>
-                        </div>
-                        <div class="max-box">
-                            <div class="input-wrap">
-                                <input type="text" name="max_input" class="input-field max-input" onchange="setMaxInput()">
+                            <div class="price-field">
+                                <div>Maximum:</div>
+                                <input type="number" class="max-price form-control" name="max_price" value="{{ request()->input('max_price', 35000) }}" min="5000" max="100000" step="5000">
+                            </div>
+
+                            <div class="range">
+                                <input type="range" class="min-input" name="min_price" value="{{ request()->input('min_price', 10000) }}" min="5000" max="100000" step="5000">
+                                <input type="range" class="max-input" name="max_price" value="{{ request()->input('max_price', 35000) }}" min="5000" max="100000" step="5000">
+
+                                <div class="slider">
+                                    <div class="progress"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-<style>
-    .range-slider {
-        position: relative;
-        width: 100%;
-        height: 5px;
-        margin: 30px 0;
-        background-color: #8a8a8a;
-    }
-    .slider-track {
-        height: 100%;
-        position: absolute;
-        background-color: #fe696a;
-    }
-
-    .range-slider input {
-        position: absolute;
-        width: 100%;
-        background: none;
-        pointer-events: none;
-        top: 50%;
-        transform: translateY(-50%);
-        appearance: none;
-    }
-
-
-    input[type="range"]::-webkit-slider-thumb {
-        height: 25px;
-        width: 25px;
-        border-radius: 50%;
-        border: 3px solid #FFF;
-        background: #FFF;
-        pointer-events: auto;
-        appearance: none;
-        cursor: pointer;
-        box-shadow: 0 .125rem .5625rem -0.125rem rgba(0, 0, 0, .25);
-    }
-
-    input[type="range"]::-moz-range-thumb {
-        height: 25px;
-        width: 25px;
-        border-radius: 50%;
-        border: 3px solid #FFF;
-        background: #FFF;
-        pointer-events: auto;
-        cursor: pointer;
-        -moz-appearance: none;
-        box-shadow: 0 .125rem .5625rem -0.125rem rgba(0, 0, 0, .25);
-    }
-
-    .tooltip{
-        padding: .25rem .5rem;
-        border: 0;
-        background: #373f50;
-        color: #FFF;
-        font-size: .75rem;
-        line-height: 1.2;
-        border-radius: .25rem;
-        bottom: 120%;
-        display: block;
-        position: absolute;
-        text-align: center;
-        white-space: nowrap;
-    }
-
-    .min-tooltip{
-        left: 50%;
-        transform: translateX(-50%) translateY(-100%);
-        z-index: 5;
-    }
-
-    .max-tooltip{
-        right: 50%;
-        transform: translateX(50%) translateY(-100%);
-    }
-    .input-box {
-        display: flex;
-    }
-    .min-box,
-    .max-box {
-        width: 50%;
-    }
-
-    .min-box {
-        padding-right: .5rem;
-        margin-right: .5rem;
-    }
-    .input-wrap {
-        position: relative;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: stretch;
-        width: 100%;
-    }
-
-    .input-adddon{
-        display: flex;
-        align-items: center;
-        padding: .625rem 1rem;
-        font-size: 0.9375rem;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #4b566b;
-        text-align: center;
-        white-space: nowrap;
-        background-color: #fff;
-        border: 1px solid #d4d4d4;
-        border-radius: .25erem;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    .input-field{
-        margin-left: -1px;
-        padding: .425rem .75rem;
-        font-size: 0.8125rem;
-        border-radius: .25rem;
-        position: relative;
-        flex: 1 1 auto;
-        width: 1%;
-        min-width: 0;
-        color: #4b566b;
-        background-color: #ffff;
-        background-clip: padding-box;
-        border: 1px solid #d4d4d4;
-        border-top-left-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    .input-field:focus{
-        outline: none;
-    }
-</style>
-<script>
-    window.onload = function(){
-        slideMin();
-        slideMax();
-    }
-
-    const minVal = document.querySelector(".min-val");
-    const maxVal = document.querySelector(".max-val");
-    const priceInputMin = document.querySelector(".min-input");
-    const priceInputMax = document.querySelector(".max-input");
-    const minTooltip = document.querySelector(".min-tooltip");
-    const maxTooltip = document.querySelector(".max-tooltip");
-    const minGap = 0;
-    const range = document.querySelector(".slider-track");
-    const sliderMinValue = parseInt(minVal.min);
-    const sliderMaxValue = parseInt(maxVal.max);
-
-    function slideMin(){
-        let gap = perseInt(maxVal.value) - perseInt(minVal.val);
-        if(gap <= minGap){
-            minVal.value = perseInt(maxVal.value) - minGap;
-        }
-        minTooltip.innerHTML = "$" + minVal.value;
-        priceInputMin.value = minVal.value;
-        setArea();
-    }
-
-    function slideMax(){
-        let gap = perseInt(maxVal.value) - perseInt(minVal.val);
-        if(gap <= minGap){
-            maxVal.value = perseInt(maxVal.value) - minGap;
-        }
-        maxTooltip.innerHTML = "$" + maxVal.value;
-        priceInputMax.value = maxVal.value;
-        setArea();
-    }
-
-    function setArea(){
-        range.style.left = (minVal.value / sliderMaxValue) * 100 + "%";
-        minTooltip.style.left = (minVal.value / sliderMaxValue) * 100 + "%";
-        range.style.right = 100 - (maxVal.value /sliderMaxValue) * 100 + "%";
-        maxTooltip.style.range = 100 - (maxVal.value /sliderMaxValue) * 100 + "%";
-    }
-
-    function setMinInput(){
-        let minPrice = perseInt(priceInputMin.value);
-        if(minPrice < sliderMinValue){
-            priceInputMin.value = sliderMinValue;
-        }
-        minVal.value = priceInputMin.value;
-        slideMin();
-    }
-
-    function setMaxInput(){
-        let maxPrice = perseInt(priceInputMax.value);
-        if(maxPrice > sliderMaxValue){
-            priceInputMax.value = sliderMaxValue;
-        }
-        maxVal.value = priceInputMax.value;
-        slideMax();
-    }
-
-
-
-</script>
-
 
             <div class="row my-4">
                 <div class="col me-5">
@@ -432,7 +278,7 @@
                             <h2 class="h4 fw-bold" style="color:#004aad">{{ $accommodation->name }}</h2>
 
                             <div>
-                                <p><span><i class="fa-solid fa-magnifying-glass me-3"></i></span>{{ $accommodation->description}}</p>
+                                <p><span><i class="fa-solid fa-comment me-3"></i></span>{{ $accommodation->description}}</span>
                             </div>
 
                             <div>
@@ -453,14 +299,139 @@
                 @endforeach
             @else
                 <div class="alert">
-                    No accommodations found.
+                    <h4>No Accommodations Found <i class="fa-regular fa-face-sad-tear"></i></h4>
+                    <p>There are no accommodations that match your current filters. Try removing some of them to get better results.</p>
                 </div>
             @endif
-
-
         </div>
     </div>
 
 
 </div>
+
+<script>
+    // search_by_budget
+    const slider        = document.querySelector('.range-slider');
+    const progress      = slider.querySelector('.progress');
+    const minPriceInput = slider.querySelector('.min-price');
+    const maxPriceInput = slider.querySelector('.max-price');
+    const minInput      = slider.querySelector('.min-input');
+    const maxInput      = slider.querySelector('.max-input');
+
+    const updateProgress = () => {
+        const minValue = parseInt(minInput.value)
+        const maxValue = parseInt(maxInput.value)
+
+        // get the total range of the slider
+        const range = maxInput.max - minInput.min;
+        // get the selected value range of the progress
+        const valueRange = maxValue - minValue;
+        //calculate the width percentage
+        const width = (valueRange / range) * 100;
+        //calculate the min thumb offset
+        const minOffset = ((minValue - minInput.min) / range) * 100;
+
+        //update the progress width
+        progress.style.width = width + "%";
+        // update the progres left position
+        progress.style.left = minOffset + "%";
+
+        // update the number inputs
+        minPriceInput.value = minValue;
+        maxPriceInput.value = maxValue;
+
+    };
+
+    const updateRange = (event) => {
+
+        const input = event.target;
+
+        let min = parseInt(minPriceInput.value);
+        let max = parseInt(maxPriceInput.value);
+
+        if(input === minPriceInput && min > max){
+            max = min;
+            maxPriceInput.value = max;
+        } else if(input === maxPriceInput && max < min){
+            min = max;
+            minPriceInput.value = min;
+        }
+
+        minInput.value = min;
+        maxInput.value = max;
+
+        updateProgress();
+    };
+
+    minPriceInput.addEventListener('input', updateRange)
+    maxPriceInput.addEventListener('input', updateRange)
+
+    minInput.addEventListener('input',() => {
+        if(parseInt(minInput.value) >= parseInt(maxInput.value)){
+            maxInput.value = minInput.value;
+        }
+        updateProgress()
+    });
+
+    maxInput.addEventListener('input',() => {
+        if(parseInt(maxInput.value) <= parseInt(minInput.value)){
+            minInput.value = maxInput.value;
+        }
+        updateProgress()
+    });
+
+    let isDragging = false;
+    let startOffsetX;
+
+    progress.addEventListener("mousedown", (e) => {
+        e.preventDefault(); // prevent text salection
+
+        isDragging = true;
+
+        startOffsetX = e.clientX - progress.getBoundingClientRect().left;
+
+        slider.classList.toggle('dragging', isDragging);
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if(isDragging){
+            //get the size and position of the slider
+            const sliderRect = slider.getBoundingClientRect();
+            const progressWidth = parseFloat(progress.style.width || 0);
+
+            // calculate the new left position for the progress element
+            let newLeft = ((e.clientX - sliderRect.left - startOffsetX) / sliderRect.width) * 100;
+
+            //ensure the progress is not exceeding the sliderboundaries
+            newLeft = Math.min(Math.max(newLeft, 0), 100 - progressWidth);
+
+            // update the progress position
+            progress.style.left = newLeft + "%";
+
+            // calculate the new min thumb position
+            const range = maxInput.max - minInput.min;
+            const newMin = Math.round((newLeft / 100) * range) + parseInt(minInput.min);
+            const newMax = newMin + parseInt(maxInput.value) - parseInt(minInput.value);
+
+            // update the min input
+            minInput.value = newMin;
+            maxInput.value = newMax;
+
+            // update the progress
+            updateProgress();
+        }
+
+        slider.classList.toggle('dragging', isDragging);
+    });
+
+    document.addEventListener("mouseup", () => {
+        if(isDragging){
+            isDragging = false;
+        }
+        slider.classList.toggle('dragging', isDragging);
+
+    });
+
+    updateProgress();
+</script>
 @endsection

@@ -119,7 +119,7 @@ a
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <a href="{{ route('search') }}" class="find-button">Find a Property</a>
+                        <a href="{{ route('guest.search') }}" class="find-button">Find a Property</a>
                         @if(Auth::user()) {{-- login pattern --}}
                             <a href="{{ route('messages.index', Auth::user()->id) }}" class="find-button ms-3">Messages</a>
                                 @if(Auth::user()->role === "1") {{-- guest pattern --}}
