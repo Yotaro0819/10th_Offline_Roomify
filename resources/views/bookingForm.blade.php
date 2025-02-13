@@ -137,7 +137,7 @@
 
 
 <div class="row gx-5 mx-auto">
-    <h1 class="h2 ms-5" style="font-size: 30px"><a href="{{ route('search')}}">< </a> BOOK YOUR STAY</h1>
+    <h1 class="h2 ms-5" style="font-size: 30px"><a href="{{ route('guest.search')}}">< BOOK YOUR STAY</a></h1>
 
     <!-- left side -->
     <div class="col-7 w-50 mt-3">
