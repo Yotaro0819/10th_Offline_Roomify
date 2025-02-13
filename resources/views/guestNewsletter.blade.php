@@ -55,6 +55,31 @@
   height: 35px;
   margin: auto;
 }
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.arrow-container {
+  position: relative;
+}
+
+.cross-mark {
+  display: none; /* 初期状態では非表示 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  color: red;
+}
+
+.envelope-move {
+  transition: transform 0.5s ease-in-out;
+}
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -62,21 +87,25 @@ document.addEventListener("DOMContentLoaded", function() {
     const message = document.getElementById("message");
     const envelopeIcon = document.getElementById("envelope-icon");
     const usersCol = document.getElementById("users-col");
-    const arrowContainer = document.getElementById("arrow-container");
+    const arrowIcon = document.getElementById("arrow-icon");
+    const arrowContainer = document.getElementById("arrow-icon");
     const crossMark = document.getElementById("cross-mark");
+    const originalEnvelopePosition = document.getElementById("original-envelope-position");
 
     // チェック状態が変わったときの処理
     toggleInput.addEventListener("change", function() {
         if (this.checked) {
             message.textContent = "Receive emails from the host.";
             usersCol.insertAdjacentElement("beforebegin", envelopeIcon);
-            envelopeIcon.style.opacity = "0"; // テキストを消す
-            crossMark.style.opacity = "0"; // ❌を消す
+            envelopeIcon.classList.add("envelope-move");
+            arrowIcon.style.opacity = "none"; 
+            crossMark.style.opacity = "none";
         } else {
             message.textContent = "Do not receive emails from the host.";
-            document.getElementById("original-envelope-position").appendChild(envelopeIcon);
-            envelopeIcon.style.opacity = "1"; // テキストを復活
-            crossMark.style.opacity = "1"; // ❌を表示
+            originalEnvelopePosition.appendChild(envelopeIcon);
+            envelopeIcon.classList.add("envelope-move");
+            arrowIcon.style.display = "none";
+            crossMark.style.display = "none";
         }
     });
 });
