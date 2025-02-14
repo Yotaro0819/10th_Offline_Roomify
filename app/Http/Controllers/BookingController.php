@@ -101,7 +101,6 @@ class BookingController extends Controller
     public function store(Request $request, $id)
     {
     
-        dd(Auth::id());
     if (!Auth::check()) {
         return redirect()->route('login')->with('error', 'You need to log in first.');
     }
@@ -143,8 +142,6 @@ class BookingController extends Controller
 
 //guest
     public function reservation_guest(){
-
-        dd(Auth::id());
 
         $all_bookings = $this->booking->with(['accommodation', 'guest', 'host'])->where('guest_id', Auth::id())->latest()->paginate(3);
 
