@@ -90,6 +90,8 @@ class BookingController extends Controller
         $service_fee   = $accommodation->price * 0.15;
         $total_fee     = $accommodation->price + $cleaning_fee + $service_fee;
 
+        session(['total_fee' => $total_fee]);
+
         return view('bookingForm')->with('accommodation', $accommodation)
                                         ->with('cleaning_fee', $cleaning_fee)
                                         ->with('service_fee', $service_fee)
@@ -127,8 +129,6 @@ class BookingController extends Controller
         $this->booking->guest_email      = $session()->guest_email;
         $this->booking->special_request  = $session()->special_request;
         $this->booking->save();
-
-        session()->forget('payment_info'); 
 
         return redirect()->route('guest.reservation_guest');
     }

@@ -137,7 +137,7 @@
 
 
 <div class="row gx-5 mx-auto">
-    <h1 class="h2 ms-5" style="font-size: 30px"><a href="{{ route('search')}}">< </a> BOOK YOUR STAY</h1>
+    <h1 class="h2 ms-5" style="font-size: 30px"><a href="{{ route('guest.search')}}">< </a> BOOK YOUR STAY</h1>
 
     <!-- left side -->
     <div class="col-7 w-50 mt-3">
@@ -206,7 +206,7 @@
             @enderror
         </div>
 
-        {{-- <div class="row mb-4">
+        <div class="row mb-4">
             <div class="col">
                 <label class="form-label">Use a coupon<span class="text-danger">*</span></label>
                 <div>
@@ -217,7 +217,7 @@
                     <label for="couponNo">No</label>
                 </div>
             </div>
-        </div> --}}
+        </div>
 
         <div class="row mb-4">
             <div class="col">

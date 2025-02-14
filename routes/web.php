@@ -14,6 +14,7 @@ use App\Http\Controllers\HostRequestController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PayPalController;
 
@@ -39,7 +40,7 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.'], function(){
     Route::get('/res/{bookingId}/cancel', [BookingController::class, 'confirmGuestCancel'])->name('confirmGuestCancel');
     Route::delete('/res/{bookingId}/cancel', [BookingController::class, 'guestCancel'])->name('guestCancel');
     Route::get('/booking-form/{id}', [BookingController::class, 'create'])->name('booking.create');
-    Route::get('/booking/{id}', [BookingController::class, 'store'])->name('booking.store');
+    Route::post('/booking/{id}', [BookingController::class, 'store'])->name('booking.store');
     Route::get('/search', [AccommodationController::class, 'search'])->name('search');
     Route::get('/search_by_keyword', [AccommodationController::class, 'search_by_keyword'])->name('search_by_keyword');
     Route::get('/search_by_filters', [AccommodationController::class, 'search_by_filters'])->name('search_by_filters');
@@ -48,9 +49,6 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.'], function(){
 
 
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
-
-
-
 
     Route::post('/review/post/{id}', [ReviewController::class, 'store'])->name('review.store');
 
@@ -65,6 +63,7 @@ Route::get('/messages/{id}', [MessageController::class, 'index'])->name('message
 Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('messages.show');
 Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
 Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
+Route::patch('/messages/update/{id}', [NotificationController::class, 'update'])->name('notification.update');
 //Araki route end
 
 // host routes
@@ -114,15 +113,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
 Route::get('/coupones/{id}/', [CouponController::class, 'index'])->name('coupones.index');
 Route::delete('/coupones/{id}/delete', [CouponController::class, 'destroy'])->name('coupones.delete');
 
-
-Route::get('/paypal', function () {
-    return view('paypal');
-})->name('paypal');
+// paypal_route
 Route::post('/paypal/{id}/payment', [PayPalController::class, 'createPayment'])->name('paypal.payment');
 Route::get('/paypal/{id}/capture', [PaypalController::class, 'capturepayment'])->name('paypal.capture');
 Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal.cancel');
-
-
+Route::get('/paypal/complete', [PaypalController::class, 'complete'])->name('paypal.complete');
 
 Route::get('/cansel', function () {
     return view('bookingcansel');
