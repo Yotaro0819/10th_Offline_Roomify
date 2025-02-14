@@ -29,7 +29,7 @@ class BookingController extends Controller
 
         // return view('hostRes')->with('all_bookings', $all_accommodations);
 
-        $accommodationIds = $this->accommodation->where('host_id', Auth::id())->select('id');
+        $accommodationIds = $this->accommodation->where('user_id', Auth::id())->pluck('id')->toArray();
 
         $all_bookings = $this->booking->with(['accommodation', 'guest', 'host'])->whereIn('accommodation_id', $accommodationIds)->latest()->paginate(3);
 
@@ -98,9 +98,16 @@ class BookingController extends Controller
 
     public function store(Request $request, $id)
     {
+    
+        dd(Auth::id());
+    if (!Auth::check()) {
+        return redirect()->route('login')->with('error', 'You need to log in first.');
+    }
+
         $accommodation = $this->accommodation->findOrFail($id);
         $hostId = $accommodation->user_id;
         $hostName = User::findOrFail($hostId)->name;
+
 
         $request->validate([
             'check_in_date'     => 'required|date|after_or_equal:today',
@@ -116,25 +123,31 @@ class BookingController extends Controller
             'special_request'   => 'nullable|max:500',
         ]);
 
-        $this->booking->guest_id         = Auth::user()->id;
-        $this->booking->host_id          = $hostId;
-        $this->booking->accommodation_id = $accommodation->id;
-        $this->booking->check_in_date    = $request->check_in_date;
-        $this->booking->check_out_date   = $request->check_out_date;
-        $this->booking->host_name        = $hostName;
-        $this->booking->guest_name       = $request->guest_name;
-        $this->booking->num_guest        = $request->num_guest;
-        $this->booking->guest_email      = $request->guest_email;
-        $this->booking->special_request  = $request->special_request;
-        $this->booking->save();
+        $booking = new Booking();
+        $booking->guest_id         = Auth::user()->id;
+        $booking->host_id          = $hostId;
+        $booking->accommodation_id = $accommodation->id;
+        $booking->check_in_date    = $request->check_in_date;
+        $booking->check_out_date   = $request->check_out_date;
+        $booking->host_name        = $hostName;
+        $booking->guest_name       = $request->guest_name;
+        $booking->num_guest        = $request->num_guest;
+        $booking->guest_email      = $request->guest_email;
+        $booking->special_request  = $request->special_request;
+        $booking->save();
+
 
         return redirect()->route('guest.reservation_guest');
     }
 
+
 //guest
     public function reservation_guest(){
 
+        dd(Auth::id());
+
         $all_bookings = $this->booking->with(['accommodation', 'guest', 'host'])->where('guest_id', Auth::id())->latest()->paginate(3);
+
 
         return view('reservation/guestRes', compact('all_bookings'));
     }
