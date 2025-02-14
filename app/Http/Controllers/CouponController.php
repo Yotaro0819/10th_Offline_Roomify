@@ -22,12 +22,12 @@ class CouponController extends Controller
                     ->with('all_coupones', $all_coupones);
     }
 
-    public function destroy($id)
-    {
-        $coupon =$this->coupon->findOrFail($id);
-        $coupon->delete();
+    // public function destroy($id)
+    // {
+    //     $coupon =$this->coupon->findOrFail($id);
+    //     $coupon->delete();
         
-        return redirect()->back();
-    }
+    //     return redirect()->back();
+    // }
 
 }
