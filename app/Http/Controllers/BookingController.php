@@ -23,11 +23,6 @@ class BookingController extends Controller
 
     public function reservation_host(){
 
-        // $all_bookings = $this->booking->where('user_id', Auth::user()->id)->latest()->paginate(3);
-        // $all_accommodations = $this->accommodation->where('user_id', Auth::user()->id)->get();
-        // $all_bookings = $this->booking->where('user_id', Auth::user()->id)->get();
-
-        // return view('hostRes')->with('all_bookings', $all_accommodations);
 
         $accommodationIds = $this->accommodation->where('user_id', Auth::id())->pluck('id')->toArray();
 
@@ -125,7 +120,7 @@ class BookingController extends Controller
         ]);
 
         $this->booking->guest_id         = Auth::user()->id;
-        $this->booking->host_id          = $hostId;
+        $this->booking->host_id          = $request->host_id;
         $this->booking->accommodation_id = $accommodation->id;
         $this->booking->check_in_date    = $request->check_in_date;
         $this->booking->check_out_date   = $request->check_out_date;
