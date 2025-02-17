@@ -75,14 +75,4 @@ class Accommodation extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function bookings()
-    {
-        return $this->hasMany(Booking::class, 'accommodation_id');
-    }
-
-    public function host()
-    {
-        return $this->belongsTo(User::class, 'host_id');
-    }
-
 }

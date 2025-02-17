@@ -23,6 +23,7 @@ use App\Http\Controllers\PayPalController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/home_search', [HomeController::class, 'search_by_filters'])->name('home.search');
 
 Route::get('accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
 Route::get('/accommodation/pictures/{id}', [AccommodationController::class, 'pictureIndex'])->name('accommodation.pictures');
@@ -64,6 +65,7 @@ Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('mes
 Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
 Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
 Route::patch('/messages/update/{id}', [NotificationController::class, 'update'])->name('notification.update');
+ROute::patch('/messages/confirm/{id}', [NotificationController::class, 'confirm'])->name('notification.confirm');
 //Araki route end
 
 // host routes

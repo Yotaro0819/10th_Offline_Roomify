@@ -339,14 +339,46 @@ footer .right{
             <div class="card">
                 <h2>FIND</h2>
 
-                <form action="" class="search-form">
+                <form action="{{ route('home.search') }}" class="search-form" method="get">
+                  @csrf
+                  @method("GET")
                     <div class="form-container">
                         <div class="form-group">
-                            <label for="location" class="form-label">Location</label>
-                            <input type="text" id="location" class="form-control" placeholder="Which city do you prefer?">
+                            <label for="city" class="form-label">Location</label>
+                            <input type="text" name="city" id="city" class="form-control" placeholder="Enter City Name">
                         </div>
 
                         <div class="form-group">
+                            <label for="daterange" class="form-label">Dates</label>
+                            <input type="text" id="daterange" class="form-control" name="daterange" value="{{ request()->input('daterange') }}" placeholder="Select Date Range">
+                        </div>
+
+                        <script>
+                            $(document).ready(function() {
+                                $('#daterange').daterangepicker({
+                                    autoUpdateInput: false,
+                                    minDate: moment().format('YYYY-MM-DD'), // Ensures no past dates can be selected
+                                    locale: {
+                                        cancelLabel: 'Clear'
+                                    }
+                                });
+
+                                $('#daterange').on('apply.daterangepicker', function(ev, picker) {
+                                    $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+                                });
+
+                                $('#daterange').on('cancel.daterangepicker', function(ev, picker) {
+                                    $(this).val('');
+                                });
+                            });
+                        </script>
+
+                    <div class="form-group">
+                        <label for="capacity" class="form-label">Travelers</label>
+                        <input type="number" name="capacity" id="capacity" class="form-control" placeholder="2 Travelers">
+                    </div>
+
+                        {{-- <div class="form-group">
                             <label for="check_in" class="form-label">Check in</label>
                             <div class="input-container">
                                 <input type="date" id="check_in" class="form-control">
@@ -357,12 +389,9 @@ footer .right{
                         <div class="form-group">
                             <label for="check_out" class="form-label">Check out</label>
                             <input type="date" id="check_out" class="form-control" placeholder="Add Dates">
-                        </div>
+                        </div> --}}
 
-                        <div class="form-group">
-                            <label for="keyword" class="form-label">Keyword</label>
-                            <input type="text" id="keyword" class="form-control">
-                        </div>
+
 
                         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
