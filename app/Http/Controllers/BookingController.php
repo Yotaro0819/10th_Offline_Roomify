@@ -119,17 +119,17 @@ class BookingController extends Controller
             'special_request'   => 'nullable|max:500',
         ]);
 
-        $this->booking->guest_id         = Auth::user()->id;
-        $this->booking->host_id          = $request->host_id;
-        $this->booking->accommodation_id = $accommodation->id;
-        $this->booking->check_in_date    = $request->check_in_date;
-        $this->booking->check_out_date   = $request->check_out_date;
-        $this->booking->host_name        = $hostName;
-        $this->booking->guest_name       = $request->guest_name;
-        $this->booking->num_guest        = $request->num_guest;
-        $this->booking->guest_email      = $request->guest_email;
-        $this->booking->special_request  = $request->special_request;
-        $this->booking->save();
+        // $this->booking->guest_id         = Auth::user()->id;
+        // $this->booking->host_id          = $request->host_id;
+        // $this->booking->accommodation_id = $accommodation->id;
+        // $this->booking->check_in_date    = $request->check_in_date;
+        // $this->booking->check_out_date   = $request->check_out_date;
+        // $this->booking->host_name        = $hostName;
+        // $this->booking->guest_name       = $request->guest_name;
+        // $this->booking->num_guest        = $request->num_guest;
+        // $this->booking->guest_email      = $request->guest_email;
+        // $this->booking->special_request  = $request->special_request;
+        // $this->booking->save();
 
         return redirect()->route('guest.reservation_guest');
     }
