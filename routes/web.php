@@ -23,7 +23,6 @@ use App\Http\Controllers\PayPalController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/home_search', [HomeController::class, 'search_by_filters'])->name('home.search');
 
 Route::get('accommodation/show/{id}', [AccommodationController::class, 'show'])->name('accommodation.show');
 Route::get('/accommodation/pictures/{id}', [AccommodationController::class, 'pictureIndex'])->name('accommodation.pictures');
@@ -126,10 +125,3 @@ Route::get('/cansel', function () {
 });
 
 });
-
-
-
-
-
-
-

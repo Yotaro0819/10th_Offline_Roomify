@@ -92,7 +92,7 @@ class BookingController extends Controller
 
         session(['total_fee' => $total_fee]);
 
-        return view('reservation.bookingForm')->with('accommodation', $accommodation)
+        return view('bookingForm')->with('accommodation', $accommodation)
                                         ->with('cleaning_fee', $cleaning_fee)
                                         ->with('service_fee', $service_fee)
                                         ->with('total_fee', $total_fee);

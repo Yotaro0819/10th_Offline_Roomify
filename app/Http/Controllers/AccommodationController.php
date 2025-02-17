@@ -435,6 +435,7 @@ class AccommodationController extends Controller
     }
     public function search_by_filters(Request $request)
     {
+
         $query = $this->accommodation->query();
 
         $query->when($request->capacity, function ($q, $capacity) {
@@ -466,13 +467,12 @@ class AccommodationController extends Controller
                 });
             }
         }
-        
-        $accommodations = $query->get();
+
         $categories     =  $this->category->get();
+        $accommodations = $query->get();
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
                                                 ->with('categories', $categories);
 
     }
 }
-
