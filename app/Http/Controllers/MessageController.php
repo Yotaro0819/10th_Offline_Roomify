@@ -21,7 +21,7 @@ class MessageController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $notifications = Notification::where('receiver_id', $user->id)->get();
+        $notifications = Notification::where('receiver_id', $user->id)->where('status', '!=', 'confirm')->get();
         $search = $request->input('search');
 
         if ($search) {
@@ -49,7 +49,7 @@ class MessageController extends Controller
     public function show($id)
     {
         $auth_id = Auth::user()->id;
-        $notifications = Notification::where('receiver_id', $auth_id)->get();
+        $notifications = Notification::where('receiver_id', $auth_id)->where('status', '!=', 'confirm')->get();;
 
         $all_messages = Message::where(function ($query) use ($id) {
             $query->where('sender_id', Auth::user()->id)
