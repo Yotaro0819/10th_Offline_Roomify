@@ -61,7 +61,7 @@ public function createPayment(Request $request, $accommodation_id)
     }
     }else {
         return redirect()->route('paypal.cancel');
-    }      
+    }
 }
 
 public function capturePayment(Request $request)
@@ -82,7 +82,7 @@ public function capturePayment(Request $request)
     $payment->payment_id = $response['id'];
     $payment->amount = $response['purchase_units'][0]['payments']['captures'][0]['amount']['value'];
     $payment->payment_method = "PayPal";
-    $payment->accommodation_id = (int) $accommodation_id; 
+    $payment->accommodation_id = (int) $accommodation_id;
     $payment->user_id = Auth::user()->id;
     $payment->save();
 
@@ -116,13 +116,13 @@ public function Cancel()
 {
     $accommodation_id = session()->get('accommodation_id');
 
-    session()->forget('payment_info'); 
+    session()->forget('payment_info');
 
     return view('paypal.paypal_cancel', compact('accommodation_id'));
 }
 
 public function Complete()
-{   
+{
     session()->forget('accommodation_id');
 
     return view('paypal.complete_payment');

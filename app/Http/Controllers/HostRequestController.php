@@ -63,4 +63,3 @@ class HostRequestController extends Controller
         return back()->with('error', 'rejected');
     }
 }
-
