@@ -201,5 +201,3 @@
 
 @include('accommodation.modal.show')
 @endsection
-
-

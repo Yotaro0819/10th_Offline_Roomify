@@ -26,7 +26,7 @@ class CouponController extends Controller
     // {
     //     $coupon =$this->coupon->findOrFail($id);
     //     $coupon->delete();
-        
+
     //     return redirect()->back();
     // }
 
