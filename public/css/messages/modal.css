@@ -21,3 +21,11 @@
     border:none;
     padding:4px 10px;
 }
+
+.read-btn {
+    background-color:gray;
+    color:white;
+    border:none;
+    padding:4px 10px;
+    border-radius:10px;
+}
