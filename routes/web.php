@@ -130,10 +130,3 @@ Route::get('/newsletter', function (){
 });
 
 });
-
-
-
-
-
-
-
