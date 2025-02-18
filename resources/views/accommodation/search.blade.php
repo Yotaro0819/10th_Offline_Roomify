@@ -295,7 +295,6 @@
                         </div>
                     </a>
                     <hr>
-
                 @endforeach
             @else
                 <div class="alert">
