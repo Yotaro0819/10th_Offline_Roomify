@@ -40,7 +40,6 @@ class HomeController extends Controller
 
     public function search_by_filters(Request $request)
     {
-        // Get the daterange from the request
         $daterange = $request->input('daterange');
         if ($daterange) {
             $date = array_map('trim', explode(' - ', $daterange));
@@ -68,8 +67,20 @@ class HomeController extends Controller
             });
         }
 
-        $categories = $this->category->get();
         $accommodations = $query->get();
+
+        // if no accommo matched
+        if ($accommodations->isEmpty()) {
+            $query = $this->accommodation->query();
+
+            $query->when($request->filled('city'), function ($q) use ($request) {
+                $q->where('city', 'LIKE', '%' . $request->input('city') . '%');
+            });
+
+            $accommodations = $query->get();
+        }
+
+        $categories = $this->category->get();
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
                                                  ->with('categories', $categories);

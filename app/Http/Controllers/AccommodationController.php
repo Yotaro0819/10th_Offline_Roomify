@@ -428,24 +428,22 @@ class AccommodationController extends Controller
 
     public function search()
     {
-        $accommodations =  $this->accommodation->get();
+        $accommodations =  $this->accommodation->latest()->take(5)->get();
         $categories     =  $this->category->get();
 
-        return view('accommodation.search')->with('accommodations', $accommodations)
-                                                ->with('categories', $categories);
+        return view('accommodation.search')->with('all_accommodations', $accommodations)
+                                                 ->with('categories', $categories);
     }
 
     public function search_by_keyword(Request $request)
     {
+        $categories     =  $this->category->get();
         $accommodations = $this->accommodation
                     ->where('address', 'LIKE', '%'. $request->keyword . '%')
                     ->orWhere('name', 'LIKE', '%'. $request->keyword . '%')
                     ->orWhere('city', 'LIKE', '%'. $request->keyword . '%')
                     ->orWhere('price', 'LIKE', '%'. $request->keyword . '%')
                     ->paginate(5);
-
-        $categories     =  $this->category->get();
-
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
                                                 ->with('categories', $categories);
@@ -490,6 +488,5 @@ class AccommodationController extends Controller
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
                                                 ->with('categories', $categories);
-
     }
 }
