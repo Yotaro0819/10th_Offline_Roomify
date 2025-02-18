@@ -33,7 +33,6 @@ class AccommodationController extends Controller
         $this->category      = $category;
         $this->hashtag       = $hashtag;
         $this->ecoitem       = $ecoitem;
-
     }
 
 
@@ -451,14 +450,7 @@ class AccommodationController extends Controller
     }
     public function search_by_filters(Request $request)
     {
-        $daterange = $request->input('daterange');
-        if ($daterange) {
-            $date = array_map('trim', explode(' - ', $daterange));
-            $starting_date = $date[0];
-            $ending_date = $date[1];
-        }
-
-        $query = $this->accommodation->query();
+        $query  = $this->accommodation->query();
 
         $query->when($request->capacity, function ($q, $capacity) {
             $capacityRanges = [
@@ -490,6 +482,16 @@ class AccommodationController extends Controller
             }
         }
 
+        $daterange = $request->input('daterange');
+
+        if ($daterange) {
+            $date = array_map('trim', explode(' - ', $daterange));
+            if (count($date) == 2) {
+                $starting_date = $date[0];
+                $ending_date = $date[1];
+            }
+        }
+
         if ($starting_date && $ending_date) {
             $query->whereDoesntHave('bookings', function ($q) use ($starting_date, $ending_date) {
                 $q->where(function ($query) use ($starting_date, $ending_date) {
@@ -498,27 +500,17 @@ class AccommodationController extends Controller
                           ->orWhere(function ($query) use ($starting_date, $ending_date) {
                               $query->where('check_in_date', '<=', $starting_date)
                                     ->where('check_out_date', '>=', $ending_date);
-                          });
+                    });
                 });
             });
         }
 
         $accommodations = $query->get();
-
-        // if no accommo matched
-        if ($accommodations->isEmpty()) {
-            $query = $this->accommodation->query();
-
-            $query->when($request->filled('city'), function ($q) use ($request) {
-                $q->where('city', 'LIKE', '%' . $request->input('city') . '%');
-            });
-
-            $accommodations = $query->get();
-        }
-
-        $categories     =  $this->category->get();
+        $categories = $this->category->get();
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
-                                                ->with('categories', $categories);
+                                                 ->with('categories', $categories);
     }
+
+
 }

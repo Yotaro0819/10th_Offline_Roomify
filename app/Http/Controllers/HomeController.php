@@ -40,14 +40,14 @@ class HomeController extends Controller
 
     public function search_by_filters(Request $request)
     {
+        $query = $this->accommodation->query();
         $daterange = $request->input('daterange');
+
         if ($daterange) {
             $date = array_map('trim', explode(' - ', $daterange));
             $starting_date = $date[0];
             $ending_date = $date[1];
         }
-
-        $query = $this->accommodation->query();
 
         $query->when($request->filled('city'), function ($q) use ($request, $starting_date, $ending_date) {
             $q->where('city', 'LIKE', '%' . $request->input('city') . '%')
@@ -68,18 +68,6 @@ class HomeController extends Controller
         }
 
         $accommodations = $query->get();
-
-        // if no accommo matched
-        if ($accommodations->isEmpty()) {
-            $query = $this->accommodation->query();
-
-            $query->when($request->filled('city'), function ($q) use ($request) {
-                $q->where('city', 'LIKE', '%' . $request->input('city') . '%');
-            });
-
-            $accommodations = $query->get();
-        }
-
         $categories = $this->category->get();
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)

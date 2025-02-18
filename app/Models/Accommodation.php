@@ -77,6 +77,6 @@ class Accommodation extends Model
 
     public function bookings()
     {
-        return $this->hasMany(Booking::class, 'booking');
+        return $this->hasMany(Booking::class);
     }
 }
