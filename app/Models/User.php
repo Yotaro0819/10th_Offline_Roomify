@@ -101,12 +101,12 @@ class User extends Authenticatable
 
     public function guestbookings()
     {
-        $this->hasMany(Booking::class, 'guest_id');
+        return $this->hasMany(Booking::class, 'guest_id');
     }
 
     public function hostBookings()
     {
-        $this->hasMany(Booking::class, 'host_id');
+        return $this->hasMany(Booking::class, 'host_id');
     }
 
     public function notifications()
