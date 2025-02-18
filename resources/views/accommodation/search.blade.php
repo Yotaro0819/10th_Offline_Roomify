@@ -214,6 +214,17 @@
                 </div>
             </div>
 
+            <!-- checkin/checkout -->
+            <div class="card">
+                <div class="card-header">Date</div>
+                <div class="card-body">
+                    <div class="search-bar" style="margin-left:0">
+                        <label for="daterange" class="form-label text-start"></label>
+                        <input type="text" id="daterange" class="form-control" name="daterange" value="{{ request()->input('daterange') }}" placeholder="Check In - Check Out" required>
+                    </div>
+                </div>
+            </div>
+
             <!-- category -->
             <div class="card">
                 <div class="card-header">Category</div>
@@ -432,5 +443,24 @@
     });
 
     updateProgress();
+
+    $(document).ready(function() {
+        $('#daterange').daterangepicker({
+            autoUpdateInput: false,
+            minDate: moment().add(1, 'days').format('YYYY-MM-DD'),
+            locale: {
+                format: 'YYYY-MM-DD',
+                cancelLabel: 'Clear'
+            }
+        });
+
+        $('#daterange').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+        });
+
+        $('#daterange').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+        });
+    });
 </script>
 @endsection
