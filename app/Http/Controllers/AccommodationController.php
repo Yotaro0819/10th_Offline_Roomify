@@ -89,7 +89,7 @@ class AccommodationController extends Controller
                 $ecoitems = Ecoitem::whereIn('id', $ecoitemIds)->get();
                 $totalPoints = $ecoitems->sum('point');
                 $ecoitems->count();
-
+                $rank = 'C';
                 // 平均ポイントの計算
                 $sumPoints = $totalPoints;
 
@@ -157,24 +157,30 @@ class AccommodationController extends Controller
 
                 // カテゴリーのsection
                 $category_accommodation = [];
-                foreach ($request->category as $category_id) {
-                    $category_accommodation[] = [
-                        'category_id' => $category_id,
-                        'accommodation_id' => $accommodation->id
-                    ];
+                if(is_array($request->category)) {
+                    foreach ($request->category as $category_id) {
+                        $category_accommodation[] = [
+                            'category_id' => $category_id,
+                            'accommodation_id' => $accommodation->id
+                        ];
+                    }
                 }
+
 
                 DB::table('category_accommodation')->insert($category_accommodation);
 
 
                 // エコフレンドリーのsection
                 $ecoitem_accommodation = [];
-                foreach ($request->ecoitem as $ecoitem_id) {
-                    $ecoitem_accommodation[] = [
-                        'ecoitem_id' => $ecoitem_id,
-                        'accommodation_id' => $accommodation->id
-                    ];
+                if(is_array($request->ecoitem)) {
+                    foreach ($request->ecoitem as $ecoitem_id) {
+                        $ecoitem_accommodation[] = [
+                            'ecoitem_id' => $ecoitem_id,
+                            'accommodation_id' => $accommodation->id
+                        ];
+                    }
                 }
+
 
                 DB::table('ecoitem_accommodation')->insert($ecoitem_accommodation);
 
@@ -262,9 +268,14 @@ class AccommodationController extends Controller
 
             //ecoitems　section
             $ecoitem_accommodation = [];
-            foreach ($request->ecoitem as $ecoitem_id) {
-                $ecoitem_accommodation[] = $ecoitem_id;
-            }
+                if(is_array($request->ecoitem)) {
+                    foreach ($request->ecoitem as $ecoitem_id) {
+                        $ecoitem_accommodation[] = [
+                            'ecoitem_id' => $ecoitem_id,
+                            'accommodation_id' => $accommodation->id
+                        ];
+                    }
+                }
 
             // 既存のカテゴリ関連を同期（重複なし）
             $accommodation->ecoitems()->sync($ecoitem_accommodation);
@@ -276,6 +287,7 @@ class AccommodationController extends Controller
 
                 // 平均ポイントの計算
                 $sumPoints = $totalPoints;
+                $rank = 'C';
 
                 // ランクを決定
                 if ($sumPoints >= 31) {
@@ -338,10 +350,15 @@ class AccommodationController extends Controller
             }
 
            // カテゴリの関連付け
-        $category_accommodation = [];
-        foreach ($request->category as $category_id) {
-            $category_accommodation[] = $category_id;
-        }
+            $category_accommodation = [];
+            if(is_array($request->category)) {
+                foreach ($request->category as $category_id) {
+                    $category_accommodation[] = [
+                        'category_id' => $category_id,
+                        'accommodation_id' => $accommodation->id
+                    ];
+                }
+            }
 
         // 既存のカテゴリ関連を同期（重複なし）
         $accommodation->categories()->sync($category_accommodation);
