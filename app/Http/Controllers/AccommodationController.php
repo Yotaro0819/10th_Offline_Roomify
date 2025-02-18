@@ -88,7 +88,7 @@ class AccommodationController extends Controller
                 $ecoitems = Ecoitem::whereIn('id', $ecoitemIds)->get();
                 $totalPoints = $ecoitems->sum('point');
                 $ecoitems->count();
-
+                $rank = 'C';
                 // 平均ポイントの計算
                 $sumPoints = $totalPoints;
 
@@ -156,24 +156,30 @@ class AccommodationController extends Controller
 
                 // カテゴリーのsection
                 $category_accommodation = [];
-                foreach ($request->category as $category_id) {
-                    $category_accommodation[] = [
-                        'category_id' => $category_id,
-                        'accommodation_id' => $accommodation->id
-                    ];
+                if(is_array($request->category)) {
+                    foreach ($request->category as $category_id) {
+                        $category_accommodation[] = [
+                            'category_id' => $category_id,
+                            'accommodation_id' => $accommodation->id
+                        ];
+                    }
                 }
+
 
                 DB::table('category_accommodation')->insert($category_accommodation);
 
 
                 // エコフレンドリーのsection
                 $ecoitem_accommodation = [];
-                foreach ($request->ecoitem as $ecoitem_id) {
-                    $ecoitem_accommodation[] = [
-                        'ecoitem_id' => $ecoitem_id,
-                        'accommodation_id' => $accommodation->id
-                    ];
+                if(is_array($request->ecoitem)) {
+                    foreach ($request->ecoitem as $ecoitem_id) {
+                        $ecoitem_accommodation[] = [
+                            'ecoitem_id' => $ecoitem_id,
+                            'accommodation_id' => $accommodation->id
+                        ];
+                    }
                 }
+
 
                 DB::table('ecoitem_accommodation')->insert($ecoitem_accommodation);
 
@@ -261,9 +267,14 @@ class AccommodationController extends Controller
 
             //ecoitems　section
             $ecoitem_accommodation = [];
-            foreach ($request->ecoitem as $ecoitem_id) {
-                $ecoitem_accommodation[] = $ecoitem_id;
-            }
+                if(is_array($request->ecoitem)) {
+                    foreach ($request->ecoitem as $ecoitem_id) {
+                        $ecoitem_accommodation[] = [
+                            'ecoitem_id' => $ecoitem_id,
+                            'accommodation_id' => $accommodation->id
+                        ];
+                    }
+                }
 
             // 既存のカテゴリ関連を同期（重複なし）
             $accommodation->ecoitems()->sync($ecoitem_accommodation);
@@ -275,6 +286,7 @@ class AccommodationController extends Controller
 
                 // 平均ポイントの計算
                 $sumPoints = $totalPoints;
+                $rank = 'C';
 
                 // ランクを決定
                 if ($sumPoints >= 31) {
@@ -337,10 +349,15 @@ class AccommodationController extends Controller
             }
 
            // カテゴリの関連付け
-        $category_accommodation = [];
-        foreach ($request->category as $category_id) {
-            $category_accommodation[] = $category_id;
-        }
+            $category_accommodation = [];
+            if(is_array($request->category)) {
+                foreach ($request->category as $category_id) {
+                    $category_accommodation[] = [
+                        'category_id' => $category_id,
+                        'accommodation_id' => $accommodation->id
+                    ];
+                }
+            }
 
         // 既存のカテゴリ関連を同期（重複なし）
         $accommodation->categories()->sync($category_accommodation);
@@ -411,24 +428,22 @@ class AccommodationController extends Controller
 
     public function search()
     {
-        $accommodations =  $this->accommodation->get();
+        $accommodations =  $this->accommodation->latest()->take(5)->get();
         $categories     =  $this->category->get();
 
-        return view('accommodation.search')->with('accommodations', $accommodations)
-                                                ->with('categories', $categories);
+        return view('accommodation.search')->with('all_accommodations', $accommodations)
+                                                 ->with('categories', $categories);
     }
 
     public function search_by_keyword(Request $request)
     {
+        $categories     =  $this->category->get();
         $accommodations = $this->accommodation
                     ->where('address', 'LIKE', '%'. $request->keyword . '%')
                     ->orWhere('name', 'LIKE', '%'. $request->keyword . '%')
                     ->orWhere('city', 'LIKE', '%'. $request->keyword . '%')
                     ->orWhere('price', 'LIKE', '%'. $request->keyword . '%')
                     ->paginate(5);
-
-        $categories     =  $this->category->get();
-
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
                                                 ->with('categories', $categories);
@@ -473,6 +488,5 @@ class AccommodationController extends Controller
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
                                                 ->with('categories', $categories);
-
     }
 }

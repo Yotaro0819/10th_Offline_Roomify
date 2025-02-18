@@ -276,52 +276,6 @@ input::placeholder {
     border-radius: 50px;
     margin-top: -30px;
 }
-
-footer{
-    background-color: #eeeeee;
-    padding: 30px 0;
-}
-
-footer h1{
-    color: #004aad;
-    font-weight: bold;
-    font-family: arial;
-    margin-left: 60px;
-}
-
-footer a{
-    color: black;
-    font-style: normal;
-}
-
-footer .row {
-    justify-content: space-between;
-    gap: 5px;
-    margin-bottom: 0;
-}
-
-footer .col-auto{
-    margin-right: 100px;
-}
-
-footer h5{
-    font-weight: bold;
-    font-family: arial;
-}
-
-footer .app a{
-    margin: 0 10px;
-    font-size: 2em;
-}
-
-footer small{
-    padding: 30px;
-    font-weight: bold;
-}
-
-footer .right{
-    margin-left: 400px;
-}
 </style>
 <main>
     <section class="top">
@@ -344,59 +298,24 @@ footer .right{
                   @method("GET")
                     <div class="form-container">
                         <div class="form-group">
-                            <label for="city" class="form-label">Location</label>
-                            <input type="text" name="city" id="city" class="form-control" placeholder="Enter City Name">
+                            <label for="city" class="form-label text-start">Location</label>
+                            <input type="text" name="city" id="city" class="form-control" placeholder="Enter City Name" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="daterange" class="form-label">Dates</label>
-                            <input type="text" id="daterange" class="form-control" name="daterange" value="{{ request()->input('daterange') }}" placeholder="Select Date Range">
-                        </div>
-
-                        <script>
-                            $(document).ready(function() {
-                                $('#daterange').daterangepicker({
-                                    autoUpdateInput: false,
-                                    minDate: moment().format('YYYY-MM-DD'), // Ensures no past dates can be selected
-                                    locale: {
-                                        cancelLabel: 'Clear'
-                                    }
-                                });
-
-                                $('#daterange').on('apply.daterangepicker', function(ev, picker) {
-                                    $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
-                                });
-
-                                $('#daterange').on('cancel.daterangepicker', function(ev, picker) {
-                                    $(this).val('');
-                                });
-                            });
-                        </script>
-
-                    <div class="form-group">
-                        <label for="capacity" class="form-label">Travelers</label>
-                        <input type="number" name="capacity" id="capacity" class="form-control" placeholder="2 Travelers">
-                    </div>
-
-                        {{-- <div class="form-group">
-                            <label for="check_in" class="form-label">Check in</label>
-                            <div class="input-container">
-                                <input type="date" id="check_in" class="form-control">
-                                <span class="placeholder-text">Add Dates</span>
-                            </div>
+                            <label for="daterange" class="form-label text-start">Dates</label>
+                            <input type="text" id="daterange" class="form-control" name="daterange" value="{{ request()->input('daterange') }}" placeholder="Check In - Check Out" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="check_out" class="form-label">Check out</label>
-                            <input type="date" id="check_out" class="form-control" placeholder="Add Dates">
-                        </div> --}}
-
-
+                            <label for="capacity" class="form-label text-start">Travelers</label>
+                            <input type="number" name="capacity" id="capacity" class="form-control" placeholder="2 Travelers" required>
+                        </div>
 
                         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
+                    </div>
+                </form>
             </div>
-
         </div>
     </section>
 
@@ -474,7 +393,12 @@ footer .right{
                         <h2>Would You Like to Receive Newsletters ?</h2>
                         <p>You can recieve newsletters from the hosts of <br>
                             accommodations you've stayed at in past!</p>
-                        <a href="#" class="btn">Check Your Newsletter</a>
+                            @if(Auth::check())
+                                <a href="{{ url('/newsletter') }}" class="btn">Check Your Newsletter</a>
+                            @else
+                                <a href="{{ route('login') }}" class="btn">Check Your Newsletter</a>
+                            @endif
+                        <!-- <a href="{{ url('/newsletter') }}" class="btn">Check Your Newsletter</a> -->
                     @endif
                 </div>
                 <div class="col-6">
@@ -483,43 +407,24 @@ footer .right{
             </div>
     </section>
 </main>
-<!-- <footer>
-    <div class="row">
-        <div class="col-auto">
-            <h1>ROOMIFY</h1>
-        </div>
-        <div class="col-auto">
-            <h5>COMPANY</h5>
-            <p><a href="#">About Us</a></p>
-            <p><a href="#">Contact Us</a></p>
-        </div>
-        <div class="col-auto">
-            <h5>HELP CENTER</h5>
-            <p><a href="#">Find a Property</a></p>
-            <p><a href="#">How To Host?</a></p>
-            <p><a href="#">FAQs</a></p>
-            <p><a href="#">Rental Guides</a></p>
-        </div>
-        <div class="col-auto title">
-            <h5>CONTACT INFO</h5>
-            <p>Phone: 1234567890</p>
-            <p>Email: roomify@email.com</p>
-            <p>Location: 100 Smart Street, Tokyo, <br>JAPAN</p>
-            <div class="app">
-                    <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            </div>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col">
-            <small class="left">(c) 2025 @roomify | All rights raserved</small>
-        </div>
-        <div class="col">
-            <small class="right">Created with love by @roomify</small>
-        </div>
-    </div>
-</footer> -->
+<script>
+    $(document).ready(function() {
+        $('#daterange').daterangepicker({
+            autoUpdateInput: false,
+            minDate: moment().add(1, 'days').format('YYYY-MM-DD'),
+            locale: {
+                format: 'YYYY-MM-DD',
+                cancelLabel: 'Clear'
+            }
+        });
+
+        $('#daterange').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+        });
+
+        $('#daterange').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+        });
+    });
+</script>
 @endsection
