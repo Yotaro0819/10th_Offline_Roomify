@@ -74,7 +74,7 @@
                     <span class="end-date">{{ \Carbon\Carbon::parse($booking->check_out_date)->format('Y/m/d') }}</span>
                 </h5>
                 <div id="spaced">
-                    <p><span><i class="fa-solid fa-circle-user"></i></span> {{ $booking->host_name }}</p>
+                    <p><span><i class="fa-solid fa-circle-user"></i></span> {{ $booking->host->name }}</p>
                 </div>
 
                 <div>

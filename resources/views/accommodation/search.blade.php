@@ -434,6 +434,7 @@
         slider.classList.toggle('dragging', isDragging);
     });
 
+    // checkin/checkout
     document.addEventListener("mouseup", () => {
         if(isDragging){
             isDragging = false;

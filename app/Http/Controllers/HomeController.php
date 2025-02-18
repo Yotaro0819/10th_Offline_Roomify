@@ -85,8 +85,4 @@ class HomeController extends Controller
         return view('accommodation.search')->with('all_accommodations', $accommodations)
                                                  ->with('categories', $categories);
     }
-
-
-
-
 }
