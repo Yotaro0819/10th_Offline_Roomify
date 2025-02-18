@@ -126,10 +126,3 @@ Route::get('/cansel', function () {
 });
 
 });
-
-
-
-
-
-
-
