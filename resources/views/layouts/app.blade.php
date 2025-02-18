@@ -133,7 +133,7 @@ a
                             <a href="{{ route('messages.index', Auth::user()->id) }}" class="find-button ms-3">Messages</a>
                                 @if(Auth::user()->role === "1") {{-- guest pattern --}}
                                 <a href="{{ route('guest.reservation_guest')}}" class="find-button ms-3">Bookings</a>
-                                @elseif(Auth::user()->role === "2") {{-- host pattern　--}}
+                                @elseif(Auth::user()->role === "2") {{-- host pattern --}}
                                 <a href="{{ route('guest.reservation_guest')}}" class="find-button ms-3">Bookings</a>
                                 <a href="{{ route('host.reservation_host')}}" class="find-button ms-3">Your Guests</a>
                                 @elseif(Auth::user()->role === "0") {{-- admin pattern --}}
