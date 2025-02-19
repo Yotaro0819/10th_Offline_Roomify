@@ -134,4 +134,8 @@ Route::get('/contact', function () {
 });
 
 
+Route::get('/hostnewsletter', function (){
+    return view('hostNewsletter');
+});
+
 });
