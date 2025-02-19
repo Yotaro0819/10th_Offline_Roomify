@@ -129,4 +129,8 @@ Route::get('/newsletter', function (){
     return view('guestNewsletter');
 });
 
+Route::get('/hostnewsletter', function (){
+    return view('hostNewsletter');
+});
+
 });
