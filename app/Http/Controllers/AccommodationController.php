@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Accommodation;
 use App\Models\Category;
+use App\Models\Booking;
 use App\Models\Ecoitem;
 use App\Models\Hashtag;
 use App\Models\Review;
@@ -32,7 +33,6 @@ class AccommodationController extends Controller
         $this->category      = $category;
         $this->hashtag       = $hashtag;
         $this->ecoitem       = $ecoitem;
-
     }
 
 
@@ -450,8 +450,7 @@ class AccommodationController extends Controller
     }
     public function search_by_filters(Request $request)
     {
-
-        $query = $this->accommodation->query();
+        $query  = $this->accommodation->query();
 
         $query->when($request->capacity, function ($q, $capacity) {
             $capacityRanges = [
@@ -483,10 +482,35 @@ class AccommodationController extends Controller
             }
         }
 
-        $categories     =  $this->category->get();
+        $daterange = $request->input('daterange');
+
+        if ($daterange) {
+            $date = array_map('trim', explode(' - ', $daterange));
+            if (count($date) == 2) {
+                $starting_date = $date[0];
+                $ending_date = $date[1];
+            }
+        }
+
+        if ($starting_date && $ending_date) {
+            $query->whereDoesntHave('bookings', function ($q) use ($starting_date, $ending_date) {
+                $q->where(function ($query) use ($starting_date, $ending_date) {
+                    $query->whereBetween('check_in_date', [$starting_date, $ending_date])
+                          ->orWhereBetween('check_out_date', [$starting_date, $ending_date])
+                          ->orWhere(function ($query) use ($starting_date, $ending_date) {
+                              $query->where('check_in_date', '<=', $starting_date)
+                                    ->where('check_out_date', '>=', $ending_date);
+                    });
+                });
+            });
+        }
+
         $accommodations = $query->get();
+        $categories = $this->category->get();
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
-                                                ->with('categories', $categories);
+                                                 ->with('categories', $categories);
     }
+
+
 }
