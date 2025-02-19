@@ -31,8 +31,8 @@
         </form>
     </div>
 
-    <div class="mt-3 w-75 mx-auto">
-        <h3 class="text-center">Contact Options</h3>
+    <div class="mt-3 w-75 mx-auto mt-w3">
+        <h1 class="text-center">Contact Options</h1>
         <div class="row d-flex align-items-center">
             <div class="col text-end">
                 <i class="fa-solid fa-phone"></i>
