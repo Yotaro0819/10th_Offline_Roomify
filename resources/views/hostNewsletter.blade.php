@@ -4,6 +4,17 @@
 
 @section('content')
 
+<style>
+    .btn{
+        background-color: #004aad;
+        color: white;
+    }
+
+    .btn:hover {
+        background-color: #2980b9;
+        color: white;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col">
@@ -11,7 +22,7 @@
         </div>
         <div class="col">
             <div class="btn">
-                Writte a newsletter
+                <i class="fa-solid fa-pencil"></i> Write a new newsletter
             </div>
         </div>
     </div>
