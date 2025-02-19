@@ -114,4 +114,9 @@ class User extends Authenticatable
         return $this->hasMany(Notification::class, 'receiver_id');
     }
 
+    public function coupons()
+    {
+        return $this->hasMany(Coupon::class, 'user_id');
+    }
+
 }

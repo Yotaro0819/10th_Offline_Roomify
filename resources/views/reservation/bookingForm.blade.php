@@ -4,21 +4,19 @@
 
 @section('content')
 <style>
-    .form-control
-    {
+    .form-control{
         border-color: #A5A5A5;
     }
 
-    #acm-booking
-    {
+    #acm-booking{
         border: solid 4px #dcbf7d;
         border-radius: 30px;
         width:400px;
         height: 350px;
         align-items: left;
     }
-    .btn
-    {
+
+    .row .btn{
         border-color:#004aad;
         color: #ffffff;
         background-color: #004aad;
@@ -26,115 +24,34 @@
         width:400px;
     }
 
-    .btn:hover
-    {
+    .row .btn:hover{
         border-color:#004aad;
         color: #004aad;
         background-color: transparent;
     }
 
-    .price
-    {
+    .price{
         text-align: right;
     }
-    img
-    {
+
+    img{
         width: 150px;
         height: 100px;
         border-radius: 30px;
     }
 
-    .ui-datepicker-range a
-    {
-        background-color: #dcbf7d !important;
-        color: white !important;
+    .daterangepicker .applyBtn,
+    .daterangepicker .cancelBtn {
+        font-size: 16px;
+        width: 100px;
+        height: 30px;
     }
+
+    .daterangepicker .cancelBtn {
+        border-color: #6c757d;
+    }
+
 </style>
-
-
-<script>
-    var checkInDate = null;
-    var checkOutDate = null;
-    var perNightPrice = {{ $accommodation->price }};
-
-    function highlightRange(date) {
-        if (checkInDate && checkOutDate) {
-            if (date >= checkInDate && date <= checkOutDate){
-                return [true, "ui-datepicker-range"];
-            }
-        } else if (checkInDate && date.getTime() === checkInDate.getTime()) {
-            return [true, "ui-datepicker-range"];
-        }
-        return [true, ""];
-    }
-
-    function calculateDays() {
-    if (checkInDate && checkOutDate) {
-        var diff = checkOutDate - checkInDate;
-        var days = Math.round(diff / (1000 * 60 * 60 * 24));
-
-        $("#total_days").text(days);
-        $("#total_days_for_confirmation").text(days);
-
-        if (days > 1) {
-            $("#stay_label").text("nights stay");
-        } else {
-            $("#stay_label").text("night stay");
-        }
-
-        calculateTotalFee(days);
-        return days;
-    }
-        return 0;
-    }
-
-    function calculateTotalFee(days) {
-    var cleaningFee = {{ $cleaning_fee }} * days;
-    var serviceFee  = {{ $service_fee }} * days;
-    var stayFee     =  days * perNightPrice;
-    var totalFee    = stayFee + cleaningFee + serviceFee;
-
-    $("#cleaningFee").text(cleaningFee.toLocaleString());
-    $("#serviceFee").text(serviceFee.toLocaleString());
-    $("#stayFee").text(stayFee.toLocaleString());
-    $("#total_fee_display").text(totalFee.toLocaleString());
-    }
-
-
-    $(document).ready(function() {
-        $("#check_in_datepicker").datepicker({
-            minDate: 1,
-            dateFormat: 'yy-mm-dd',
-            onSelect: function(selectedDate) {
-                checkInDate = $(this).datepicker('getDate');
-                checkOutDate = null;
-                $("#check_out_datepicker").val("");
-
-                var minCheckOutDate = new Date(checkInDate);
-                minCheckOutDate.setDate(minCheckOutDate.getDate() + 1);
-
-                $("#check_out_datepicker").datepicker("option", "minDate", minCheckOutDate);
-                $("#check_in_datepicker").datepicker("refresh");
-                $("#check_out_datepicker").datepicker("refresh");
-                calculateDays();
-            },
-            beforeShowDay: highlightRange
-        });
-
-        $("#check_out_datepicker").datepicker({
-            dateFormat: 'yy-mm-dd',
-            minDate: 2,
-            onSelect: function(selectedDate) {
-                checkOutDate = $(this).datepicker('getDate');
-                $("#check_in_datepicker").datepicker("refresh");
-                $("#check_out_datepicker").datepicker("refresh");
-                calculateDays();
-            },
-            beforeShowDay: highlightRange
-        });
-    });
-</script>
-
 
 <div class="row gx-5 mx-auto">
     <h1 class="h2 ms-5" style="font-size: 30px"><a href="{{ route('guest.search')}}">< </a> BOOK YOUR STAY</h1>
@@ -178,30 +95,13 @@
 
         <div class="row mb-4">
             <div class="col">
-                <label for="check_in_date" class="form-label">Arrival Date<span class="text-danger">*</span></label>
-                <input type="text" name="check_in_date" class="form-control w-75"  id="check_in_datepicker" placeholder="Select Check-In Date">
+                <label for="daterange" class="form-label">Date<span class="text-danger">*</span></label>
+                <input type="text" id="daterange" class="form-control w-75" name="daterange" value="{{ request()->input('daterange') }}" placeholder="Check In - Check Out Date" required>
+                <p class="form-text w-75 text-end"><span id="total_days"></span></p>
             </div>
 
             <!-- error directive-->
-            @error('check_in_date')
-                <div class="text-danger small">{{ $message }}</div>
-            @enderror
-        </div>
-
-
-        <div class="row mb-4">
-            <div class="col">
-                <label for="check_out_date" class="form-label">Departure Date<span class="text-danger">*</span></label>
-                <input type="text" name="check_out_date" class="form-control w-75"  id="check_out_datepicker" placeholder="Select Check-Out Date">
-
-                <div class="form-text w-75 text-end">
-                    <span id="total_days"></span> <span id="stay_label"></span>
-                </div>
-            </div>
-
-
-            <!-- error directive-->
-            @error('check_out_date')
+            @error('daterange')
                 <div class="text-danger small">{{ $message }}</div>
             @enderror
         </div>
@@ -259,7 +159,7 @@
         </div>
 
         <div class="row">
-            <div class="col"><span>¥{{ $accommodation->price}} </span> /night x <span id="total_days_for_confirmation"></span></div>
+            <div class="col"><span>¥{{ $accommodation->price}}</span>/night x <span id="total_days_for_confirmation"></span></div>
             <div class="col price">¥ <span id="stayFee"></span></div>
         </div>
 
@@ -290,4 +190,76 @@
     </div>
         </form>
 </div>
+<script>
+    var startDate = null;
+    var endDate = null;
+    var perNightPrice = {{ $accommodation->price }};
+
+    function calculateDays() {
+        if (startDate && endDate) {
+            var diff = endDate.getTime() - startDate.getTime();
+            var days = Math.round(diff / (1000 * 60 * 60 * 24));
+
+            var nights = days - 1;
+
+            if (nights < 1) {
+                nights = 1;
+            }
+
+            $("#total_days").text(nights);
+            $("#total_days_for_confirmation").text(nights);
+
+            if (nights > 1) {
+                $("#total_days").text("Total : " + nights + " nights stay");
+            } else {
+                $("#total_days").text("Total : " + nights + " night stay");
+            }
+
+            calculateTotalFee(nights);
+            return nights;
+        }
+        return 0;
+    }
+
+    function calculateTotalFee(nights) {
+        var cleaningFee = {{ $cleaning_fee }};
+        var serviceFee  = {{ $service_fee }} * nights;
+        var stayFee     = nights * perNightPrice;
+        var totalFee    = stayFee + cleaningFee + serviceFee;
+
+        $("#cleaningFee").text(cleaningFee.toLocaleString());
+        $("#serviceFee").text(serviceFee.toLocaleString());
+        $("#stayFee").text(stayFee.toLocaleString());
+        $("#total_fee_display").text(totalFee.toLocaleString());
+    }
+
+
+    $(document).ready(function() {
+        $('#daterange').daterangepicker({
+            autoUpdateInput: false,
+            minDate: moment().add(1, 'days').format('YYYY-MM-DD'),
+            locale: {
+                format: 'YYYY-MM-DD',
+                cancelLabel: 'Clear'
+            }
+        });
+
+        $('#daterange').on('apply.daterangepicker', function(ev, picker) {
+            startDate = picker.startDate.toDate();
+            endDate = picker.endDate.toDate();
+
+            $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+
+            calculateDays();
+        });
+
+        $('#daterange').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+            startDate = null;
+            endDate = null;
+            calculateDays();
+        });
+    });
+</script>
+
 @endsection
