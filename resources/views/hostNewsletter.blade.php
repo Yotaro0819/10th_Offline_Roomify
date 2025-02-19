@@ -21,9 +21,9 @@
             <h2>News Letter Page</h2>
         </div>
         <div class="col">
-            <div class="btn">
+            <a href="#" class="btn">
                 <i class="fa-solid fa-pencil"></i> Write a new newsletter
-            </div>
+            </a>
         </div>
     </div>
     <table class="table">
