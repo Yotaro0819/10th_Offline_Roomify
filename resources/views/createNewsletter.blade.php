@@ -61,8 +61,9 @@ h3{
     font-size: 15px;
   }
 }
-span{
+.mark{
     color: red;
+    background-color: transparent;
 }
 .Form-Item-Label-Required {
   border-radius: 6px;
@@ -161,12 +162,12 @@ span{
         <h3>MAIL FORM</h3>
         <div class="Form">
             <div class="Form-Item">
-                <p class="Form-Item-Label">Title<span>*</span></p>
+                <p class="Form-Item-Label">Title<span class="mark">*</span></p>
                 <input type="text" class="Form-Item-Input" placeholder="Escape Awaits: Top Stays You'll Love!">
             </div>
             
             <div class="Form-Item">
-                    <p class="Form-Item-Label isMsg">Textarea<span>*</span></p>
+                    <p class="Form-Item-Label isMsg">Textarea<span class="mark">*</span></p>
                     <textarea class="Form-Item-Textarea"></textarea>
             </div>
             <input type="submit" class="Form-Btn" value="Send">
