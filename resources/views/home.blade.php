@@ -388,7 +388,7 @@ input::placeholder {
                         <h2>Writing a Newsletter!</h2>
                         <p>When you list a property, you can send a newsletter<br>
                          to past guests who have stayed there before!</p>
-                        <a href="#" class="btn">Try Writing a Newsletter</a>
+                        <a href="{{ url('/hostnewsletter') }} " class="btn">Try Writing a Newsletter</a>
                     @else
                         <h2>Would You Like to Receive Newsletters ?</h2>
                         <p>You can recieve newsletters from the hosts of <br>
