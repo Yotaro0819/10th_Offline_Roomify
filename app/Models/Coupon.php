@@ -14,5 +14,10 @@ class Coupon extends Model
         return $query->where('expires_at','<', now());
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
 

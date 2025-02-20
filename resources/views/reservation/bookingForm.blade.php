@@ -11,8 +11,8 @@
     #acm-booking{
         border: solid 4px #dcbf7d;
         border-radius: 30px;
-        width:400px;
-        height: 350px;
+        width: 400px;
+        height: 370px;
         align-items: left;
     }
 
@@ -34,6 +34,7 @@
         text-align: right;
     }
 
+
     img{
         width: 150px;
         height: 100px;
@@ -49,6 +50,10 @@
 
     .daterangepicker .cancelBtn {
         border-color: #6c757d;
+    }
+
+    #coupon-display{
+        margin: 10px 0 0 20px;
     }
 
 </style>
@@ -116,6 +121,10 @@
                     <input type="radio" id="couponNo" name="use_coupon" value="no">
                     <label for="couponNo">No</label>
                 </div>
+                <div id="coupon-display">
+                    <!-- show coupons -->
+
+                </div>
             </div>
         </div>
 
@@ -133,61 +142,65 @@
     </div>
 
     <!-- right side -->
-    <div class="col-5 mt-4 ms-4" id="acm-booking">
-        <div class="row">
-            <div class="col">
-                @if($accommodation->photos->isNotEmpty())
-                <img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="#" class="my-3">
-                @else
-                <img src="#" alt="" class="my-3">
-                @endif
+        <div class="col-5 mt-4 ms-4" id="acm-booking">
+            <div class="row">
+                <div class="col">
+                    @if($accommodation->photos->isNotEmpty())
+                    <img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="#" class="my-3">
+                    @else
+                    <img src="#" alt="" class="my-3">
+                    @endif
+                </div>
+                <div class="col">
+                    <div>
+                        <p class="fw-bold mt-3">{{ Str::limit($accommodation->name, 20) }}</p>
+                        <p>{{ Str::limit($accommodation->address, 40) }}</p>
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                <div>
-                    <p class="fw-bold mt-3">{{ Str::limit($accommodation->name, 20) }}</p>
-                    <p>{{ Str::limit($accommodation->address, 40) }}</p>
+
+            <hr style="color: #dcbf7d">
+
+            <div class="row">
+                <div class="col">
+                    <h2 class="h4">Price Details</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col"><span>¥{{ $accommodation->price}}</span>/night x <span id="total_days_for_confirmation"></span></div>
+                <div class="col price"><span id="stayFee"></span></div>
+            </div>
+
+            <div class="row">
+                <div class="col">Cleaning Fee</div>
+                <div class="col price"><span id="cleaningFee"></span></div>
+            </div>
+
+            <div class="row">
+                <div class="col">Roomify Service Fee</div>
+                <div class="col price"><span id="serviceFee"></span></div>
+            </div>
+
+            <!-- discount -->
+            <div class="row">
+                <div class="col">Discount</div>
+                <div class="col price text-danger fw-bold"><span id="coupon-discount"></span></div>
+            </div>
+
+            <hr style="color: #dcbf7d">
+
+            <div class="row">
+                <h2 class="col h4">Total fee</h2>
+                <div class="col price" id="total_fee_display"></div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col me-5">
+                    <button type="submit" class="btn"><span class="fw-light">Send a Request</span></button>
                 </div>
             </div>
         </div>
-
-        <hr style="color: #dcbf7d">
-
-        <div class="row">
-            <div class="col">
-                <h2 class="h4">Price Details</h2>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col"><span>¥{{ $accommodation->price}}</span>/night x <span id="total_days_for_confirmation"></span></div>
-            <div class="col price">¥ <span id="stayFee"></span></div>
-        </div>
-
-        <div class="row">
-            <div class="col">Cleaning Fee</div>
-            <div class="col price">¥ <span id="cleaningFee"></span></div>
-        </div>
-
-        <div class="row">
-            <div class="col">Roomify Service Fee</div>
-            <div class="col price">¥ <span id="serviceFee"></span></div>
-        </div>
-
-        <hr style="color: #dcbf7d">
-
-        <div class="row">
-            <div class="col">
-                <h2 class="h4">Total fee</h2>
-            </div>
-            <div class="col price">¥ <span id="total_fee_display">{{ $total_fee }}</span></div>
-        </div>
-
-        <div class="row mt-5">
-            <div class="col me-5">
-                <button type="submit" class="btn"><span class="fw-light">Send a Request</span></button>
-            </div>
-        </div>
-    </div>
         </form>
 </div>
 <script>
@@ -227,12 +240,25 @@
         var stayFee     = nights * perNightPrice;
         var totalFee    = stayFee + cleaningFee + serviceFee;
 
-        $("#cleaningFee").text(cleaningFee.toLocaleString());
-        $("#serviceFee").text(serviceFee.toLocaleString());
-        $("#stayFee").text(stayFee.toLocaleString());
-        $("#total_fee_display").text(totalFee.toLocaleString());
-    }
+        // calculate fee with coupon
+        var selectedCouponDiscount = parseFloat($('input[name="selected_coupon"]:checked').data('discount')) || 0;
+        var discountAmount = Math.floor((totalFee * selectedCouponDiscount) / 100);
+        var finalFee = totalFee - discountAmount;
 
+        $("#cleaningFee").text(`¥ ${cleaningFee.toLocaleString()}`);
+        $("#serviceFee").text(`¥ ${serviceFee.toLocaleString()}`);
+        $("#stayFee").text(`¥ ${stayFee.toLocaleString()}`);
+        $("#total_fee_display").text(totalFee.toLocaleString());
+
+        // show fee with discount
+        if (selectedCouponDiscount > 0) {
+            $("#coupon-discount").html(`- ¥${discountAmount.toLocaleString()} (${selectedCouponDiscount}% off)`);
+        } else {
+            $("#coupon-discount").html('¥ 0');
+        }
+
+        $("#total_fee_display").text(`¥ ${finalFee.toLocaleString()}`);
+    }
 
     $(document).ready(function() {
         $('#daterange').daterangepicker({
@@ -260,6 +286,48 @@
             calculateDays();
         });
     });
+
+    // coupon
+    $(document).ready(function() {
+    $('#couponYes').on('click', function() {
+        $.ajax({
+            url: '/user/' + {{ auth()->id() }} + '/coupons',
+            type: 'GET',
+            success: function(data) {
+                if (data.length > 0) {
+                    let couponsHtml = '<form>';
+                    data.forEach(function(coupon, index) {
+                        couponsHtml += `
+                            <div>
+                                <input type="radio" id="coupon_id" name="selected_coupon" value="${coupon.id}" data-discount="${coupon.discount_value}">
+                                <label for="coupon_${index}">${coupon.name} - (Expiry Date: ${coupon.expires_at})</label>
+                            </div>`;
+                    });
+                    couponsHtml += '</form>';
+                    $('#coupon-display').html(couponsHtml);
+                } else {
+                    $('#coupon-display').html('<p>No coupon available</p>');
+                }
+            },
+            error: function() {
+                $('#coupon-display').html('<p>unable to get coupons</p>');
+            }
+        });
+    });
+
+    // re calculate total fee
+    $(document).on('change', 'input[name="selected_coupon"]', function() {
+        var nights = calculateDays();
+        calculateTotalFee(nights);
+    });
+
+    // if no coupon
+    $('#couponNo').on('click', function() {
+        $('#coupon-display').empty();
+        var nights = calculateDays();
+        calculateTotalFee(nights);
+    });
+});
 </script>
 
 @endsection

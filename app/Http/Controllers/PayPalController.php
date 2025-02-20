@@ -14,6 +14,7 @@ class PaypalController extends Controller
 
 public function createPayment(Request $request, $accommodation_id)
 {
+    try {
     $provider = new PayPalClient;
     $provider->setApiCredentials(config('paypal'));
     $token = $provider->getAccessToken();
@@ -62,6 +63,9 @@ public function createPayment(Request $request, $accommodation_id)
     }else {
         return redirect()->route('paypal.cancel');
     }
+}catch(\Exception $e) {
+    return redirect()->route('home');
+}
 }
 
 public function capturePayment(Request $request)
