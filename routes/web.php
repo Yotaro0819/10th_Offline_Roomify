@@ -17,6 +17,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\NewsletterController;
 
 
 
@@ -137,4 +138,5 @@ Route::get('/create/newsletter', function (){
     return view('createNewsletter');
 });
 
+Route::get('/newsletters', [NewsletterController::class, 'index'])->name('newsletter.index');
 });
