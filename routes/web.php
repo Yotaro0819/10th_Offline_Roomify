@@ -130,10 +130,6 @@ Route::get('/newsletter', function (){
     return view('guestNewsletter');
 });
 
-Route::get('/hostnewsletter', function (){
-    return view('hostNewsletter');
-});
-
 Route::get('/create/newsletter', function (){
     return view('createNewsletter');
 });

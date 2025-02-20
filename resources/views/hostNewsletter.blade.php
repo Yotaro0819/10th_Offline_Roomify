@@ -45,35 +45,14 @@
         </thead>
         <tbody>
             @foreach ($newsletters as $newsletter)
-            <tr data-bs-toggle="modal" data-bs-target="#newsletterModal{{ $newsletter->id }}" style="cursor: pointer;">
+            <tr>
                 <td>{{ $newsletter->created_at->format('Y-m-d') }}</td>
-                <td>{{ Str::limit($newsletter->title, 30) }}</td>
-                <td>{{ Str::limit($newsletter->message, 50) }}</td>
+                <td>{{ $newsletter->title }}</td>
+                <td>{{ $newsletter->message }}</td>
             </tr>
-            
-            <!-- Modal -->
-            <div class="modal fade" id="newsletterModal{{ $newsletter->id }}" tabindex="-1" aria-labelledby="newsletterModalLabel{{ $newsletter->id }}" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="newsletterModalLabel{{ $newsletter->id }}">{{ $newsletter->title }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>{{ $newsletter->message }}</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             @endforeach
         </tbody>
     </table>
 </div>
-
-<!-- Bootstrap JS (必要に応じて追加) -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
 
 @endsection
