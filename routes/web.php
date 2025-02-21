@@ -130,9 +130,8 @@ Route::get('/newsletter', function (){
     return view('guestNewsletter');
 });
 
-Route::get('/create/newsletter', function (){
-    return view('createNewsletter');
-});
 
 Route::get('/newsletters', [NewsletterController::class, 'index'])->name('newsletter.index');
+Route::get('/create/newsletter', [NewsletterController::class, 'create'])->name('newsletter.create');
+Route::post('/newsletters/store', [NewsletterController::class, 'store'])->name('newsletter.store');
 });

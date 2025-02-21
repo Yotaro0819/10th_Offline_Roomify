@@ -161,16 +161,21 @@ h3{
     <div class="card">
         <h3>MAIL FORM</h3>
         <div class="Form">
+        <form action="{{ route('newsletter.store') }}" method="POST">
+        <form action="{{ route('newsletter.store') }}" method="POST">
+            @csrf
             <div class="Form-Item">
                 <p class="Form-Item-Label">Title<span class="mark">*</span></p>
-                <input type="text" class="Form-Item-Input" placeholder="Escape Awaits: Top Stays You'll Love!">
+                <input type="text" name="title" class="Form-Item-Input" placeholder="Escape Awaits: Top Stays You'll Love!" required>
             </div>
-            
+
             <div class="Form-Item">
-                    <p class="Form-Item-Label isMsg">Textarea<span class="mark">*</span></p>
-                    <textarea class="Form-Item-Textarea"></textarea>
+                <p class="Form-Item-Label isMsg">Textarea<span class="mark">*</span></p>
+                <textarea name="message" class="Form-Item-Textarea" required></textarea>
             </div>
+
             <input type="submit" class="Form-Btn" value="Send">
+        </form>
         </div>
     </div>
 </div>
