@@ -17,6 +17,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\NewsletterController;
 
 
 
@@ -131,8 +132,8 @@ Route::get('/newsletter', function (){
     return view('guestNewsletter');
 });
 
-Route::get('/hostnewsletter', function (){
-    return view('hostNewsletter');
-});
 
+Route::get('/newsletters', [NewsletterController::class, 'index'])->name('newsletter.index');
+Route::get('/create/newsletter', [NewsletterController::class, 'create'])->name('newsletter.create');
+Route::post('/newsletters/store', [NewsletterController::class, 'store'])->name('newsletter.store');
 });

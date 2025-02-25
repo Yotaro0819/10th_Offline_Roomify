@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             BookingSeeder::class,
             EcoitemSeeder::class,
             EcoitemAccommodationSeeder::class,
-            CouponSeeder::class
+            CouponSeeder::class,
+
         ]);
 
     }
