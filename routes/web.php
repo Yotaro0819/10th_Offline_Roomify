@@ -17,6 +17,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\ContactController;
+
 
 
 
@@ -110,6 +112,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::get('/categories/store', [AdminCategoriesController::class, 'store'])->name('category.store');
     Route::delete('/categories/delete/{id}', [AdminCategoriesController::class, 'delete'])->name('category.delete');
     Route::patch('/categories/edit/{id}', [AdminCategoriesController::class, 'update'])->name('category.edit');
+    // Route::get('/contacts', [AdminContactsController::class, 'index'])->name('contacts');
+    Route::get('/contacts', function () {
+        return view('admin/contact/index');
+    })->name('contact.index');
+    
 });
 
 Route::get('/coupones/{id}/', [CouponController::class, 'index'])->name('coupones.index');
@@ -121,6 +128,8 @@ Route::get('/paypal/{id}/capture', [PaypalController::class, 'capturepayment'])-
 Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal.cancel');
 Route::get('/paypal/complete', [PaypalController::class, 'complete'])->name('paypal.complete');
 
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
 Route::get('/cansel', function () {
     return view('bookingcansel');
 });
@@ -131,7 +140,7 @@ Route::get('/newsletter', function (){
 
 Route::get('/contact', function () {
     return view('contact');
-});
+})->name('contact');
 
 
 Route::get('/hostnewsletter', function (){

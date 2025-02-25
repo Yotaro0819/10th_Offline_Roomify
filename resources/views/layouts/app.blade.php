@@ -110,8 +110,16 @@ a
     font-size: 18px;
     color: white;
     font-weight: bold;
-
 }
+
+.underline-hover {
+    text-decoration: none;
+}
+
+.underline-hover:hover {
+    text-decoration: underline;
+}
+
 </style>
 
 <body>
@@ -184,6 +192,9 @@ a
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.categories') }}">
                                             <i class="fa-solid fa-tags"></i> categories
                                         </a>
+                                        <a class="dropdown-item px-3 py-3" href="{{ route('admin.contact.index') }}">
+                                        <i class="fa-solid fa-message"></i> contact message
+                                        </a>
                                     @endif
                                     @if(Auth::user()->role == "1")
                                         <a class="dropdown-item" href="{{ route('guest.reservation_guest') }}">
@@ -245,6 +256,16 @@ a
                                 </p>
                             </div>
                             </a>
+                            <a href="{{ ('admin.contact.index') }}" class="text-decoration-none">
+                            <div class="select-box mb-3 d-flex justify-content-center align-items-center">
+                                <div>
+                                <i class="fa-solid fa-message"></i>
+                                </div>
+                                <p class="mt-3 ">
+                                    message
+                                </p>
+                            </div>
+                            </a>
                         </div>
                         <div class="col-10">
                             @yield('content2')
@@ -267,7 +288,7 @@ a
                     <div class="col-auto">
                         <h5>COMPANY</h5>
                         <p><a href="#">About Us</a></p>
-                        <p><a href="#">Contact Us</a></p>
+                        <!-- <p><a href="#">Contact Us</a></p> -->
                     </div>
                     <div class="col-auto">
                         <h5>HELP CENTER</h5>
@@ -278,10 +299,10 @@ a
                     </div>
                     <div class="col-auto title">
                         <h5>CONTACT INFO</h5>
-                        <p>Phone: 1234567890</p>
-                        <p>Email: roomify@gmail.com</p>
-                        <p>Location: 100 Smart Street, Tokyo, <br>JAPAN</p>
-                        <div class="app">
+                        <p>
+                        <a href="{{ route('contact') }}" class="underline-hover">Contact Form</a>
+                        </p>
+                        <div class="app" style="margin-top: 80px;">
                                 <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
                                 <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
                                 <a href="#"><i class="fa-brands fa-instagram"></i></a>
