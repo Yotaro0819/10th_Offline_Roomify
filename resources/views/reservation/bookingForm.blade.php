@@ -245,6 +245,8 @@
         var discountAmount = Math.floor((totalFee * selectedCouponDiscount) / 100);
         var finalFee = totalFee - discountAmount;
 
+        $('#finalFee').val(finalFee);
+
         $("#cleaningFee").text(`¥ ${cleaningFee.toLocaleString()}`);
         $("#serviceFee").text(`¥ ${serviceFee.toLocaleString()}`);
         $("#stayFee").text(`¥ ${stayFee.toLocaleString()}`);
