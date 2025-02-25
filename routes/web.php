@@ -119,8 +119,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     
 });
 
+Route::get('/user/{id}/coupons', [CouponController::class, 'getUserCoupons']);
 Route::get('/coupones/{id}/', [CouponController::class, 'index'])->name('coupones.index');
 Route::delete('/coupones/{id}/delete', [CouponController::class, 'destroy'])->name('coupones.delete');
+
 
 // paypal_route
 Route::post('/paypal/{id}/payment', [PayPalController::class, 'createPayment'])->name('paypal.payment');

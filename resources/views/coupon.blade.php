@@ -166,7 +166,7 @@ transform: rotateX(10deg) rotateY(10deg);
                     </div>
                 @endforeach
             @else
-                <div>No coupon</div>
+                <h3 class="text-center mt-3">no available coupons</h3>
             @endif
         </div>
     </div>
