@@ -1,49 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 html, body {
     margin: 0;
     padding: 0;
 }
 
-#hero{
-    background-image: url('https://images.pexels.com/photos/16663162/pexels-photo-16663162.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+#carouselSlides{
+    position: relative;
+}
+.carousel-item {
+    height: 650px;
+    width: 100%;
+    margin-top: 20px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    width: 100%;
-    height: 700px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
-    padding: 20px;
     border-radius: 30px;
 }
+.carousel-content{
+    position: absolute;
+    top: 55%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    margin-top: 30px;
+    z-index: 10;
+    color: white;
+    text-align: center;
 
+}
 h2{
     font-weight: bold;
     font-family: arial black;
     text-align: left;
     margin-right: 400px;
 }
-
-#hero_p{
-    margin-right: 500px;
-}
-
 .card{
     width: 900px;
     height: 200px;
-    backdrop-filter: blur(6px);
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
-    padding: 20px;
+    border: 0;
 }
 
 .card h2 {
@@ -52,7 +48,7 @@ h2{
 }
 
 .search-form{
-    border: 1px solid;
+    /* border: 1px solid; */
     border-radius: 50px;
     padding: 8px;
     margin: 8px;
@@ -60,7 +56,7 @@ h2{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #fff;
+    background-color: #F0F0F0;
     margin-top: -10px;
 }
 
@@ -279,43 +275,56 @@ input::placeholder {
 </style>
 <main>
     <section class="top">
-        <div class="container" id="hero">
-            <h2>
-                Stay Unique,<br>
-                Experience Authentic Tokyo.
-            </h2>
-            <br>
-            <p>
-                Turn your Tokyo trip into a personal story.Unique stays,<br>
-                unforgettable moments, and memorises to last a lifetime.
-            </p>
-            <br>
-            <div class="card">
-                <h2>FIND</h2>
-
-                <form action="{{ route('home.search') }}" class="search-form" method="get">
-                  @csrf
-                  @method("GET")
-                    <div class="form-container">
-                        <div class="form-group">
-                            <label for="city" class="form-label text-start">Location</label>
-                            <input type="text" name="city" id="city" class="form-control" placeholder="Enter City Name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="daterange" class="form-label text-start">Dates</label>
-                            <input type="text" id="daterange" class="form-control" name="daterange" value="{{ request()->input('daterange') }}" placeholder="Check In - Check Out" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="capacity" class="form-label text-start">Travelers</label>
-                            <input type="number" name="capacity" id="capacity" class="form-control" placeholder="2 Travelers" required>
-                        </div>
-
-                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div class="container">
+            <!-- background images -->
+            <div id="carouselSlides" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active" style="background-image: url('https://images.pexels.com/photos/30752423/pexels-photo-30752423/free-photo-of-countryside-village-houses-under-cloudy-sky.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');" data-bs-interval="2000">
                     </div>
-                </form>
+                    <div class="carousel-item" style="background-image: url('https://images.pexels.com/photos/29617805/pexels-photo-29617805/free-photo-of-traditional-japanese-shoji-screens-framing-a-garden-view.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');" data-bs-interval="3000">
+                    </div>
+                    <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1687008817163-6a1e4a73cdb2?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');" data-bs-interval="4000">
+                    </div>
+                </div>
             </div>
+
+            <div class="carousel-content">
+                <h2>
+                    Stay Unique,<br>
+                    Experience Authentic Tokyo.
+                </h2>
+
+                <p class="text-start pt-3">
+                    Turn your Tokyo trip into a personal story. <br>
+                    Unique stays, unforgettable moments, and memorises to last a lifetime.
+                </p>
+
+                <div class="card pt-5">
+                    <form action="{{ route('home.search') }}" class="search-form" method="get">
+                      @csrf
+                      @method("GET")
+                        <div class="form-container">
+                            <div class="form-group">
+                                <label for="city" class="form-label text-start">Location</label>
+                                <input type="text" name="city" id="city" class="form-control" placeholder="Enter City Name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="daterange" class="form-label text-start">Dates</label>
+                                <input type="text" id="daterange" class="form-control" name="daterange" value="{{ request()->input('daterange') }}" placeholder="Check In - Check Out" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="capacity" class="form-label text-start">Travelers</label>
+                                <input type="number" name="capacity" id="capacity" class="form-control" placeholder="2 Travelers" required>
+                            </div>
+
+                            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </section>
 
