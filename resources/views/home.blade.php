@@ -48,7 +48,6 @@ h2{
 }
 
 .search-form{
-    /* border: 1px solid; */
     border-radius: 50px;
     padding: 8px;
     margin: 8px;
@@ -143,7 +142,6 @@ input::placeholder {
     font-size: 16px;
     cursor: pointer;
     border: none;
-    border-radius: 5px;
     margin-right: 5px;
     background-color: #dcbf7d;
     color: #fff;
@@ -173,7 +171,6 @@ input::placeholder {
     flex: 1;
     margin: 10px;
 }
-
 
 .hosting h2 {
     white-space: nowrap;
@@ -214,7 +211,7 @@ input::placeholder {
     width: calc(33.33% - 16px);
     padding: 10px;
     text-align: left;
-    border-radius: 8px;
+    border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -279,11 +276,11 @@ input::placeholder {
             <!-- background images -->
             <div id="carouselSlides" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active" style="background-image: url('https://images.pexels.com/photos/30752423/pexels-photo-30752423/free-photo-of-countryside-village-houses-under-cloudy-sky.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');" data-bs-interval="2000">
+                    <div class="carousel-item active" style="background-image: url('https://images.pexels.com/photos/30752423/pexels-photo-30752423/free-photo-of-countryside-village-houses-under-cloudy-sky.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');" data-bs-interval="3000">
                     </div>
                     <div class="carousel-item" style="background-image: url('https://images.pexels.com/photos/29617805/pexels-photo-29617805/free-photo-of-traditional-japanese-shoji-screens-framing-a-garden-view.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');" data-bs-interval="3000">
                     </div>
-                    <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1687008817163-6a1e4a73cdb2?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');" data-bs-interval="4000">
+                    <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1687008817163-6a1e4a73cdb2?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');" data-bs-interval="3000">
                     </div>
                 </div>
             </div>
