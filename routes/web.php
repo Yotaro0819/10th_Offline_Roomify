@@ -129,7 +129,7 @@ Route::get('/cansel', function () {
 });
 
 Route::get('/newsletter', function (){
-    return view('guestNewsletter');
+    return view('newsletter.guestNewsletter');
 });
 
 
