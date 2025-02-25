@@ -12,6 +12,15 @@ class ContactController extends Controller
         $this->contact = $contact;
     }
 
+    public function index()
+    {
+        $all_contacts = $this->contact->latest()->paginate(5);
+
+
+        return view('admin.contact.index')
+        ->with('all_contacts', $all_contacts);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -31,9 +40,5 @@ class ContactController extends Controller
         
         return redirect()->back();
     }
-
-    
-
-
 
 }

@@ -22,14 +22,6 @@ class CouponController extends Controller
                     ->with('all_coupones', $all_coupones);
     }
 
-    public function destroy($id)
-    {
-        $coupon =$this->coupon->findOrFail($id);
-        $coupon->delete();
-
-        return redirect()->back();
-    }
-
     public function getUserCoupons($id)
     {
         $coupons = $this->coupon->where("user_id", $id)->get();

@@ -6,6 +6,8 @@
 
 <div class="container">
     <h1 class="title">Messages</h1>
+    @if($all_contacts)
+    @foreach( $all_contacts as $contact )
     <div class="card">
     <div class="card-body p-0">
             <div class="row align-items-center border-bottom p-2">
@@ -13,29 +15,18 @@
                     <i class="fa-solid fa-envelope fs-1"></i>
                 </div>
                 <div class="col">
-                    <div class="title2">From: Jane</div>
-                    <div class="subtitle">Message: I want to know....</div>
+                    <div class="title2">From: {{ $contact->name }}</div>
+                    <div class="subtitle">Message: {{ $contact->message }}</div>
                 </div>
                 <div class="col">
                     <div>Just Now</div>
-                    <div>2025/03/25</div>
-                </div>
-            </div>
-            <div class="row align-items-center p-2">
-                <div class="col">
-                    <i class="fa-solid fa-envelope fs-1"></i>
-                </div>
-                <div class="col">
-                    <div class="title2">From: Jane</div>
-                    <div class="subtitle">Message: I want to know....</div>
-                </div>
-                <div class="col">
-                    <div>Just Now</div>
-                    <div>2025/03/25</div>
+                    <div>{{ $contact->created_at }}</div>
                 </div>
             </div>
         </div>
     </div>
+    @endforeach
+    @endif
   </div>
 </div>
 
