@@ -112,11 +112,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::get('/categories/store', [AdminCategoriesController::class, 'store'])->name('category.store');
     Route::delete('/categories/delete/{id}', [AdminCategoriesController::class, 'delete'])->name('category.delete');
     Route::patch('/categories/edit/{id}', [AdminCategoriesController::class, 'update'])->name('category.edit');
-    // Route::get('/contacts', [AdminContactsController::class, 'index'])->name('contacts');
-    Route::get('/contacts', function () {
-        return view('admin/contact/index');
-    })->name('contact.index');
-    
+    Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');
+
 });
 
 Route::get('/user/{id}/coupons', [CouponController::class, 'getUserCoupons']);
@@ -130,7 +127,10 @@ Route::get('/paypal/{id}/capture', [PaypalController::class, 'capturepayment'])-
 Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal.cancel');
 Route::get('/paypal/complete', [PaypalController::class, 'complete'])->name('paypal.complete');
 
+
+Route::get('/contact', function () {return view('contact');})->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
 
 Route::get('/cansel', function () {
     return view('bookingcansel');
@@ -139,11 +139,6 @@ Route::get('/cansel', function () {
 Route::get('/newsletter', function (){
     return view('newsletter.guestNewsletter');
 });
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-
 
 Route::get('/hostnewsletter', function (){
     return view('hostNewsletter');

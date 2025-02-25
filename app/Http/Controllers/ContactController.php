@@ -16,7 +16,6 @@ class ContactController extends Controller
     {
         $all_contacts = $this->contact->latest()->paginate(5);
 
-
         return view('admin.contact.index')
         ->with('all_contacts', $all_contacts);
     }

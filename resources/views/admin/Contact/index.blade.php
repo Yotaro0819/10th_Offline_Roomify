@@ -2,7 +2,7 @@
 
 @section('title', 'Admin: message')
 
-@section('content2')
+@section('content')
 
 <div class="container">
     <h1 class="title">Messages</h1>
@@ -26,13 +26,10 @@
         </div>
     </div>
     @endforeach
+    @else
+    <div>No message</div>
     @endif
   </div>
 </div>
-
-
-
-
-
 
 @endsection
