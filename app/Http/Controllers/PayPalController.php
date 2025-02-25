@@ -8,18 +8,51 @@ use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Booking;
 use App\Models\Accommodation;
+use App\Models\Coupon;
+use Carbon\Carbon;
 
 class PaypalController extends Controller
 {
 
 public function createPayment(Request $request, $accommodation_id)
 {
+
     $provider = new PayPalClient;
     $provider->setApiCredentials(config('paypal'));
     $token = $provider->getAccessToken();
     $provider->setAccessToken($token);
-    $total_fee = session()->get('total_fee');
+
     $accommodation = Accommodation::findOrFail($accommodation_id);
+
+    if (!empty($request->selected_coupon)) {
+        $coupon = Coupon::findOrFail($request->selected_coupon);
+    }
+    
+    $daterange = $request->input('daterange');
+    $date_parts = explode(" - ", $daterange);
+
+    $check_in_date = isset($date_parts[0]) ? Carbon::parse(trim($date_parts[0])) : null;
+    $check_out_date = isset($date_parts[1]) ? Carbon::parse(trim($date_parts[1])) : null;
+
+    $nights = ($check_in_date && $check_out_date) ? $check_in_date->diffInDays($check_out_date) : 0;
+
+    $request->merge([
+        'check_in_date'  => $check_in_date,
+        'check_out_date' => $check_out_date,
+    ]);
+
+    $cleaning_fee  = $accommodation->price * 0.1;
+    $service_fee   = ($accommodation->price * 0.15) * $nights;
+    $total_fee     = ($accommodation->price * $nights) + $cleaning_fee + $service_fee;
+    $final_fee     = $total_fee;
+    if (!empty($request->selected_coupon)) {
+    $discount_value = $coupon->discount_value;
+    $discount_amount = ($total_fee * $discount_value) / 100;
+    $final_fee = $total_fee - $discount_amount;
+    }
+
+    $final_fee = number_format((float) $final_fee, 2, '.', ''); 
+    $all = $request->all();
 
     $request->validate([
         'check_in_date'     => 'required|date|after_or_equal:today',
@@ -45,7 +78,7 @@ public function createPayment(Request $request, $accommodation_id)
             [
                 "amount" => [
                     "currency_code" => "USD",
-                    "value" => $total_fee
+                    "value" => $final_fee
                 ]
             ]
         ]
@@ -62,6 +95,7 @@ public function createPayment(Request $request, $accommodation_id)
     }else {
         return redirect()->route('paypal.cancel');
     }
+
 }
 
 public function capturePayment(Request $request)
@@ -71,11 +105,11 @@ public function capturePayment(Request $request)
     $provider->getAccessToken();
     $response = $provider->capturePaymentOrder($request->token);
 
+
     if(isset($response['status']) && $response['status'] == 'COMPLETED'){
 
     $accommodation_id = session()->get('accommodation_id');
     $booking_info = session()->get('payment_info');
-
     $accommodation = Accommodation::findOrFail($accommodation_id);
 
     $payment = new Payment;
@@ -91,17 +125,20 @@ public function capturePayment(Request $request)
     $booking->guest_name       = $booking_info['guest_name'];
     $booking->host_id          = $accommodation->user->id;
     $booking->accommodation_id = $accommodation->id;
-    $booking->check_in_date    = $booking_info['check_in_date'];
-    $booking->check_out_date   = $booking_info['check_out_date'];
+    $booking->check_in_date    = $booking_info['check_in_date']->format('Y-m-d');
+    $booking->check_out_date   = $booking_info['check_out_date']->format('Y-m-d');
     $booking->host_name        = $accommodation->user->name;
     $booking->num_guest        = intval($booking_info['num_guest']);;
     $booking->guest_email      = $booking_info['guest_email'];
     $booking->special_request  = $booking_info['special_request'];
     $booking->save();
 
-    // $coupon = new Coupon;
-    // $coupon =$this->coupon->findOrFail($request->coupon_id);
-    // $coupon->delete();
+    if (!empty($booking_info['selected_coupon'])) {
+        $coupon = Coupon::find($booking_info['selected_coupon']);
+        if ($coupon) {
+            $coupon->delete();
+        }
+    }
 
     session()->forget('payment_info');
 
@@ -110,6 +147,7 @@ public function capturePayment(Request $request)
     }else{
         return redirect()->route('paypal.cancel');
     }
+    
 }
 
 public function Cancel()

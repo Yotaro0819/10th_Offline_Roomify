@@ -87,9 +87,10 @@
             </tr>
         </thead>
         <tbody class="align-middle">
-            @foreach($all_users as $index => $user)
+            @php $rowIndex = 0; @endphp
+            @foreach($all_users as $user)
                 @if ($user->role == 1 || $user->role == 2)
-                <tr class="{{ $index % 2 == 0 ? 'table-warning' : '' }}">
+                <tr class="{{ $rowIndex % 2 == 0 ? 'table-warning' : '' }}">
                     <td scope="row"> 
                         @if ($user->avatar)
                         <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="rounded-circle d-block mx-auto avatar-md">
@@ -133,6 +134,7 @@
                 </tr>
                 {{-- include a model herre --}}
                 @include('admin.users.modal.status')
+                @php $rowIndex++; @endphp
                 @endif
             @endforeach
         </tbody>
