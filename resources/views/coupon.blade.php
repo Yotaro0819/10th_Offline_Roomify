@@ -147,9 +147,6 @@ transform: rotateX(10deg) rotateY(10deg);
             @if($all_coupones->isNotEmpty())
                 @foreach($all_coupones as $coupon)
                     <div class="coupon mb-3">
-                    <form action="{{route ('coupones.delete', $coupon->id )}}" method="post">
-                    @csrf
-                    @method('DELETE')
                     <button class="button d-flex align-items-center w-100">
                     <div class="text-start coupon-right" style="width: 20%">
                         COUPON
@@ -162,7 +159,6 @@ transform: rotateX(10deg) rotateY(10deg);
                         </div>
                     </div>
                     </button>
-                    </form>
                     </div>
                 @endforeach
             @else
