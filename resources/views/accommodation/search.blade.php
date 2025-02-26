@@ -155,6 +155,9 @@
     }
 </style>
 
+<!-- loading animation -->
+
+
 <div class="row gx-5 mx-3">
     <!-- search side -->
     <div class="col-4">
