@@ -153,10 +153,70 @@
         background: var(--blue-color);
         cursor: ew-resize;
     }
+
+    /* loading animation */
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(2px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+    .loader {
+        width: 100px;
+        aspect-ratio: 1;
+        display: grid;
+    }
+    .loader::before,
+    .loader::after {
+        content:"";
+        grid-area: 1/1;
+        --c:no-repeat radial-gradient(farthest-side, #004aad, 92%,#0000);
+        background:
+        var(--c) 50%  0,
+        var(--c) 50%  100%,
+        var(--c) 100% 50%,
+        var(--c) 0    50%;
+        background-size: 24px 24px;
+        animation: l12 1s infinite;
+    }
+    /* .loader::before {
+        margin: 8px;
+        filter: hue-rotate(45deg);
+        background-size: 16px 16px;
+        animation-timing-function: linear;
+    } */
+
+    .loader::before {
+    margin: 8px;
+    filter: hue-rotate(45deg);
+    background:
+        no-repeat radial-gradient(farthest-side, #dcbf7d, 92%, #0000) 50% 0,
+        no-repeat radial-gradient(farthest-side, #dcbf7d, 92%, #0000) 50% 100%,
+        no-repeat radial-gradient(farthest-side, #dcbf7d, 92%, #0000) 100% 50%,
+        no-repeat radial-gradient(farthest-side, #dcbf7d, 92%, #0000) 0 50%;
+    background-size: 16px 16px;
+    animation-timing-function: linear;
+}
+    @keyframes l12 {
+        100%{transform: rotate(.5turn)}
+    }
+
+    @keyframes l6 {
+        to { transform: rotate(1turn); }
+    }
 </style>
 
 <!-- loading animation -->
-
+<div class="loading-overlay">
+    <div class="loader"></div>
+</div>
 
 <div class="row gx-5 mx-3">
     <!-- search side -->
@@ -466,5 +526,24 @@
             $(this).val('');
         });
     });
+
+    // loading animation
+    document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('form');
+    const overlay = document.querySelector('.loading-overlay');
+
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            overlay.style.display = 'flex';
+
+            setTimeout(() => {
+                form.submit();
+            }, 3000);
+        });
+    });
+});
+
+
 </script>
 @endsection
