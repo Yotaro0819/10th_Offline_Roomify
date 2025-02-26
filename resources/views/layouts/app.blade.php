@@ -256,7 +256,7 @@ a
                                 </p>
                             </div>
                             </a>
-                            <a href="{{ ('admin.contact.index') }}" class="text-decoration-none">
+                            <a href="{{ route('admin.contact.index') }}" class="text-decoration-none">
                             <div class="select-box mb-3 d-flex justify-content-center align-items-center">
                                 <div>
                                 <i class="fa-solid fa-message"></i>

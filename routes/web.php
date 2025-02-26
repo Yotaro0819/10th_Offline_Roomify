@@ -113,13 +113,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::delete('/categories/delete/{id}', [AdminCategoriesController::class, 'delete'])->name('category.delete');
     Route::patch('/categories/edit/{id}', [AdminCategoriesController::class, 'update'])->name('category.edit');
     Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');
-
+    Route::get('/contact/show/{id}', [ContactController::class, 'show'])->name('contact.show');
+    Route::post('/contact/replied/{id}', [ContactController::class, 'replied'])->name('contact.replied');
 });
 
 Route::get('/user/{id}/coupons', [CouponController::class, 'getUserCoupons']);
 Route::get('/coupones/{id}/', [CouponController::class, 'index'])->name('coupones.index');
 Route::delete('/coupones/{id}/delete', [CouponController::class, 'destroy'])->name('coupones.delete');
-
 
 // paypal_route
 Route::post('/paypal/{id}/payment', [PayPalController::class, 'createPayment'])->name('paypal.payment');
@@ -127,10 +127,8 @@ Route::get('/paypal/{id}/capture', [PaypalController::class, 'capturepayment'])-
 Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal.cancel');
 Route::get('/paypal/complete', [PaypalController::class, 'complete'])->name('paypal.complete');
 
-
 Route::get('/contact', function () {return view('contact');})->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
 
 Route::get('/cansel', function () {
     return view('bookingcansel');

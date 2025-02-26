@@ -32,12 +32,32 @@ class ContactController extends Controller
         $this->contact->name = $request->name;
         $this->contact->email = $request->email;
         $this->contact->message = $request->message;
-
+        $this->contact->is_replied = false;
+        $this->contact->is_read = false;
         $this->contact->save();
-
         session()->flash('success', 'Submission successful!');
         
         return redirect()->back();
+    }
+
+        public function show($id)
+    {
+        $contact = Contact::findOrFail($id);
+        if (!$contact->is_read) {
+            $contact->is_read = true;
+            $contact->save();
+        }
+        return view('admin.contact.show', compact('contact'));
+    }
+
+    public function replied($id) {
+        $contact = Contact::findOrFail($id);
+        if (!$contact->is_replied) {
+            $contact->is_replied = true;
+            $contact->save();
+        }
+        session()->flash('success', 'Submission successful!');
+        return redirect()->route('admin.contact.show', $contact->id );
     }
 
 }
