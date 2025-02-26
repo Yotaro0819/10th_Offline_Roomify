@@ -85,7 +85,7 @@ class BookingController extends Controller
         $service_fee   = $accommodation->price * 0.15;
         $total_fee     = $accommodation->price + $cleaning_fee + $service_fee;
 
-        session(['total_fee' => $total_fee]);
+        // session(['total_fee' => $total_fee]);
 
         return view('reservation.bookingForm')->with('accommodation', $accommodation)
                                         ->with('cleaning_fee', $cleaning_fee)
@@ -127,7 +127,6 @@ class BookingController extends Controller
 
     //     return redirect()->route('guest.reservation_guest');
     // }
-
 
 //guest
     public function reservation_guest(){
