@@ -75,9 +75,9 @@ outline: none;
     border:none;
 }
 
-.message-box {
+#message-box {
     min-height: 200px;
-    max-height: 500px; /* 必要に応じて高さを設定 */
+    max-height: 400px; /* 必要に応じて高さを設定 */
     overflow-y: auto; /* 垂直方向のスクロールを有効にする */
     border-top: 1px solid rgb(165, 165, 165);
     overscroll-behavior: contain;
