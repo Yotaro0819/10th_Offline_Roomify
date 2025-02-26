@@ -19,10 +19,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\Admin\AdminHomeController;
 
-
-
-
+Route::get('/rankings', [AdminHomeController::class, 'getRanking']);
+Route::get('/monthly-bookings', [AdminHomeController::class, 'getMonthlyBookings']);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home_search', [HomeController::class, 'search_by_filters'])->name('home.search');
@@ -115,6 +115,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');
     Route::get('/contact/show/{id}', [ContactController::class, 'show'])->name('contact.show');
     Route::post('/contact/replied/{id}', [ContactController::class, 'replied'])->name('contact.replied');
+    Route::get('/home', function () {
+        return view('admin.home.index');
+    });
 });
 
 Route::get('/user/{id}/coupons', [CouponController::class, 'getUserCoupons']);
