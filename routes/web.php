@@ -20,6 +20,7 @@ use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Admin\AdminHomeController;
+use App\Http\Controllers\PusherController;
 
 Route::get('/rankings', [AdminHomeController::class, 'getRanking']);
 Route::get('/monthly-bookings', [AdminHomeController::class, 'getMonthlyBookings']);
@@ -49,6 +50,8 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.'], function(){
     Route::get('/search_by_filters', [AccommodationController::class, 'search_by_filters'])->name('search_by_filters');
 });
 
+    Route::post('/broadcast', [PusherController::class, 'broadcast']);
+    Route::get('/receive', [PusherController::class, 'receive']);
 
 
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
