@@ -161,63 +161,128 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: rgba(0, 0, 0, 0.01);
         backdrop-filter: blur(2px);
         display: none;
         justify-content: center;
         align-items: center;
         z-index: 9999;
     }
-    .loader {
-        width: 100px;
-        aspect-ratio: 1;
-        display: grid;
+    .loader{
+        margin:200px auto;
     }
-    .loader::before,
-    .loader::after {
-        content:"";
-        grid-area: 1/1;
-        --c:no-repeat radial-gradient(farthest-side, #004aad, 92%,#0000);
-        background:
-        var(--c) 50%  0,
-        var(--c) 50%  100%,
-        var(--c) 100% 50%,
-        var(--c) 0    50%;
-        background-size: 24px 24px;
-        animation: l12 1s infinite;
+    h1{
+        color: #000;
+        font-size:16px;
+        letter-spacing:1px;
+        font-weight:200;
+        text-align:center;
     }
-    /* .loader::before {
-        margin: 8px;
-        filter: hue-rotate(45deg);
-        background-size: 16px 16px;
-        animation-timing-function: linear;
-    } */
-
-    .loader::before {
-    margin: 8px;
-    filter: hue-rotate(45deg);
-    background:
-        no-repeat radial-gradient(farthest-side, #dcbf7d, 92%, #0000) 50% 0,
-        no-repeat radial-gradient(farthest-side, #dcbf7d, 92%, #0000) 50% 100%,
-        no-repeat radial-gradient(farthest-side, #dcbf7d, 92%, #0000) 100% 50%,
-        no-repeat radial-gradient(farthest-side, #dcbf7d, 92%, #0000) 0 50%;
-    background-size: 16px 16px;
-    animation-timing-function: linear;
-}
-    @keyframes l12 {
-        100%{transform: rotate(.5turn)}
+    .loader span{
+        width:24px;
+        height:24px;
+        border-radius:50%;
+        display:inline-block;
+        position:absolute;
+        left:50%;
+        margin-left:-20px;
+        -webkit-animation:3s infinite linear;
+        -moz-animation:3s infinite linear;
+        -o-animation:3s infinite linear;
     }
 
-    @keyframes l6 {
-        to { transform: rotate(1turn); }
+    .loader span:nth-child(2){
+        background:#004aad;
+        -webkit-animation:kiri 1.2s infinite linear;
+        -moz-animation:kiri 1.2s infinite linear;
+        -o-animation:kiri 1.2s infinite linear;
+    }
+    .loader span:nth-child(3){
+        background: #dcbf7d;
+        z-index:100;
+    }
+    .loader span:nth-child(4){
+        background: #6a6c6e26;
+        ;
+        -webkit-animation:kanan 1.2s infinite linear;
+        -moz-animation:kanan 1.2s infinite linear;
+        -o-animation:kanan 1.2s infinite linear;
+    }
+
+    @-webkit-keyframes kanan {
+        0% {-webkit-transform:translateX(20px);
+        }
+
+        50%{-webkit-transform:translateX(-20px);
+        }
+
+        100%{-webkit-transform:translateX(20px);
+            z-index:200;
+        }
+    }
+    @-moz-keyframes kanan {
+        0% {-moz-transform:translateX(20px);
+        }
+
+        50%{-moz-transform:translateX(-20px);
+        }
+
+        100%{-moz-transform:translateX(20px);
+        z-index:200;
+        }
+    }
+    @-o-keyframes kanan {
+        0% {-o-transform:translateX(20px);
+        }
+
+        50%{-o-transform:translateX(-20px);
+        }
+
+        100%{-o-transform:translateX(20px);
+        z-index:200;
+        }
+    }
+    @-webkit-keyframes kiri {
+        0% {-webkit-transform:translateX(-20px);
+        z-index:200;
+            }
+        50%{-webkit-transform:translateX(20px);
+        }
+        100%{-webkit-transform:translateX(-20px);
+        }
+    }
+
+    @-moz-keyframes kiri {
+        0% {-moz-transform:translateX(-20px);
+        z-index:200;
+            }
+        50%{-moz-transform:translateX(20px);
+        }
+        100%{-moz-transform:translateX(-20px);
+        }
+    }
+    @-o-keyframes kiri {
+        0% {-o-transform:translateX(-20px);
+        z-index:200;
+            }
+        50%{-o-transform:translateX(20px);
+        }
+        100%{-o-transform:translateX(-20px);
+        }
     }
 </style>
 
 <!-- loading animation -->
 <div class="loading-overlay">
-    <div class="loader"></div>
+    <div class="loader">
+        <h1>Searching...</h1>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 </div>
 
+<!-- seaching section -->
 <div class="row gx-5 mx-3">
     <!-- search side -->
     <div class="col-4">
@@ -543,7 +608,5 @@
         });
     });
 });
-
-
 </script>
 @endsection
