@@ -146,7 +146,8 @@
             <div class="row">
                 <div class="col">
                     @if($accommodation->photos->isNotEmpty())
-                    <img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" alt="#" class="my-3">
+                    <img src="{{ asset('storage/' . ltrim($accommodation->photos[0]->image, '/')) }}" alt="#">
+
                     @else
                     <img src="#" alt="" class="my-3">
                     @endif

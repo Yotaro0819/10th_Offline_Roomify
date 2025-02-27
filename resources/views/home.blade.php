@@ -201,11 +201,31 @@ input::placeholder {
     top: -100px;
 }
 
-.card-container{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-}
+.card {
+        width: 320px; /* カードの幅 */
+        height: 400px; /* カードの高さ */
+        border-radius: 10px; /* 角を丸く */
+        overflow: hidden; /* はみ出し防止 */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 影をつける */
+    }
+
+    .card img {
+        width: 100%; /* 親要素に対して幅を100% */
+        height: 200px; /* 高さを固定 */
+        object-fit: cover; /* 縦横比を保ちつつカードにフィット */
+        border-radius: 10px;
+    }
+
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 22px; /* カード同士の間隔 */
+        justify-content: center;
+        padding: 20px;
+    }
 
 .card-container .card{
     width: calc(33.33% - 16px);
@@ -356,9 +376,8 @@ input::placeholder {
                      <div class="card mx-auto">
                         <a href="{{ route('accommodation.show', $accommodation->id) }}" class="stretched-link">
                             @if ($accommodation->photos->isNotEmpty())
-                                <img src="{{ $accommodation->photos->first()->url }}" alt="Accommodation Image">
-                            @else
-                                <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available">
+                                <img src="{{ asset('storage/' . $accommodation->photos[0]->image) }}" alt="#" style="width: 375px; height: 200px;">
+                                <!-- <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available"> -->
                             @endif
                             <h3>{{ $accommodation->name }}</h3>
                             <p class="address">{{ $accommodation->address }}</p>

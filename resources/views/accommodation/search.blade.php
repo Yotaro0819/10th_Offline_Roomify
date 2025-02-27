@@ -283,7 +283,7 @@
                 @foreach($all_accommodations as $accommodation)
                     <a href="{{ route('accommodation.show', $accommodation->id )}}" class="row" style="color:black">
                         <div class="col">
-                            <img src="#" alt="#">
+                            <img src="{{ asset('storage/' . ltrim($accommodation->photos[0]->image, '/')) }}" alt="#">
                         </div>
                         <div class="col">
                             <h2 class="h4 fw-bold" style="color:#004aad">{{ $accommodation->name }}</h2>
