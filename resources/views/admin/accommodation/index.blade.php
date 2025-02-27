@@ -5,7 +5,7 @@
 @section('content2')
 
 <style>
-    
+
 .card
 {
     width: 200px;
@@ -36,7 +36,7 @@
             width: 100px;
             height: 30px;
             display: flex;
-            align-items: center; 
+            align-items: center;
         }
 
 .button-activate {
@@ -51,7 +51,7 @@
     width:  100px;
     height: 30px;
     display: flex;
-    align-items: center; 
+    align-items: center;
 }
 
 .name ,.address ,.user
@@ -77,10 +77,10 @@
 </div>
 <div class="row d-flex justify-content-start">
 @if($all_accommodations->isNotEmpty())
-    @foreach($all_accommodations as $accommodation)
+    @foreach($all_accommodations as $i => $accommodation)
     <div class="col-auto">
         <div class="card">
-            <img src="{{ asset('storage/' . $accommodation->photos->first()->image) }}" class="card-img-top" alt="Accommodation Photo">
+            <img src={{ asset("storage/". $all_accommodations->toArray()['data'][$i]['photos'][0]['image'])}} class="card-img-top" alt="...">
             <div class="card-body">
                 <p class="text-start m-0 name">{{ $accommodation->name }}</p>
                 <p class="m-0 text-start address">{{ $accommodation->address }}</p>
@@ -109,5 +109,5 @@
 @else
 <div>No Accommodation</div>
 @endif
-</div>               
+</div>
 @endsection
