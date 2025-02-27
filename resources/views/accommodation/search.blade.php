@@ -409,8 +409,8 @@
                 <p>Hits: {{ $all_accommodations->count() }}</p>
             <hr>
                 @foreach($all_accommodations as $accommodation)
-                    <a href="{{ route('accommodation.show', $accommodation->id )}}" style="color:black; line-height:0">
-                        <div style="display:inline-block">
+                    <a href="{{ route('accommodation.show', $accommodation->id )}}" class="row" style="color:black">
+                        <div class="col">
                             <img src={{ asset("storage/". $accommodation->photos[0]->image) }} alt=“#”>
                         </div>
                         <div style="display:inline-block; margin-top: 0px">
