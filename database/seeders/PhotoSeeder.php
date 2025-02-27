@@ -18,7 +18,7 @@ class PhotoSeeder extends Seeder
     {
         $accommodations = Accommodation::all();
         // 1〜20 の数字の配列を作成し、4枚ずつに分割
-        $images = range(1, 20);
+        $images = range(1, 24);
         $chunks = array_chunk($images, 4); // 各 chunk は 4 枚の画像番号が入る
 
         // 各 accommodation に対して、1つの chunk を割り当てる
