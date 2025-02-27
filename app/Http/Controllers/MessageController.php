@@ -59,7 +59,7 @@ class MessageController extends Controller
             $query->where('sender_id', $id)
                 ->where('receiver_id', Auth::user()->id);
         })
-        ->orderBy('created_at', 'asc')  // 時系列で並べる
+        ->orderBy('created_at', 'asc')
         ->get();
 
         $user = User::findOrFail($id);
@@ -67,23 +67,24 @@ class MessageController extends Controller
         return view('messages.show', compact('user', 'all_messages', 'notifications'));
     }
 
-    public function store(Request $request, $id)
-    {
-        $validated = $request->validate([
-        'message' => 'required|string|max:1000',
-        ]);
+    // おそらく必要ないけどテストが終わってから消します
+    // public function store(Request $request, $id)
+    // {
+    //     $validated = $request->validate([
+    //     'message' => 'required|string|max:1000',
+    //     ]);
 
-        $sender_id = Auth::user()->id;
-        $receiver_id = $id;
+    //     $sender_id = Auth::user()->id;
+    //     $receiver_id = $id;
 
-        $this->message = Message::create([
-            'message' => $validated['message'],
-            'sender_id' => $sender_id,
-            'receiver_id' => $receiver_id,
-        ]);
+    //     $this->message = Message::create([
+    //         'message' => $validated['message'],
+    //         'sender_id' => $sender_id,
+    //         'receiver_id' => $receiver_id,
+    //     ]);
 
-        return redirect()->back();
-    }
+    //     return redirect()->back();
+    // }
 
     public function search(Request $request)
 {

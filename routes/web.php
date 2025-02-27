@@ -47,6 +47,7 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.'], function(){
     Route::get('/search_by_filters', [AccommodationController::class, 'search_by_filters'])->name('search_by_filters');
 });
 
+//pusher routes
     Route::post('/broadcast', [PusherController::class, 'broadcast']);
     Route::get('/receive', [PusherController::class, 'receive']);
 
@@ -60,15 +61,14 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.'], function(){
     Route::post('/host-request/store', [HostRequestController::class, 'store'])->name('hostRequest.store');
 
 
-
-//Araki route
+//messages route
 Route::get('/messages/{id}', [MessageController::class, 'index'])->name('messages.index');
 Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('messages.show');
-Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
+// おそらく必要ないけど一応テストが終わってから消します
+// Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
 Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
 Route::patch('/messages/update/{id}', [NotificationController::class, 'update'])->name('notification.update');
 ROute::patch('/messages/confirm/{id}', [NotificationController::class, 'confirm'])->name('notification.confirm');
-//Araki route end
 
 // host routes
 Route::group(['middleware' => 'host'], function(){

@@ -80,7 +80,7 @@
     @foreach($all_accommodations as $accommodation)
     <div class="col-auto">
         <div class="card">
-            <img src="https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg" class="card-img-top" alt="...">
+            <img src="{{ asset('storage/' . $accommodation->photos->first()->image) }}" class="card-img-top" alt="Accommodation Photo">
             <div class="card-body">
                 <p class="text-start m-0 name">{{ $accommodation->name }}</p>
                 <p class="m-0 text-start address">{{ $accommodation->address }}</p>

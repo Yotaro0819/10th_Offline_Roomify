@@ -14,12 +14,14 @@
             <div class="row align-items-center border-bottom p-2">
                 <div class="col text-center">
                     @if($contact->is_replied)
-                        <i class="fa-solid fa-check text-success display-1"></i> 
-                        <p>Replied</p>
+                        <div>
+                        <i class="fa-solid fa-circle-check display-5"></i>
+                        <p class="mb-0">Replied</p>
+                        </div>
                     @elseif($contact->is_read)
-                        <i class="fa-solid fa-envelope-open text-secondary display-1"></i> 
+                        <i class="fa-solid fa-envelope-open text-secondary display-4"></i> 
                     @else
-                        <i class="fa-solid fa-envelope text-primary display-1"></i> 
+                        <i class="fa-solid fa-envelope text-primary display-4"></i> 
                     @endif
                 </div>
                 <div class="col text-start">
