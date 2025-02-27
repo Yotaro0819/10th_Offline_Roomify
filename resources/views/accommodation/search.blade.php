@@ -173,7 +173,7 @@
     }
     h1{
         color: #000;
-        font-size:16px;
+        font-size:20px;
         letter-spacing:1px;
         font-weight:200;
         text-align:center;
@@ -411,7 +411,7 @@
                 @foreach($all_accommodations as $accommodation)
                     <a href="{{ route('accommodation.show', $accommodation->id )}}" class="row" style="color:black">
                         <div class="col">
-                            <img src="#" alt="#">
+                            <img src={{ asset("storage/". $accommodation->photos[0]->image) }} alt=“#”>
                         </div>
                         <div class="col">
                             <h2 class="h4 fw-bold" style="color:#004aad">{{ $accommodation->name }}</h2>
