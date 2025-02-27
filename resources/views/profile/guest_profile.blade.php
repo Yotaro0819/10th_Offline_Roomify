@@ -53,7 +53,7 @@
   .review{
     width: 210px;
     height: 210px;
-    margin-top: -20px;
+    margin-top: 5px;
   }
   
   .line{
@@ -105,7 +105,7 @@
                 <h4>Reviews</h4>
                 <hr class="line">
             </div>
-                @forelse($reviews as $review)
+                @forelse($reviews->take(3) as $review)
                     <div class="card col-auto review">
                         <!-- star -->
                         <h5 class="stars">

@@ -38,7 +38,6 @@ class ReviewController extends Controller
         $review = new Review();
         $review->user_id = $user_id;
         $review->accommodation_id = $accommodation->id;
-        $review->host_id = $host_id;
         $review->star = $validated['star'] ?? 0; // nullなら0を代入
         $review->comment = $validated['comment'];
         $review->save();
