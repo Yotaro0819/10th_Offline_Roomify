@@ -55,8 +55,13 @@ class UsersController extends Controller
     public function change($id)
     {
         $user  = $this->user->withTrashed()->findOrFail($id);
-        $user->update(['role' => '1']);
-
+        
+        if ($user->role == '1') {
+            $user->update(['role' => '2']);
+        } elseif ($user->role == '2') {
+            $user->update(['role' => '1']);
+        }
+        
         return back();
     }
 

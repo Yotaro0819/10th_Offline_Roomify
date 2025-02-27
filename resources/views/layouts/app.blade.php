@@ -31,7 +31,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Date Range Picker CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
@@ -86,8 +86,8 @@ a
 .select-box
 {
     position: relative;
-    height: 150px;
-    width: 150px;
+    height: 120px;
+    width: 120px;
     border-radius: 20px;
     background-color: #004aad;
 }
@@ -105,7 +105,7 @@ a
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 18px;
+    font-size: 16px;
     color: white;
     font-weight: bold;
 }
@@ -183,6 +183,9 @@ a
                                         </a>
                                     @endif
                                     @if(Auth::user()->role == "0")
+                                        <a class="dropdown-item px-3 py-3" href="{{ route('admin.home') }}">
+                                        <i class="fa-solid fa-house"></i> home
+                                        </a>
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.users') }}">
                                             <i class="fa-solid fa-users"></i> users
                                         </a>
@@ -228,6 +231,16 @@ a
                 <div class="container">
                     <div class="row d-flex justify-content-center">
                         <div class="col-2">
+                            <a href="{{ route('admin.home') }}" class="text-decoration-none">
+                            <div class="select-box mb-3 d-flex justify-content-center align-items-center">
+                                <div>
+                                    <i class="fa-solid fa-house"></i>
+                                </div>
+                                <p class="mt-3 ">
+                                    Home
+                                </p>
+                            </div>
+                            </a>
                             <a href="{{ route('admin.users') }}" class="text-decoration-none">
                                 <div class="select-box mb-3 d-flex justify-content-center align-items-center">
                                     <div>
