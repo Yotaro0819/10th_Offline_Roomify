@@ -17,14 +17,22 @@ class PhotoSeeder extends Seeder
     public function run(): void
     {
         $accommodations = Accommodation::all();
+        // 1〜20 の数字の配列を作成し、4枚ずつに分割
+        $images = range(1, 20);
+        $chunks = array_chunk($images, 4); // 各 chunk は 4 枚の画像番号が入る
 
-        foreach($accommodations as $accommodation) {
-            for($i = 1; $i <= 4; $i++ ) {
+        // 各 accommodation に対して、1つの chunk を割り当てる
+        foreach ($accommodations as $index => $accommodation) {
+            // accommodation の数より画像の chunk が少なければスキップ
+            if (!isset($chunks[$index])) {
+                continue;
+            }
+            foreach ($chunks[$index] as $i) {
                 $sourcePath = database_path("seeders/photos/photo{$i}.jpeg");
-                $filename = $accommodation->id . "photo". $i. ".jpeg";
-                $destinationPath = "photos/". $filename;
+                $filename = $accommodation->id . "_photo{$i}.jpeg";
+                $destinationPath = "photos/" . $filename;
 
-                if(File::exists($sourcePath)) {
+                if (File::exists($sourcePath)) {
                     $contents = File::get($sourcePath);
                     Storage::disk('public')->put($destinationPath, $contents);
                 }
@@ -32,10 +40,8 @@ class PhotoSeeder extends Seeder
                 DB::table('photos')->insert([
                     'accommodation_id' => $accommodation->id,
                     'image' => $destinationPath,
-
                 ]);
             }
         }
-
     }
 }
