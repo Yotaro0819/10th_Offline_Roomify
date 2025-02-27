@@ -3,48 +3,31 @@
 @section('title', 'Messages')
 <link rel="stylesheet" href="{{ asset('css/messages/modal.css')}}">
 <link rel="stylesheet" href="{{ asset('css/messages/messagesShow.css')}}">
+
 <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
-
-<style>
-    .message {
-        margin:10px;
-    }
-
-    .send {
-        width: 75%;
-        margin-left:auto;
-    }
-
-    .receive {
-        width: 75%;
-        margin-right:auto;
-    }
-</style>
 
 @section('content')
 <div class="container mx-auto my-5" style="width: 70%;">
-<a href="{{ route('messages.index', $user->id)}}" class="text-black"><i class="fa-solid fa-angles-left"></i> Back to the accommodation page test</a>
+<a href="{{ route('messages.index', $user->id)}}" class="text-black"><i class="fa-solid fa-angles-left"></i> Back to the accommodation page</a>
 
     <div class="d-flex">
         {{-- user info --}}
-        <div class="card rounded-4 w-85 mx-auto d-flex p-0">
+        <div class="card rounded-4 w-85 mx-auto d-flex p-0 mb-5">
 
-                <div class="d-flex align-items-center">
-                    @if ($user->avatar)
-                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="avatar" class="w-10 m-2">
-                    @endif
-                    <i class="fa-solid fa-user m-4" style="font-size: 40px;"></i>
-                    <p class="fs-5 m-0">{{$user->name}}</p>
-                </div>
-
+        <div class="d-flex align-items-center">
+            @if ($user->avatar)
+            <img src="{{ asset('storage/' . $user->avatar) }}" alt="avatar" class="w-10 m-2">
+            @endif
+            <i class="fa-solid fa-user m-4" style="font-size: 40px;"></i>
+            <p class="fs-5 m-0">{{$user->name}}</p>
+        </div>
 
         <div class="card-body pt-0 p-0">
             <div id="message-box" class="message-box mx-auto mt-3">
                 <div class="messages">
                     @include('messages/receive')
                     @include('messages/receive')
-                  </div>
-
+                </div>
             </div>
         </div>
 
@@ -63,7 +46,7 @@
             </div>
         </div>
         <div class="border ms-4 rounded-4">
-            <h3 class="mt-4 text-center text-danger">Important infomations</h3>
+            <h3 class="mt-4 text-center text-danger">Important informations</h3>
             <div class="notification-section">
                 @foreach ($notifications as $notification)
                     @if ($notification->status == 'read')
@@ -98,10 +81,8 @@
     const channel = pusher.subscribe('public');
     const senderId = {{ Auth::id() }};
     const receiverId = {{$user->id}};
-    console.log(senderId, receiverId);
 
     function displayMessage(message) {
-        console.log(message);
         let messageClass = (message.sender_id === senderId) ? "bg-primary send" : "bg-secondary receive";
         let formattedTime = new Date(message.created_at).toLocaleString();
         $(".messages").append(`
@@ -109,7 +90,6 @@
                 <p class="text-start m-2">${message.message}</p>
                 <p class="text-end">${formattedTime}</p>
             </div>`);
-        console.log(message);
         $('#message-box').scrollTop($('.messages')[0].scrollHeight);
     }
 
@@ -125,7 +105,7 @@
             displayMessage(message);
           });
         }
-        console.log('data',res);
+        // console.log('data',res);
       });
     }
     $(document).ready(function () {
@@ -138,7 +118,6 @@
 
         displayMessage(message);
         $('#message-box').scrollTop($('.messages')[0].scrollHeight);
-
     });
 
     // メッセージ送信処理
