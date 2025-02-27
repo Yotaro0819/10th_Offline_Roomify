@@ -201,7 +201,7 @@ input::placeholder {
     top: -100px;
 }
 
-.card {
+.properties .card {
         width: 320px; /* カードの幅 */
         height: 400px; /* カードの高さ */
         border-radius: 10px; /* 角を丸く */
@@ -212,14 +212,14 @@ input::placeholder {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 影をつける */
     }
 
-    .card img {
-        width: 100%; /* 親要素に対して幅を100% */
-        height: 200px; /* 高さを固定 */
-        object-fit: cover; /* 縦横比を保ちつつカードにフィット */
-        border-radius: 10px;
-    }
+.properties .card img {
+    width: 100%; /* 親要素に対して幅を100% */
+    height: 200px; /* 高さを固定 */
+    object-fit: cover; /* 縦横比を保ちつつカードにフィット */
+    border-radius: 10px;
+}
 
-    .card-container {
+.properties .card-container {
         display: flex;
         flex-wrap: wrap;
         gap: 22px; /* カード同士の間隔 */
@@ -227,7 +227,7 @@ input::placeholder {
         padding: 20px;
     }
 
-.card-container .card{
+.properties .card-container .card{
     width: calc(33.33% - 16px);
     padding: 10px;
     text-align: left;
@@ -235,21 +235,21 @@ input::placeholder {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.card-container .card h3{
+.properties .card-container .card h3{
     font-family: arial black;
 }
 
-.card-container .card .address{
+.properties .card-container .card .address{
     color: #dcbf7d;
 }
 
-.card .row {
+.properties .card .row {
     display: flex;
     justify-content: flex-start;
     gap: 8px;
 }
 
-.card .row .col-auto {
+.properties .card .row .col-auto {
     text-align: left;
 }
 
