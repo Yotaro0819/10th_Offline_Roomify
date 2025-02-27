@@ -81,7 +81,7 @@
         border: none;
     }
     img{
-        width: 270px;
+        width: 370px;
         height: 200px;
     }
 
@@ -409,19 +409,19 @@
                 <p>Hits: {{ $all_accommodations->count() }}</p>
             <hr>
                 @foreach($all_accommodations as $accommodation)
-                    <a href="{{ route('accommodation.show', $accommodation->id )}}" class="row" style="color:black">
-                        <div class="col">
+                    <a href="{{ route('accommodation.show', $accommodation->id )}}" style="color:black; line-height:0">
+                        <div style="display:inline-block">
                             <img src={{ asset("storage/". $accommodation->photos[0]->image) }} alt=“#”>
                         </div>
-                        <div class="col">
-                            <h2 class="h4 fw-bold" style="color:#004aad">{{ $accommodation->name }}</h2>
+                        <div style="display:inline-block; margin-top: 0px">
+                            <h2 class="h4 fw-bold" style="color:#004aad">{{ Str::limit($accommodation->name, 70) }}</h2>
 
                             <div>
-                                <p><span><i class="fa-solid fa-comment me-3"></i></span>{{ $accommodation->description}}</span>
+                                <p><span><i class="fa-solid fa-comment me-3"></i></span>{{ Str::limit($accommodation->description, 70) }}</span>
                             </div>
 
                             <div>
-                                <p><span><i class="fa-solid fa-location-dot me-3"></i></span>{{ $accommodation->address }}</p>
+                                <p><span><i class="fa-solid fa-location-dot me-3"></i></span>{{ Str::limit($accommodation->address, 70) }}</p>
                             </div>
 
                             <div>

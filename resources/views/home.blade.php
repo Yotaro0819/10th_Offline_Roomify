@@ -356,7 +356,7 @@ input::placeholder {
                      <div class="card mx-auto">
                         <a href="{{ route('accommodation.show', $accommodation->id) }}" class="stretched-link">
                             @if ($accommodation->photos->isNotEmpty())
-                                <img src="{{ $accommodation->photos->first()->url }}" alt="Accommodation Image">
+                                <img src={{ asset("storage/". $accommodation->photos[0]->image) }} alt=“#”>
                             @else
                                 <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available">
                             @endif
