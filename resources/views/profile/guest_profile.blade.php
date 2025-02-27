@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+  use Illuminate\Support\Str;
+@endphp
 <style>
   body{
     background: #004aad;
@@ -57,9 +60,14 @@
     width: 100px;
   }
 
-  .name{
-    margin-top: -30px;
+  .stars {
+    display: flex;
+    gap: 5px; /* 星同士の間隔 */
+    margin-top: -10px;
+    justify-content: flex-start;
+    margin-left: -15px;
   }
+
 </style>
 <body>
 <div class="container">
@@ -100,24 +108,30 @@
                 @forelse($reviews as $review)
                     <div class="card col-auto review">
                         <!-- star -->
-                        <h5>
+                        <h5 class="stars">
                             @for($i = 1; $i <= 5; $i++)
-                                <i class="fa-regular fa-star @if($i <= $review->star) text-warning @else text-secondary @endif"></i>
+                                @if($i <= $review->star)
+                                    <i class="fa-solid fa-star text-warning"></i> <!-- 塗りつぶしの星 -->
+                                @else
+                                    <i class="fa-regular fa-star text-secondary"></i> <!-- 空の星 -->
+                                @endif
                             @endfor
                         </h5>
-                        <p>{{ $review->comment }}</p>
-                        <div class="row">
+
+                        <p class="truncate-text">{{ Str::limit($review->comment, 10.5, '...') }}</p>
+
+                        <div class="row align-items-center">
                             <div class="col-auto">
                                 <!-- icon -->
                                 @if($review->user->avatar)
-                                    <img src="{{ asset('storage/' . $review->user->avatar) }}" alt="Reviewer Avatar" width="30" height="30" class="rounded-circle">
+                                    <img src="{{ asset('storage/' . $review->user->avatar) }}" alt="Reviewer Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
                                 @else
-                                    <i class="fa-solid fa-circle-user text-secondary"></i>
+                                    <i class="fa-solid fa-circle-user text-secondary fa-2x"></i>
                                 @endif
                             </div>
-                            <div class="col-auto name">
-                                <h6>{{ $review->user->name }}</h6>
-                                <small>{{ $review->created_at->format('Y-m-d') }}</small>
+                            <div class="col-auto d-flex flex-column justify-content-center">
+                                <h6 class="mb-1">{{ $review->user->name }}</h6>
+                                <small class="text-muted">{{ $review->created_at->format('Y-m-d') }}</small>
                             </div>
                         </div>
                     </div>
