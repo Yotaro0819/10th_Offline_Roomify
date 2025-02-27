@@ -81,7 +81,7 @@
             </div>
         </div>
         <div class="border ms-4 rounded-4">
-            <h3 class="mt-4 text-center text-danger">Important infomations</h3>
+            <h3 class="mt-4 text-center text-danger">Important informations</h3>
             <div class="notification-section">
                 @foreach ($notifications as $notification)
                     @if ($notification->status == 'read')

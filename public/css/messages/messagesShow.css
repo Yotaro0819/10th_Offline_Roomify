@@ -76,7 +76,7 @@ outline: none;
 }
 
 #message-box {
-    min-height: 200px;
+    min-height: 300px;
     max-height: 400px; /* 必要に応じて高さを設定 */
     overflow-y: auto; /* 垂直方向のスクロールを有効にする */
     border-top: 1px solid rgb(165, 165, 165);
@@ -93,4 +93,16 @@ outline: none;
     background-color: rgb(199, 199, 199) !important;
 }
 
+.message {
+    margin:10px;
+}
 
+.send {
+    width: 75%;
+    margin-left:auto;
+}
+
+.receive {
+    width: 75%;
+    margin-right:auto;
+}

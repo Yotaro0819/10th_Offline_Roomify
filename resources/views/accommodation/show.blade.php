@@ -2,14 +2,13 @@
 
 @section('title', 'show')
 
-<link rel="stylesheet" href="{{ asset('css/accommodationShow/slidePanel.css') }}">
-<link rel="stylesheet" href="{{ asset('css/accommodationShow/accommodationShow.css') }}">
-<link rel="stylesheet" href="{{ asset('css/accommodationShow/star.css') }}">
+<link rel="stylesheet" href="{{ asset('css/accommodation/accommodationShow/slidePanel.css') }}">
+<link rel="stylesheet" href="{{ asset('css/accommodation/accommodationShow/accommodationShow.css') }}">
+<link rel="stylesheet" href="{{ asset('css/accommodation/accommodationShow/star.css') }}">
 <script src="{{ asset('js/slidePanel.js') }}"></script>
 <script src="{{ asset('js/star.js') }}"></script>
 
 <script>
-
     // Google Maps APIスクリプトを動的に読み込む関数
     function loadGoogleMapsScript() {
         const apiKey = "{{ config('services.google_maps.api_key') }}";
