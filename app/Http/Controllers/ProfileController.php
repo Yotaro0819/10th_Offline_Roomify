@@ -10,16 +10,16 @@ class ProfileController extends Controller
 {
     public function show($id)
     {
-        // ユーザー情報を取得（ホストかゲストかに関係なく）
         $user = User::findOrFail($id);
 
-        // ユーザーが所有する宿泊施設のレビューを取得
-        $reviews = Review::whereHas('accommodation', function ($query) use ($user) {
-            $query->where('host_id', $user->id);
-        })->latest()->get();
+        // ホストが所有する宿泊施設の ID を取得
+        $accommodationIds = $user->accommodations->pluck('id');
 
-        // ビューにデータを渡す
+        // その宿泊施設に紐づくレビューを取得
+        $reviews = Review::whereIn('accommodation_id', $accommodationIds)->latest()->get();
+
         return view('profile.guest_profile', compact('user', 'reviews'));
     }
+
 }
 

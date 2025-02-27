@@ -97,7 +97,7 @@
                 <h4>Reviews</h4>
                 <hr class="line">
             </div>
-                @forelse($user->receivedReviews as $review)
+                @forelse($reviews as $review)
                     <div class="card col-auto review">
                         <!-- star -->
                         <h5>
