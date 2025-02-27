@@ -1,33 +1,5 @@
 @extends('layouts.app')
-
-<style>
-    main {
-        min-height:54%;
-    }
-
-    textarea {
-        height: 200px;
-    }
-
-    .success_message {
-
-        width: 30%;
-        margin: 0 auto;
-        color:white;
-        display: flex;
-        align-items:center;
-        justify-content:center;
-        height:54%;
-
-    }
-
-    .message {
-        background-color:#004aad;
-        padding:15px;
-        border-radius: 30px;
-    }
-
-</style>
+<link rel="stylesheet" href="{{ asset('css/hostRequest/create.css')}}">
 @section('content')
 
     @if (session('success'))

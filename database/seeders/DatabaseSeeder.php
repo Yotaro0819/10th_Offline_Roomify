@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             EcoitemSeeder::class,
             EcoitemAccommodationSeeder::class,
             CouponSeeder::class,
-            ContactSeeder::class
+            ContactSeeder::class,
+            PhotoSeeder::class,
         ]);
 
     }
