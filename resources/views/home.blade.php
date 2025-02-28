@@ -269,8 +269,126 @@ input::placeholder {
     border-radius: 50px;
     margin-top: -30px;
 }
+
+.loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.01);
+        backdrop-filter: blur(2px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+    .loader{
+        margin:200px auto;
+    }
+    #searching{
+        color: #000;
+        font-size:20px;
+        letter-spacing:1px;
+        font-weight:200;
+        text-align:center;
+    }
+    .loader span{
+        width:24px;
+        height:24px;
+        border-radius:50%;
+        display:inline-block;
+        position:absolute;
+        left:50%;
+        margin-left:-20px;
+        -webkit-animation:3s infinite linear;
+        -moz-animation:3s infinite linear;
+        -o-animation:3s infinite linear;
+    }
+
+    .loader span:nth-child(2){
+        background:#004aad;
+        -webkit-animation:kiri 1.2s infinite linear;
+        -moz-animation:kiri 1.2s infinite linear;
+        -o-animation:kiri 1.2s infinite linear;
+    }
+    .loader span:nth-child(3){
+        background: #dcbf7d;
+        z-index:100;
+    }
+    .loader span:nth-child(4){
+        background: #6a6c6e26;
+        -webkit-animation:kanan 1.2s infinite linear;
+        -moz-animation:kanan 1.2s infinite linear;
+        -o-animation:kanan 1.2s infinite linear;
+    }
+
+    @-webkit-keyframes kanan {
+        0% {-webkit-transform:translateX(20px);
+        }
+        50%{-webkit-transform:translateX(-20px);
+        }
+        100%{-webkit-transform:translateX(20px);
+            z-index:200;
+        }
+    }
+    @-moz-keyframes kanan {
+        0% {-moz-transform:translateX(20px);
+        }
+        50%{-moz-transform:translateX(-20px);
+        }
+        100%{-moz-transform:translateX(20px);
+        z-index:200;
+        }
+    }
+    @-o-keyframes kanan {
+        0% {-o-transform:translateX(20px);
+        }
+        50%{-o-transform:translateX(-20px);
+        }
+        100%{-o-transform:translateX(20px);
+        z-index:200;
+        }
+    }
+    @-webkit-keyframes kiri {
+        0% {-webkit-transform:translateX(-20px);
+        z-index:200;
+        }
+        50%{-webkit-transform:translateX(20px);
+        }
+        100%{-webkit-transform:translateX(-20px);
+        }
+    }
+
+    @-moz-keyframes kiri {
+        0% {-moz-transform:translateX(-20px);
+        z-index:200;
+            }
+        50%{-moz-transform:translateX(20px);
+        }
+        100%{-moz-transform:translateX(-20px);
+        }
+    }
+    @-o-keyframes kiri {
+        0% {-o-transform:translateX(-20px);
+        z-index:200;
+            }
+        50%{-o-transform:translateX(20px);
+        }
+        100%{-o-transform:translateX(-20px);
+        }
+    }
 </style>
 <main>
+<!-- loading animation -->
+<div class="loading-overlay">
+    <div class="loader">
+        <h1 id="searching">Searching...</h1>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
     <section class="top">
         <div class="container">
             <!-- background images -->
@@ -432,5 +550,22 @@ input::placeholder {
             $(this).val('');
         });
     });
+
+    // loading animation
+    document.addEventListener('DOMContentLoaded', function() {
+        const forms = document.querySelectorAll('form');
+        const overlay = document.querySelector('.loading-overlay');
+
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            overlay.style.display = 'flex';
+
+            setTimeout(() => {
+                form.submit();
+            }, 3000);
+        });
+    });
+});
 </script>
 @endsection

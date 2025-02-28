@@ -83,6 +83,7 @@
     img{
         width: 370px;
         height: 200px;
+        border-radius: 10px;
     }
 
     .alert{
@@ -203,7 +204,6 @@
     }
     .loader span:nth-child(4){
         background: #6a6c6e26;
-        ;
         -webkit-animation:kanan 1.2s infinite linear;
         -moz-animation:kanan 1.2s infinite linear;
         -o-animation:kanan 1.2s infinite linear;
@@ -212,10 +212,8 @@
     @-webkit-keyframes kanan {
         0% {-webkit-transform:translateX(20px);
         }
-
         50%{-webkit-transform:translateX(-20px);
         }
-
         100%{-webkit-transform:translateX(20px);
             z-index:200;
         }
@@ -223,10 +221,8 @@
     @-moz-keyframes kanan {
         0% {-moz-transform:translateX(20px);
         }
-
         50%{-moz-transform:translateX(-20px);
         }
-
         100%{-moz-transform:translateX(20px);
         z-index:200;
         }
@@ -234,10 +230,8 @@
     @-o-keyframes kanan {
         0% {-o-transform:translateX(20px);
         }
-
         50%{-o-transform:translateX(-20px);
         }
-
         100%{-o-transform:translateX(20px);
         z-index:200;
         }
@@ -245,7 +239,7 @@
     @-webkit-keyframes kiri {
         0% {-webkit-transform:translateX(-20px);
         z-index:200;
-            }
+        }
         50%{-webkit-transform:translateX(20px);
         }
         100%{-webkit-transform:translateX(-20px);
@@ -255,7 +249,7 @@
     @-moz-keyframes kiri {
         0% {-moz-transform:translateX(-20px);
         z-index:200;
-            }
+        }
         50%{-moz-transform:translateX(20px);
         }
         100%{-moz-transform:translateX(-20px);
@@ -264,7 +258,7 @@
     @-o-keyframes kiri {
         0% {-o-transform:translateX(-20px);
         z-index:200;
-            }
+        }
         50%{-o-transform:translateX(20px);
         }
         100%{-o-transform:translateX(-20px);
@@ -413,7 +407,7 @@
                         <div class="col">
                             <img src={{ asset("storage/". $accommodation->photos[0]->image) }} alt=“#”>
                         </div>
-                        <div style="display:inline-block; margin-top: 0px">
+                        <div class="col">
                             <h2 class="h4 fw-bold" style="color:#004aad">{{ Str::limit($accommodation->name, 70) }}</h2>
 
                             <div>

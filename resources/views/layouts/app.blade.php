@@ -134,7 +134,7 @@ a
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <a href="{{ route('guest.search') }}" class="find-button">Find a Property</a>
+                        <a href="{{ route('guest.search') }}" class="find-button">Find an Accom</a>
                         @if(Auth::user()) {{-- login pattern --}}
                             <a href="{{ route('messages.index', Auth::user()->id) }}" class="find-button ms-3">Messages</a>
                                 @if(Auth::user()->role === "1") {{-- guest pattern --}}
@@ -292,7 +292,7 @@ a
                     </div>
                     <div class="col-auto">
                         <h5>HELP CENTER</h5>
-                        <p><a href="#">Find a Property</a></p>
+                        <p><a href="#">Find an Accom</a></p>
                         <p><a href="#">How To Host?</a></p>
                         <p><a href="#">FAQs</a></p>
                         <p><a href="#">Rental Guides</a></p>
