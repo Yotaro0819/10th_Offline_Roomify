@@ -106,7 +106,8 @@
     <div id="map" style="height: 400px; width: 100%;"></div>
 
     <script>
-    
+    const apiKey = {!! json_encode(config('services.google_maps.api_key')) !!}; 
+
     function initMap() {
         var location = { lat: 35.659108, lng: 139.698388 };
         var map = new google.maps.Map(document.getElementById("map"), {
@@ -118,13 +119,18 @@
             map: map,
         });
     }
+
+    function loadGoogleMaps() {
+        let script = document.createElement("script");
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+    }
+
+    loadGoogleMaps();
     </script>
 
-
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNa5Jgyl7k3njsgmIUeXHDSeND3XVhFeo&callback=initMap"></script>
-
 </div>
-
-
 
 @endsection

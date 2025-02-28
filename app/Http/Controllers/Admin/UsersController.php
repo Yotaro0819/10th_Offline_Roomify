@@ -7,15 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-
 class UsersController extends Controller
 {
     private $user;
-
-    // public function index()
-    // {
-    //     return view('admin.users.index');
-    // }
 
     public function __construct(User $user)
     {
@@ -24,7 +18,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        $all_users = $this->user->withTrashed()->latest()->paginate(5);
+        $all_users = $this->user->withTrashed()->latest()->paginate(6);
 
         return view('admin.users.index')->with('all_users', $all_users);
     }
@@ -55,8 +49,13 @@ class UsersController extends Controller
     public function change($id)
     {
         $user  = $this->user->withTrashed()->findOrFail($id);
-        $user->update(['role' => '1']);
-
+        
+        if ($user->role == '1') {
+            $user->update(['role' => '2']);
+        } elseif ($user->role == '2') {
+            $user->update(['role' => '1']);
+        }
+        
         return back();
     }
 
