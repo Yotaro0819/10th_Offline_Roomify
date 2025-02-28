@@ -24,7 +24,7 @@
         </div>
 
         <div class="card-body pt-0 p-0">
-            <div id="message-box" class="message-box mx-auto mt-3">
+            <div id="message-box" class="message-box mx-auto">
                 <div class="messages">
                     @include('messages/receive')
                     @include('messages/receive')
