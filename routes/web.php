@@ -56,6 +56,7 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.'], function(){
 
 
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile/update-avatar', [ProfileController::class, 'updateAvatar'])->name('profile.updateAvatar');
 
     Route::post('/review/post/{id}', [ReviewController::class, 'store'])->name('review.store');
 

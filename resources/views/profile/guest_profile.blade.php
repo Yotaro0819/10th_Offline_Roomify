@@ -13,16 +13,18 @@
     background: #fff;
     padding: 60px;
     border-radius: 20px;
-    height: 600px;
+    height: 720px;
     width: 1200px;
     margin: 100px 50px;
   }
 
   .profile-img{
-    width: 150px;
-    height: 150px;
+    width: 230px;
+    height: 230px;
     border-radius: 50%;
     object-fit: cover;
+    margin-left: 100px;
+    margin-top: -10px;
   }
 
   .profile-icon{
@@ -31,8 +33,8 @@
   }
 
   .name{
-    width: 400px;
-    margin-left: 180px;
+    width: 500px;
+    margin-left: 150px;
   }
 
   h4{
@@ -69,34 +71,57 @@
   }
 
 </style>
+<script>
+document.getElementById('avatarInput').addEventListener('change', function(event) {
+    let reader = new FileReader();
+    reader.onload = function() {
+        let avatarPreview = document.getElementById('avatarPreview');
+        avatarPreview.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+});
+</script>
+
 <body>
 <div class="container">
     <div class="card">
         <div class="row">
-            <div class="col-auto d-flex justify-content-start align-items-center text-left" id="icon">
+            <div class="col-4 d-flex justify-content-start align-items-center text-left" id="icon">
                 <!-- avatar -->
-                @if(Auth::user()->avatar)
-                    <img src="{{ asset('storage/' . $user->avatar) }}" class="profile-img">
-                @else
-                    <i class="fa-solid fa-circle-user text-secondary profile-icon"></i>
-                @endif
+                <form action="{{ route('profile.updateAvatar') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="col-auto d-flex justify-content-start align-items-center text-left" id="icon">
+                        @if(Auth::user()->avatar)
+                            <img src="{{ asset('storage/' . Auth::user()->avatar) }}" class="profile-img" id="avatarPreview">
+                        @else
+                            <img src="{{ asset('images/default-avatar.png') }}" class="profile-img" id="avatarPreview">
+                        @endif
+                    </div>
+
+                    <div class="d-flex justify-content-start">
+                      <div class="ms-4">
+                          <input type="file" name="avatar" id="avatarInput" class="form-control mt-4">
+                          <button type="submit" class="btn btn-outline mt-2">Change Icon</button>
+                      </div>
+                  </div>
+                </form>
             </div>
-            <div class="col-auto">
+            <div class="col-8">
+              <div class="content-container w-100 mt-3">
                 <div class="name mt-3">
-                    <h4>{{ Auth::user()->name }}</h4>
-                    <hr>
+                      <h4>{{ Auth::user()->name }}</h4>
+                      <hr>
                 </div>
-                <div class="row info align-items-center mt-5">
-                    <div class="col-auto mt-4" style="position: relative; left: 50px;">
-                        <h4>{{ Auth::user()->nationality->nationality ?? 'Not available' }}</h4>
-                        <hr>
-                    </div>
-                    <div class="col-auto">
-                        <h4 class="mb-1">About Me</h4>
-                        <p>I'm from {{ Auth::user()->nationality->nationality ?? 'a beautiful country' }}. I enjoy meeting new people and sharing my culture with others.</p>
-                        <hr>
-                    </div>
+                <div class="name mt-5" >
+                      <h4>{{ Auth::user()->nationality->nationality ?? 'Not available' }}</h4>
+                      <hr>
                 </div>
+                <div class="name mt-5">
+                      <h4 class="mb-1">About Me</h4>
+                      <p>I'm from {{ Auth::user()->nationality->nationality ?? 'a beautiful country' }}. I enjoy meeting new people and sharing my culture with others.</p>
+                      <hr>
+                </div>
+              </div>
             </div>
         </div>
         
