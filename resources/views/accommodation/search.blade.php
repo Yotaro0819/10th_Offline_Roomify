@@ -179,6 +179,13 @@
         font-weight:200;
         text-align:center;
     }
+    #searching{
+        color: #000;
+        font-size:20px;
+        letter-spacing:1px;
+        font-weight: bold;
+        text-align:center;
+    }
     .loader span{
         width:24px;
         height:24px;
@@ -269,7 +276,7 @@
 <!-- loading animation -->
 <div class="loading-overlay">
     <div class="loader">
-        <h1>Searching...</h1>
+        <h1 id="searching">Searching...</h1>
         <span></span>
         <span></span>
         <span></span>

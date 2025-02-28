@@ -314,7 +314,7 @@ input::placeholder {
         color: #000;
         font-size:20px;
         letter-spacing:1px;
-        font-weight:200;
+        font-weight: bold;
         text-align:center;
     }
     .loader span{
