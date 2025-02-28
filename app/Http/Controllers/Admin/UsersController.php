@@ -7,15 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-
 class UsersController extends Controller
 {
     private $user;
-
-    // public function index()
-    // {
-    //     return view('admin.users.index');
-    // }
 
     public function __construct(User $user)
     {

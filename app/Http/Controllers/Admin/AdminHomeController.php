@@ -9,7 +9,6 @@ use App\Models\Accommodation;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-
 class AdminHomeController extends Controller
 {
     public function getRanking()
