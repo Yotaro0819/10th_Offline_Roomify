@@ -110,7 +110,7 @@
                 <a href="{{ route('profile.show', $accommodation->user->id)}}" class="d-flex align-items-center">
                     {{-- this a tag can go message page --}}
                 @if ($accommodation->user->avatar)
-                <img src="{{ asset('storage/' . $accommodation->user->avatar) }}" alt="" class="rounded">
+                <img src="{{ asset('storage/' . $accommodation->user->avatar) }}" alt="" class="rounded" style="width: 40px; height: 40px; object-fit: cover;">
                 @else
                     <i class="fa-solid fa-user m-3" style="font-size:40px"></i>
                 @endif
