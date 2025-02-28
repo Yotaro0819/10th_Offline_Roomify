@@ -230,6 +230,7 @@ input::placeholder {
 
 .properties .card-container .card{
     width: calc(33.33% - 16px);
+    height: fit-content;
     padding: 10px;
     text-align: left;
     border-radius: 5px;
@@ -238,17 +239,22 @@ input::placeholder {
 }
 
 .properties .card-container .card h3{
-    font-family: arial black;
+    font-weight: bold;
+    font-size: larger;
 }
 
 .properties .card-container .card .address{
-    color: #dcbf7d;
+    color:#6c757d;
 }
 
 .properties .card .row {
     display: flex;
     justify-content: flex-start;
     gap: 8px;
+}
+
+.properties .card .row p {
+    margin-bottom: 0;
 }
 
 .properties .card .row .col-auto {
@@ -258,6 +264,7 @@ input::placeholder {
 #price{
     color: #004aad;
     font-weight: bold;
+    font-size: large;
 }
 .discover{
     height: 500px;
@@ -270,7 +277,7 @@ input::placeholder {
 .discover .btn{
     background-color: #dcbf7d;
     color: #ffffff;
-    width: 170px;
+    width: fit-content;
     padding: 20px;
     border-radius: 40px;
 }
@@ -495,15 +502,15 @@ input::placeholder {
                             <p class="address">{{ Str::limit($accommodation->address, 50) }}</p>
                             <div class="row">
                                 <div class="col-auto">
-                                    <h4 id="price">¥{{ $accommodation->price }}~</h4>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-auto">
                                     <p><i class="fa-solid fa-users me-2"></i></i> {{ $accommodation->capacity }} Sleeps</p>
                                 </div>
                                 <div class="col-auto">
                                     <p><i class="fa-solid fa-location-dot me-2"></i>{{ $accommodation->city }}</p>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-auto">
+                                    <h4 id="price">¥{{ $accommodation->price }} ~</h4>
                                 </div>
                             </div>
                         </a>
@@ -531,7 +538,6 @@ input::placeholder {
                             @else
                                 <a href="{{ route('login') }}" class="btn">Check Your Newsletter</a>
                             @endif
-                        <!-- <a href="{{ url('/newsletter') }}" class="btn">Check Your Newsletter</a> -->
                     @endif
                 </div>
                 <div class="col-6">
