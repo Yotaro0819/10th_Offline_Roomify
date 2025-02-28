@@ -225,6 +225,7 @@ input::placeholder {
         gap: 22px; /* カード同士の間隔 */
         justify-content: center;
         padding: 20px;
+        align-items: start;
     }
 
 .properties .card-container .card{
@@ -255,13 +256,8 @@ input::placeholder {
 
 #price{
     color: #004aad;
-    font-family: arial black;
+    font-weight: bold;
 }
-
-#night{
-    color: #004aad;
-}
-
 .discover{
     height: 500px;
     padding: 80px;
@@ -290,7 +286,7 @@ input::placeholder {
     margin-top: -30px;
 }
 
-.loading-overlay {
+    .loading-overlay {
         position: fixed;
         top: 0;
         left: 0;
@@ -477,7 +473,7 @@ input::placeholder {
                 @endif
             </div>
             <div class="col-6">
-                <img src="https://images.pexels.com/photcos/16095241/pexels-photo-16095241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image2">
+                <img src="https://images.pexels.com/photos/20187394/pexels-photo-20187394/free-photo-of-japanese-building-during-winter.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image2">
             </div>
         </div>
     </section>
@@ -493,26 +489,20 @@ input::placeholder {
                     @foreach($accommodations->take(6) as $accommodation)
                      <div class="card mx-auto">
                         <a href="{{ route('accommodation.show', $accommodation->id) }}" class="stretched-link">
-                            @if ($accommodation->photos->isNotEmpty())
-                                <img src="{{ asset('storage/' . $accommodation->photos[0]->image) }}" alt="#" style="width: 375px; height: 200px;">
-                                <!-- <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available"> -->
-                            @endif
-                            <h3>{{ $accommodation->name }}</h3>
-                            <p class="address">{{ $accommodation->address }}</p>
+                            <img src="{{ asset('storage/' . $accommodation->photos[0]->image) }}" alt="#" style="width: 375px; height: 200px;">
+                            <h3 class="mt-2">{{ Str::limit($accommodation->name, 50) }}</h3>
+                            <p class="address">{{ Str::limit($accommodation->address, 50) }}</p>
                             <div class="row">
                                 <div class="col-auto">
-                                    <h4 id="price">${{ $accommodation->price }}</h4>
-                                </div>
-                                <div class="col-auto">
-                                    <p id="night">/ {{ $accommodation->capacity }}</p>
+                                    <h4 id="price">¥{{ $accommodation->price }}~</h4>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-auto">
-                                    <p><i class="fa-regular fa-user"></i> {{ $accommodation->capacity }}Sleeps</p>
+                                    <p><i class="fa-solid fa-users me-2"></i></i> {{ $accommodation->capacity }} Sleeps</p>
                                 </div>
                                 <div class="col-auto">
-                                    <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> {{ $accommodation->city }}</p>
+                                    <p><i class="fa-solid fa-location-dot me-2"></i>{{ $accommodation->city }}</p>
                                 </div>
                             </div>
                         </a>
@@ -520,7 +510,6 @@ input::placeholder {
                     @endforeach
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -550,6 +539,7 @@ input::placeholder {
             </div>
     </section>
 </main>
+
 <script>
     $(document).ready(function() {
         $('#daterange').daterangepicker({

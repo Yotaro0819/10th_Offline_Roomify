@@ -396,7 +396,7 @@
         </form>
     </div>
 
-    <!-- results -->
+    <!-- show results -->
     <div class="col-8">
         <div class="header">
             @if(isset($all_accommodations) && $all_accommodations->count() > 0)
@@ -411,11 +411,11 @@
                             <h2 class="h4 fw-bold" style="color:#004aad">{{ Str::limit($accommodation->name, 70) }}</h2>
 
                             <div>
-                                <p><span><i class="fa-solid fa-comment me-3"></i></span>{{ Str::limit($accommodation->description, 70) }}</span>
+                                <p><span><i class="fa-solid fa-comment me-3"></i></span>{{ Str::limit($accommodation->description, 50) }}</span>
                             </div>
 
                             <div>
-                                <p><span><i class="fa-solid fa-location-dot me-3"></i></span>{{ Str::limit($accommodation->address, 70) }}</p>
+                                <p><span><i class="fa-solid fa-location-dot me-3"></i></span>{{ Str::limit($accommodation->address, 50) }}</p>
                             </div>
 
                             <div>
