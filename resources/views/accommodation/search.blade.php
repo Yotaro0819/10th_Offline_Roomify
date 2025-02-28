@@ -84,6 +84,7 @@
         width: 370px;
         height: 200px;
         border-radius: 10px;
+        object-fit: cover;
     }
 
     .alert{
