@@ -174,13 +174,13 @@ a
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @if(Auth::user()->role == "2")
-                                        <a class="dropdown-item" href="{{ route('host.index') }}">
+                                        <a class="dropdown-item px-3 py-3" href="{{ route('host.index') }}">
                                             <i class="fa-solid fa-house"></i> Accommodation index
                                         </a>
-                                        <a class="dropdown-item" href="{{ route('host.reservation_host') }}">
+                                        <a class="dropdown-item px-3 py-3" href="{{ route('host.reservation_host') }}">
                                             <i class="fa-solid fa-bed"></i> Reservation status
                                         </a>
-                                        <a class="dropdown-item" href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
+                                        <a class="dropdown-item px-3 py-3" href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
                                             <i class="fa-solid fa-address-card"></i> Profile
                                         </a>
                                     @endif
@@ -202,10 +202,10 @@ a
                                         </a> -->
                                     @endif
                                     @if(Auth::user()->role == "1")
-                                        <a class="dropdown-item" href="{{ route('guest.reservation_guest') }}">
+                                        <a class="dropdown-item px-3 py-3" href="{{ route('guest.reservation_guest') }}">
                                             <i class="fa-solid fa-bed"></i> Reservation status
                                         </a>
-                                        <a class="dropdown-item" href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
+                                        <a class="dropdown-item px-3 py-3" href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
                                             <i class="fa-solid fa-address-card"></i> Profile
                                         </a>
                                     @endif
