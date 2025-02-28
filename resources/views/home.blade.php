@@ -427,7 +427,7 @@ input::placeholder {
                 </div>
             </div>
 
-            <div class="carousel-content">
+            <div class="carousel-content" style="margin-left: 100px;">
                 <h2>
                     Stay Unique,<br>
                     Experience Authentic Tokyo.
