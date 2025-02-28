@@ -62,7 +62,8 @@
             <div class="col">
             @if ($booking->accommodation)
                 @if ($booking->accommodation->image)
-                    <img src="{{ asset('images/' . $booking->accommodation->image) }}" alt="Accommodation Image">
+                <img src="{{ asset('storage/' . ltrim($accommodation->photos[0]->image, '/')) }}" alt="#">
+
                 @else
                     <img src="{{ asset('images/default-placeholder.jpg') }}" alt="No Image Available">
                 @endif
@@ -88,14 +89,7 @@
                 <div>
                         <p><span><i class="fa-solid fa-users icon-input"></i></span> {{ $booking->num_guest }}</p>
                 </div>
-                <!-- <div class="row" id="spaced">
-                    <div class="col">{{ $booking->host_name }}</div>
-                    <div class="col">{{ $booking->num_guest }} people</div>
-                </div>
-                <div class="row" id="spaced">
-                    <div class="col">{{ $booking->accommodation->name }}</div>
-                    <div class="col">{{ $booking->special_request ?? 'No special requests' }}</div>
-                </div> -->
+                
             </div>
             <div class="col">
                 <form action="{{ route('guest.confirmGuestCancel', ['bookingId' => $booking->id]) }}" method="GET">

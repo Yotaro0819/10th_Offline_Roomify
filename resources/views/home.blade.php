@@ -201,13 +201,33 @@ input::placeholder {
     top: -100px;
 }
 
-.card-container{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+.properties .card {
+        width: 320px; /* カードの幅 */
+        height: 400px; /* カードの高さ */
+        border-radius: 10px; /* 角を丸く */
+        overflow: hidden; /* はみ出し防止 */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 影をつける */
+    }
+
+.properties .card img {
+    width: 100%; /* 親要素に対して幅を100% */
+    height: 200px; /* 高さを固定 */
+    object-fit: cover; /* 縦横比を保ちつつカードにフィット */
+    border-radius: 10px;
 }
 
-.card-container .card{
+.properties .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 22px; /* カード同士の間隔 */
+        justify-content: center;
+        padding: 20px;
+    }
+
+.properties .card-container .card{
     width: calc(33.33% - 16px);
     padding: 10px;
     text-align: left;
@@ -215,21 +235,21 @@ input::placeholder {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.card-container .card h3{
+.properties .card-container .card h3{
     font-family: arial black;
 }
 
-.card-container .card .address{
+.properties .card-container .card .address{
     color: #dcbf7d;
 }
 
-.card .row {
+.properties .card .row {
     display: flex;
     justify-content: flex-start;
     gap: 8px;
 }
 
-.card .row .col-auto {
+.properties .card .row .col-auto {
     text-align: left;
 }
 
@@ -339,7 +359,7 @@ input::placeholder {
                 @endif
             </div>
             <div class="col-6">
-                <img src="https://images.pexels.com/photos/16095241/pexels-photo-16095241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image2">
+                <img src="https://images.pexels.com/photcos/16095241/pexels-photo-16095241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image2">
             </div>
         </div>
     </section>
@@ -356,9 +376,8 @@ input::placeholder {
                      <div class="card mx-auto">
                         <a href="{{ route('accommodation.show', $accommodation->id) }}" class="stretched-link">
                             @if ($accommodation->photos->isNotEmpty())
-                                <img src="{{ $accommodation->photos->first()->url }}" alt="Accommodation Image">
-                            @else
-                                <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available">
+                                <img src="{{ asset('storage/' . $accommodation->photos[0]->image) }}" alt="#" style="width: 375px; height: 200px;">
+                                <!-- <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available"> -->
                             @endif
                             <h3>{{ $accommodation->name }}</h3>
                             <p class="address">{{ $accommodation->address }}</p>
