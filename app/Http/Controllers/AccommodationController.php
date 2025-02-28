@@ -188,9 +188,6 @@ class AccommodationController extends Controller
             } else {
                 return redirect()->route('host.accommodation.create')->with('googleMap_Error', 'Something went wrong with the address.');
             }
-        // } catch (\Exception $e) {
-        //     return redirect()->route('host.accommodation.create')->with('googleMap_Error', 'Something went wrong with the address.');
-        // }
     }
 
     public function edit($id)
@@ -333,7 +330,6 @@ class AccommodationController extends Controller
                 }
             }
 
-
             // 写真のアップロード処理
             if ($request->hasFile('photos')) {
                 foreach ($request->file('photos') as $photo) {
@@ -374,18 +370,20 @@ class AccommodationController extends Controller
 
     public function show($id)
     {
+        $userId = Auth::id();
         $accommodation = Accommodation::with('photos')->findOrFail($id);
 
         $reviews = Review::where('accommodation_id', $id)->latest()->get();
 
         $latest_review = $reviews->first();
         $sumOfReview = $reviews->sum('star');
+        $bookings = Booking::where('accommodation_id', $id)->where('guest_id', $userId)->get();
 
         $average = count($reviews) > 0 ? $sumOfReview / count($reviews) : 0;
 
 
         // ビューにデータを渡す
-        return view('accommodation.show', compact('accommodation', 'reviews', 'latest_review', 'average'));
+        return view('accommodation.show', compact('accommodation', 'reviews', 'latest_review', 'average', 'bookings'));
     }
 
 
@@ -432,7 +430,7 @@ class AccommodationController extends Controller
         $categories     =  $this->category->get();
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
-                                                 ->with('categories', $categories);
+                                            ->with('categories', $categories);
     }
 
     public function search_by_keyword(Request $request)
@@ -496,9 +494,9 @@ class AccommodationController extends Controller
             $query->whereDoesntHave('bookings', function ($q) use ($starting_date, $ending_date) {
                 $q->where(function ($query) use ($starting_date, $ending_date) {
                     $query->whereBetween('check_in_date', [$starting_date, $ending_date])
-                          ->orWhereBetween('check_out_date', [$starting_date, $ending_date])
-                          ->orWhere(function ($query) use ($starting_date, $ending_date) {
-                              $query->where('check_in_date', '<=', $starting_date)
+                        ->orWhereBetween('check_out_date', [$starting_date, $ending_date])
+                        ->orWhere(function ($query) use ($starting_date, $ending_date) {
+                            $query->where('check_in_date', '<=', $starting_date)
                                     ->where('check_out_date', '>=', $ending_date);
                     });
                 });
@@ -509,7 +507,7 @@ class AccommodationController extends Controller
         $categories = $this->category->get();
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
-                                                 ->with('categories', $categories);
+                                            ->with('categories', $categories);
     }
 
 

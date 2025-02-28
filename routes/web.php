@@ -21,6 +21,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\PusherController;
+Route::get('/search', [AccommodationController::class, 'search'])->name('search');
+Route::get('/search_by_keyword', [AccommodationController::class, 'search_by_keyword'])->name('search_by_keyword');
+Route::get('/search_by_filters', [AccommodationController::class, 'search_by_filters'])->name('search_by_filters');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home_search', [HomeController::class, 'search_by_filters'])->name('home.search');

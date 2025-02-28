@@ -159,7 +159,7 @@
     <!-- search side -->
     <div class="col-4">
         <!-- address search -->
-        <form action="{{ route('guest.search_by_keyword')}}" method="get">
+        <form action="{{ route('search_by_keyword')}}" method="get">
             @csrf
             @method("GET")
 
@@ -174,7 +174,7 @@
             </div>
         </form>
 
-        <form action="{{ route('guest.search_by_filters')}}" method="get">
+        <form action="{{ route('search_by_filters')}}" method="get">
             @csrf
             @method("GET")
 

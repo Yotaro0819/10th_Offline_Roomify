@@ -51,7 +51,6 @@
 
 <div class="container w-75 mx-auto">
 
-
     <div class="picture-box">
         <div class="left">
             <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[0]) ? asset('storage/'. $accommodation->photos[0]->image) : asset('images/default-image.jpg') }}" alt="pic1" class="rounded-4"></a>
@@ -113,7 +112,12 @@
                 </div>
                 </a>
             </div>
-            <p class="w-50 mx-auto text-center"><a href="{{ route('messages.show', $accommodation->user->id)}}" class="btn border-black shadow">Send Message</a></p>
+            <p class="w-50 mx-auto text-center">
+
+                @if (Auth::check())
+                <a href="{{ route('messages.show', $accommodation->user->id)}}" class="btn border-black shadow">Send Message</a>
+                @endif
+            </p>
 
         </div>
         <div class="border-black border rounded w-50 m-4 sidePanel" id="openButton">
@@ -157,7 +161,12 @@
                         <h2>No reviews yet.</h2>
                     @endforelse
                 </div>
-                <button class="button-review text-center" style="margin-left: 170px;" data-bs-toggle="modal" data-bs-target="#review-accommodation-{{ $accommodation->id }}">Post Review</button>
+                @if (Auth::check())
+                    @if ($bookings != "[]")
+                    <button class="button-review text-center" style="margin-left: 170px;" data-bs-toggle="modal" data-bs-target="#review-accommodation-{{ $accommodation->id }}">Post Review</button>
+                    @endif
+                @endif
+
             </div>
 
             <div class="d-flex align-items-center">
@@ -186,10 +195,19 @@
         </div>
     </div>
 
-    <div class="coupon-section bg-yellow border-black border text-center rounded-3 w-25 mx-auto">
+    <div class="coupon-section bg-yellow border-black border text-center rounded-3 w-25 mx-auto shadow-lg">
+        @if ($accommodation->rank == "C")
+        <p class="m-0 fw-bold">Accommodation Rank: {{ $accommodation->rank }}</p>
+        @elseif (isset($accommodation->rank))
         <p class="m-0 fw-bold">Accommodation Rank: {{ $accommodation->rank }}</p>
         <h3 class="fs-4">Get coupon</h3>
-        <h3 class="fw-bold">10% OFF Coupon</h3>
+            @if ($accommodation->rank == "A")
+                <h3 class="fw-bold">10% OFF Coupon</h3>
+            @elseif ($accommodation->rank == "B")
+                <h3 class="fw-bold">5% OFF Coupon</h3>
+            @endif
+        @endif
+
     </div>
 
     <div class="google-location w-50 mx-auto mb-5" >
