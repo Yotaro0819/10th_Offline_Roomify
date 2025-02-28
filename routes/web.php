@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\PusherController;
 Route::get('/search', [AccommodationController::class, 'search'])->name('search');
 Route::get('/search_by_keyword', [AccommodationController::class, 'search_by_keyword'])->name('search_by_keyword');
@@ -117,6 +118,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');
     Route::get('/contact/show/{id}', [ContactController::class, 'show'])->name('contact.show');
     Route::post('/contact/replied/{id}', [ContactController::class, 'replied'])->name('contact.replied');
+    Route::get('/home', function () {return view('admin.home.index');})->name('home');
 });
 
 Route::get('/user/{id}/coupons', [CouponController::class, 'getUserCoupons']);
@@ -148,3 +150,9 @@ Route::get('/newsletters', [NewsletterController::class, 'index'])->name('newsle
 Route::get('/create/newsletter', [NewsletterController::class, 'create'])->name('newsletter.create');
 Route::post('/newsletters/store', [NewsletterController::class, 'store'])->name('newsletter.store');
 });
+
+// Api Route
+Route::get('/rankings', [AdminHomeController::class, 'getRanking']);
+Route::get('/monthly/bookings', [AdminHomeController::class, 'getMonthlyBookings']);
+Route::get('/user/rankings', [AdminHomeController::class, 'getUserRanking']);
+Route::get('/city/share', [AdminHomeController::class, 'getCityShare']);

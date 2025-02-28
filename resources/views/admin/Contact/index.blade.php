@@ -5,7 +5,7 @@
 @section('content2')
 
 <div class="container">
-    <h1 class="title">Contact Messages</h1>
+    <h3 class="title">Contact Messages</h3>
     @if($all_contacts->isNotEmpty())
     @foreach( $all_contacts as $contact )
     <a href="{{ route('admin.contact.show', $contact->id) }}" class="text-decoration-none text-dark">
@@ -14,12 +14,14 @@
             <div class="row align-items-center border-bottom p-2">
                 <div class="col text-center">
                     @if($contact->is_replied)
-                        <i class="fa-solid fa-check text-success fs-1"></i> 
-                        <p>Replied</p>
+                        <div>
+                        <i class="fa-solid fa-circle-check display-5"></i>
+                        <p class="mb-0">Replied</p>
+                        </div>
                     @elseif($contact->is_read)
-                        <i class="fa-solid fa-envelope-open text-secondary fs-1"></i> 
+                        <i class="fa-solid fa-envelope-open text-secondary display-4"></i> 
                     @else
-                        <i class="fa-solid fa-envelope text-primary fs-1"></i> 
+                        <i class="fa-solid fa-envelope text-primary display-4"></i> 
                     @endif
                 </div>
                 <div class="col text-start">

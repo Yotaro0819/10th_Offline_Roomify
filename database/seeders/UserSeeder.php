@@ -53,8 +53,8 @@ class UserSeeder extends Seeder
 
             ],
             [
-                'name' => 'guest2',
-                'email' => 'guest2@example.com',
+                'name' => 'guest3',
+                'email' => 'guest3@example.com',
                 'password' => hash::make('password'),
                 'nationality_id' => 1,
                 'created_at' => Carbon::now(),
@@ -62,6 +62,36 @@ class UserSeeder extends Seeder
 
                 'role' => '1',
             ],
+            [
+                'name' => 'guest4',
+                'email' => 'guest4@example.com',
+                'password' => hash::make('password'),
+                'nationality_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+
+                'role' => '1',
+            ],
+            [
+                'name' => 'guest5',
+                'email' => 'guest5@example.com',
+                'password' => hash::make('password'),
+                'nationality_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+
+                'role' => '1',
+            ],
+            [
+                'name' => 'guest6',
+                'email' => 'guest6@example.com',
+                'password' => hash::make('password'),
+                'nationality_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+
+                'role' => '1',
+            ]
 
         ]);
     }

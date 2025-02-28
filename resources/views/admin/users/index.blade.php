@@ -23,6 +23,23 @@
     text-align: center;
 }
 
+.button-change-host {
+    padding: 10px 20px;
+    font-size: 12px;
+    color: white;
+    background-color: #FF8C00;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 .button-inactivate{
     padding: 10px 20px;
     font-size: 12px;
@@ -126,10 +143,12 @@
                     @endif
                     @if($user->role == 2)
                     <td>
-                        <button class="button-change-guest" data-bs-toggle="modal" data-bs-target="#change-host-{{ $user->id }}">Change to guest</button>
+                        <button class="button-change-guest" data-bs-toggle="modal" data-bs-target="#change-guest-{{ $user->id }}">Change to guest</button>
                     </td>
                     @else
-                        <td></td>
+                    <td>
+                    <button class="button-change-host" data-bs-toggle="modal" data-bs-target="#change-guest-{{ $user->id }}">Change to host</button>
+                    </td>
                     @endif
                 </tr>
                 {{-- include a model herre --}}
@@ -139,4 +158,7 @@
             @endforeach
         </tbody>
     </table>
+    <div class="text-center pagenate mt-3">
+        {{ $all_users->links('pagination::simple-tailwind', ['class' => 'pagination']) }}
+    </div>
 @endsection
