@@ -16,9 +16,10 @@
 
         <div class="d-flex align-items-center">
             @if ($user->avatar)
-            <img src="{{ asset('storage/' . $user->avatar) }}" alt="avatar" class="w-10 m-2">
-            @endif
+            <img src="{{ asset('storage/' . $user->avatar) }}" alt="avatar" class="w-10 m-2 imgs">
+            @else
             <i class="fa-solid fa-user m-4" style="font-size: 40px;"></i>
+            @endif
             <p class="fs-5 m-0">{{$user->name}}</p>
         </div>
 

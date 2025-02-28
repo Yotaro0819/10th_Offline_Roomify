@@ -80,7 +80,7 @@
         transform: translateY(-50%);
         border: none;
     }
-    img{
+    img {
         width: 370px;
         height: 200px;
         border-radius: 10px;
