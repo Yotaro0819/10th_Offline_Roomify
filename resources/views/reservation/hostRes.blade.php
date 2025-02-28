@@ -2,8 +2,8 @@
 <style>
     img
     {
-        width: 215px;
-        height: 140px;
+        width: 250px;
+        height: 160px;
         border-radius: 15px;
         margin: 50px;
     }
@@ -59,10 +59,8 @@
         <div class="row">
             <div class="col">
             @if ($booking->accommodation)
-                @if ($booking->accommodation->image)
-                    <img src="{{ asset('images/' . $booking->accommodation->image) }}" alt="Accommodation Image">
-                @else
-                    <img src="{{ asset('images/default-placeholder.jpg') }}" alt="No Image Available">
+                @if ($booking->accommodation->photos)
+                    <img src="{{ asset('storage/' . ltrim($booking->accommodation->photos[0]->image, '/')) }}" alt="#">
                 @endif
             @endif
             </div>

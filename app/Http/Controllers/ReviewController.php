@@ -31,6 +31,9 @@ class ReviewController extends Controller
         $accommodation = Accommodation::findOrFail($id);
         $reviews = Review::latest()->get();
 
+        // **宿泊施設を所有するホストのIDを取得
+        $host_id = $accommodation->user_id;
+
         // レビューを作成
         $review = new Review();
         $review->user_id = $user_id;
