@@ -26,6 +26,9 @@ html,body
 <div class="corner-circle circle-right-1" style="z-index:-1;"></div>
 <div class="corner-circle circle-right-2" style="z-index:-1;"></div>
 
+<div class=" my-4 w-50 mx-auto">
+    <a href="{{ route('host.index')}}" class="text-black fs-5"><i class="fa-solid fa-angles-left"></i> Back to the index page</a>
+</div>
 <div class="card w-50 mx-auto box-shadow bg-white">
     <h2 class="mt-4">Register Accommodation!</h2>
     <form action="{{ route('host.accommodation.update', $accommodation->id)}}" method="post" enctype="multipart/form-data">
