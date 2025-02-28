@@ -31,30 +31,37 @@ class PusherController extends Controller
             'message' => $request->input('message'),
         ]);
 
-        broadcast( new PusherBroadcast($request->get('message')))->toOthers();
+        broadcast( new PusherBroadcast($request->get('message'), $request->get('receiver_id'), $request->get('sender_id')))->toOthers();
 
         // return view('broadcast', ['message' => $request->get('message')]);
         return response()->json([
             'success' => true,
             'message' => 'Message sent successfully',
+            'receiver_id' => $request->get('receiver_id'),
+            'sender_id' => $request->get('sender_id'),
             'data' => $chat,
         ]);
     }
 
     public function receive(Request $request)
     {
-        $userId = $request->query('sender_id');
-        $receiverId = $request->query('receiver_id');
+        $authUser = auth()->user(); // 現在の認証ユーザーを取得
+        $userId = $authUser->id; // 認証ユーザーID
+        $receiverId = $request->query('receiver_id'); // 受信者のIDをリクエストから取得
 
-        $messages = Message::where(function($query) use ($userId, $receiverId) {
-            $query->where('sender_id', $userId)->where('receiver_id', $receiverId);
-        })->orWhere(function($query) use ($userId, $receiverId) {
-            $query->where('sender_id', $receiverId)->where('receiver_id', $userId);
-        })
-        ->orderBy('created_at', 'asc')
-        ->get();
-
-        // return view('broadcast', ['message' => $request->get('message')]);
+        // `sender_id == userId && receiver_id == receiverId` または `sender_id == receiverId && receiver_id == userId` のメッセージのみ取得
+        $messages = Message::where(function ($query) use ($userId, $receiverId) {
+                // 送信者がuserId、受信者がreceiverIdのパターン
+                $query->where('sender_id', $userId)
+                    ->where('receiver_id', $receiverId);
+            })
+            ->orWhere(function ($query) use ($userId, $receiverId) {
+                // 送信者がreceiverId、受信者がuserIdのパターン
+                $query->where('sender_id', $receiverId)
+                    ->where('receiver_id', $userId);
+            })
+            ->orderBy('created_at', 'asc') // 作成日順で並べる
+            ->get();
 
         return response()->json([
             'success' => true,
@@ -69,4 +76,5 @@ class PusherController extends Controller
             }),
         ]);
     }
+
 }
