@@ -165,8 +165,10 @@ a
                             @endif
                         @else
                             <li class="nav-item dropdown d-flex align-items-center">
-                                <i class="fa-solid fa-circle-user nav-icon"></i>
-                                <span class="ms-3">{{ Auth::user()->name }}</span>
+                                <a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
+                                    <i class="fa-solid fa-circle-user nav-icon"></i>
+                                    <span class="ms-3 d-inline-block align-top">{{ Auth::user()->name }}</span>
+                                </a>
                                 <a class="ms-3"id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <i class="fa-solid fa-bars nav-icon"></i>
                                 </a>

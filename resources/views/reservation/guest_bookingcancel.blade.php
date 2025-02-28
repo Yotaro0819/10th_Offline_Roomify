@@ -70,7 +70,7 @@ img
 <div class="container con">
     <div class="row">
         <div class="col-4 mt-3">
-        <img src="{{ asset('storage/' . ltrim($accommodation->photos[0]->image, '/')) }}" alt="#">
+        <img src="{{ asset('storage/' . ltrim($booking->accommodation->photos[0]->image, '/')) }}" alt="#">
 
         </div>
         <div class="col-8 mt-3">

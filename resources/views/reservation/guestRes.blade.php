@@ -61,11 +61,8 @@
         <div class="row">
             <div class="col">
             @if ($booking->accommodation)
-                @if ($booking->accommodation->image)
-                <img src="{{ asset('storage/' . ltrim($accommodation->photos[0]->image, '/')) }}" alt="#">
-
-                @else
-                    <img src="{{ asset('images/default-placeholder.jpg') }}" alt="No Image Available">
+                @if ($booking->accommodation->photos)
+                    <img src="{{ asset('storage/' . ltrim($booking->accommodation->photos[0]->image, '/')) }}" alt="#">
                 @endif
             @endif
             </div>
