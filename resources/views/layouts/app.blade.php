@@ -86,8 +86,8 @@ a
 .select-box
 {
     position: relative;
-    height: 120px;
-    width: 120px;
+    height: 100px;
+    width: 100px;
     border-radius: 20px;
     background-color: #004aad;
 }
@@ -105,7 +105,7 @@ a
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 16px;
+    font-size: 14px;
     color: white;
     font-weight: bold;
 }
@@ -188,7 +188,7 @@ a
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.home') }}">
                                         <i class="fa-solid fa-house"></i> home
                                         </a>
-                                        <a class="dropdown-item px-3 py-3" href="{{ route('admin.users') }}">
+                                        <!-- <a class="dropdown-item px-3 py-3" href="{{ route('admin.users') }}">
                                             <i class="fa-solid fa-users"></i> users
                                         </a>
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.accommodation') }}">
@@ -199,7 +199,7 @@ a
                                         </a>
                                         <a class="dropdown-item px-3 py-3" href="{{ route('admin.contact.index') }}">
                                         <i class="fa-solid fa-message"></i> contact message
-                                        </a>
+                                        </a> -->
                                     @endif
                                     @if(Auth::user()->role == "1")
                                         <a class="dropdown-item" href="{{ route('guest.reservation_guest') }}">
@@ -278,6 +278,16 @@ a
                                 </div>
                                 <p class="mt-3 ">
                                     message
+                                </p>
+                            </div>
+                            </a>
+                            <a href="{{ route('admin.hostRequest.index') }}" class="text-decoration-none">
+                            <div class="select-box mb-3 d-flex justify-content-center align-items-center">
+                                <div>
+                                <i class="fa-solid fa-hand"></i>
+                                </div>
+                                <p class="mt-3 ">
+                                    Host request
                                 </p>
                             </div>
                             </a>

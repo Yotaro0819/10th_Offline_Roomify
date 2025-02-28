@@ -8,6 +8,17 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
 
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .coupon-title {
 font-family: 'Monoton', sans-serif;
 font-size: 3rem;
@@ -24,6 +35,8 @@ transform: rotateX(10deg) rotateY(10deg);
     border: 2px solid #dcbf7d;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
     border-radius: 5px; 
+    background-color: #fff;
+    animation: fadeInUp 2s ease-out;
 }
 
 .coupon-right {
@@ -43,6 +56,7 @@ transform: rotateX(10deg) rotateY(10deg);
 
 .button {
     border: none;
+    background-color: transparent;
 }
 
 </style>

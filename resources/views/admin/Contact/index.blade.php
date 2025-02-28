@@ -5,7 +5,7 @@
 @section('content2')
 
 <div class="container">
-    <h1 class="title">Contact Messages</h1>
+    <h3 class="title">Contact Messages</h3>
     @if($all_contacts->isNotEmpty())
     @foreach( $all_contacts as $contact )
     <a href="{{ route('admin.contact.show', $contact->id) }}" class="text-decoration-none text-dark">

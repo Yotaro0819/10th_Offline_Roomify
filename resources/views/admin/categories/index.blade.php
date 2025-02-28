@@ -36,9 +36,9 @@
 }
 
 </style>
-<h2>
+<h3>
     Categories
-</h2>
+</h3>
 <form action="{{ route('admin.category.store')}}">
 <div class="row gx-2 mb-3">
         <div class="col-5">
