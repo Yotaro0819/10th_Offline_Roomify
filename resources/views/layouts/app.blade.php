@@ -166,7 +166,11 @@ a
                         @else
                             <li class="nav-item dropdown d-flex align-items-center">
                                 <a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
+                                @if ($accommodation->user->avatar)
+                                    <img src="{{ asset('storage/' . $accommodation->user->avatar) }}" alt="" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                                @else
                                     <i class="fa-solid fa-circle-user nav-icon"></i>
+                                @endif
                                     <span class="ms-3 d-inline-block align-top">{{ Auth::user()->name }}</span>
                                 </a>
                                 <a class="ms-3"id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
