@@ -1,6 +1,6 @@
 @extends('layouts.app')
 <style>
-    img
+    .imgs
     {
         width: 215px;
         height: 140px;
@@ -62,7 +62,7 @@
             <div class="col">
             @if ($booking->accommodation)
                 @if ($booking->accommodation->photos)
-                    <img src="{{ asset('storage/' . ltrim($booking->accommodation->photos[0]->image, '/')) }}" alt="#">
+                    <img src="{{ asset('storage/' . ltrim($booking->accommodation->photos[0]->image, '/')) }}" alt="#" class="imgs">
                 @endif
             @endif
             </div>
@@ -86,7 +86,7 @@
                 <div>
                         <p><span><i class="fa-solid fa-users icon-input"></i></span> {{ $booking->num_guest }}</p>
                 </div>
-                
+
             </div>
             <div class="col">
                 <form action="{{ route('guest.confirmGuestCancel', ['bookingId' => $booking->id]) }}" method="GET">
