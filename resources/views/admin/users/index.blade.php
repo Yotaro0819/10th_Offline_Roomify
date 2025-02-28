@@ -158,4 +158,7 @@
             @endforeach
         </tbody>
     </table>
+    <div class="text-center pagenate mt-3">
+        {{ $all_users->links('pagination::simple-tailwind', ['class' => 'pagination']) }}
+    </div>
 @endsection

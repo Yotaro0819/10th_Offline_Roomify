@@ -133,6 +133,13 @@ public function capturePayment(Request $request)
     $booking->special_request  = $booking_info['special_request'];
     $booking->save();
 
+    $coupon = new Coupon;
+
+    if( $accommodation->rank == "A")
+    {
+        $coupon->code = range(100000, 999999), shuffle($number);
+    }
+
     if (!empty($booking_info['selected_coupon'])) {
         $coupon = Coupon::find($booking_info['selected_coupon']);
         if ($coupon) {

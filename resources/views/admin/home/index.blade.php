@@ -34,7 +34,7 @@
         <canvas id="rankingChart"></canvas>
     </div>
     <div class="chart-box">
-        <h2>Month Guest Trends</h2>
+        <h2>Monthly Reservations</h2>
         <canvas id="monthlyChart"></canvas>
     </div>
     <div class="chart-box">
@@ -76,6 +76,7 @@
 
             console.log(rankingLabels, rankingValues);
             const ctxRanking = document.getElementById('rankingChart').getContext('2d');
+
             new Chart(ctxRanking, {
                 type: 'bar',
                 data: {
