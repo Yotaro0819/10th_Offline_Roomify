@@ -474,7 +474,7 @@ input::placeholder {
                 @endif
             </div>
             <div class="col-6">
-                {{-- <img src="https://images.pexels.com/photos/20187394/pexels-photo-20187394/free-photo-of-japanese-building-during-winter.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image2"> --}}
+                <img src="https://images.pexels.com/photos/16095241/pexels-photo-16095241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image2">
             </div>
         </div>
     </section>

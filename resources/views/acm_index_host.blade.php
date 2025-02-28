@@ -2,10 +2,10 @@
 <style>
     img
     {
-        width: 195px;
-        height: 120px;
+        width: 220px;
+        height: 130px;
         border-radius: 15px;
-        margin: 10px;
+        margin: 5px;
     }
 
     #acm-booking
