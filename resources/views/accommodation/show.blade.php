@@ -46,10 +46,18 @@
     // 初期ロード時にもスクリプトを読み込む
     loadGoogleMapsScript();
 
+
+
 </script>
+
 @section('content')
 
 <div class="container w-75 mx-auto">
+    <div class=" my-4">
+        <a href="{{ route('search')}}" class="text-black fs-5"><i class="fa-solid fa-angles-left"></i> Back to the Search page</a>
+    </div>
+
+
 
     <div class="picture-box">
         <div class="left">
@@ -132,8 +140,12 @@
 
                     @forelse ($reviews as $review)
                     <div class="border rounded my-4 p-3">
-                    <a href="/profile">
-                        <p class="text-start m-0 fs-5">{{ $review->user->name}}</p>
+                    <a href="{{ route("profile.show", $review->user->id) }}">
+                        <div class="d-flex">
+                            <i class="fa-solid fa-user me-2"></i>
+                            <p class="text-start m-0 fs-5">{{ $review->user->name}}</p>
+                        </div>
+
                         <p class="m-0 mb-2 text-secondary">{{$review->user->reviews->count()}} reviews</p>
                     </a>
                     <p class="m-0">
@@ -175,14 +187,17 @@
                 <p class="fs-1 d-flex align-items-center text-black mb-0"><i class="fas fa-star text-warning me-2"></i> {{ round($average,1) }}<span class="fs-5">({{$accommodation->reviews->count() }} reviews)</span></p>
             </div>
 
-            <div class="recent-review">
+            <div class="recent-review review-text">
 
                 @if ($latest_review)
-                <img src="{{ asset('assets/istockphoto-1300845620-612x612.jpg') }}" alt="User icon" class="mb-0" style="width: 30px">
-
-                {{ Str::limit($latest_review->comment, 220) }}
-
-                @if (strlen($latest_review->comment) > 220)
+                    @if ($latest_review->user->avatar) {
+                        No avatar
+                    }
+                    @else
+                    <i class="fa-solid fa-user"></i>
+                    @endif
+                {{ Str::limit($latest_review->comment, 90) }}
+                @if (strlen($latest_review->comment) > 90)
                     <a href="javascript:void(0);" class="read-more text-primary" data-full="{{ $latest_review->comment }}">Read more</a>
                 @endif
 

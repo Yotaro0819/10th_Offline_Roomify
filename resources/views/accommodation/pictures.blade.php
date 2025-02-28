@@ -12,7 +12,7 @@
 
 <div class="container w-75 mx-auto">
     <h2 class="h1 my-5">Photos</h2>
-    <a href="{{ route('accommodation.show', $accommodation->id)}}" class="text-black"><i class="fa-solid fa-angles-left"></i> Back to the accommodation page</a>
+    <a href="{{ route('accommodation.show', $accommodation->id)}}" class="text-black fs-5"><i class="fa-solid fa-angles-left"></i> Back to the accommodation page</a>
 
     <div class="row mt-5">
 

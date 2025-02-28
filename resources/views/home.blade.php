@@ -198,7 +198,7 @@ input::placeholder {
     margin-bottom: 10px;
     text-align: left;
     position: relative;
-    top: -100px;
+    /* top: -100px; */
 }
 
 .properties .card {
@@ -224,23 +224,27 @@ input::placeholder {
         flex-wrap: wrap;
         gap: 22px; /* カード同士の間隔 */
         justify-content: center;
-        padding: 20px;
+        padding: 20px 20px;
+        align-items: start;
     }
 
 .properties .card-container .card{
     width: calc(33.33% - 16px);
+    height: fit-content;
     padding: 10px;
     text-align: left;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 0 !important;
 }
 
 .properties .card-container .card h3{
-    font-family: arial black;
+    font-weight: bold;
+    font-size: larger;
 }
 
 .properties .card-container .card .address{
-    color: #dcbf7d;
+    color:#6c757d;
 }
 
 .properties .card .row {
@@ -249,19 +253,19 @@ input::placeholder {
     gap: 8px;
 }
 
+.properties .card .row p {
+    margin-bottom: 0;
+}
+
 .properties .card .row .col-auto {
     text-align: left;
 }
 
 #price{
     color: #004aad;
-    font-family: arial black;
+    font-weight: bold;
+    font-size: large;
 }
-
-#night{
-    color: #004aad;
-}
-
 .discover{
     height: 500px;
     padding: 80px;
@@ -273,7 +277,7 @@ input::placeholder {
 .discover .btn{
     background-color: #dcbf7d;
     color: #ffffff;
-    width: 170px;
+    width: fit-content;
     padding: 20px;
     border-radius: 40px;
 }
@@ -289,8 +293,126 @@ input::placeholder {
     border-radius: 50px;
     margin-top: -30px;
 }
+
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.01);
+        backdrop-filter: blur(2px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+    .loader{
+        margin:200px auto;
+    }
+    #searching{
+        color: #000;
+        font-size:20px;
+        letter-spacing:1px;
+        font-weight: bold;
+        text-align:center;
+    }
+    .loader span{
+        width:24px;
+        height:24px;
+        border-radius:50%;
+        display:inline-block;
+        position:absolute;
+        left:50%;
+        margin-left:-20px;
+        -webkit-animation:3s infinite linear;
+        -moz-animation:3s infinite linear;
+        -o-animation:3s infinite linear;
+    }
+
+    .loader span:nth-child(2){
+        background:#004aad;
+        -webkit-animation:kiri 1.2s infinite linear;
+        -moz-animation:kiri 1.2s infinite linear;
+        -o-animation:kiri 1.2s infinite linear;
+    }
+    .loader span:nth-child(3){
+        background: #dcbf7d;
+        z-index:100;
+    }
+    .loader span:nth-child(4){
+        background: #6a6c6e26;
+        -webkit-animation:kanan 1.2s infinite linear;
+        -moz-animation:kanan 1.2s infinite linear;
+        -o-animation:kanan 1.2s infinite linear;
+    }
+
+    @-webkit-keyframes kanan {
+        0% {-webkit-transform:translateX(20px);
+        }
+        50%{-webkit-transform:translateX(-20px);
+        }
+        100%{-webkit-transform:translateX(20px);
+            z-index:200;
+        }
+    }
+    @-moz-keyframes kanan {
+        0% {-moz-transform:translateX(20px);
+        }
+        50%{-moz-transform:translateX(-20px);
+        }
+        100%{-moz-transform:translateX(20px);
+        z-index:200;
+        }
+    }
+    @-o-keyframes kanan {
+        0% {-o-transform:translateX(20px);
+        }
+        50%{-o-transform:translateX(-20px);
+        }
+        100%{-o-transform:translateX(20px);
+        z-index:200;
+        }
+    }
+    @-webkit-keyframes kiri {
+        0% {-webkit-transform:translateX(-20px);
+        z-index:200;
+        }
+        50%{-webkit-transform:translateX(20px);
+        }
+        100%{-webkit-transform:translateX(-20px);
+        }
+    }
+
+    @-moz-keyframes kiri {
+        0% {-moz-transform:translateX(-20px);
+        z-index:200;
+            }
+        50%{-moz-transform:translateX(20px);
+        }
+        100%{-moz-transform:translateX(-20px);
+        }
+    }
+    @-o-keyframes kiri {
+        0% {-o-transform:translateX(-20px);
+        z-index:200;
+            }
+        50%{-o-transform:translateX(20px);
+        }
+        100%{-o-transform:translateX(-20px);
+        }
+    }
 </style>
 <main>
+<!-- loading animation -->
+<div class="loading-overlay">
+    <div class="loader">
+        <h1 id="searching">Searching...</h1>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
     <section class="top">
         <div class="container">
             <!-- background images -->
@@ -373,28 +495,22 @@ input::placeholder {
                 </h2>
                 <div class="card-container">
                     @foreach($accommodations->take(6) as $accommodation)
-                     <div class="card mx-auto">
+                     <div class="card">
                         <a href="{{ route('accommodation.show', $accommodation->id) }}" class="stretched-link">
-                            @if ($accommodation->photos->isNotEmpty())
-                                <img src="{{ asset('storage/' . $accommodation->photos[0]->image) }}" alt="#" style="width: 375px; height: 200px;">
-                                <!-- <img src="{{ asset('images/default-image.jpg') }}" alt="No Image Available"> -->
-                            @endif
-                            <h3>{{ $accommodation->name }}</h3>
-                            <p class="address">{{ $accommodation->address }}</p>
+                            <img src="{{ asset('storage/' . $accommodation->photos[0]->image) }}" alt="#" style="width: 375px; height: 200px;">
+                            <h3 class="mt-2">{{ Str::limit($accommodation->name, 50) }}</h3>
+                            <p class="address">{{ Str::limit($accommodation->address, 50) }}</p>
                             <div class="row">
                                 <div class="col-auto">
-                                    <h4 id="price">${{ $accommodation->price }}</h4>
+                                    <p><i class="fa-solid fa-users me-2"></i></i> {{ $accommodation->capacity }} Sleeps</p>
                                 </div>
                                 <div class="col-auto">
-                                    <p id="night">/ {{ $accommodation->capacity }}</p>
+                                    <p><i class="fa-solid fa-location-dot me-2"></i>{{ $accommodation->city }}</p>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mt-2">
                                 <div class="col-auto">
-                                    <p><i class="fa-regular fa-user"></i> {{ $accommodation->capacity }}Sleeps</p>
-                                </div>
-                                <div class="col-auto">
-                                    <p><i class="fa-solid fa-up-right-and-down-left-from-center"></i> {{ $accommodation->city }}</p>
+                                    <h4 id="price">¥{{ $accommodation->price }} ~</h4>
                                 </div>
                             </div>
                         </a>
@@ -402,7 +518,6 @@ input::placeholder {
                     @endforeach
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -423,7 +538,6 @@ input::placeholder {
                             @else
                                 <a href="{{ route('login') }}" class="btn">Check Your Newsletter</a>
                             @endif
-                        <!-- <a href="{{ url('/newsletter') }}" class="btn">Check Your Newsletter</a> -->
                     @endif
                 </div>
                 <div class="col-6">
@@ -432,6 +546,7 @@ input::placeholder {
             </div>
     </section>
 </main>
+
 <script>
     $(document).ready(function() {
         $('#daterange').daterangepicker({
@@ -451,5 +566,22 @@ input::placeholder {
             $(this).val('');
         });
     });
+
+    // loading animation
+    document.addEventListener('DOMContentLoaded', function() {
+        const forms = document.querySelectorAll('form');
+        const overlay = document.querySelector('.loading-overlay');
+
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            overlay.style.display = 'flex';
+
+            setTimeout(() => {
+                form.submit();
+            }, 3000);
+        });
+    });
+});
 </script>
 @endsection
