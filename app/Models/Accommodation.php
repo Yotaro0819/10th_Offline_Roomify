@@ -17,6 +17,7 @@ class Accommodation extends Model
 
     protected $fillable = [
         'name',
+        'host_id',
         'user_id',
         'address',
         'price',
@@ -29,6 +30,11 @@ class Accommodation extends Model
     ];
 
     public $timestamps = true;
+
+    public function host()
+    {
+        return $this->belongsTo(User::class, 'host_id')->withTrashed();
+    }
 
     public function categories()
     {

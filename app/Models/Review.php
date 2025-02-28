@@ -24,4 +24,10 @@ class Review extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function host()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

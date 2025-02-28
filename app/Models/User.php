@@ -70,7 +70,7 @@ class User extends Authenticatable
     }
 
     public function accommodations(){
-        return $this->hasMany(Accommodation::class)->latest()->withTrashed();
+        return $this->hasMany(Accommodation::class, 'user_id')->latest()->withTrashed();
     }
 
     public function reviews()
@@ -117,6 +117,11 @@ class User extends Authenticatable
     public function coupons()
     {
         return $this->hasMany(Coupon::class, 'user_id');
+    }
+
+    public function receivedReviews()
+    {
+        return $this->hasMany(Review::class, 'host_id');
     }
 
 }

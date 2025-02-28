@@ -36,7 +36,8 @@
                     <a href="{{ route('accommodation.show', $accommodation->id) }}">
                         <div class="d-flex">
                             <div class="my-auto" style="margin:100px;">
-                                <img src="#" alt="#">
+                            <img src="{{ asset('storage/' . ltrim($accommodation->photos[0]->image, '/')) }}" alt="#">
+
                             </div>
 
                             <div class="text-start" style="margin-right:120px;">
