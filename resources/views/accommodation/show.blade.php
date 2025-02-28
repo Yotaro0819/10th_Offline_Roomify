@@ -51,7 +51,6 @@
 
 <div class="container w-75 mx-auto">
 
-
     <div class="picture-box">
         <div class="left">
             <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[0]) ? asset('storage/'. $accommodation->photos[0]->image) : asset('images/default-image.jpg') }}" alt="pic1" class="rounded-4"></a>
@@ -113,7 +112,12 @@
                 </div>
                 </a>
             </div>
-            <p class="w-50 mx-auto text-center"><a href="{{ route('messages.show', $accommodation->user->id)}}" class="btn border-black shadow">Send Message</a></p>
+            <p class="w-50 mx-auto text-center">
+
+                @if (Auth::check())
+                <a href="{{ route('messages.show', $accommodation->user->id)}}" class="btn border-black shadow">Send Message</a>
+                @endif
+            </p>
 
         </div>
         <div class="border-black border rounded w-50 m-4 sidePanel" id="openButton">
@@ -157,7 +161,12 @@
                         <h2>No reviews yet.</h2>
                     @endforelse
                 </div>
-                <button class="button-review text-center" style="margin-left: 170px;" data-bs-toggle="modal" data-bs-target="#review-accommodation-{{ $accommodation->id }}">Post Review</button>
+                @if (Auth::check())
+                    @if ($bookings != "[]")
+                    <button class="button-review text-center" style="margin-left: 170px;" data-bs-toggle="modal" data-bs-target="#review-accommodation-{{ $accommodation->id }}">Post Review</button>
+                    @endif
+                @endif
+
             </div>
 
             <div class="d-flex align-items-center">

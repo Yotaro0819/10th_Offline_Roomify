@@ -370,18 +370,20 @@ class AccommodationController extends Controller
 
     public function show($id)
     {
+        $userId = Auth::id();
         $accommodation = Accommodation::with('photos')->findOrFail($id);
 
         $reviews = Review::where('accommodation_id', $id)->latest()->get();
 
         $latest_review = $reviews->first();
         $sumOfReview = $reviews->sum('star');
+        $bookings = Booking::where('accommodation_id', $id)->where('guest_id', $userId)->get();
 
         $average = count($reviews) > 0 ? $sumOfReview / count($reviews) : 0;
 
 
         // ビューにデータを渡す
-        return view('accommodation.show', compact('accommodation', 'reviews', 'latest_review', 'average'));
+        return view('accommodation.show', compact('accommodation', 'reviews', 'latest_review', 'average', 'bookings'));
     }
 
 
