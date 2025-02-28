@@ -24,12 +24,6 @@ class AccommodationController extends Controller
     public function index()
     {
         $all_accommodations = $this->accommodation->with('photos')->withTrashed()->latest()->paginate(8);
-        // dd($all_accommodations->toArray()['data'][0]['photos'][0]['image']);
-        // $photos
-        // foreach($all_accommodations as $i => $accommodation) {
-        //     $photos = $all_accommodations->toArray()['data'][0]['photos'][0]['image'];
-        // }
-
 
         return view('admin.accommodation.index')->with('all_accommodations', $all_accommodations);
     }

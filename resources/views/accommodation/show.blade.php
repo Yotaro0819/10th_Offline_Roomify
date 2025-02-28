@@ -186,10 +186,19 @@
         </div>
     </div>
 
-    <div class="coupon-section bg-yellow border-black border text-center rounded-3 w-25 mx-auto">
+    <div class="coupon-section bg-yellow border-black border text-center rounded-3 w-25 mx-auto shadow-lg">
+        @if ($accommodation->rank == "C")
+        <p class="m-0 fw-bold">Accommodation Rank: {{ $accommodation->rank }}</p>
+        @elseif (isset($accommodation->rank))
         <p class="m-0 fw-bold">Accommodation Rank: {{ $accommodation->rank }}</p>
         <h3 class="fs-4">Get coupon</h3>
-        <h3 class="fw-bold">10% OFF Coupon</h3>
+            @if ($accommodation->rank == "A")
+                <h3 class="fw-bold">10% OFF Coupon</h3>
+            @elseif ($accommodation->rank == "B")
+                <h3 class="fw-bold">5% OFF Coupon</h3>
+            @endif
+        @endif
+
     </div>
 
     <div class="google-location w-50 mx-auto mb-5" >
