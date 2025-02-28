@@ -13,7 +13,7 @@
     background: #fff;
     padding: 60px;
     border-radius: 20px;
-    height: 600px;
+    height: 700px;
     width: 1200px;
     margin: 100px 50px;
   }
@@ -69,29 +69,54 @@
   }
 
 </style>
+<script>
+document.getElementById('avatarInput').addEventListener('change', function(event) {
+    let reader = new FileReader();
+    reader.onload = function() {
+        let avatarPreview = document.getElementById('avatarPreview');
+        avatarPreview.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+});
+</script>
+
 <body>
 <div class="container">
     <div class="card">
         <div class="row">
-            <div class="col-auto d-flex justify-content-start align-items-center text-left" id="icon">
+            <div class="col-4 d-flex justify-content-start align-items-center text-left" id="icon">
                 <!-- avatar -->
-                @if(Auth::user()->avatar)
+                <form action="{{ route('profile.updateAvatar') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="col-auto d-flex justify-content-start align-items-center text-left" id="icon">
+                        @if(Auth::user()->avatar)
+                            <img src="{{ asset('storage/' . Auth::user()->avatar) }}" class="profile-img" id="avatarPreview">
+                        @else
+                            <img src="{{ asset('images/default-avatar.png') }}" class="profile-img" id="avatarPreview">
+                        @endif
+                    </div>
+
+                    <input type="file" name="avatar" id="avatarInput" class="form-control mt-2">
+                    <button type="submit" class="btn btn-primary mt-2">アイコンを変更</button>
+                </form>
+
+                <!-- @if(Auth::user()->avatar)
                     <img src="{{ asset('storage/' . $user->avatar) }}" class="profile-img">
                 @else
                     <i class="fa-solid fa-circle-user text-secondary profile-icon"></i>
-                @endif
+                @endif -->
             </div>
-            <div class="col-auto">
+            <div class="col-8">
                 <div class="name mt-3">
                     <h4>{{ Auth::user()->name }}</h4>
                     <hr>
                 </div>
                 <div class="row info align-items-center mt-5">
-                    <div class="col-auto mt-4" style="position: relative; left: 50px;">
+                    <div class="col-4 mt-4" style="position: relative; left: 50px;">
                         <h4>{{ Auth::user()->nationality->nationality ?? 'Not available' }}</h4>
                         <hr>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-8">
                         <h4 class="mb-1">About Me</h4>
                         <p>I'm from {{ Auth::user()->nationality->nationality ?? 'a beautiful country' }}. I enjoy meeting new people and sharing my culture with others.</p>
                         <hr>
