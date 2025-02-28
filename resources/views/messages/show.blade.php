@@ -37,6 +37,8 @@
                 {{-- <form action="{{ route('messages.store', $user->id) }}" method="post"> --}}
                     <form>
                     {{-- @csrf --}}
+                    <input type="hidden" id="receiver_id" value="{{ $user->id }}">
+    <input type="hidden" id="sender_id" value="{{ Auth::id() }}">
                     <textarea id="message" class="w-95 textarea-edit mx-auto" name="message" rows="2" placeholder=" textarea..."></textarea>
                     <div class="d-flex align-items-center justify-content-end">
                         <button type="submit" class="btn-send me-2 py-0">Send message</button>
@@ -79,11 +81,13 @@
 <script>
     const pusher  = new Pusher('{{config('broadcasting.connections.pusher.key')}}', {cluster: '{{config('broadcasting.connections.pusher.options.cluster')}}'});
     const channel = pusher.subscribe('public');
-    const senderId = {{ Auth::id() }};
-    const receiverId = {{$user->id}};
+    const authId = {{ Auth::id() }};
+    const messagerId = {{$user->id}};
+    console.log("user: ", authId, "messager: ", messagerId);
 
-    function displayMessage(message) {
-        let messageClass = (message.sender_id === senderId) ? "bg-primary send" : "bg-secondary receive";
+    function displayMessage(message, sender) {
+        // console.log("sending user" , sender, "receiving user: " , authId);
+        let messageClass = (authId == sender ? "bg-primary send" : "bg-secondary receive");
         let formattedTime = new Date(message.created_at).toLocaleString();
         $(".messages").append(`
             <div class="message rounded text-white px-2 pt-1 w-50 ${messageClass}">
@@ -95,14 +99,15 @@
 
     function refreshMessages() {
       $.get("/receive", {
-          receiver_id : receiverId,
-          sender_id   : senderId
+          receiver_id : messagerId,
+          sender_id   : authId
        })
       .done(function (res) {
         if (res.success) {
           $(".messages").html(""); // 一度メッセージをクリア
             res.messages.forEach(function (message) {
-            displayMessage(message);
+                // console.log('messages', message, "sender: ", message.sender_id);
+            displayMessage(message, message.sender_id);
           });
         }
         // console.log('data',res);
@@ -114,37 +119,49 @@
 
     // Pusher のリアルタイム受信処理
     channel.bind('chat', function (message) {
-        console.log('message content: ', message);
-
-        displayMessage(message);
+        console.log('chat catch : ', message);
+        console.log(message.receiver_id, message.sender_id)
+        if(message.receiver_id == messagerId && message.sender_id == authId) {
+            displayMessage(message, message.receiver_id);
+        } else {
+            console.log("something wrong");
+        }
         $('#message-box').scrollTop($('.messages')[0].scrollHeight);
     });
 
     // メッセージ送信処理
     $("form").submit(function (event) {
+  event.preventDefault(); // デフォルトの送信を防ぐ
 
-      const messageText = $("form #message").val().trim();
-      if(messageText === "") return;
+  const messageText = $("form #message").val().trim();
+  if (messageText === "") return;
 
-      $.ajax({
-        url:     "/broadcast",
-        method:  'POST',
-        headers: {
-          'X-Socket-Id': pusher.connection.socket_id
-        },
-        data:    {
-          _token:  '{{csrf_token()}}',
-          message: messageText,
-          receiver_id: receiverId,
-          sender_id: senderId
-        }
-      }).done(function (res) {
-        if (res.success) {
-          displayMessage(res.data);
-          $("form #message").val('');
-        }
-      });
-    });
+  const messagerId = $("form #receiver_id").val() || 0; // inputから取得
+  const authId = $("form #sender_id").val() || 0;
+
+  console.log("messagerId:", messagerId, "authId:", authId); // デバッグ用
+
+  $.ajax({
+    url: "/broadcast",
+    method: "POST",
+    headers: {
+      "X-Socket-Id": pusher.connection.socket_id,
+    },
+    data: {
+      _token: "{{csrf_token()}}",
+      message: messageText,
+      receiver_id: messagerId,
+      sender_id: authId,
+    },
+  }).done(function (res) {
+    if (res.success) {
+        console.log("broadcast: ",res.data);
+      displayMessage(res.data, res.data.sender_id);
+      $("form #message").val("");
+    }
+  });
+});
+
   </script>
 
 @endsection

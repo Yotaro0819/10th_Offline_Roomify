@@ -13,10 +13,14 @@ class PusherBroadcast implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public string $message;
+    public mixed $sender_id;
+    public mixed $receiver_id;
 
-    public function __construct(string $message)
+    public function __construct(string $message, mixed $sender_id, mixed $receiver_id)
     {
         $this->message = $message;
+        $this->sender_id = $sender_id;
+        $this->receiver_id = $receiver_id;
     }
 
     public function broadcastOn(): array
@@ -33,6 +37,8 @@ class PusherBroadcast implements ShouldBroadcastNow
     {
         return [
             'message' => $this->message,
+            'sender_id' => $this->sender_id,
+            'receiver_id' => $this->receiver_id,
             'created_at' => now(),
         ];
     }
