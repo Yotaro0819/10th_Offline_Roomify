@@ -60,7 +60,9 @@
 
 <div class="row gx-5 mx-auto">
     <h1 class="h2 ms-5" style="font-size: 30px"><a href="{{ route('guest.search')}}">< </a> BOOK YOUR STAY</h1>
-
+    <div class=" my-4 ms-5">
+        <a href="{{ route('accommodation.show', $accommodation->id)}}" class="text-black fs-5"><i class="fa-solid fa-angles-left"></i> Back to the detail page</a>
+    </div>
     <!-- left side -->
     <div class="col-7 w-50 mt-3">
         <form action="{{ route('paypal.payment', $accommodation->id )}}" method="post">
