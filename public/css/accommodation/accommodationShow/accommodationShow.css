@@ -70,3 +70,11 @@
             background-color: rgb(167, 219, 167);
         }
 
+        .review-text {
+            word-wrap: break-word;  /* 長い単語を改行して折り返す */
+            white-space: normal;    /* デフォルトの改行処理を適用 */
+        }
+
+        .fa-user {
+            font-size:30px;
+        }

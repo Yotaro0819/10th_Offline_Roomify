@@ -217,9 +217,7 @@ a
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-
                                 </div>
-
                             </li>
                         @endguest
                     </ul>
@@ -313,11 +311,10 @@ a
                     <div class="col-auto">
                         <h5>COMPANY</h5>
                         <p><a href="#">About Us</a></p>
-                        <!-- <p><a href="#">Contact Us</a></p> -->
                     </div>
                     <div class="col-auto">
                         <h5>HELP CENTER</h5>
-                        <p><a href="#">Find a Property</a></p>
+                        <p><a href="#">Find an Accommodation</a></p>
                         <p><a href="#">How To Host?</a></p>
                         <p><a href="#">FAQs</a></p>
                         <p><a href="#">Rental Guides</a></p>
