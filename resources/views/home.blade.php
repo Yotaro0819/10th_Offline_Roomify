@@ -198,7 +198,7 @@ input::placeholder {
     margin-bottom: 10px;
     text-align: left;
     position: relative;
-    top: -100px;
+    /* top: -100px; */
 }
 
 .properties .card {
@@ -224,7 +224,7 @@ input::placeholder {
         flex-wrap: wrap;
         gap: 22px; /* カード同士の間隔 */
         justify-content: center;
-        padding: 20px;
+        padding: 20px 20px;
         align-items: start;
     }
 
@@ -234,6 +234,7 @@ input::placeholder {
     text-align: left;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 0 !important;
 }
 
 .properties .card-container .card h3{
@@ -473,7 +474,7 @@ input::placeholder {
                 @endif
             </div>
             <div class="col-6">
-                <img src="https://images.pexels.com/photos/20187394/pexels-photo-20187394/free-photo-of-japanese-building-during-winter.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image2">
+                {{-- <img src="https://images.pexels.com/photos/20187394/pexels-photo-20187394/free-photo-of-japanese-building-during-winter.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" style="float: right; margin-left: 10px; height: 400px; wight: 1600px;" class="image2"> --}}
             </div>
         </div>
     </section>
@@ -487,7 +488,7 @@ input::placeholder {
                 </h2>
                 <div class="card-container">
                     @foreach($accommodations->take(6) as $accommodation)
-                     <div class="card mx-auto">
+                     <div class="card">
                         <a href="{{ route('accommodation.show', $accommodation->id) }}" class="stretched-link">
                             <img src="{{ asset('storage/' . $accommodation->photos[0]->image) }}" alt="#" style="width: 375px; height: 200px;">
                             <h3 class="mt-2">{{ Str::limit($accommodation->name, 50) }}</h3>
