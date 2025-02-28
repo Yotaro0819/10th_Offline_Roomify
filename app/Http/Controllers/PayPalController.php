@@ -134,10 +134,32 @@ public function capturePayment(Request $request)
     $booking->save();
 
     $coupon = new Coupon;
-
-    if( $accommodation->rank == "A")
+    if ($accommodation->rank == "A")
     {
-        $coupon->code = range(100000, 999999), shuffle($number);
+    do {
+        $newCode = mt_rand(100000, 999999);
+    } while (Coupon::where('code', $newCode)->exists());
+
+        $coupon->code = $newCode;
+        $coupon->name = "10% discount";
+        $coupon->discount_value = 10;
+        $coupon->valid_from = Carbon::now();
+        $coupon->expires_at = Carbon::now()->addDays(90);
+        $coupon->user_id = Auth::user()->id;
+        $coupon->save();
+    }elseif ($accommodation->rank == "B")
+    {
+        do {
+            $newCode = mt_rand(100000, 999999);
+        } while (Coupon::where('code', $newCode)->exists());
+    
+        $coupon->code = $newCode;
+        $coupon->name = "5% discount";
+        $coupon->discount_value = 5;
+        $coupon->valid_from = Carbon::now();
+        $coupon->expires_at = Carbon::now()->addDays(90);
+        $coupon->user_id = Auth::user()->id;
+        $coupon->save();
     }
 
     if (!empty($booking_info['selected_coupon'])) {
@@ -169,8 +191,9 @@ public function Cancel()
 public function Complete()
 {
     session()->forget('accommodation_id');
+    $get_coupon = Coupon::where('user_id', Auth::id())->latest()->first();
 
-    return view('paypal.complete_payment');
+    return view('paypal.complete_payment', compact('get_coupon'));
 }
 
 }
