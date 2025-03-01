@@ -12,21 +12,23 @@ use Illuminate\Support\Facades\DB;
 class AdminHomeController extends Controller
 {
     public function getRanking()
-{
+    {
+        $rankings = Accommodation::select(
+            'accommodations.id',
+            'accommodations.name',
+            DB::raw('COUNT(bookings.id) as reservation_count')
+        )
+        ->Join('bookings', 'accommodations.id', '=', 'bookings.accommodation_id')
+        ->groupBy('accommodations.id', 'accommodations.name')
+        ->orderByDesc('reservation_count')
+        ->take(3)
+        ->get();
 
-    $rankings = Accommodation::select(
-        'accommodations.id',
-        DB::raw('accommodations.name as accommodation_name'),
-        DB::raw('COALESCE(COUNT(bookings.accommodation_id), 0) as reservation_count')
-    )
-    ->leftJoin('bookings', 'accommodations.id', '=', 'bookings.accommodation_id')
-    ->groupBy('accommodations.id', 'accommodations.name')
-    ->orderByDesc('reservation_count')
-    ->limit(3)
-    ->get();
 
-    return response()->json($rankings);
-}
+        return response()->json($rankings);
+    }
+
+
 
     public function getMonthlyBookings()
     {
