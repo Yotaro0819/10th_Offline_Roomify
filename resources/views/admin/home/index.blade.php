@@ -57,10 +57,11 @@
         
             const rankingData = await fetchData('/rankings');
             console.log(rankingData);
-            const rankingLabels = rankingData.map(item => item.name);
+            const rankingLabels = rankingData.map(item => item.accommodation_name);
             const rankingValues = rankingData.map(item => item.reservation_count);
 
             const monthlyData = await fetchData('/monthly/bookings');
+            console.log(monthlyData);
             const monthlyLabels = monthlyData.map(item => item.month);
             const monthlyValues = monthlyData.map(item => item.reservation_count);
 
