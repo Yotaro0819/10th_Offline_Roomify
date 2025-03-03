@@ -28,7 +28,6 @@ html, body {
     z-index: 10;
     color: white;
     text-align: center;
-
 }
 h2{
     font-weight: bold;

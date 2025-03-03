@@ -57,7 +57,7 @@
     height: 210px;
     margin-top: 5px;
   }
-  
+
   .line{
     width: 100px;
   }
@@ -124,7 +124,7 @@ document.getElementById('avatarInput').addEventListener('change', function(event
               </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="reviews mt-4">
                 <h4>Reviews</h4>

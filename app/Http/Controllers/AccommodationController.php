@@ -440,8 +440,7 @@ class AccommodationController extends Controller
                     ->where('address', 'LIKE', '%'. $request->keyword . '%')
                     ->orWhere('name', 'LIKE', '%'. $request->keyword . '%')
                     ->orWhere('city', 'LIKE', '%'. $request->keyword . '%')
-                    ->orWhere('price', 'LIKE', '%'. $request->keyword . '%')
-                    ->paginate(5);
+                    ->orWhere('price', 'LIKE', '%'. $request->keyword . '%');
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
                                                 ->with('categories', $categories);
