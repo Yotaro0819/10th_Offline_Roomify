@@ -24,11 +24,15 @@
                                 <button type="submit" class="read-btn">Read</button>
                                 <button type="button" class="close btn-sm" data-bs-dismiss="modal">Close</button>
                             </form>
+                            @if($notification->status == "read")
                             <form action="{{ route('notification.confirm', $notification->id) }}" method="post">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="btn confirm btn-primary">confirm & delete</button>
                             </form>
+                            @endif
+
+
 
                         </div>
                     </div>

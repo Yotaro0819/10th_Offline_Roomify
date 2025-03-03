@@ -136,7 +136,7 @@ public function capturePayment(Request $request)
 
     Notification::create([
         'receiver_id' => $booking->host_id,
-        'title' => $booking->guest_name . 'booked your accommodation.',
+        'title' => $booking->guest_name . ' booked your accommodation.',
         'notification' => $booking->guest_name . ' booked the '. $booking->accommodation->name,
     ]);
 
