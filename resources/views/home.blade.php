@@ -493,7 +493,7 @@ input::placeholder {
                     on our Listing
                 </h2>
                 <div class="card-container">
-                    @foreach($accommodations->take(6) as $accommodation)
+                    @foreach($accommodations as $accommodation)
                      <div class="card">
                         <a href="{{ route('accommodation.show', $accommodation->id) }}" class="stretched-link">
                             <img src="{{ asset('storage/' . $accommodation->photos[0]->image) }}" alt="#" style="width: 375px; height: 200px;">

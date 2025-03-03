@@ -428,13 +428,13 @@ class AccommodationController extends Controller
     {
         $accommodations = $this->accommodation->withCount('bookings')
                                               ->orderByDesc('bookings_count')
-                                              ->take(5)
+                                              ->take(6)
                                               ->get();
 
         $categories     =  $this->category->get();
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
-                                            ->with('categories', $categories);
+                                                 ->with('categories', $categories);
     }
 
     public function search_by_keyword(Request $request)
