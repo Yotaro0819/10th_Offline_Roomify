@@ -88,11 +88,11 @@ document.getElementById('avatarInput').addEventListener('change', function(event
         <div class="row">
             <div class="col-4 d-flex justify-content-start align-items-center text-left" id="icon">
                 <!-- avatar -->
-                <form action="{{ route('profile.updateAvatar') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('profile.updateAvatar', $user->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="col-auto d-flex justify-content-start align-items-center text-left" id="icon">
-                        @if(Auth::user()->avatar)
-                          <img src="{{ asset('storage/' . Auth::user()->avatar) }}" class="profile-img" id="avatarPreview">
+                        @if($user->avatar)
+                          <img src="{{ asset('storage/' . $user->avatar) }}" class="profile-img" id="avatarPreview">
                         @else
                           <i class="fa-solid fa-circle-user nav-icon" style="font-size: 180px; margin-left: 100px;"></i>
                         @endif
@@ -109,16 +109,16 @@ document.getElementById('avatarInput').addEventListener('change', function(event
             <div class="col-8">
               <div class="content-container w-100 mt-3">
                 <div class="name mt-3">
-                      <h4>{{ Auth::user()->name }}</h4>
+                      <h4>{{ $user->name }}</h4>
                       <hr>
                 </div>
                 <div class="name mt-5" >
-                      <h4>{{ Auth::user()->nationality->nationality ?? 'Not available' }}</h4>
+                      <h4>{{ $user->nationality->nationality ?? 'Not available' }}</h4>
                       <hr>
                 </div>
                 <div class="name mt-5">
                       <h4 class="mb-1">About Me</h4>
-                      <p>I'm from {{ Auth::user()->nationality->nationality ?? 'a beautiful country' }}. I enjoy meeting new people and sharing my culture with others.</p>
+                      <p>I'm from {{ $user->nationality->nationality ?? 'a beautiful country' }}. I enjoy meeting new people and sharing my culture with others.</p>
                       <hr>
                 </div>
               </div>

@@ -23,13 +23,13 @@ class ProfileController extends Controller
         return view('profile.guest_profile', compact('user', 'reviews'));
     }
 
-    public function updateAvatar(Request $request)
+    public function updateAvatar(Request $request, $id)
     {
         $request->validate([
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $user = Auth::user();
+        $user = User::where('id', $id)->first();
 
         // 古い画像を削除
         if ($user->avatar) {
