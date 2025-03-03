@@ -1,12 +1,5 @@
 @extends('layouts.app')
 <style>
-    img
-    {
-        width: 250px;
-        height: 160px;
-        border-radius: 15px;
-        margin: 50px;
-    }
     #acm-booking
     {
         border: 1px, solid, #000000;
@@ -60,7 +53,7 @@
             <div class="col">
             @if ($booking->accommodation)
                 @if ($booking->accommodation->photos)
-                    <img src="{{ asset('storage/' . ltrim($booking->accommodation->photos[0]->image, '/')) }}" alt="#">
+                    <img src="{{ asset('storage/' . ltrim($booking->accommodation->photos[0]->image, '/')) }}" alt="#" style="width: 250px; height: 160px; border-radius: 15px; margin: 50px">
                 @endif
             @endif
             </div>
@@ -97,7 +90,7 @@
                 <form action="{{ route('host.confirmCancel', ['bookingId' => $booking->id]) }}" method="GET">
                     @csrf
                     <button type="submit" class="custom-btn">
-                        <i class="fa-solid fa-trash"></i> Cancel
+                        <i class="fa-solid fa-ban"></i> Cancel
                     </button>
                 </form>
             </div>
