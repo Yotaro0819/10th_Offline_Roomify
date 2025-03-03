@@ -34,13 +34,6 @@
         text-align: right;
     }
 
-
-    img{
-        width: 150px;
-        height: 100px;
-        border-radius: 30px;
-    }
-
     .daterangepicker .applyBtn,
     .daterangepicker .cancelBtn {
         font-size: 16px;
@@ -185,12 +178,11 @@
 </div>
 
 <div class="row gx-5 mx-auto">
-    <h1 class="h2 ms-5" style="font-size: 30px"><a href="{{ route('guest.search')}}">< </a> BOOK YOUR STAY</h1>
     <div class=" my-4 ms-5">
         <a href="{{ route('accommodation.show', $accommodation->id)}}" class="text-black fs-5"><i class="fa-solid fa-angles-left"></i> Back to the detail page</a>
     </div>
     <!-- left side -->
-    <div class="col-7 w-50 mt-3">
+    <div class="col-7 w-50">
         <form action="{{ route('paypal.payment', $accommodation->id )}}" method="post">
         @csrf
 
@@ -251,7 +243,6 @@
                 </div>
                 <div id="coupon-display">
                     <!-- show coupons -->
-
                 </div>
             </div>
         </div>
@@ -259,7 +250,7 @@
         <div class="row mb-4">
             <div class="col">
                 <label for="special_request" class="form-label">Special Request</label>
-                <textarea class="form-control" name="special_request" id="special_request" cols="26" rows="10" placeholder="Type your massage here"></textarea>
+                <textarea class="form-control" name="special_request" id="special_request" cols="26" rows="10" placeholder="Optional"></textarea>
             </div>
 
             <!-- error directive-->
@@ -271,13 +262,12 @@
 
     <!-- right side -->
         <div class="col-5 mt-4 ms-4" id="acm-booking">
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col">
                     @if($accommodation->photos->isNotEmpty())
-                    <img src="{{ asset('storage/' . ltrim($accommodation->photos[0]->image, '/')) }}" alt="#">
-
+                        <img src="{{ asset('storage/' . ltrim($accommodation->photos[0]->image, '/')) }}" alt="#" style="width: 150px; height: 100px; border-radius: 30px; margin-top: 10px">
                     @else
-                    <img src="#" alt="" class="my-3">
+                        <img src="#" alt="" class="my-3">
                     @endif
                 </div>
                 <div class="col">
