@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Booking;
 use App\Models\Accommodation;
 use App\Models\Coupon;
+use App\Models\Notification;
 use Carbon\Carbon;
 
 class PaypalController extends Controller
@@ -27,7 +28,7 @@ public function createPayment(Request $request, $accommodation_id)
     if (!empty($request->selected_coupon)) {
         $coupon = Coupon::findOrFail($request->selected_coupon);
     }
-    
+
     $daterange = $request->input('daterange');
     $date_parts = explode(" - ", $daterange);
 
@@ -51,7 +52,7 @@ public function createPayment(Request $request, $accommodation_id)
     $final_fee = $total_fee - $discount_amount;
     }
 
-    $final_fee = number_format((float) $final_fee, 2, '.', ''); 
+    $final_fee = number_format((float) $final_fee, 2, '.', '');
     $all = $request->all();
 
     $request->validate([
@@ -133,6 +134,18 @@ public function capturePayment(Request $request)
     $booking->special_request  = $booking_info['special_request'];
     $booking->save();
 
+    Notification::create([
+        'receiver_id' => $booking->host_id,
+        'title' => $booking->guest_name . ' booked your accommodation.',
+        'notification' => $booking->guest_name . ' booked the '. $booking->accommodation->name,
+    ]);
+
+    Notification::create([
+        'receiver_id' => $booking->guest_id,
+        'title' => 'Your newest booking details.',
+        'notification' => 'You booked the '. $booking->accommodation->name,
+    ]);
+
     $coupon = new Coupon;
     if ($accommodation->rank == "A")
     {
@@ -152,7 +165,7 @@ public function capturePayment(Request $request)
         do {
             $newCode = mt_rand(100000, 999999);
         } while (Coupon::where('code', $newCode)->exists());
-    
+
         $coupon->code = $newCode;
         $coupon->name = "5% discount";
         $coupon->discount_value = 5;
@@ -176,7 +189,7 @@ public function capturePayment(Request $request)
     }else{
         return redirect()->route('paypal.cancel');
     }
-    
+
 }
 
 public function Cancel()
