@@ -49,7 +49,7 @@
             <div class="userindex">
                 @forelse ($all_users as $user)
 
-                <div class="row">
+                <div class="row border m-1">
                     <a href="{{ route('messages.show', $user->id)}}" class="d-flex text-black">
                     <div class="col-2 d-flex justify-content-center align-items-center">
                         @if ($user->avatar)
@@ -59,7 +59,7 @@
                         @endif
                     </div>
                     <div class="col-10">
-                        <p class="text-start mt-3">{{ $user->name }}</p>
+                        <p class="text-start mt-1 fs-4 mb-1">{{ $user->name }}</p>
                         <p class="text-start my-0">
                             {{-- 最新のメッセージがあれば表示 --}}
                             {{ $user->latest_message ? $user->latest_message->message : 'No messages yet.' }}
@@ -70,9 +70,6 @@
                         </p>
                     </div>
                     </a>
-                    @if (!$loop->last)
-                        <hr class="mx-auto my-0" style="width:97%;">
-                    @endif
                 </div>
                 @empty
 
