@@ -12,6 +12,7 @@ class ProfileController extends Controller
 {
     public function show($id)
     {
+        
         $user = User::findOrFail($id);
 
         // ホストが所有する宿泊施設の ID を取得
