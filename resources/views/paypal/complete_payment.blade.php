@@ -71,7 +71,7 @@ transform: rotateX(10deg) rotateY(10deg);
 <div class="text-center mt-3">
 <a href="{{ route('guest.reservation_guest')}}" class="text-primary fs-3"><i class="fa-solid fa-angles-left"></i>See Detail</a>
 
-@if($get_coupon)
+@if(!empty($get_coupon))
     <h3 class="mt-5 mb-3">Get new coupon <i class="fa-solid fa-star"></i></h3>
     <div class="coupon mb-3 w-50 mx-auto">
     <button class="button d-flex align-items-center w-100">

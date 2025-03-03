@@ -176,15 +176,19 @@ public function capturePayment(Request $request)
     }
 
     if (!empty($booking_info['selected_coupon'])) {
-        $coupon = Coupon::find($booking_info['selected_coupon']);
-        if ($coupon) {
-            $coupon->delete();
+        $old_coupon = Coupon::find($booking_info['selected_coupon']);
+        if ($old_coupon) {
+            $old_coupon->delete();
         }
     }
 
     session()->forget('payment_info');
 
-    return redirect()->route('paypal.complete');
+    if (isset($coupon) && $coupon->wasRecentlyCreated) {
+        return redirect()->route('paypal.complete');
+    } else {
+        return view('paypal.complete_payment');
+    }
 
     }else{
         return redirect()->route('paypal.cancel');
