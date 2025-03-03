@@ -25,7 +25,7 @@ class AccommodationController extends Controller
     private $hashtag;
     private $ecoitem;
 
-
+    private $booking;
 
     public function __construct(Accommodation $accommodation, Category $category, Hashtag $hashtag, Ecoitem $ecoitem)
     {
@@ -426,12 +426,10 @@ class AccommodationController extends Controller
 
     public function search()
     {
-        // $accommodations =  $this->accommodation->latest()->take(5)->get();
-        $accommodations = $this->accommodation
-                                ->withCount('bookings')
-                                ->orderByDesc('accommodation_id')
-                                ->take(5)
-                                ->get();
+        $accommodations = $this->accommodation->withCount('bookings')
+                                              ->orderByDesc('bookings_count')
+                                              ->take(5)
+                                              ->get();
 
         $categories     =  $this->category->get();
 
