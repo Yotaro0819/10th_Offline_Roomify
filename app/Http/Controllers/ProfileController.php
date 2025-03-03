@@ -47,5 +47,6 @@ class ProfileController extends Controller
         return back()->with('success', 'プロフィール画像が更新されました！');
     }
 
+
 }
 

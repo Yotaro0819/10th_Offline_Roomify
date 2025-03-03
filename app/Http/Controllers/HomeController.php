@@ -31,8 +31,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Accommodationデータを取得し、関連情報（カテゴリ、ハッシュタグ、ユーザーなど）も一緒にロード
-        $accommodations = Accommodation::with(['categories', 'hashtags', 'photos', 'user', 'reviews'])->get();
+        $accommodations = $this->accommodation->withCount('bookings')
+                                              ->orderByDesc('bookings_count')
+                                              ->take(6)
+                                              ->get();
 
         return view('home', compact('accommodations'));
     }
