@@ -134,7 +134,7 @@ a
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <a href="{{ route('search') }}" class="find-button">Find a Property</a>
+                        <a href="{{ route('search') }}" class="find-button">Find an Accom</a>
                         @if(Auth::user()) {{-- login pattern --}}
                             <a href="{{ route('messages.index', Auth::user()->id) }}" class="find-button ms-3">Messages</a>
                                 @if(Auth::user()->role === "1") {{-- guest pattern --}}
@@ -167,11 +167,11 @@ a
                             <li class="nav-item dropdown d-flex align-items-center">
                                 <a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
                                 @if (Auth::user()->avatar)
-                                    <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                                    <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="" class="rounded-circle" style="width: 35px; height: 35px; object-fit: cover;">
                                 @else
                                     <i class="fa-solid fa-circle-user nav-icon"></i>
                                 @endif
-                                    <span class="ms-3 d-inline-block align-top" style="margin-top:8px">{{ Auth::user()->name }}</span>
+                                    <span class="ms-3 d-inline-block align-top" style="margin-top:4px">{{ Auth::user()->name }}</span>
                                 </a>
                                 <a class="ms-3"id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <i class="fa-solid fa-bars nav-icon"></i>

@@ -126,12 +126,6 @@ document.getElementById('avatarInput').addEventListener('change', function(event
         </div>
 
         <div class="row">
-            <div class="col">
-                
-            </div>
-        </div>
-
-        <div class="row">
             <div class="reviews mt-4">
                 <h4>Reviews</h4>
                 <hr class="line">

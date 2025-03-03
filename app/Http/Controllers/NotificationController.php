@@ -10,7 +10,6 @@ class NotificationController extends Controller
     public function update($id)
     {
         $notification = Notification::findOrFail($id);
-
         $notification->update([
             'status' => 'read',
         ]);

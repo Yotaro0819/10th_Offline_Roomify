@@ -426,7 +426,13 @@ class AccommodationController extends Controller
 
     public function search()
     {
-        $accommodations =  $this->accommodation->latest()->take(5)->get();
+        // $accommodations =  $this->accommodation->latest()->take(5)->get();
+        $accommodations = $this->accommodation
+                                ->withCount('bookings')
+                                ->orderByDesc('accommodation_id')
+                                ->take(5)
+                                ->get();
+
         $categories     =  $this->category->get();
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
