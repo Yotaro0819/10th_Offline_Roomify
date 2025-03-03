@@ -82,6 +82,11 @@
     font-size: 20px;
 }
 
+.avatar-md {
+    margin: 0 0 0 8px !important;
+    display: block;
+}
+
 </style>
     <h3 class="text-center">
         Users list
@@ -108,9 +113,9 @@
             @foreach($all_users as $user)
                 @if ($user->role == 1 || $user->role == 2)
                 <tr class="{{ $rowIndex % 2 == 0 ? 'table-warning' : '' }}">
-                    <td scope="row"> 
+                    <td scope="row" class="mg-0"> 
                         @if ($user->avatar)
-                        <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="rounded-circle d-block mx-auto avatar-md">
+                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}" class="rounded-circle d-block mx-auto avatar-md">
                         @else
                         <i class="fa-solid fa-circle-user d-block icon-md ms-2"></i>
                         @endif

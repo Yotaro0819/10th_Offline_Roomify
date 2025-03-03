@@ -13,21 +13,16 @@ class AdminHomeController extends Controller
 {
     public function getRanking()
     {
-        $rankings = Booking::selectRaw('accommodation_id, COUNT(*) as reservation_count')
-            ->groupBy('accommodation_id')
+        $rankings = Booking::selectRaw('accommodations.name, accommodations.id, COUNT(bookings.id) as reservation_count')
+            ->join('accommodations', 'bookings.accommodation_id', '=', 'accommodations.id')
+            ->groupBy('accommodations.id', 'accommodations.name')
             ->orderByDesc('reservation_count')
-            ->limit(3)
+            ->limit(5)
             ->get();
-
-
-        foreach ($rankings as $ranking) {
-            $accommodation = Accommodation::find($ranking->accommodation_id);
-            $ranking->name = $accommodation ? $accommodation->name : "不明";
-        }
-
+    
         return response()->json($rankings);
     }
-
+    
     public function getMonthlyBookings()
     {
         $monthlyBookings = Booking::selectRaw('DATE_FORMAT(check_in_date, "%Y-%m") as month, COUNT(*) as reservation_count')
@@ -40,7 +35,7 @@ class AdminHomeController extends Controller
 
     public function getUserRanking()
     {
-        $userRankings = User::select('users.id', 'users.name', DB::raw('COUNT(bookings.id) as reservation_count'))
+        $userRankings = User::selectRaw('users.id, users.name ,COUNT(bookings.id) as reservation_count')
             ->join('bookings', 'users.id', '=', 'bookings.guest_id') 
             ->groupBy('users.id', 'users.name')
             ->orderByDesc('reservation_count')
