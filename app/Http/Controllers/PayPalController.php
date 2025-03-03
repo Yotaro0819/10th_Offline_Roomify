@@ -184,7 +184,13 @@ public function capturePayment(Request $request)
 
     session()->forget('payment_info');
 
-    return redirect()->route('paypal.complete');
+    if (isset($coupon) && $coupon->wasRecentlyCreated) {
+        return redirect()->route('paypal.complete'); // 新しいクーポンが作られた場合
+    } else {
+        return view('payment_success'); // 新しいクーポンが作られなかった場合
+    }
+
+    // return redirect()->route('paypal.complete');
 
     }else{
         return redirect()->route('paypal.cancel');
