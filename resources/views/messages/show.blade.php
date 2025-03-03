@@ -36,10 +36,10 @@
             {{-- form --}}
             <div class="mx-auto mt-3">
                 {{-- <form action="{{ route('messages.store', $user->id) }}" method="post"> --}}
-                    <form>
+                    <form id="message-form">
                     {{-- @csrf --}}
                     <input type="hidden" id="receiver_id" value="{{ $user->id }}">
-    <input type="hidden" id="sender_id" value="{{ Auth::id() }}">
+                    <input type="hidden" id="sender_id" value="{{ Auth::id() }}">
                     <textarea id="message" class="w-95 textarea-edit mx-auto" name="message" rows="2" placeholder=" textarea..."></textarea>
                     <div class="d-flex align-items-center justify-content-end">
                         <button type="submit" class="btn-send me-2 py-0">Send message</button>
@@ -131,7 +131,7 @@
     });
 
     // メッセージ送信処理
-    $("form").submit(function (event) {
+    $("#message-form").submit(function (event) {
   event.preventDefault(); // デフォルトの送信を防ぐ
 
   const messageText = $("form #message").val().trim();
@@ -162,7 +162,6 @@
     }
   });
 });
-
-  </script>
+</script>
 
 @endsection
