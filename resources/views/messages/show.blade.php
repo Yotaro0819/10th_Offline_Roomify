@@ -40,7 +40,7 @@
                     {{-- @csrf --}}
                     <input type="hidden" id="receiver_id" value="{{ $user->id }}">
                     <input type="hidden" id="sender_id" value="{{ Auth::id() }}">
-                    <textarea id="message" class="w-95 textarea-edit mx-auto" name="message" rows="2" placeholder=" textarea..."></textarea>
+                    <textarea id="message" class="w-95 textarea-edit mx-auto" name="message" rows="2" placeholder=" textarea..." autoFocus></textarea>
                     <div class="d-flex align-items-center justify-content-end">
                         <button type="submit" class="btn-send me-2 py-0">Send message</button>
                     </div>
@@ -158,7 +158,7 @@
     if (res.success) {
         console.log("broadcast: ",res.data);
       displayMessage(res.data, res.data.sender_id);
-      $("form #message").val("");
+      $("form #message").val("").focus();
     }
   });
 });
