@@ -92,9 +92,9 @@ document.getElementById('avatarInput').addEventListener('change', function(event
                     @csrf
                     <div class="col-auto d-flex justify-content-start align-items-center text-left" id="icon">
                         @if(Auth::user()->avatar)
-                            <img src="{{ asset('storage/' . Auth::user()->avatar) }}" class="profile-img" id="avatarPreview">
+                          <img src="{{ asset('storage/' . Auth::user()->avatar) }}" class="profile-img" id="avatarPreview">
                         @else
-                            <img src="{{ asset('images/default-avatar.png') }}" class="profile-img" id="avatarPreview">
+                          <i class="fa-solid fa-circle-user nav-icon" style="font-size: 180px; margin-left: 100px;"></i>
                         @endif
                     </div>
 
