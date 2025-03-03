@@ -288,7 +288,7 @@ a
                                 <div>
                                 <i class="fa-solid fa-hand"></i>
                                 </div>
-                                <p class="mt-3 ">
+                                <p class="mt-3 text-center">
                                     Host request
                                 </p>
                             </div>
