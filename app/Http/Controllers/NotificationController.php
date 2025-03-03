@@ -22,9 +22,7 @@ class NotificationController extends Controller
     {
         $notification = Notification::findOrFail($id);
 
-        $notification->update([
-            'status' => 'confirm',
-        ]);
+        $notification->delete();
 
         return redirect()->back();
     }
