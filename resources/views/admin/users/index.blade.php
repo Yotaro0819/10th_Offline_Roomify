@@ -82,6 +82,11 @@
     font-size: 20px;
 }
 
+.avatar-md {
+    margin: 0 0 0 8px !important;
+    display: block;
+}
+
 </style>
     <h3 class="text-center">
         Users list

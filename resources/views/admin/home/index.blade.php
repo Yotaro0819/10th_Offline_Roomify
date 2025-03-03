@@ -57,7 +57,7 @@
         
             const rankingData = await fetchData('/rankings');
             console.log(rankingData);
-            const rankingLabels = rankingData.map(item => item.accommodation_name);
+            const rankingLabels = rankingData.map(item => item.name);
             const rankingValues = rankingData.map(item => item.reservation_count);
 
             const monthlyData = await fetchData('/monthly/bookings');
