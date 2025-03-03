@@ -68,8 +68,6 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.'], function(){
 //messages route
 Route::get('/messages/{id}', [MessageController::class, 'index'])->name('messages.index');
 Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('messages.show');
-// おそらく必要ないけど一応テストが終わってから消します
-// Route::post('/messages/store/{id}', [MessageController::class, 'store'])->name('messages.store');
 Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
 Route::patch('/messages/update/{id}', [NotificationController::class, 'update'])->name('notification.update');
 ROute::patch('/messages/confirm/{id}', [NotificationController::class, 'confirm'])->name('notification.confirm');
