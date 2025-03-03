@@ -176,21 +176,19 @@ public function capturePayment(Request $request)
     }
 
     if (!empty($booking_info['selected_coupon'])) {
-        $coupon = Coupon::find($booking_info['selected_coupon']);
-        if ($coupon) {
-            $coupon->delete();
+        $old_coupon = Coupon::find($booking_info['selected_coupon']);
+        if ($old_coupon) {
+            $old_coupon->delete();
         }
     }
 
     session()->forget('payment_info');
 
     if (isset($coupon) && $coupon->wasRecentlyCreated) {
-        return redirect()->route('paypal.complete'); // 新しいクーポンが作られた場合
+        return redirect()->route('paypal.complete');
     } else {
-        return view('paypal.complete_payment'); // 新しいクーポンが作られなかった場合
+        return view('paypal.complete_payment');
     }
-
-    // return redirect()->route('paypal.complete');
 
     }else{
         return redirect()->route('paypal.cancel');
