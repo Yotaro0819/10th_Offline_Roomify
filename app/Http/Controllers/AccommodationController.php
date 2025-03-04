@@ -53,7 +53,7 @@ class AccommodationController extends Controller
             'price'       => 'required|integer|min:0',
             'capacity'    => 'required|integer|min:1|max:100',
             'description' => 'required|string',
-            'photos'      => 'nullable|array',
+            'photos'      => 'required|array',
             'photos.*'    => 'image|mimes:jpeg,jpg,png,gif|max:1048',
             'ecoitem'     => 'nullable|array',
             'ecoitem.*'   => 'exists:ecoitems,id',
