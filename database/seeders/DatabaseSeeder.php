@@ -16,13 +16,13 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $this->call([
-            CategorySeeder::class,
             NationalitySeeder::class,
             UserSeeder::class,
-            AccommodationSeeder::class,
-            CategoryAccommodationSeeder::class,
-            BookingSeeder::class,
+            CategorySeeder::class,
             EcoitemSeeder::class,
+            AccommodationSeeder::class,
+            BookingSeeder::class,
+            CategoryAccommodationSeeder::class,
             EcoitemAccommodationSeeder::class,
             CouponSeeder::class,
             ContactSeeder::class,
