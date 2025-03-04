@@ -21,6 +21,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\PusherController;
+
+
 Route::get('/search', [AccommodationController::class, 'search'])->name('search');
 Route::get('/search_by_keyword', [AccommodationController::class, 'search_by_keyword'])->name('search_by_keyword');
 Route::get('/search_by_filters', [AccommodationController::class, 'search_by_filters'])->name('search_by_filters');
@@ -54,13 +56,10 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.'], function(){
     Route::post('/broadcast', [PusherController::class, 'broadcast']);
     Route::get('/receive', [PusherController::class, 'receive']);
 
-
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/profile/update-avatar/{id}', [ProfileController::class, 'updateAvatar'])->name('profile.updateAvatar');
 
     Route::post('/review/post/{id}', [ReviewController::class, 'store'])->name('review.store');
-
-
     Route::get('/host-request', [HostRequestController::class, 'create'])->name('hostRequest.create');
     Route::post('/host-request/store', [HostRequestController::class, 'store'])->name('hostRequest.store');
 
