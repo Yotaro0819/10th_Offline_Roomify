@@ -13,7 +13,7 @@
     background: #fff;
     padding: 60px;
     border-radius: 20px;
-    height: 720px;
+    height: 750px;
     width: 1200px;
     margin: 100px 50px;
   }
