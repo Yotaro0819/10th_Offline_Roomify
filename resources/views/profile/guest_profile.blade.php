@@ -115,13 +115,14 @@ document.getElementById('avatarInput').addEventListener('change', function(event
                           <i class="fa-solid fa-circle-user nav-icon" style="font-size: 180px; margin-left: 100px;"></i>
                         @endif
                     </div>
-
-                    <div class="d-flex justify-content-start">
-                      <div class="ms-4">
-                          <input type="file" name="avatar" id="avatarInput" class="form-control mt-4">
-                          <button type="submit" class="btn btn-outline mt-2">Change Icon</button>
+                    @if(Auth::id() === $user->id)
+                      <div class="d-flex justify-content-start">
+                        <div class="ms-4">
+                            <input type="file" name="avatar" id="avatarInput" class="form-control mt-4">
+                            <button type="submit" class="btn btn-outline mt-2">Change Icon</button>
+                        </div>
                       </div>
-                  </div>
+                    @endif
                 </form>
             </div>
             <div class="col-8">
@@ -167,7 +168,6 @@ document.getElementById('avatarInput').addEventListener('change', function(event
 
                         <div class="row align-items-center">
                             <div class="col-auto">
-                                <!-- icon -->
                                 @if($review->user->avatar)
                                     <img src="{{ asset('storage/' . $review->user->avatar) }}" alt="Reviewer Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
                                 @else
