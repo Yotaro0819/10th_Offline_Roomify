@@ -80,7 +80,8 @@
     @foreach($all_accommodations as $i => $accommodation)
     <div class="col-auto">
         <div class="card">
-            <img src={{ asset("storage/". $all_accommodations->toArray()['data'][$i]['photos'][0]['image'])}} class="card-img-top" alt="...">
+            <img src="{{ $accommodation->photos->isNotEmpty() ? asset('storage/' . $accommodation->photos->first()->image) : 'https://via.placeholder.com/200x150?text=No+Image' }}" 
+            class="card-img-top" alt="Accommodation Image">
             <div class="card-body">
                 <p class="text-start m-0 name">{{ $accommodation->name }}</p>
                 <p class="m-0 text-start address">{{ $accommodation->address }}</p>
@@ -109,5 +110,8 @@
 @else
 <div>No Accommodation</div>
 @endif
+</div>
+<div class="text-center pagenate mt-3" style="transform: translateX(-100px);">
+        {{ $all_accommodations->links('pagination::simple-tailwind', ['class' => 'pagination']) }}
 </div>
 @endsection

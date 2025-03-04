@@ -114,7 +114,8 @@
                 @foreach($user->accommodations as $accommodation)
                     <div class="col-auto">
                         <div class="card">
-                            <img src="https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg" class="card-img-top" alt="...">
+                            <img src="{{ $accommodation->photos->isNotEmpty() ? asset('storage/' . $accommodation->photos->first()->image) : 'https://via.placeholder.com/200x150?text=No+Image' }}" 
+                            class="card-img-top" alt="Accommodation Image">
                             <div class="card-body">
                                 <p class="text-start m-0 name">{{ $accommodation->name }}</p>
                                 <p class="m-0 text-start address">{{ $accommodation->address }}</p>
@@ -157,7 +158,8 @@
                 @foreach($accommodations as $accommodation)
                         <div class="col-auto">
                             <div class="card">
-                                <img src="https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg" class="card-img-top" alt="...">
+                                <img src="{{ $accommodation->photos->isNotEmpty() ? asset('storage/' . $accommodation->photos->first()->image) : 'https://via.placeholder.com/200x150?text=No+Image' }}" 
+                                class="card-img-top" alt="Accommodation Image">
                                 <div class="card-body">
                                     <p class="text-start m-0 name">{!! $accommodation->highlighted_name !!}</p>
                                     <p class="m-0 text-start address">{{ $accommodation->address }}</p>
