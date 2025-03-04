@@ -89,7 +89,7 @@ img
             <div class="row mt-5">
                 <div class="col-6">
                     <p>Accommodation Name</p>
-                    <p>Name</p>
+                    <p>Host Name</p>
                     <p>Special Request</p>
                     <p>Payment</p>
                 </div>

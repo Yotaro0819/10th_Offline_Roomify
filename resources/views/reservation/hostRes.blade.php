@@ -19,12 +19,14 @@
         padding: 5px;
         font-weight: bold;
         font-family: arial;
+        font-size: 25px;
     }
 
     .end-date {
         padding: 5px;
         font-weight: bold;
         font-family: arial;
+        font-size: 25px;
     }
 
     #spaced{
@@ -45,7 +47,7 @@
     }
 </style>
 @section('content')
-<h1 class="h2 mx-5">Reservation Status</h1>
+<h1 class="h2 mx-5">Your Guests</h1>
 @if($all_bookings->count() > 0)
     @foreach($all_bookings as $booking)
     <div class="card mx-auto mb-4 w-75" id="acm-booking">
@@ -77,14 +79,7 @@
                 <div>
                         <p><span><i class="fa-solid fa-users icon-input"></i></span> {{ $booking->num_guest }}</p>
                 </div>
-                <!-- <div class="row" id="spaced">
-                    <div class="col">{{ $booking->host_name }}</div>
-                    <div class="col">{{ $booking->num_guest }} people</div>
-                </div>
-                <div class="row" id="spaced">
-                    <div class="col">{{ $booking->accommodation->name }}</div>
-                    <div class="col">{{ $booking->special_request ?? 'No special requests' }}</div>
-                </div> -->
+               
             </div>
             <div class="col">
                 <form action="{{ route('host.confirmCancel', ['bookingId' => $booking->id]) }}" method="GET">

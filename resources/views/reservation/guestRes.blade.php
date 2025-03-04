@@ -37,7 +37,7 @@
     }
 
     #spaced{
-        margin-top: 30px;
+        margin-top: 15px;
     }
 
     .custom-btn {
@@ -54,7 +54,7 @@
     }
 </style>
 @section('content')
-<h1 class="h2 mx-5">Reservation Status</h1>
+<h1 class="h2 mx-5">My Bookings</h1>
 @if($all_bookings->count() > 0)
     @foreach($all_bookings as $booking)
     <div class="card mx-auto mb-4 w-75" id="acm-booking">
@@ -62,7 +62,7 @@
             <div class="col">
             @if ($booking->accommodation)
                 @if ($booking->accommodation->photos)
-                    <img src="{{ asset('storage/' . ltrim($booking->accommodation->photos[0]->image, '/')) }}" alt="#" class="imgs">
+                    <img src="{{ asset('storage/' . ltrim($booking->accommodation->photos[0]->image, '/')) }}" alt="#" class="imgs" style="width: 250px; height: 160px; border-radius: 15px; margin: 50px">
                 @endif
             @endif
             </div>
@@ -92,7 +92,7 @@
                 <form action="{{ route('guest.confirmGuestCancel', ['bookingId' => $booking->id]) }}" method="GET">
                     @csrf
                     <button type="submit" class="custom-btn">
-                        <i class="fa-solid fa-trash"></i> Cancel
+                        <i class="fa-solid fa-ban"></i> Cancel
                     </button>
                 </form>
             </div>
