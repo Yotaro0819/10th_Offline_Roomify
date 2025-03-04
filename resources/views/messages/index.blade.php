@@ -48,7 +48,12 @@
 
             <div class="userindex">
                 @forelse ($all_users as $user)
-
+                    {{-- もしログインユーザーがguestだったら他のguestユーザーは表示されない --}}
+                    @if(Auth::user()->role == "1")
+                        @if ($user->role == 1)
+                            @continue
+                        @endif
+                    @endif
                 <div class="row border m-1">
                     <a href="{{ route('messages.show', $user->id)}}" class="d-flex text-black">
                     <div class="col-2 d-flex justify-content-center align-items-center">
