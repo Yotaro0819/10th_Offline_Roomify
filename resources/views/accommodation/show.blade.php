@@ -108,6 +108,7 @@
             <h2 class="ms-2">Host Info</h2>
             <div class="d-flex">
                 <a href="{{ route('profile.show', $accommodation->user->id)}}" class="d-flex align-items-center">
+
                     {{-- this a tag can go message page --}}
                 @if ($accommodation->user->avatar)
                 <img src="{{ asset('storage/' . $accommodation->user->avatar) }}" alt="" class="imgs">
