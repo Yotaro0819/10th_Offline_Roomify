@@ -97,9 +97,11 @@ document.getElementById('avatarInput').addEventListener('change', function(event
 <div class="container">
     <div class="card">
       <div class="profile-container">
-        <a href="{{ route('profile.edit', Auth::user()->id) }}" class="btn profile-edit">
-          <i class="fa-solid fa-user-pen" style="font-size: 30px;"></i>
-        </a>
+      @if(Auth::id() === $user->id)
+          <a href="{{ route('profile.edit', Auth::id()) }}" class="btn profile-edit">
+              <i class="fa-solid fa-user-pen" style="font-size: 30px;"></i>
+          </a>
+      @endif
       </div>
         <div class="row">
             <div class="col-4 d-flex justify-content-start align-items-center text-left" id="icon">
