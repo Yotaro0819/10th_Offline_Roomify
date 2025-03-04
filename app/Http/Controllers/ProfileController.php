@@ -47,6 +47,27 @@ class ProfileController extends Controller
         return back()->with('success', 'プロフィール画像が更新されました！');
     }
 
+    public function edit()
+    {
+        $user = auth()->user(); // 現在ログイン中のユーザー情報を取得
+        return view('profile.edit', compact('user')); // ビューに $user を渡す
+    }
 
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:20',
+            'about_me' => 'nullable|string|max:120',
+        ]);
+
+        $user = auth()->user();
+        $user->update([
+            'name' => $request->name,
+            'about_me' => $request->about_me,
+        ]);
+
+        return redirect()->route('profile.show', ['id' => $user->id])->with('success', 'Profile updated successfully!');
+    }
 }
 

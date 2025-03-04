@@ -18,6 +18,17 @@
     margin: 100px 50px;
   }
 
+  .profile-container{
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .profile-edit{
+    margin-left: auto;
+    color: gray;
+    border-radius: none;
+  }
+
   .profile-img{
     width: 230px;
     height: 230px;
@@ -85,7 +96,11 @@ document.getElementById('avatarInput').addEventListener('change', function(event
 <body>
 <div class="container">
     <div class="card">
-        <a href="#" class="btn"><i class="fa-solid fa-user-pen"></i></a>
+      <div class="profile-container">
+        <a href="{{ route('profile.edit', Auth::user()->id) }}" class="btn profile-edit">
+          <i class="fa-solid fa-user-pen" style="font-size: 30px;"></i>
+        </a>
+      </div>
         <div class="row">
             <div class="col-4 d-flex justify-content-start align-items-center text-left" id="icon">
                 <!-- avatar -->
@@ -119,7 +134,9 @@ document.getElementById('avatarInput').addEventListener('change', function(event
                 </div>
                 <div class="name mt-5">
                       <h4 class="mb-1">About Me</h4>
-                      <p>I'm from {{ $user->nationality->nationality ?? 'a beautiful country' }}. I enjoy meeting new people and sharing my culture with others.</p>
+                      <p>
+                          {{ $user->about_me ?? "I'm from " . ($user->nationality->nationality ?? 'a beautiful country') . ". I enjoy meeting new people and sharing my culture with others." }}
+                      </p>
                       <hr>
                 </div>
               </div>

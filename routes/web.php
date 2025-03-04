@@ -54,9 +54,12 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.'], function(){
     Route::post('/broadcast', [PusherController::class, 'broadcast']);
     Route::get('/receive', [PusherController::class, 'receive']);
 
-
+// profile routes
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/profile/update-avatar/{id}', [ProfileController::class, 'updateAvatar'])->name('profile.updateAvatar');
+    Route::get('/profile/edit-profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile/update-profile', [ProfileController::class, 'update'])->name('profile.update');
+
 
     Route::post('/review/post/{id}', [ReviewController::class, 'store'])->name('review.store');
 
