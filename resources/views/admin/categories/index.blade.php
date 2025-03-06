@@ -49,39 +49,5 @@
         </div>
 </div>
 </form>
-@if($all_categories->isNotEmpty())
-    <div class="row">
-        <div class=col-7>
-            <table class="table">
-                <thead>
-                    <tr>
-                    <th class="text-center" style="font-size: 20px;">Categories</th>
-                    <th></th>
-                    </tr>
-                </thead>
-                @foreach($all_categories as $index => $category)
-                <tbody class="align-middle">
-                    <tr class="{{ $index % 2 == 0 ? 'table-warning' : '' }}">
-                        <td class="text-center"><i class="fa-solid fa-tags"></i>{{ $category->category_name }}</td>
-                        <td class="text-center">
-                            <button class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#delete-category-{{ $category->id }}">
-                                <i class="fa-solid fa-trash-can text-white"></i>
-                            </button>
-                            <button class="btn btn-success w-25" data-bs-toggle="modal" data-bs-target="#edit-category-{{ $category->id }}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-                @include('admin.categories.modal.status')
-                @endforeach
-            </table>
-        </div>
-    </div>
-@else
-<div>No Category</div>
-@endif
-<div class="text-center pagenate">
-{{ $all_categories->links('pagination::simple-tailwind', ['class' => 'pagination']) }}
-</div>
+
 @endsection
