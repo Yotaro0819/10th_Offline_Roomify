@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
 
        
 
-        DB::table('users')->insert([
+        $user = [
             [
                 'name' => 'guest1',
                 'email' => 'guest1@example.com',
@@ -93,6 +93,20 @@ class UserSeeder extends Seeder
                 'role' => '1',
             ]
 
-        ]);
+        ];
+
+        foreach ($users as $user) {
+            User::updateOrCreate(
+                ['email' => $user['email']], // 検索条件
+                [
+                    'name' => $user['name'],
+                    'password' => $user['password'],
+                    'nationality_id' => $user['nationality_id'],
+                    'role' => $user['role'],
+                    'updated_at' => Carbon::now(), // 更新時刻を更新
+                ]
+            );
+        }
+    
     }
 }
