@@ -17,7 +17,7 @@ class EcoItem extends Model
 
     public function accommodations()
     {
-        return $this->belongsToMany(Accommodation::class, 'ecoitem_accommodation');
+        return $this->belongsToMany(Accommodation::class, 'ecoitem_accommodation', 'ecoitem_id', 'accommodation_id');
     }
 
     public function ecoItemAccommodation() {
