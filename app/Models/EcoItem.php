@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ecoitem extends Model
+class EcoItem extends Model
 {
     use HasFactory;
 
@@ -21,7 +21,7 @@ class Ecoitem extends Model
     }
 
     public function ecoItemAccommodation() {
-        return $this->hasMany(EcoitemAccommodation::class);
+        return $this->hasMany(EcoItemAccommodation::class);
     }
 
 }
