@@ -20,7 +20,7 @@ class EcoItemAccommodationSeeder extends Seeder
     public function run(): void
     {
         $accommodations = Accommodation::all();
-        $eco_items = $this->eco->all();
+        $eco_items = EcoItem::all();
 
         $eco_ids = [];
 
