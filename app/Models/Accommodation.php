@@ -48,7 +48,7 @@ class Accommodation extends Model
 
     public function ecoitems()
     {
-        return $this->belongsToMany(Ecoitem::class, 'ecoitem_accommodation', 'accommodation_id', 'ecoitem_id');
+        return $this->belongsToMany(EcoItem::class, 'ecoitem_accommodation', 'accommodation_id', 'ecoitem_id');
     }
 
     public function categoryAccommodation()

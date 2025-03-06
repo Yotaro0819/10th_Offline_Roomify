@@ -17,6 +17,6 @@ class EcoItemAccommodation extends Model
     }
     public function ecoitem()
     {
-        return $this->belongsTo(EcoItem::class);
+        return $this->belongsTo(EcoItem::class, 'ecoitem_accommodation', 'accommodation_id', 'ecoitem_id');
     }
 }
