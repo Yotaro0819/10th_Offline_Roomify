@@ -49,6 +49,7 @@
         </div>
 </div>
 </form>
+<p>chaged test</p>
 {{-- @if($all_categories->isNotEmpty())
     <div class="row">
         <div class=col-7>
