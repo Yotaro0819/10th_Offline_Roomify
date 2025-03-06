@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Accommodation;
 use App\Models\Category;
 use App\Models\Booking;
-use App\Models\Ecoitem;
+use App\Models\EcoItem;
 use App\Models\Hashtag;
 use App\Models\Review;
 use App\Models\Photo;
@@ -27,7 +27,7 @@ class AccommodationController extends Controller
 
     private $booking;
 
-    public function __construct(Accommodation $accommodation, Category $category, Hashtag $hashtag, Ecoitem $ecoitem)
+    public function __construct(Accommodation $accommodation, Category $category, Hashtag $hashtag, EcoItem $ecoitem)
     {
         $this->accommodation = $accommodation;
         $this->category      = $category;
@@ -40,7 +40,7 @@ class AccommodationController extends Controller
     public function create()
     {
         $all_categories = Category::all();
-        $all_ecoitems = Ecoitem::all();
+        $all_ecoitems = EcoItem::all();
         return view('accommodation.create')->with('all_categories', $all_categories)->with('all_ecoitems', $all_ecoitems);
     }
 
@@ -85,7 +85,7 @@ class AccommodationController extends Controller
                 $longitude = $data['results'][0]['geometry']['location']['lng'];
 
                 $ecoitemIds = $request->ecoitem ?? [];
-                $ecoitems = Ecoitem::whereIn('id', $ecoitemIds)->get();
+                $ecoitems = EcoItem::whereIn('id', $ecoitemIds)->get();
                 $totalPoints = $ecoitems->sum('point');
                 $ecoitems->count();
                 $rank = 'C';
@@ -277,7 +277,7 @@ class AccommodationController extends Controller
             $accommodation->ecoitems()->sync($ecoitem_accommodation);
 
             $ecoitemIds = $request->ecoitem ?? [];
-                $ecoitems = Ecoitem::whereIn('id', $ecoitemIds)->get();
+                $ecoitems = EcoItem::whereIn('id', $ecoitemIds)->get();
                 $totalPoints = $ecoitems->sum('point');
                 $ecoitems->count();
 
