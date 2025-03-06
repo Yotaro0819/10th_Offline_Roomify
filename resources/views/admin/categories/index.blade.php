@@ -49,7 +49,8 @@
         </div>
 </div>
 </form>
-@if($all_categories->isNotEmpty())
+<p>test</p>
+{{-- @if($all_categories->isNotEmpty())
     <div class="row">
         <div class=col-7>
             <table class="table">
@@ -83,5 +84,5 @@
 @endif
 <div class="text-center pagenate">
 {{ $all_categories->links('pagination::simple-tailwind', ['class' => 'pagination']) }}
-</div>
+</div> --}}
 @endsection
