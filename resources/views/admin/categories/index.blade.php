@@ -49,8 +49,7 @@
         </div>
 </div>
 </form>
-<p>chaged test</p>
-{{-- @if($all_categories->isNotEmpty())
+@if($all_categories->isNotEmpty())
     <div class="row">
         <div class=col-7>
             <table class="table">
@@ -84,5 +83,5 @@
 @endif
 <div class="text-center pagenate">
 {{ $all_categories->links('pagination::simple-tailwind', ['class' => 'pagination']) }}
-</div> --}}
+</div>
 @endsection
