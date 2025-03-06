@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Facades\DB;
@@ -16,9 +17,9 @@ class UserSeeder extends Seeder
     public function run(): void
     {
 
-       
 
-        $user = [
+
+        $users = [
             [
                 'name' => 'guest1',
                 'email' => 'guest1@example.com',
@@ -107,6 +108,6 @@ class UserSeeder extends Seeder
                 ]
             );
         }
-    
+
     }
 }
