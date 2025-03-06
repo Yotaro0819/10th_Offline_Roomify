@@ -49,7 +49,7 @@
         </div>
 </div>
 </form>
-@if($all_categories->isNotEmpty())
+{{-- @if($all_categories->isNotEmpty())
     <div class="row">
         <div class=col-7>
             <table class="table">
@@ -65,7 +65,7 @@
                         <td class="text-center"><i class="fa-solid fa-tags"></i>{{ $category->category_name }}</td>
                         <td class="text-center">
                             <button class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#delete-category-{{ $category->id }}">
-                                <i class="fa-solid fa-trash-can text-white"></i> 
+                                <i class="fa-solid fa-trash-can text-white"></i>
                             </button>
                             <button class="btn btn-success w-25" data-bs-toggle="modal" data-bs-target="#edit-category-{{ $category->id }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -83,5 +83,5 @@
 @endif
 <div class="text-center pagenate">
 {{ $all_categories->links('pagination::simple-tailwind', ['class' => 'pagination']) }}
-</div>
+</div> --}}
 @endsection
