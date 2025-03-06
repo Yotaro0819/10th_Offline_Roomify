@@ -49,6 +49,7 @@
         </div>
 </div>
 </form>
+<p>test</p>
 {{-- @if($all_categories->isNotEmpty())
     <div class="row">
         <div class=col-7>
