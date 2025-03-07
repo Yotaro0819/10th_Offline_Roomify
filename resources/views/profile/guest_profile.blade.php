@@ -169,7 +169,7 @@ document.getElementById('avatarInput').addEventListener('change', function(event
                         <div class="row align-items-center">
                             <div class="col-auto">
                                 @if($review->user->avatar)
-                                    <img src="{{ asset('storage/' . $review->user->avatar) }}" alt="Reviewer Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+                                    <img src="{{ $review->user->avatar }}" alt="Reviewer Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
                                 @else
                                     <i class="fa-solid fa-circle-user text-secondary fa-2x"></i>
                                 @endif
