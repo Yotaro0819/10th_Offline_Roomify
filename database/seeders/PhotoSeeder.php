@@ -30,7 +30,7 @@ class PhotoSeeder extends Seeder
             foreach ($chunks[$index] as $i) {
                 $sourcePath = database_path("seeders/photos/photo{$i}.jpeg");
                 $filename = $accommodation->id . "_photo{$i}.jpeg";
-                $destinationPath = "photos/" . $filename;
+                $destinationPath = "https://roomify-portfolio.s3.ap-northeast-1.amazonaws.com/photos/" . $filename;
 
                 if (File::exists($sourcePath)) {
                     $contents = File::get($sourcePath);
