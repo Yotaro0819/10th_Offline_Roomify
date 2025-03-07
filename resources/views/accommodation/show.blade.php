@@ -47,7 +47,6 @@
     loadGoogleMapsScript();
 
 
-
 </script>
 
 @section('content')
