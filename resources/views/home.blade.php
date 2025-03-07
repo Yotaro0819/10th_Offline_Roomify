@@ -496,7 +496,7 @@ input::placeholder {
                     @foreach($accommodations as $accommodation)
                      <div class="card">
                         <a href="{{ route('accommodation.show', $accommodation->id) }}" class="stretched-link">
-                            <img src="{{ asset('storage/' . $accommodation->photos[0]->image) }}" alt="#" style="width: 375px; height: 200px;">
+                            <img src="{{ $accommodation->photos[0]->image) }}" alt="#" style="width: 375px; height: 200px;">
                             <h3 class="mt-2">{{ Str::limit($accommodation->name, 50) }}</h3>
                             <p class="address">{{ Str::limit($accommodation->address, 50) }}</p>
                             <div class="row">
