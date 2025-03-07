@@ -58,7 +58,7 @@
                     <a href="{{ route('messages.show', $user->id)}}" class="d-flex text-black">
                     <div class="col-2 d-flex justify-content-center align-items-center">
                         @if ($user->avatar)
-                        <img src="{{asset('storage/'.$user->avatar)}}" alt="avatar" class="w-35 imgs">
+                        <img src="{{ $user->avatar }}" alt="avatar" class="w-35 imgs object-fit-cover">
                         @else
                         <i class="fa-solid fa-user"></i>
                         @endif

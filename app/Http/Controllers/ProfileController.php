@@ -12,7 +12,7 @@ class ProfileController extends Controller
 {
     public function show($id)
     {
-        
+
         $user = User::findOrFail($id);
 
         // ホストが所有する宿泊施設の ID を取得
@@ -34,14 +34,15 @@ class ProfileController extends Controller
 
         // 古い画像を削除
         if ($user->avatar) {
-            Storage::delete('public/' . $user->avatar);
+            $oldPath = str_replace(Storage::disk('S3')->url(''), '', $user->avatar);
+            Storage::disk('s3')->url($oldPath);
         }
 
         // 新しい画像を保存
-        $path = $request->file('avatar')->store('avatars', 'public');
-
+        $path = $request->file('avatar')->store('avatars', 's3');
+        $url = Storage::disk('s3')->url($path);
         // データベースを更新
-        $user->avatar = $path;
+        $user->avatar = $url;
         $user->save();
 
         return back()->with('success', 'プロフィール画像が更新されました！');

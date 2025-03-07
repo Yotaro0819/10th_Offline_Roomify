@@ -110,7 +110,7 @@ document.getElementById('avatarInput').addEventListener('change', function(event
                     @csrf
                     <div class="col-auto d-flex justify-content-start align-items-center text-left" id="icon">
                         @if($user->avatar)
-                          <img src="{{ asset('storage/' . $user->avatar) }}" class="profile-img" id="avatarPreview">
+                          <img src="{{ $user->avatar }}" class="profile-img" id="avatarPreview">
                         @else
                           <i class="fa-solid fa-circle-user nav-icon" style="font-size: 180px; margin-left: 100px;"></i>
                         @endif

@@ -413,7 +413,7 @@
                 @foreach($all_accommodations as $accommodation)
                     <a href="{{ route('accommodation.show', $accommodation->id )}}" class="row" style="color:black">
                         <div class="col">
-                            <img src="{{ asset('storage/' . ltrim($accommodation->photos[0]->image, '/')) }}" alt="#">
+                            <img src="{{ $accommodation->photos[0]->image }}" alt="#">
                         </div>
                         <div class="col">
                             <h2 class="h4 fw-bold" style="color:#004aad">{{ Str::limit($accommodation->name, 70) }}</h2>
