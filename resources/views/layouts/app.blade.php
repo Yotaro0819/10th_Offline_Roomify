@@ -167,7 +167,7 @@ a
                             <li class="nav-item dropdown d-flex align-items-center">
                                 <a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
                                 @if (Auth::user()->avatar)
-                                    <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="" class="rounded-circle" style="width: 35px; height: 35px; object-fit: cover;">
+                                    <img src="{{ Auth::user()->avatar }}" alt="" class="rounded-circle" style="width: 35px; height: 35px; object-fit: cover;">
                                 @else
                                     <i class="fa-solid fa-circle-user nav-icon"></i>
                                 @endif
