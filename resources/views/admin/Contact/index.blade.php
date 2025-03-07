@@ -42,7 +42,7 @@
         {{ $all_contacts->links('pagination::simple-tailwind', ['class' => 'pagination']) }}
         </div>
     @else
-    <h3 class="text-center">No message</h3>
+    <div class="">No message</dive>
     @endif
     </div>
 </div>

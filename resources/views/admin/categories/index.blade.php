@@ -39,6 +39,7 @@
 <h3>
     Categories
 </h3>
+@if($all_categories->isNotEmpty())
 <form action="{{ route('admin.category.store')}}">
 <div class="row gx-2 mb-3">
         <div class="col-5">
@@ -49,7 +50,6 @@
         </div>
 </div>
 </form>
-@if($all_categories->isNotEmpty())
     <div class="row">
         <div class=col-7>
             <table class="table">

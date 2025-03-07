@@ -91,6 +91,7 @@
     <h3 class="text-center">
         Users list
     </h3>
+    @if($all_users->total() > 1)   
     <div>
         <form action="{{ route('admin.search') }}" class="w-25 mb-3">
             <input type="search" name="search" class="form-control" placeholder="Search...." style="border: 1px solid #ccc;">
@@ -166,4 +167,9 @@
     <div class="text-center pagenate mt-3">
         {{ $all_users->links('pagination::simple-tailwind', ['class' => 'pagination']) }}
     </div>
+    @else
+    <div>
+        No Users
+    </div>
+    @endif
 @endsection
