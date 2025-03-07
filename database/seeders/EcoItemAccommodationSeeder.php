@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Accommodation;
-use App\Models\Ecoitem;
+use App\Models\EcoItem;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +16,7 @@ class EcoitemAccommodationSeeder extends Seeder
     {
         $accommodations = Accommodation::all();
 
-        $ecoitems = Ecoitem::pluck('id')->toArray();
+        $ecoitems = EcoItem::pluck('id')->toArray();
 
         foreach ($accommodations as $accommodation) {
 

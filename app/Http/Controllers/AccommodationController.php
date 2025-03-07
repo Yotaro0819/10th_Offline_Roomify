@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Accommodation;
 use App\Models\Category;
 use App\Models\Booking;
-use App\Models\Ecoitem;
+use App\Models\EcoItem;
 use App\Models\Hashtag;
 use App\Models\Review;
 use App\Models\Photo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
@@ -27,7 +28,7 @@ class AccommodationController extends Controller
 
     private $booking;
 
-    public function __construct(Accommodation $accommodation, Category $category, Hashtag $hashtag, Ecoitem $ecoitem)
+    public function __construct(Accommodation $accommodation, Category $category, Hashtag $hashtag, EcoItem $ecoitem)
     {
         $this->accommodation = $accommodation;
         $this->category      = $category;
@@ -40,7 +41,7 @@ class AccommodationController extends Controller
     public function create()
     {
         $all_categories = Category::all();
-        $all_ecoitems = Ecoitem::all();
+        $all_ecoitems = EcoItem::all();
         return view('accommodation.create')->with('all_categories', $all_categories)->with('all_ecoitems', $all_ecoitems);
     }
 
@@ -85,7 +86,7 @@ class AccommodationController extends Controller
                 $longitude = $data['results'][0]['geometry']['location']['lng'];
 
                 $ecoitemIds = $request->ecoitem ?? [];
-                $ecoitems = Ecoitem::whereIn('id', $ecoitemIds)->get();
+                $ecoitems = EcoItem::whereIn('id', $ecoitemIds)->get();
                 $totalPoints = $ecoitems->sum('point');
                 $ecoitems->count();
                 $rank = 'C';
@@ -139,20 +140,23 @@ class AccommodationController extends Controller
                 // 画像のsection
                 if ($request->hasFile('photos')) {
                     foreach ($request->file('photos') as $photo) {
-
                         $extension = $photo->getClientOriginalExtension();
-
                         $newFileName = Str::uuid() . '.' . $extension;
 
-                        $path = $photo->storeAs('photos', $newFileName, 'public');
+                        // S3 にアップロード
+                        $path = Storage::disk('s3')->putFileAs('photos', $photo, $newFileName);
 
-                        // Photoモデルに保存
+                        // S3 のフルURLを取得
+                        $s3Url = Storage::disk('s3')->url($path);
+
+                        // Photo モデルに保存
                         Photo::create([
                             'accommodation_id' => $accommodation->id,
-                            'image' => $path,
+                            'image' => $s3Url, // S3のURLを保存
                         ]);
                     }
                 }
+
 
                 // カテゴリーのsection
                 $category_accommodation = [];
@@ -277,7 +281,7 @@ class AccommodationController extends Controller
             $accommodation->ecoitems()->sync($ecoitem_accommodation);
 
             $ecoitemIds = $request->ecoitem ?? [];
-                $ecoitems = Ecoitem::whereIn('id', $ecoitemIds)->get();
+                $ecoitems = EcoItem::whereIn('id', $ecoitemIds)->get();
                 $totalPoints = $ecoitems->sum('point');
                 $ecoitems->count();
 
@@ -333,16 +337,23 @@ class AccommodationController extends Controller
             // 写真のアップロード処理
             if ($request->hasFile('photos')) {
                 foreach ($request->file('photos') as $photo) {
-                    // 各写真を保存
-                    $path = $photo->store('photos', 'public');
+                    // UUIDを使ってファイル名を生成
+                    $newFileName = Str::uuid() . '.' . $photo->getClientOriginalExtension();
+
+                    // S3にアップロード
+                    $path = Storage::disk('s3')->putFileAs('photos', $photo, $newFileName);
+
+                    // S3のURLを取得
+                    $s3Url = Storage::disk('s3')->url($path);
 
                     // Photoモデルで保存
                     Photo::create([
                         'accommodation_id' => $accommodation->id,
-                        'image' => $path,
+                        'image' => $s3Url, // S3のURLを保存
                     ]);
                 }
             }
+
 
            // カテゴリの関連付け
             $category_accommodation = [];
@@ -406,11 +417,15 @@ class AccommodationController extends Controller
     {
         $accommodation = $this->accommodation->findOrFail($id);
 
+        // 写真を取得
         $photos = Photo::where('accommodation_id', $id)->get();
 
         foreach ($photos as $photo) {
-            if ($photo->image && file_exists(storage_path('app/public/' . $photo->image))) {
-                unlink(storage_path('app/public/' . $photo->image));
+            if ($photo->image) {
+                // S3のURLからパスを取得（`photos/xxx.jpg` の形に変換）
+                $path = str_replace(Storage::disk('s3')->url(''), '', $photo->image);
+                // S3から削除
+                Storage::disk('s3')->delete($path);
             }
         }
 
@@ -418,20 +433,20 @@ class AccommodationController extends Controller
 
         $accommodation->delete();
 
-        return redirect()->route('host.index');
+        return redirect()->route('host.index')->with('success', '宿泊施設を削除しました');
     }
 
     public function search()
     {
         $accommodations = $this->accommodation->withCount('bookings')
-                                              ->orderByDesc('bookings_count')
-                                              ->take(6)
-                                              ->get();
+                                            ->orderByDesc('bookings_count')
+                                            ->take(6)
+                                            ->get();
 
         $categories     =  $this->category->get();
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
-                                                 ->with('categories', $categories);
+                                                ->with('categories', $categories);
     }
 
     public function search_by_keyword(Request $request)
@@ -441,7 +456,8 @@ class AccommodationController extends Controller
                     ->where('address', 'LIKE', '%'. $request->keyword . '%')
                     ->orWhere('name', 'LIKE', '%'. $request->keyword . '%')
                     ->orWhere('city', 'LIKE', '%'. $request->keyword . '%')
-                    ->orWhere('price', 'LIKE', '%'. $request->keyword . '%');
+                    ->orWhere('price', 'LIKE', '%'. $request->keyword . '%')
+                    ->get();
 
         return view('accommodation.search')->with('all_accommodations', $accommodations)
                                                 ->with('categories', $categories);
