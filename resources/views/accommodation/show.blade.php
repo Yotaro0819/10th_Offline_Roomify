@@ -45,8 +45,6 @@
 
     // 初期ロード時にもスクリプトを読み込む
     loadGoogleMapsScript();
-
-
 </script>
 
 @section('content')
@@ -201,15 +199,17 @@
                     <i class="fa-solid fa-user"></i>
                     @endif
                 {{ Str::limit($latest_review->comment, 90) }}
-                @if (strlen($latest_review->comment) > 90)
-                    <a href="javascript:void(0);" class="read-more text-primary" data-full="{{ $latest_review->comment }}">Read more</a>
-                @endif
+                    @if (strlen($latest_review->comment) > 90)
+                        <a href="javascript:void(0);" class="read-more text-primary" data-full="{{ $latest_review->comment }}">Read more</a>
+                    @endif
 
-            @else
-                <p>No reviews yet.</p>
-            @endif
+                @else
+                    <p>No reviews yet.</p>
+                @endif
             </div>
-            <p class="text-end me-4 mb-1">{{ $latest_review->created_at }}</p>
+                @if ($latest_review)
+                <p class="text-end me-4 mb-1">{{ $latest_review->created_at }}</p>
+                @endif
 
         </div>
     </div>
