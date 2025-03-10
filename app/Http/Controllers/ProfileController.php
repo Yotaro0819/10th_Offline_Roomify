@@ -25,28 +25,30 @@ class ProfileController extends Controller
     }
 
     public function updateAvatar(Request $request, $id)
-    {
-        $request->validate([
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+{
+    $request->validate([
+        'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        $user = User::where('id', $id)->first();
+    $user = User::findOrFail($id);
 
-        // 古い画像を削除
-        if ($user->avatar) {
-            $oldPath = str_replace(Storage::disk('S3')->url(''), '', $user->avatar);
-            Storage::disk('s3')->url($oldPath);
-        }
-
-        // 新しい画像を保存
-        $path = $request->file('avatar')->store('avatars', 's3');
-        $url = Storage::disk('s3')->url($path);
-        // データベースを更新
-        $user->avatar = $url;
-        $user->save();
-
-        return back()->with('success', 'プロフィール画像が更新されました！');
+    // 古い画像を削除
+    if ($user->avatar) {
+        // S3のURLからパスを抽出
+        $oldPath = str_replace(Storage::disk('s3')->url(''), '', $user->avatar);
+        Storage::disk('s3')->delete($oldPath);
     }
+
+    // 新しい画像をS3にアップロード
+    $path = $request->file('avatar')->store('avatars', 's3');
+    $url = Storage::disk('s3')->url($path);
+
+    // ユーザーの avatar を更新
+    $user->avatar = $url;
+    $user->save();
+
+    return back()->with('success', 'プロフィール画像が更新されました！');
+}
 
     public function edit()
     {
