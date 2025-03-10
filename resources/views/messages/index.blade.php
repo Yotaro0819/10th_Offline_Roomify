@@ -34,7 +34,7 @@
 <div class="container mx-auto mt-4 mb-5" style="width: 70%;">
     <h2 style="margin-bottom:12.5px;">Messages</h2>
     <div class="d-flex">
-        <div class="card rounded-4 w-85 mx-auto bg-gray">
+        <div class="card rounded-4 w-85 mx-auto">
             <div>
                 <form action="{{ route('messages.search') }}" class="w-25 m-4" style="position: relative;">
                     <i class="fa-solid fa-magnifying-glass"
