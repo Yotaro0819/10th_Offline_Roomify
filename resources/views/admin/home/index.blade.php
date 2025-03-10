@@ -47,29 +47,32 @@
 </div>
 
     <script>
+        const appUrl = document.querySelector('meta[name="app-url"]').content;
+        console.log("url: ",appUrl);
+
         async function fetchData(url) {
             const response = await fetch(url);
             return await response.json();
         }
 
         async function renderCharts() {
-        
-            const rankingData = await fetchData('/rankings');
+
+            const rankingData = await fetchData(`${appUrl}/rankings`);
             console.log(rankingData);
             const rankingLabels = rankingData.map(item => item.name);
             const rankingValues = rankingData.map(item => item.reservation_count);
 
-            const monthlyData = await fetchData('/monthly/bookings');
+            const monthlyData = await fetchData(`${appUrl}/monthly/bookings`);
             console.log(monthlyData);
             const monthlyLabels = monthlyData.map(item => item.month);
             const monthlyValues = monthlyData.map(item => item.reservation_count);
 
-            const userData = await fetchData('/user/rankings');
+            const userData = await fetchData(`${appUrl}/user/rankings`);
             console.log(userData);
             const userLabels = userData.map(item => item.name);
             const userValues = userData.map(item => item.reservation_count);
 
-            const cityData = await fetchData('/city/share');
+            const cityData = await fetchData(`${appUrl}/city/share`);
             console.log(cityData);
             const cityLabels = cityData.map(item => item.city);
             const cityValues = cityData.map(item => item.reservation_count);
