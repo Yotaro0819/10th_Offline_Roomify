@@ -239,7 +239,6 @@ class AccommodationController extends Controller
             'photos.*' => 'image|mimes:jpeg,jpg,png,gif,webp|max:1048',
         ]);
 
-        try {
             // 対象の宿泊施設を取得
             $accommodation = Accommodation::findOrFail($id);
 
@@ -367,15 +366,13 @@ class AccommodationController extends Controller
             }
 
         // 既存のカテゴリ関連を同期（重複なし）
-        $accommodation->categories()->sync($category_accommodation);
+        $accommodation->categories()->sync($request->category ?? []);
+
 
 
             // 成功メッセージと共にリダイレクト
             return redirect()->route('accommodation.show', $accommodation->id)
                 ->with('success', '宿泊施設が更新されました');
-        } catch (\Exception $e) {
-            return redirect()->route('host.accommodation.create')->with('googleMap_error', 'Something went wrong with the address.');
-        }
     }
 
 
