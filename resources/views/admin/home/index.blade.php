@@ -48,7 +48,7 @@
 
     <script>
         const appUrl = document.querySelector('meta[name="app-url"]').content;
-        console.log("url: ",appUrl);
+        // console.log("url: ",appUrl);
 
         async function fetchData(url) {
             const response = await fetch(url);
