@@ -63,7 +63,7 @@ class Accommodation extends Model
 
     public function ecoitemAccommodation()
     {
-        return $this->hasMany(EcoitemAccommodation::class);
+        return $this->hasMany(EcoItemAccommodation::class);
     }
 
     public function photos()
