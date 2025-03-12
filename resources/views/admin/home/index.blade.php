@@ -47,7 +47,8 @@
 </div>
 
     <script>
-        const appUrl = document.querySelector('meta[name="app-url"]').content;
+        document.addEventListener('DOMContentLoaded', function() {
+            const appUrl = document.querySelector('meta[name="app-url"]').content;
         // console.log("url: ",appUrl);
 
         async function fetchData(url) {
@@ -151,6 +152,8 @@
 
         }
         renderCharts();
+        })
+
 
     </script>
 
