@@ -11,6 +11,11 @@
     {
         margin-right: 10px;
     }
+    .imgs {
+        height: 120px;
+        width: 100%;
+        object-fit:cover;
+    }
 
 </style>
 
@@ -25,7 +30,7 @@
             <div class="row d-flex align-items-center">
                 <div class="col-md-4">
                     <a href="{{ route('accommodation.show', $accommodation->id) }}">
-                        <img src="{{ asset('storage/' . ltrim($accommodation->photos[0]->image, '/')) }}" alt="#" style="width: 250px; height: 160px; border-radius: 15px; margin: 50px">
+                        <img src="{{ $accommodation->photos[0]->image }}" alt="#" style="width: 250px; height: 160px; border-radius: 15px; margin: 50px">
                     </a>
                 </div>
 

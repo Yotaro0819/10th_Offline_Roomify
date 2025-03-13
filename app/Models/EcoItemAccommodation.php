@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EcoitemAccommodation extends Model
+class EcoItemAccommodation extends Model
 {
     protected $table = 'ecoitem_accommodation';
     public $timestamps = false;
@@ -17,6 +17,6 @@ class EcoitemAccommodation extends Model
     }
     public function ecoitem()
     {
-        return $this->belongsTo(Ecoitem::class);
+        return $this->belongsTo(EcoItem::class);
     }
 }

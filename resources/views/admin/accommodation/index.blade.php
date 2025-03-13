@@ -80,7 +80,7 @@
     @foreach($all_accommodations as $i => $accommodation)
     <div class="col-auto">
         <div class="card">
-            <img src="{{ $accommodation->photos->isNotEmpty() ? asset('storage/' . $accommodation->photos->first()->image) : 'https://via.placeholder.com/200x150?text=No+Image' }}" 
+            <img src="{{ $accommodation->photos->first()->image }}"
             class="card-img-top" alt="Accommodation Image">
             <div class="card-body">
                 <p class="text-start m-0 name">{{ $accommodation->name }}</p>

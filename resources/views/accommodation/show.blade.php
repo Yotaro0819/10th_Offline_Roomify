@@ -45,9 +45,6 @@
 
     // 初期ロード時にもスクリプトを読み込む
     loadGoogleMapsScript();
-
-
-
 </script>
 
 @section('content')
@@ -61,14 +58,15 @@
 
     <div class="picture-box">
         <div class="left">
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[0]) ? asset('storage/'. $accommodation->photos[0]->image) : asset('images/default-image.jpg') }}" alt="pic1" class="rounded-4"></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ $accommodation->photos[0]->image }}" alt="pic1" class="rounded-4">
+            </a>
         </div>
         <div class="center">
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[1]) ? asset('storage/'. $accommodation->photos[1]->image) : asset('images/default-image.jpg') }}" alt="pic2" class="rounded-4 "></a>
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[2]) ? asset('storage/'. $accommodation->photos[2]->image) : asset('images/default-image.jpg') }}" alt="pic3" class="rounded-4 "></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ $accommodation->photos[1]->image}}" alt="pic2" class="rounded-4 "></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ $accommodation->photos[2]->image }}" alt="pic3" class="rounded-4 "></a>
         </div>
         <div class="right">
-            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ isset($accommodation->photos[3]) ? asset('storage/'. $accommodation->photos[3]->image) : asset('images/default-image.jpg') }}" alt="pic4" class="rounded-4"></a>
+            <a href="{{ route('accommodation.pictures', $accommodation->id) }}"><img src="{{ $accommodation->photos[3]->image }}" alt="pic4" class="rounded-4"></a>
         </div>
     </div>
 
@@ -111,7 +109,7 @@
 
                     {{-- this a tag can go message page --}}
                 @if ($accommodation->user->avatar)
-                <img src="{{ asset('storage/' . $accommodation->user->avatar) }}" alt="" class="imgs">
+                <img src="{{ $accommodation->user->avatar }}" alt="" class="object-fit-cover imgs">
                 @else
                     <i class="fa-solid fa-user m-3" style="font-size:40px"></i>
                 @endif
@@ -142,8 +140,12 @@
                     @forelse ($reviews as $review)
                     <div class="border rounded my-4 p-3">
                     <a href="{{ route("profile.show", $review->user->id) }}">
-                        <div class="d-flex">
-                            <i class="fa-solid fa-user me-2"></i>
+                        <div class="d-flex align-items-center">
+                            @if ($review->user->avatar)
+                                <img src="{{ $review->user->avatar}}" alt="" class="object-fit-cover imgs me-2">
+                            @else
+                                <i class="fa-solid fa-user me-2"></i>
+                            @endif
                             <p class="text-start m-0 fs-5">{{ $review->user->name}}</p>
                         </div>
 
@@ -188,25 +190,27 @@
                 <p class="fs-1 d-flex align-items-center text-black mb-0"><i class="fas fa-star text-warning me-2"></i> {{ round($average,1) }}<span class="fs-5">({{$accommodation->reviews->count() }} reviews)</span></p>
             </div>
 
-            <div class="recent-review review-text">
+            <div class="recent-review review-text d-flex align-items-center">
 
                 @if ($latest_review)
                     @if ($latest_review->user->avatar)
-                        <img src="{{ asset('storage/' . $latest_review->user->avatar)}}" alt="" class="imgs">
+                        <img src="{{ $latest_review->user->avatar }}" alt="" class="object-fit-cover imgs me-2">
                     @else
                     <i class="fa-solid fa-user"></i>
                     @endif
                 {{ Str::limit($latest_review->comment, 90) }}
-                @if (strlen($latest_review->comment) > 90)
-                    <a href="javascript:void(0);" class="read-more text-primary" data-full="{{ $latest_review->comment }}">Read more</a>
+                    @if (strlen($latest_review->comment) > 90)
+                        <a href="javascript:void(0);" class="read-more text-primary" data-full="{{ $latest_review->comment }}">Read more</a>
+                    @endif
+
+                @else
+                    <p>No reviews yet.</p>
+                @endif
+            </div>
+                @if ($latest_review)
+                <p class="text-end me-4 mb-1">{{ $latest_review->created_at }}</p>
                 @endif
 
-                <p class="text-end me-4 mb-1">{{ $latest_review->created_at }}</p>
-            @else
-                <p>No reviews yet.</p>
-            @endif
-
-            </div>
         </div>
     </div>
 

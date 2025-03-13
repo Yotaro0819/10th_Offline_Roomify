@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\category;
+use App\Models\Category;
 
 class CategoriesController extends Controller
 {
@@ -45,7 +45,7 @@ class CategoriesController extends Controller
 
     public function update(Request $request)
     {
-        
+
         $request->validate([
             'name'          => 'required|min:1|max:50',
         ]);

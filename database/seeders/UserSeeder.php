@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Facades\DB;
@@ -16,9 +17,9 @@ class UserSeeder extends Seeder
     public function run(): void
     {
 
-       
 
-        DB::table('users')->insert([
+
+        $users = [
             [
                 'name' => 'guest1',
                 'email' => 'guest1@example.com',
@@ -93,6 +94,20 @@ class UserSeeder extends Seeder
                 'role' => '1',
             ]
 
-        ]);
+        ];
+
+        foreach ($users as $user) {
+            User::updateOrCreate(
+                ['email' => $user['email']], // 検索条件
+                [
+                    'name' => $user['name'],
+                    'password' => $user['password'],
+                    'nationality_id' => $user['nationality_id'],
+                    'role' => $user['role'],
+                    'updated_at' => Carbon::now(), // 更新時刻を更新
+                ]
+            );
+        }
+
     }
 }
