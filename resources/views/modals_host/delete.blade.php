@@ -9,7 +9,7 @@
             <div class="modal-body">
                 <div>
                     <h4 class="h5">{{ $accommodation->name }}</h4>
-                    <img src="#" alt="accommodation id {{ $accommodation->id }}" class="rounded mb-4">
+                    <img src={{ $accommodation->photos[0]->image}} alt="accommodation id {{ $accommodation->id }}" class="rounded mb-4 imgs">
 
                     <div>
                         <p><span><i class="fa-solid fa-comment icon-input"></i></span>{{ $accommodation->description }}</p>

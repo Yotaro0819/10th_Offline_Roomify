@@ -48,7 +48,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100px;
     height: 50px;
 }
@@ -114,9 +114,9 @@
             @foreach($all_users as $user)
                 @if ($user->role == 1 || $user->role == 2)
                 <tr class="{{ $rowIndex % 2 == 0 ? 'table-warning' : '' }}">
-                    <td scope="row" class="mg-0"> 
+                    <td scope="row" class="mg-0">
                         @if ($user->avatar)
-                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}" class="rounded-circle d-block mx-auto avatar-md">
+                        <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="rounded-circle d-block mx-auto avatar-md">
                         @else
                         <i class="fa-solid fa-circle-user d-block icon-md ms-2"></i>
                         @endif
@@ -167,9 +167,11 @@
     <div class="text-center pagenate mt-3">
         {{ $all_users->links('pagination::simple-tailwind', ['class' => 'pagination']) }}
     </div>
+
     @else
     <div>
         No Users
     </div>
     @endif
 @endsection
+
