@@ -69,6 +69,7 @@
     <h3 class="col">
         Accomodation list
     </h3>
+    @if($all_accommodations->isNotEmpty())
     <div class="col">
         <form action="{{ route('admin.accommodation.search') }}" class="w-50">
             <input type="search" name="search" class="form-control" placeholder="Search...." style="border: 1px solid #ccc;">
@@ -76,7 +77,6 @@
     </div>
 </div>
 <div class="row d-flex justify-content-start">
-@if($all_accommodations->isNotEmpty())
     @foreach($all_accommodations as $i => $accommodation)
     <div class="col-auto">
         <div class="card">
