@@ -11,6 +11,11 @@
     {
         margin-right: 10px;
     }
+    .imgs {
+        height: 120px;
+        width: 100%;
+        object-fit:cover;
+    }
 
 </style>
 
