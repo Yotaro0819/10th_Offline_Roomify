@@ -8,4 +8,4 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-Schedule::command('coupons::delete-expired')->everyMinute();
+Schedule::command('coupons:delete-expired')->everyMinute();
