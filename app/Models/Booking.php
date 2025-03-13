@@ -18,7 +18,7 @@ class Booking extends Model
 
     public function accommodation()
     {
-        return $this->belongsTo(Accommodation::class, 'accommodation_id');
+        return $this->belongsTo(Accommodation::class, 'accommodation_id')->withTrashed();
     }
 
     // public function specialRequest()
