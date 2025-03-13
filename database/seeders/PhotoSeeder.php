@@ -30,16 +30,19 @@ class PhotoSeeder extends Seeder
             foreach ($chunks[$index] as $i) {
                 $sourcePath = database_path("seeders/photos/photo{$i}.jpeg");
                 $filename = $accommodation->id . "_photo{$i}.jpeg";
-                $destinationPath = "photos/" . $filename;
+                $destinationPath = "photos/{$filename}";
+
 
                 if (File::exists($sourcePath)) {
                     $contents = File::get($sourcePath);
-                    Storage::disk('public')->put($destinationPath, $contents);
+                    Storage::disk('s3')->put($destinationPath, $contents);
                 }
+
+                $destinationUrl = Storage::disk('s3')->url($destinationPath);
 
                 DB::table('photos')->insert([
                     'accommodation_id' => $accommodation->id,
-                    'image' => $destinationPath,
+                    'image' => $destinationUrl,
                 ]);
             }
         }

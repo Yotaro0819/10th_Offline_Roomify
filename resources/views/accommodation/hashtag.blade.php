@@ -35,7 +35,7 @@
         <a href="{{ route('accommodation.show', $accommodation->id)}}">
         <div class="card" style="height:450px;">
             @if($accommodation->photos->isNotEmpty())
-                <img src="{{ asset('storage/'. $accommodation->photos[0]->image) }}" class="card-img-top" alt="Card image 1" style="height: 320px;">
+                <img src="{{  $accommodation->photos[0]->image }}" class="card-img-top object-fit-cover" alt="Card image 1" style="height: 320px;">
             @else
                 <img src="#" alt="">
             @endif

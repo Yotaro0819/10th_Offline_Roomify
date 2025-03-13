@@ -18,7 +18,7 @@
 
         @foreach ($accommodation->photos as $photo)
         <div class="col-6">
-            <img src="{{ asset('storage/'. $photo->image)}}" alt="Images" class="img-fluid rounded-5 mb-3 images" style="height:400px;">
+            <img src="{{ $photo->image }}" alt="Images" class="img-fluid rounded-5 mb-3 images" style="height:400px;">
           </div>
         @endforeach
 

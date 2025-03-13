@@ -34,7 +34,7 @@
 <div class="container mx-auto mt-4 mb-5" style="width: 70%;">
     <h2 style="margin-bottom:12.5px;">Messages</h2>
     <div class="d-flex">
-        <div class="card rounded-4 w-85 mx-auto bg-gray">
+        <div class="card rounded-4 w-85 mx-auto">
             <div>
                 <form action="{{ route('messages.search') }}" class="w-25 m-4" style="position: relative;">
                     <i class="fa-solid fa-magnifying-glass"
@@ -58,7 +58,7 @@
                     <a href="{{ route('messages.show', $user->id)}}" class="d-flex text-black">
                     <div class="col-2 d-flex justify-content-center align-items-center">
                         @if ($user->avatar)
-                        <img src="{{asset('storage/'.$user->avatar)}}" alt="avatar" class="w-35 imgs">
+                        <img src="{{ $user->avatar }}" alt="avatar" class="w-35 imgs object-fit-cover">
                         @else
                         <i class="fa-solid fa-user"></i>
                         @endif
