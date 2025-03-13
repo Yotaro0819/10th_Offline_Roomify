@@ -62,7 +62,7 @@
             <div class="col">
             @if ($booking->accommodation)
                 @if ($booking->accommodation->photos)
-                    <img src="{{ asset('storage/' . ltrim($booking->accommodation->photos[0]->image, '/')) }}" alt="#" class="imgs" style="width: 250px; height: 160px; border-radius: 15px; margin: 50px">
+                    <img src="{{ $booking->accommodation->photos[0]->image }}" alt="#" class="imgs object-fit-cover" style="width: 250px; height: 160px; border-radius: 15px; margin: 50px">
                 @endif
             @endif
             </div>

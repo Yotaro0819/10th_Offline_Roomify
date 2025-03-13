@@ -45,9 +45,6 @@
 
     // 初期ロード時にもスクリプトを読み込む
     loadGoogleMapsScript();
-
-
-
 </script>
 
 @section('content')
@@ -112,7 +109,7 @@
 
                     {{-- this a tag can go message page --}}
                 @if ($accommodation->user->avatar)
-                <img src="{{ asset('storage/' . $accommodation->user->avatar) }}" alt="" class="imgs">
+                <img src="{{ $accommodation->user->avatar }}" alt="" class="object-fit-cover imgs">
                 @else
                     <i class="fa-solid fa-user m-3" style="font-size:40px"></i>
                 @endif
@@ -143,8 +140,12 @@
                     @forelse ($reviews as $review)
                     <div class="border rounded my-4 p-3">
                     <a href="{{ route("profile.show", $review->user->id) }}">
-                        <div class="d-flex">
-                            <i class="fa-solid fa-user me-2"></i>
+                        <div class="d-flex align-items-center">
+                            @if ($review->user->avatar)
+                                <img src="{{ $review->user->avatar}}" alt="" class="object-fit-cover imgs me-2">
+                            @else
+                                <i class="fa-solid fa-user me-2"></i>
+                            @endif
                             <p class="text-start m-0 fs-5">{{ $review->user->name}}</p>
                         </div>
 
@@ -189,25 +190,27 @@
                 <p class="fs-1 d-flex align-items-center text-black mb-0"><i class="fas fa-star text-warning me-2"></i> {{ round($average,1) }}<span class="fs-5">({{$accommodation->reviews->count() }} reviews)</span></p>
             </div>
 
-            <div class="recent-review review-text">
+            <div class="recent-review review-text d-flex align-items-center">
 
                 @if ($latest_review)
                     @if ($latest_review->user->avatar)
-                        <img src="{{ asset('storage/' . $latest_review->user->avatar)}}" alt="" class="imgs">
+                        <img src="{{ $latest_review->user->avatar }}" alt="" class="object-fit-cover imgs me-2">
                     @else
                     <i class="fa-solid fa-user"></i>
                     @endif
                 {{ Str::limit($latest_review->comment, 90) }}
-                @if (strlen($latest_review->comment) > 90)
-                    <a href="javascript:void(0);" class="read-more text-primary" data-full="{{ $latest_review->comment }}">Read more</a>
+                    @if (strlen($latest_review->comment) > 90)
+                        <a href="javascript:void(0);" class="read-more text-primary" data-full="{{ $latest_review->comment }}">Read more</a>
+                    @endif
+
+                @else
+                    <p>No reviews yet.</p>
+                @endif
+            </div>
+                @if ($latest_review)
+                <p class="text-end me-4 mb-1">{{ $latest_review->created_at }}</p>
                 @endif
 
-                <p class="text-end me-4 mb-1">{{ $latest_review->created_at }}</p>
-            @else
-                <p>No reviews yet.</p>
-            @endif
-
-            </div>
         </div>
     </div>
 
