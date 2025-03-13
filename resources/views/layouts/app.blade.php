@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="app-url" content="{{ config('app.url')}}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="icon" type="image/png" href="{{ asset('image_logo/roomify-logo.png') }}">
@@ -79,6 +80,7 @@ a
     transition: background-color 0.3s ease;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-width:10%;
 }
 
 /* admin-select-box */
@@ -167,11 +169,11 @@ a
                             <li class="nav-item dropdown d-flex align-items-center">
                                 <a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
                                 @if (Auth::user()->avatar)
-                                    <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="" class="rounded-circle" style="width: 35px; height: 35px; object-fit: cover;">
+                                    <img src="{{ Auth::user()->avatar }}" alt="" class="rounded-circle" style="width: 35px; height: 35px; object-fit: cover;">
                                 @else
                                     <i class="fa-solid fa-circle-user nav-icon"></i>
                                 @endif
-                                    <span class="ms-3 d-inline-block align-top" style="margin-top:4px">{{ Auth::user()->name }}</span>
+                                    <span class="ms-1 d-inline-block align-top" style="margin-top:4px">{{ Auth::user()->name }}</span>
                                 </a>
                                 <a class="ms-3"id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <i class="fa-solid fa-bars nav-icon"></i>

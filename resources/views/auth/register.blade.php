@@ -220,7 +220,7 @@
                                     <i class="fa-solid fa-earth-americas input-icon"></i>
                                 </div>
 
-                                <select class="form-select mb-3 ps-2" aria-label="Default select example" required>
+                                <select class="form-select mb-3 ps-2" aria-label="Default select example" name="nationality" required>
                                     <option value="" selected><span> Nationality</span></option>
                                     <option value="1">🇯🇵 Japan</option>
                                     <option value="2">🇰🇷 Korea</option>
