@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="app-url" content="{{ config('app.url')}}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="icon" type="image/png" href="{{ asset('image_logo/roomify-logo.png') }}">
@@ -79,6 +80,7 @@ a
     transition: background-color 0.3s ease;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-width:10%;
 }
 
 /* admin-select-box */

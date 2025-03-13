@@ -239,7 +239,6 @@ class AccommodationController extends Controller
             'photos.*' => 'image|mimes:jpeg,jpg,png,gif,webp|max:1048',
         ]);
 
-        try {
             // 対象の宿泊施設を取得
             $accommodation = Accommodation::findOrFail($id);
 
@@ -367,15 +366,13 @@ class AccommodationController extends Controller
             }
 
         // 既存のカテゴリ関連を同期（重複なし）
-        $accommodation->categories()->sync($category_accommodation);
+        $accommodation->categories()->sync($request->category ?? []);
+
 
 
             // 成功メッセージと共にリダイレクト
             return redirect()->route('accommodation.show', $accommodation->id)
                 ->with('success', '宿泊施設が更新されました');
-        } catch (\Exception $e) {
-            return redirect()->route('host.accommodation.create')->with('googleMap_error', 'Something went wrong with the address.');
-        }
     }
 
 
@@ -414,27 +411,35 @@ class AccommodationController extends Controller
     }
 
     public function destroy($id)
-    {
-        $accommodation = $this->accommodation->findOrFail($id);
+{
+    $accommodation = $this->accommodation->findOrFail($id);
 
-        // 写真を取得
-        $photos = Photo::where('accommodation_id', $id)->get();
+    $photos = Photo::where('accommodation_id', $id)->get();
 
-        foreach ($photos as $photo) {
-            if ($photo->image) {
-                // S3のURLからパスを取得（`photos/xxx.jpg` の形に変換）
-                $path = str_replace(Storage::disk('s3')->url(''), '', $photo->image);
-                // S3から削除
-                Storage::disk('s3')->delete($path);
+    foreach ($photos as $photo) {
+        if (!empty($photo->image)) {
+            // `parse_url()` でURLのパス部分だけ取得
+            $path = ltrim(parse_url($photo->image, PHP_URL_PATH), '/');
+
+            if (!empty($path)) {
+                if (Storage::disk('s3')->exists($path)) {
+                    Storage::disk('s3')->delete($path);
+                } else {
+                    \Log::warning("指定されたパスが存在しません: " . $path);
+                }
+            } else {
+                \Log::warning("削除対象のパスが空です: " . $photo->image);
             }
         }
-
-        Photo::where('accommodation_id', $id)->delete();
-
-        $accommodation->delete();
-
-        return redirect()->route('host.index')->with('success', '宿泊施設を削除しました');
     }
+
+    Photo::where('accommodation_id', $id)->delete();
+
+    $accommodation->delete();
+
+    return redirect()->route('host.index')->with('success', '宿泊施設を削除しました');
+}
+
 
     public function search()
     {
