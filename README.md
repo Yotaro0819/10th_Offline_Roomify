@@ -1,66 +1,55 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## 東京都特化型民泊アプリ
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## URL
+https://10th-offline-roomify-master-vzxyrl.laravel.cloud/
 
-## About Laravel
+ユーザー情報
+laravelのseeder機能を使いデフォルトのユーザー、宿泊施設を登録してあります。
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+| username  | email | password |
+|------|----|----------|
+| guest1  | guest1@example.com | password |
+| guest2  | guest2@example.com | password |
+| host    | host@example.com   | password |
+| admin   | admin@example.com  | password |
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 技術スタック
+- PHP(laravel11 laravel/ui)
+- vanilla javascript
+- API(google map, paypal, pusher)
+- laravel cloud
+- aws s3
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 機能・特徴
+このアプリケーションでは
+guest, 
+host, 
+admin, 
+non-loged-in-user, 
+の4つのroleがあります。
+- guest 宿泊先の検索・予約が可能
+- host  guestの機能に加えて宿泊施設の登録・編集・削除が可能
+- admin guestやhost、宿泊施設のban, ユーザーへの警告の送信
 
-## Learning Laravel
+### 担当箇所
+- 宿泊施設の登録・編集・削除
+- メッセージ機能全般
+- ユーザーの宿泊予約時の通知、adminユーザーからの警告通知、guestのhost申請等の重要通知機能の作成
+- paypalへの接続・ローディング画面の作成
+- レビュー全般
+- エコフレンドリーポイントによる宿泊施設のランク決定機能
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 工夫した点
+宿泊施設の登録ではgoogle maps apiを使用し、座標を使用して住所からgoogle mapのロケーションが自動で表示されるようにしました。
+また、東京限定の民泊アプリということで住所から区を識別して、cityとしてカラムを作成したことで検索機能へのスムーズな結び付けを可能にしました。
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+メッセージ機能ではPusherを使用してリアルタイム通信を可能にしました。
+また、guest同士でのメッセージはできないように制限することで、不要なユーザー同士のトラブルを避ける設計にしました。
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+paypalでの支払い機能ではcaptureのみ実装しております。
+paypalページへの接続に時間がかかるためローディング画面を挿入することでローディング中であることを一目でわかるようにしています。
 
-## Laravel Sponsors
+レビュー画面ではjsを使用してスライドバー表示をできるようにしています。宿泊施設の詳細ページからレビューをクリックすることでスライドバーが表示されます。
+星１〜５で選べるようになっており、レビューの平均点も表示できるようにしております。
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
